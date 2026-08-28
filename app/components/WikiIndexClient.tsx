@@ -7,8 +7,9 @@ const groups = [
   { key: 'all', label: 'All pages', types: [] },
   { key: 'items', label: 'Items', types: ['Item', 'Resource'] },
   { key: 'recipes', label: 'Recipes', types: ['Recipe'] },
-  { key: 'guides', label: 'Guides, quests & activities', types: ['Guide', 'Activity', 'Quest'] },
-  { key: 'world', label: 'World', types: ['Creature', 'Location', 'Route'] },
+  { key: 'guides', label: 'Skills & guides', types: ['Guide', 'Activity'] },
+  { key: 'quests', label: 'Quests', types: ['Quest'] },
+  { key: 'world', label: 'Creatures & places', types: ['Creature', 'Location', 'Route'] },
   { key: 'systems', label: 'Systems', types: ['System'] },
 ];
 
@@ -40,14 +41,14 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
         <label className="index-filter">
           <span className="search-mark" aria-hidden="true" />
           <span className="sr-only">Filter wiki pages</span>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter this index…" />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Type a page name…" />
         </label>
       </div>
 
       <p className="result-count">{filtered.length} {filtered.length === 1 ? 'page' : 'pages'}</p>
       <div className="index-grid">
         {filtered.map((entry) => (
-          <a className="index-card" href={`/wiki/${entry.slug}`} key={entry.slug}>
+          <a className="index-card" href={entry.href ?? `/wiki/${entry.slug}`} key={`${entry.href ?? 'wiki'}-${entry.slug}`}>
             <div className="index-card-top">
               <span className="index-letter" aria-hidden="true">{entry.type.slice(0, 1)}</span>
             </div>

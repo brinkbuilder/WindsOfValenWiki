@@ -164,11 +164,22 @@ export function findMirahezePages(title: string, aliases: string[] = []) {
   return mirahezeWikiPages.filter((page) => candidates.has(normalizeTitle(page.title)));
 }
 
+function pageType(categories: string[]): SearchEntry['type'] {
+  if (categories.some((category) => /items?|weapons?|armou?r/i.test(category))) return 'Item';
+  if (categories.some((category) => /quests?/i.test(category))) return 'Quest';
+  if (categories.some((category) => /monsters?|bosses|npcs?/i.test(category))) return 'Creature';
+  if (categories.some((category) => /regions?|locations?|caverns?/i.test(category))) return 'Location';
+  if (categories.some((category) => /skills?|activities/i.test(category))) return 'Activity';
+  if (categories.some((category) => /recipes?|potions?/i.test(category))) return 'Recipe';
+  if (categories.some((category) => /guides?/i.test(category))) return 'Guide';
+  return 'Community page';
+}
+
 export const mirahezeSearchEntries: SearchEntry[] = mirahezeWikiPages.map((page) => ({
   slug: `miraheze-${page.pageId}`,
   title: page.title,
-  type: 'Community page',
-  summary: page.categories.length ? `${mirahezeWikiSnapshot.siteName} · ${page.categories.join(', ')}` : `${mirahezeWikiSnapshot.siteName} source page`,
+  type: pageType(page.categories),
+  summary: page.categories.length ? `${page.categories.slice(0, 3).join(' · ')} guide` : `Winds of Valen guide`,
   terms: [page.title, ...page.categories, mirahezeWikiSnapshot.siteName].join(' ').toLowerCase(),
   href: `/sources/miraheze/${page.pageId}`,
   source: 'community',

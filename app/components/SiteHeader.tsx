@@ -2,41 +2,37 @@ import Link from 'next/link';
 
 export function SiteHeader() {
   return (
-    <>
-      <div className="announcement">
-        <span className="announcement-dot" />
-        Explore items, quests, bosses, skilling methods, and community guides.
-        <Link href="/about/data">About the wiki</Link>
-      </div>
-      <header className="topbar">
+      <header className="topbar unified-topbar">
         <Link className="brand" href="/" aria-label="The Valen Archives home">
           <span className="brand-seal" aria-hidden="true">VA</span>
           <span>
             <strong>The Valen Archives</strong>
-            <small>A Winds of Valen player wiki</small>
+            <small>Winds of Valen Wiki</small>
           </span>
         </Link>
+        <form className="header-search" action="/search" role="search">
+          <label className="sr-only" htmlFor="header-wiki-search">Search the wiki</label>
+          <input id="header-wiki-search" name="q" placeholder="Search the wiki…" />
+          <button type="submit" aria-label="Search">Search</button>
+        </form>
         <nav className="primary-nav" aria-label="Primary navigation">
-          <Link href="/wiki">Explore</Link>
-          <Link href="/wiki?type=items">Database</Link>
+          <Link href="/wiki">All pages</Link>
+          <Link href="/wiki?type=items">Items</Link>
           <Link href="/wiki?type=guides">Guides</Link>
-          <Link href="/sources">Community guides</Link>
-          <Link href="/recent">Recent changes</Link>
+          <Link href="/wiki?type=world">World</Link>
         </nav>
-        <Link className="contribute-button" href="/contribute">Contribute</Link>
         <details className="mobile-menu">
           <summary aria-label="Open navigation">Menu</summary>
           <nav aria-label="Mobile navigation">
-            <Link href="/wiki">Explore the wiki</Link>
-            <Link href="/wiki?type=items">Items & database</Link>
+            <Link href="/wiki">All pages</Link>
+            <Link href="/wiki?type=items">Items</Link>
             <Link href="/wiki?type=guides">Guides</Link>
+            <Link href="/wiki?type=world">Creatures & places</Link>
             <Link href="/recent">Recent changes</Link>
-            <Link href="/sources">Community guides</Link>
             <Link href="/about/data">About the wiki</Link>
             <Link href="/contribute">Contribute</Link>
           </nav>
         </details>
       </header>
-    </>
   );
 }

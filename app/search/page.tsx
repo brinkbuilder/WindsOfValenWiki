@@ -1,25 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SearchBox } from '../components/SearchBox';
-import { wikiSourceSearchEntries } from '../lib/wiki-source-registry';
-import { searchEntries, searchIndex } from '../lib/wiki-data';
+import { searchIndex } from '../lib/wiki-data';
+import { unifiedSearchEntries } from '../lib/unified-search';
 
 export const metadata: Metadata = { title: 'Search' };
-
-const allSearchEntries = [...searchEntries, ...wikiSourceSearchEntries];
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
   const params = await searchParams;
   const query = Array.isArray(params.q) ? params.q[0] ?? '' : params.q ?? '';
-  const results = searchIndex(allSearchEntries, query);
+  const results = searchIndex(unifiedSearchEntries, query);
   return (
     <main className="inner-page search-page">
       <header className="simple-page-heading">
-        <p className="eyebrow">Search the archives</p>
+        <p className="eyebrow">Search the wiki</p>
         <h1>{query ? `Results for “${query}”` : 'Find a page'}</h1>
-        <p>Search articles and guides from across the Winds of Valen community.</p>
+        <p>Search every consolidated article by item, creature, quest, skill, recipe, or place.</p>
       </header>
-      <SearchBox entries={allSearchEntries} mode="page" defaultValue={query} />
+      <SearchBox entries={unifiedSearchEntries} mode="page" defaultValue={query} />
       <p className="result-count">{results.length} {results.length === 1 ? 'result' : 'results'}</p>
       <div className="search-results">
         {results.map((entry) => (

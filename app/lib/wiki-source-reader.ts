@@ -37,7 +37,7 @@ function rewriteLink(value: string | undefined, source: WikiSourceDefinition) {
         ?? source.pages.find((page) => normalizeTitle(page.title) === normalizeTitle(linkedTitle));
       if (match) return wikiSourceReaderPath(source.id, match.pageId);
     }
-    return ['http:', 'https:', 'mailto:'].includes(url.protocol) ? url.toString() : '';
+    return '';
   } catch {
     return '';
   }
@@ -83,11 +83,16 @@ function sanitizeWikiHtml(html: string, source: WikiSourceDefinition) {
     allowedSchemes: ['http', 'https', 'mailto'],
     disallowedTagsMode: 'discard',
     textFilter: playerFacingSourceText,
-    exclusiveFilter: (frame) => /display\s*:\s*none/i.test(frame.attribs?.style ?? '') || /mw-editsection/.test(frame.attribs?.class ?? ''),
+    exclusiveFilter: (frame) => {
+      const className = frame.attribs?.class ?? '';
+      return /display\s*:\s*none/i.test(frame.attribs?.style ?? '')
+        || /mw-editsection|navbox|vertical-navbox|metadata|ambox|sistersitebox|noprint|hatnote|mw-empty-elt/i.test(className);
+    },
     transformTags: {
       '*': (tagName, attribs) => ({ tagName, attribs: cleanAttributes(attribs) }),
       a: (tagName, attribs) => {
         const href = rewriteLink(attribs.href, source);
+        if (!href) return { tagName: 'span', attribs: cleanAttributes(attribs) };
         const internal = href.startsWith('/sources/');
         return { tagName, attribs: { ...cleanAttributes(attribs), href, ...(internal || href.startsWith('#') ? {} : { target: '_blank', rel: 'noreferrer' }) } };
       },

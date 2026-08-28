@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { WikiIndexClient } from '../components/WikiIndexClient';
-import { searchEntries, wikiStats } from '../lib/wiki-data';
+import { unifiedSearchEntries } from '../lib/unified-search';
 
 export const metadata: Metadata = {
   title: 'Wiki index',
-  description: `Browse ${wikiStats.articles} Winds of Valen items, recipes, guides, creatures, routes, and systems.`,
+  description: `Browse ${unifiedSearchEntries.length} Winds of Valen items, recipes, guides, creatures, quests, and locations.`,
 };
 
 export default async function WikiIndexPage({ searchParams }: { searchParams: Promise<{ type?: string | string[] }> }) {
@@ -14,18 +14,13 @@ export default async function WikiIndexPage({ searchParams }: { searchParams: Pr
     <main className="inner-page">
       <section className="index-hero">
         <div>
-          <p className="eyebrow">The complete field index</p>
-          <h1>Explore the archives</h1>
-          <p>Browse items, recipes, skills, quests, creatures, locations, and practical routes for every stage of your adventure.</p>
+          <p className="eyebrow">Complete A–Z index</p>
+          <h1>Browse the wiki</h1>
+          <p>Everything is organized in one index. Filter by topic or type a name to jump directly to the page you need.</p>
         </div>
-        <dl className="index-stats">
-          <div><dt>Pages</dt><dd>{wikiStats.articles}</dd></div>
-          <div><dt>Recipes</dt><dd>{wikiStats.recipes}</dd></div>
-          <div><dt>Routes</dt><dd>{wikiStats.routes}</dd></div>
-          <div><dt>Community</dt><dd>{wikiStats.communityArticles}</dd></div>
-        </dl>
+        <p className="unified-page-total"><strong>{unifiedSearchEntries.length}</strong> player pages</p>
       </section>
-      <WikiIndexClient entries={searchEntries} initialType={initialType ?? 'all'} />
+      <WikiIndexClient entries={unifiedSearchEntries} initialType={initialType ?? 'all'} />
     </main>
   );
 }

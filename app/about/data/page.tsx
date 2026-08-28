@@ -46,10 +46,10 @@ export default function AboutWikiPage() {
           <p>If a requirement, drop rate, effect, or reward is not known yet, the guide states that plainly. It does not fill the space with developer-only information.</p>
         </article>
         <article>
-          <p className="eyebrow">Community knowledge</p>
-          <h2>Built from the wikis players already use</h2>
-          <p>The current Winds Of Valen Wiki and the older Miraheze archive provide guides, maps, calculators, images, quest notes, and historical information.</p>
-          <Link href="/sources">Browse community guides <span>→</span></Link>
+          <p className="eyebrow">One encyclopedia</p>
+          <h2>Everything belongs in one index</h2>
+          <p>Items, quests, creatures, maps, recipes, calculators, and older guides are consolidated into the same search and browse experience.</p>
+          <Link href="/wiki">Browse every page <span>→</span></Link>
         </article>
         <article>
           <p className="eyebrow">Help the next player</p>
