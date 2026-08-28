@@ -48,7 +48,7 @@ export default function AboutWikiPage() {
         <article>
           <p className="eyebrow">One encyclopedia</p>
           <h2>Everything belongs in one index</h2>
-          <p>Items, quests, creatures, maps, recipes, calculators, and older guides are consolidated into the same search and browse experience.</p>
+          <p>Useful details from older guides are folded into clean local articles, so players can search one consistent encyclopedia instead of sorting through duplicate or outdated pages.</p>
           <Link href="/wiki">Browse every page <span>→</span></Link>
         </article>
         <article>

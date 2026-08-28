@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import { combatMultiplier, enemies, levelForXp, skillTrainingData, xpForLevel, type SkillName } from '../lib/calculator-data';
+import { formatSmithingIngredients, smithingRecipes, type SmithingStation } from '../lib/smithing-data';
 
 type CalculatorTab = 'skill' | 'combat' | 'accuracy';
+type SmithingStationFilter = 'All' | SmithingStation;
 
 const number = new Intl.NumberFormat('en-US');
 
@@ -12,11 +14,22 @@ function clampLevel(value: number) {
 }
 
 function formatTime(totalSeconds: number) {
-  if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return '0 minutes';
+  if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return '0s';
   const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.ceil((totalSeconds % 3600) / 60);
-  return [days ? `${days}d` : '', hours ? `${hours}h` : '', minutes ? `${minutes}m` : ''].filter(Boolean).join(' ');
+  const remainderAfterDays = totalSeconds % 86400;
+  const hours = Math.floor(remainderAfterDays / 3600);
+  const remainderAfterHours = remainderAfterDays % 3600;
+  const minutes = Math.floor(remainderAfterHours / 60);
+  const seconds = Math.ceil(remainderAfterHours % 60);
+  return [days ? `${days}d` : '', hours ? `${hours}h` : '', minutes ? `${minutes}m` : '', seconds ? `${seconds}s` : ''].filter(Boolean).join(' ');
+}
+
+const smithingStations: SmithingStationFilter[] = ['All', 'Furnace', 'Anvil', 'Workbench'];
+
+function smithingRecipeLabel(recipe: (typeof smithingRecipes)[number]) {
+  const hasVariants = smithingRecipes.some((item) => item.slug !== recipe.slug && item.output === recipe.output);
+  const variant = hasVariants ? ` (${recipe.ingredients.map((ingredient) => ingredient.item).join(' + ')})` : '';
+  return `${recipe.output}${variant} · level ${recipe.level}`;
 }
 
 function LevelFields({ currentLevel, currentXp, targetLevel, onCurrentLevel, onCurrentXp, onTargetLevel }: {
@@ -51,6 +64,24 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
     actions: (skill === 'Custom skill' ? customActionXp : action.xp) > 0 ? Math.ceil(xpNeeded / (skill === 'Custom skill' ? customActionXp : action.xp)) : 0,
     available: currentLevel >= action.level,
   })), [currentLevel, customActionXp, skill, xpNeeded]);
+
+  const [smithingStation, setSmithingStation] = useState<SmithingStationFilter>('All');
+  const [smithingQuery, setSmithingQuery] = useState('');
+  const [selectedSmithingSlug, setSelectedSmithingSlug] = useState(smithingRecipes[0].slug);
+  const smithingResults = useMemo(() => {
+    const needle = smithingQuery.trim().toLowerCase();
+    return smithingRecipes
+      .filter((recipe) => smithingStation === 'All' || recipe.station === smithingStation)
+      .filter((recipe) => !needle || recipe.output.toLowerCase().includes(needle) || recipe.station.toLowerCase().includes(needle))
+      .map((recipe) => ({
+        ...recipe,
+        crafts: recipe.xp > 0 ? Math.ceil(xpNeeded / recipe.xp) : 0,
+        available: currentLevel >= recipe.level,
+      }));
+  }, [currentLevel, smithingQuery, smithingStation, xpNeeded]);
+  const selectedSmithingRecipe = smithingRecipes.find((recipe) => recipe.slug === selectedSmithingSlug) ?? smithingRecipes[0];
+  const selectedSmithingCrafts = selectedSmithingRecipe.xp > 0 ? Math.ceil(xpNeeded / selectedSmithingRecipe.xp) : 0;
+  const selectedSmithingOutput = selectedSmithingCrafts * selectedSmithingRecipe.outputQuantity;
 
   const [combatLevel, setCombatLevel] = useState(1);
   const [combatXp, setCombatXp] = useState(0);
@@ -89,16 +120,44 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
       {tab === 'skill' && (
         <section className="calculator-card" aria-labelledby="skill-calculator-heading">
           <div className="calculator-heading">
-            <div><p>Skill calculator</p><h2 id="skill-calculator-heading">Plan a training goal</h2></div>
-            <label className="skill-select"><span>Skill</span><select value={skill} onChange={(event) => setSkill(event.target.value as SkillName)}>{Object.keys(skillTrainingData).map((name) => <option key={name}>{name}</option>)}</select></label>
+            <div><p>Skill calculator</p><h2 id="skill-calculator-heading">Plan a training goal</h2><span className="calculator-heading-help">Set your current XP and target level. Results update as you type.</span></div>
+            <label className="skill-select"><span>Choose a skill</span><select value={skill} onChange={(event) => setSkill(event.target.value as SkillName)}>{Object.keys(skillTrainingData).map((name) => <option key={name}>{name}</option>)}</select></label>
           </div>
           <LevelFields currentLevel={currentLevel} currentXp={currentXp} targetLevel={targetLevel} onCurrentLevel={setCurrentLevel} onCurrentXp={setCurrentXp} onTargetLevel={setTargetLevel} />
-          {skill === 'Custom skill' && <div className="custom-xp-field"><label><span>XP earned per action</span><input type="number" min="1" value={customActionXp} onChange={(event) => setCustomActionXp(Math.max(1, Number(event.target.value) || 1))} /></label><p>Use this for Smithing or any activity whose XP per action you already know.</p></div>}
+          {skill === 'Custom skill' && <div className="custom-xp-field"><label><span>XP earned per action</span><input type="number" min="1" value={customActionXp} onChange={(event) => setCustomActionXp(Math.max(1, Number(event.target.value) || 1))} /></label><p>Use this for an activity whose XP per action you already know.</p></div>}
           <div className="calculator-summary">
             <div><span>Experience required</span><strong>{number.format(xpNeeded)}</strong></div>
             <p>Level {currentLevel} ({number.format(currentXp)} XP) → level {targetLevel} ({number.format(xpForLevel(targetLevel))} XP)</p>
           </div>
-          <div className="calculator-table-wrap"><table className="calculator-table"><thead><tr><th>Training method</th><th>Level</th><th>XP each</th><th>Actions needed</th></tr></thead><tbody>{skillResults.map((action) => <tr className={action.available ? '' : 'locked'} key={action.name}><td><strong>{action.name}</strong>{action.note && <small>{action.note}</small>}</td><td>{action.level}</td><td>{number.format(action.xp)}</td><td><b>{number.format(action.actions)}</b>{!action.available && <small>Unlock at {action.level}</small>}</td></tr>)}</tbody></table></div>
+
+          {skill === 'Smithing' ? (
+            <>
+              <div className="smithing-plan-box">
+                <div className="smithing-plan-heading"><div><p>Smithing planner</p><h3>Choose an item to make</h3></div><span className="smithing-plan-status">{selectedSmithingRecipe.station} · level {selectedSmithingRecipe.level}</span></div>
+                <div className="smithing-plan-controls">
+                  <label><span>Item</span><select value={selectedSmithingSlug} onChange={(event) => setSelectedSmithingSlug(event.target.value)}>{smithingRecipes.map((recipe) => <option value={recipe.slug} key={recipe.slug}>{smithingRecipeLabel(recipe)}</option>)}</select></label>
+                  <div className="smithing-materials"><span>Materials per craft</span><strong>{formatSmithingIngredients(selectedSmithingRecipe)}</strong></div>
+                </div>
+                <div className="smithing-result-grid" aria-live="polite">
+                  <div><span>XP per craft</span><strong>{number.format(selectedSmithingRecipe.xp)}</strong></div>
+                  <div><span>Crafts needed</span><strong>{number.format(selectedSmithingCrafts)}</strong></div>
+                  <div><span>Items produced</span><strong>{number.format(selectedSmithingOutput)}</strong></div>
+                  <div><span>Base time</span><strong>{formatTime(selectedSmithingCrafts * selectedSmithingRecipe.seconds)}</strong></div>
+                </div>
+                {currentLevel < selectedSmithingRecipe.level && <p className="smithing-lock-note">You need Smithing level {selectedSmithingRecipe.level} to make this item. It is shown so you can plan ahead.</p>}
+              </div>
+
+              <div className="smithing-list-heading"><div><h3>All smithable items</h3><p>XP shown is awarded per craft, not per ingredient.</p></div><strong>{smithingResults.length} of {smithingRecipes.length} recipes</strong></div>
+              <div className="smithing-list-controls">
+                <label className="smithing-filter-search"><span className="sr-only">Filter Smithing items</span><input value={smithingQuery} onChange={(event) => setSmithingQuery(event.target.value)} placeholder="Filter items…" /></label>
+                <div className="smithing-station-tabs" role="tablist" aria-label="Smithing station"><span>Station</span>{smithingStations.map((station) => <button type="button" role="tab" aria-selected={smithingStation === station} onClick={() => setSmithingStation(station)} key={station}>{station}</button>)}</div>
+              </div>
+              <div className="calculator-table-wrap smithing-table-wrap"><table className="calculator-table smithing-table"><thead><tr><th>Item</th><th>Station</th><th>Level</th><th>XP / craft</th><th>Crafts needed</th><th>Materials</th></tr></thead><tbody>{smithingResults.map((recipe) => <tr className={`${recipe.available ? '' : 'locked'}${recipe.slug === selectedSmithingSlug ? ' selected' : ''}`} key={recipe.slug}><td><button type="button" className="smithing-item-button" onClick={() => setSelectedSmithingSlug(recipe.slug)} aria-label={`Plan ${recipe.output}`}><strong>{recipe.output}</strong><small>{recipe.outputQuantity > 1 ? `${recipe.outputQuantity} produced per craft` : '1 produced per craft'}</small></button></td><td>{recipe.station}</td><td>{recipe.level}</td><td><b>{number.format(recipe.xp)}</b>{recipe.xpBasis === 'derived' && <small>Estimated</small>}</td><td><b>{number.format(recipe.crafts)}</b>{!recipe.available && <small>Unlock at {recipe.level}</small>}</td><td>{formatSmithingIngredients(recipe)}</td></tr>)}</tbody></table></div>
+              <p className="calculator-note">Core bar, armour, weapon, and glove XP comes from the published Smithing tables. Newer multi-stage recipes use the current ingredient chain and are marked <b>Estimated</b> until a direct in-game XP read is recorded.</p>
+            </>
+          ) : (
+            <div className="calculator-table-wrap"><table className="calculator-table"><thead><tr><th>Training method</th><th>Level</th><th>XP each</th><th>Actions needed</th></tr></thead><tbody>{skillResults.map((action) => <tr className={action.available ? '' : 'locked'} key={action.name}><td><strong>{action.name}</strong>{action.note && <small>{action.note}</small>}</td><td>{action.level}</td><td>{number.format(action.xp)}</td><td><b>{number.format(action.actions)}</b>{!action.available && <small>Unlock at {action.level}</small>}</td></tr>)}</tbody></table></div>
+          )}
         </section>
       )}
 

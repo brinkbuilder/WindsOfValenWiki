@@ -336,12 +336,26 @@ const curatedEntries: WikiEntry[] = [
     verification: 'engine',
     summary: 'A crafting skill that turns fish, monster drops, plants, and Essence into useful potions.',
     intro: 'Potion Making uses cutting, crushing, reduction, brewing, and bottling stations. Process ingredients, brew them with Essence, then use a vial to collect the finished potion.',
+    aliases: [
+      'Weak Health potion recipe', 'Health potion recipe', 'Strong Health potion recipe', 'Shields potion recipe', 'Strong Shields potion recipe',
+      'Fishing potion recipe', 'Mining potion recipe', 'Attack potion recipe', 'Archery potion recipe', 'Magic potion recipe',
+      'Gilded Potion bottle recipe', 'Small Potion bottle recipe', 'Strong Potion bottle recipe',
+      'Crush Glowing Mushroom', 'Crush Hearty Fish Flesh', 'Crush Mud Root', 'Crush Plain Fish Flesh', 'Crush Scales', 'Crush Small Fang',
+      'Harvest Big Trout', 'Harvest Blue Gill', 'Harvest Minnow', 'Harvest Perch', 'Harvest Small Bass', 'Harvest Small Trout',
+      'Reduce Essence Gland', 'Reduce Minced Hearty Fish Flesh', 'Reduce Rare Blue Gill', 'Reduce Rare Minnow', 'Reduce Small Essence Gland', 'Reduce Spider Eye',
+    ],
     categories: ['Activities', 'Skills', 'Crafting'],
     facts: [{ label: 'Discovered recipes', value: '36' }, { label: 'Groups', value: 'Cauldron, Crush, Knife, Reduction' }, { label: 'Verified workflow', value: 'Infused Coal' }, { label: 'Verification', value: 'Engine catalogue' }],
     sections: [
       { title: 'Stations', table: { headers: ['Group', 'Purpose', 'Recipes found'], rows: [['Cauldron', 'Bottles and potions', '13'], ['Crush Station', 'Crushing ingredients', '7'], ['Knife Station', 'Harvesting fish', '7'], ['Reduction Station', 'Reducing ingredients', '9']] } },
       { title: 'Potion progression', table: { headers: ['Level', 'Potion family', 'Main ingredient', 'Essence', 'Base XP'], rows: [['1', 'Weak Health', '10 Scrap Fish Flesh', '25', '500'], ['5', 'Fishing', '10 Fish Oil', '25', '500'], ['10', 'Shields', '10 Crushed Fish Scales', '50', '1,500'], ['15', 'Mining', '10 Root Paste', '50', '1,500'], ['20', 'Health', '10 Fish Mash', '50', '1,500'], ['25', 'Attack', '10 Fang Dust', '200', '1,500'], ['30', 'Archery', '10 Distilled Spider Eye', '250', '1,750'], ['35', 'Magic', '10 Crushed Mushroom', '300', '2,000'], ['40', 'Strong Health', '10 Hearty Extract', '200', '3,250'], ['50', 'Strong Shields', '10 Fine Fish Scales', '500', '6,000']] } },
-      { title: 'Using the recipe list', paragraphs: ['Each recipe page shows its station. Ingredients, requirements, effects, and yields are included where known, while incomplete pages list the details that still need to be added.'] },
+      { title: 'Recipe directory', table: { headers: ['Station', 'Recipes'], rows: [
+        ['Cauldron', 'Weak Health, Health, Strong Health, Shields, Strong Shields, Fishing, Mining, Attack, Archery, Magic, and small, strong, or gilded bottling'],
+        ['Crush Station', 'Glowing Mushroom, Hearty Fish Flesh, Mud Root, Plain Fish Flesh, Refined Hardened Scales, Scales, Small Fang'],
+        ['Knife Station', 'Big Trout, Blue Gill, Carp, Minnow, Perch, Small Bass, Small Trout'],
+        ['Reduction Station', 'Essence Gland, Hardened Scales, Large Essence Gland, Minced Hearty Fish Flesh, Rare Blue Gill, Rare Minnow, Small Essence Gland, Spider Eye, Infused Coal'],
+      ] } },
+      { title: 'Using this guide', paragraphs: ['Start with the potion-progression table when you want a finished potion. Use the recipe directory to identify the station for intermediate ingredients, then follow any linked workflow for exact quantities.'] },
       { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence derived from 10 Large Essence Glands; the exact Essence yield remains unknown.'] },
     ],
     related: ['infused-coal', 'carp-processing', 'bank-to-potion-stations-route'],
@@ -656,6 +670,7 @@ const smithingRecipeEntries: WikiEntry[] = smithingRecipes.map((recipe) => ({
   facts: [
     { label: 'Station', value: recipe.station },
     { label: 'Smithing level', value: String(recipe.level) },
+    { label: 'Smithing XP', value: `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}` },
     { label: 'Craft time', value: `${recipe.seconds} seconds` },
     { label: 'Output', value: `${recipe.outputQuantity} ${recipe.output}` },
   ],
@@ -721,12 +736,13 @@ const smithingItemEntries: WikiEntry[] = [...recipesByOutput.entries()].map(([it
       {
         title: methods.length === 1 ? 'Crafting method' : 'Crafting methods',
         table: {
-          headers: ['Station', 'Level', 'Ingredients', 'Output', 'Time'],
+          headers: ['Station', 'Level', 'Ingredients', 'Output', 'XP', 'Time'],
           rows: methods.map((recipe) => [
             recipe.station,
             String(recipe.level),
             formatSmithingIngredients(recipe),
             `${recipe.outputQuantity} ${recipe.output}`,
+            `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`,
             `${recipe.seconds}s`,
           ]),
         },
@@ -785,30 +801,30 @@ const smithingGuide: WikiEntry = {
     {
       title: 'Furnace recipes',
       table: {
-        headers: ['Level', 'Output', 'Ingredients', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Furnace').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+        headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Furnace').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
       },
     },
     {
       title: 'Anvil recipes',
       table: {
-        headers: ['Level', 'Output', 'Ingredients', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Anvil').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+        headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Anvil').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
       },
     },
     {
       title: 'Workbench recipes',
       table: {
-        headers: ['Level', 'Output', 'Ingredients', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+        headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
       },
     },
     {
       title: 'Dusk Knight armour path',
       paragraphs: ['Dusk Knight armour is a two-stage process. Forge each named metal component at an anvil, then combine the required components with an Exquisite Silk lining and the schematics at a workbench. The current recipes list Dusk Knight Schematics as a requirement for every component and final-assembly step.'],
       table: {
-        headers: ['Final item', 'Level', 'Workbench assembly'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench' && recipe.output.startsWith('Dusk Knight')).map((recipe) => [recipe.output, String(recipe.level), formatSmithingIngredients(recipe)]),
+        headers: ['Final item', 'Level', 'Workbench assembly', 'XP'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench' && recipe.output.startsWith('Dusk Knight')).map((recipe) => [recipe.output, String(recipe.level), formatSmithingIngredients(recipe), `${recipe.xp} (estimated)`]),
       },
     },
     {
@@ -847,7 +863,7 @@ const smithingGuide: WikiEntry = {
       ],
     },
   ],
-  related: ['mining', 'smithing-hammer', 'ore-crate', 'dusk-knight-boots', 'dusk-knight-platelegs', 'dusk-knight-platebody', 'dusk-knight-helmet'],
+  related: ['mining', 'ore-crate', 'dusk-knight-boots', 'dusk-knight-platelegs', 'dusk-knight-platebody', 'dusk-knight-helmet'],
   source: smithingSource,
 };
 
@@ -902,7 +918,7 @@ const routeEntries: WikiEntry[] = routeSpecs.map((route) => ({
 const internalToken = /\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b|\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/gi;
 const internalValue = /\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b|\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/i;
 const internalAlias = /^(?:item\s+\d+|(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?|lua bridge|wiki importer)$/i;
-const hiddenFactLabel = /^(?:verification|item key|asset|recipe asset|class|rock class|zone class|backend|visible widget|identity field|quantity field|target identity|progress signal|completion|transport|state cadence|scope|public policy|coordinate model|waypoints|recorded length|route length|return route)$/i;
+const hiddenFactLabel = /^(?:verification|guide status|status|caution|item key|asset|recipe asset|class|rock class|zone class|backend|visible widget|identity field|quantity field|target identity|progress signal|completion|transport|state cadence|scope|public policy|coordinate model|waypoints|recorded length|route length|return route)$/i;
 
 function friendlyToken(value: string) {
   return value
@@ -943,10 +959,14 @@ function playerText(value: string) {
     .replace(/\bassets?\b/gi, 'game details')
     .replace(/\bworld-space\b/gi, 'travel')
     .replace(/\bUnreal units?\b/gi, 'distance units')
-    .replace(/\bcommunity-documented\b/gi, 'community guide')
-    .replace(/\bCommunity documented\b/g, 'Community guide')
-    .replace(/\bcommunity documentation\b/gi, 'player guides')
-    .replace(/\bcommunity page\b/gi, 'player guide')
+    .replace(/\bcommunity[- ]documented\b/gi, '')
+    .replace(/\bcommunity-reported\b/gi, '')
+    .replace(/\breported\b/gi, '')
+    .replace(/\bcommunity documentation\b/gi, 'the guide')
+    .replace(/\bcommunity (?:wiki|page|guide)\b/gi, 'guide')
+    .replace(/\bsource directory\b/gi, 'wiki')
+    .replace(/\bthe source\b/gi, 'the guide')
+    .replace(/\bthe archive\b/gi, 'this guide')
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
@@ -988,8 +1008,10 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
     technicalId: undefined,
     facts: entry.facts
       .filter((fact) => !hiddenFactLabel.test(fact.label) && !internalValue.test(fact.value))
-      .map((fact) => ({ label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) })),
+      .map((fact) => ({ label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
+      .filter((fact) => fact.label && fact.value),
     sections,
+    externalSources: undefined,
   };
 }
 
@@ -1021,7 +1043,13 @@ export type SearchEntry = {
   source?: 'archive' | 'community';
 };
 
-export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
+const incompletePotionRecipeSlugs = new Set(recipeSpecs
+  .filter((recipe) => !knownRecipeNotes[recipe.slug])
+  .map((recipe) => recipe.slug));
+
+export const searchEntries: SearchEntry[] = wikiEntries
+  .filter((entry) => !incompletePotionRecipeSlugs.has(entry.slug))
+  .map((entry) => ({
   slug: entry.slug,
   title: entry.title,
   type: entry.type,
@@ -1031,7 +1059,7 @@ export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
     .filter(Boolean)
     .join(' ')
     .toLowerCase(),
-}));
+  }));
 
 export function searchIndex(entries: SearchEntry[], query: string): SearchEntry[] {
   const normalized = query.trim().toLowerCase();

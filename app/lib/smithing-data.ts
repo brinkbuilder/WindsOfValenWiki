@@ -13,11 +13,44 @@ export type SmithingRecipe = {
   level: number;
   seconds: number;
   ingredients: SmithingIngredient[];
+  xp: number;
+  xpBasis: 'documented' | 'derived';
 };
 
 const ingredient = (item: string, quantity: number): SmithingIngredient => ({ item, quantity });
 
-export const smithingRecipes: SmithingRecipe[] = [
+const documentedSmithingXp: Record<string, number> = {
+  'bronze-bar': 15,
+  'iron-bar': 30,
+  'steel-bar': 55,
+  'mithril-bar': 155,
+  'gold-bar-from-ore': 800,
+  'gold-bar-from-dust': 800,
+  'ebony-bar-from-ore': 1650,
+  'ebony-bar-from-dust': 1650,
+  'bronze-sword': 90,
+  'bronze-platelegs': 120,
+  'bronze-platebody': 60,
+  'bronze-helmet': 60,
+  'iron-sword': 180,
+  'iron-platelegs': 240,
+  'iron-platebody': 300,
+  'iron-helmet': 120,
+  'mining-gloves': 165,
+  'steel-sword': 330,
+  'steel-platelegs': 440,
+  'steel-platebody': 550,
+  'steel-helmet': 220,
+  'mithril-sword': 930,
+  'mithril-platelegs': 1240,
+  'mithril-platebody': 1550,
+  'mithril-helmet': 620,
+};
+
+/* Silver is not included in the published XP table; 100 XP per ore is used for its current 7-ore recipe. */
+const smithingXpOverrides: Record<string, number> = { ...documentedSmithingXp, 'silver-bar': 700 };
+
+const rawSmithingRecipes: Omit<SmithingRecipe, 'xp' | 'xpBasis'>[] = [
   { slug: 'bronze-bar', output: 'Bronze Bar', outputQuantity: 1, station: 'Furnace', level: 1, seconds: 3, ingredients: [ingredient('Copper Ore', 1), ingredient('Tin Ore', 1)] },
   { slug: 'iron-bar', output: 'Iron Bar', outputQuantity: 1, station: 'Furnace', level: 10, seconds: 4, ingredients: [ingredient('Iron Ore', 2)] },
   { slug: 'steel-bar', output: 'Steel Bar', outputQuantity: 1, station: 'Furnace', level: 20, seconds: 6, ingredients: [ingredient('Iron Ore', 1), ingredient('Coal Ore', 1)] },
@@ -89,6 +122,21 @@ export const smithingRecipes: SmithingRecipe[] = [
   { slug: 'dusk-knight-platebody', output: 'Dusk Knight Platebody', outputQuantity: 1, station: 'Workbench', level: 66, seconds: 120, ingredients: [ingredient('Exquisite Silk Vest Line', 1), ingredient('Dusk Knight Body Breastplate', 1), ingredient('Dusk Knight Body Pauldron', 2), ingredient('Dusk Knight Body Rerebrace', 2), ingredient('Dusk Knight Body Couter', 2), ingredient('Dusk Knight Body Vambrace', 2), ingredient('Dusk Knight Schematics', 1)] },
   { slug: 'dusk-knight-helmet', output: 'Dusk Knight Helmet', outputQuantity: 1, station: 'Workbench', level: 68, seconds: 120, ingredients: [ingredient('Dusk Knight Helmet Face Plate', 1), ingredient('Dusk Knight Helmet Head Plate', 1), ingredient('Dusk Knight Helmet Spike', 1), ingredient('Ebony Bar', 1), ingredient('Dusk Knight Schematics', 1)] },
 ];
+
+const calculatedXpByOutput = new Map<string, number>();
+
+export const smithingRecipes: SmithingRecipe[] = rawSmithingRecipes.map((recipe) => {
+  const overriddenXp = smithingXpOverrides[recipe.slug];
+  const xp = overriddenXp ?? recipe.ingredients.reduce((total, { item, quantity }) => total + quantity * (calculatedXpByOutput.get(item) ?? 0), 0);
+  const xpBasis: SmithingRecipe['xpBasis'] = overriddenXp === undefined ? 'derived' : documentedSmithingXp[recipe.slug] === undefined ? 'derived' : 'documented';
+  const result = {
+    ...recipe,
+    xp,
+    xpBasis,
+  };
+  calculatedXpByOutput.set(recipe.output, xp / recipe.outputQuantity);
+  return result;
+});
 
 export const smithingItemDescriptions: Record<string, string> = {
   'Bronze Bar': 'A bronze bar used to make early Smithing equipment.',

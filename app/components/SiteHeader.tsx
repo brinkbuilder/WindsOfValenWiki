@@ -18,27 +18,26 @@ export function SiteHeader() {
         <nav className="primary-nav rail-navigation" aria-label="Primary navigation">
           <div className="rail-section">
             <strong>Navigation</strong>
-            <Link href="/">Main page</Link>
-            <Link href="/wiki">All pages</Link>
+            <Link href="/">Home</Link>
+            <Link href="/wiki">Browse all pages</Link>
             <Link href="/calculators">Calculators</Link>
             <Link href="/recent">Recent updates</Link>
           </div>
           <div className="rail-section">
             <strong>Player guides</strong>
-            <Link href="/wiki?type=guides">Getting started</Link>
-            <Link href="/wiki?type=guides">All skills</Link>
-            <Link href="/wiki?type=quests">All quests</Link>
-            <Link href="/wiki?type=items">Item database</Link>
-            <Link href="/wiki?type=world">Creatures &amp; regions</Link>
-            <Link href="/wiki/combat-mechanics">Combat guide</Link>
+            <Link href="/wiki/controls">New player basics</Link>
+            <Link href="/wiki?type=guides">Skills &amp; training</Link>
+            <Link href="/wiki?type=quests">Quest guides</Link>
+            <Link href="/wiki?type=items">Items &amp; equipment</Link>
+            <Link href="/wiki?type=world">Creatures &amp; places</Link>
           </div>
           <div className="rail-section">
             <strong>Popular pages</strong>
-            <Link href="/wiki/attack">Attack</Link>
             <Link href="/wiki/mining">Mining</Link>
-            <Link href="/wiki/fishing">Fishing</Link>
-            <Link href="/wiki/potion-making">Potion Making</Link>
+            <Link href="/wiki/smithing">Smithing</Link>
+            <Link href="/wiki/combat-mechanics">Combat guide</Link>
             <Link href="/wiki/open-the-gates">Open The Gates</Link>
+            <Link href="/wiki/crystal-caverns-bank-unlock">Crystal Caverns bank</Link>
           </div>
         </nav>
         <details className="mobile-menu">
@@ -48,7 +47,8 @@ export function SiteHeader() {
             <Link href="/wiki">All pages</Link>
             <Link href="/calculators">Calculators</Link>
             <Link href="/wiki?type=items">Items</Link>
-            <Link href="/wiki?type=guides">Guides</Link>
+            <Link href="/wiki?type=guides">Skills &amp; guides</Link>
+            <Link href="/wiki?type=quests">Quests</Link>
             <Link href="/wiki?type=world">Creatures & places</Link>
             <Link href="/recent">Recent changes</Link>
             <Link href="/about/data">About the wiki</Link>

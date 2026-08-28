@@ -5,7 +5,7 @@ import { skillTrainingData, type SkillName } from '../lib/calculator-data';
 
 export const metadata: Metadata = {
   title: 'Calculators',
-  description: 'Winds of Valen skill, combat experience, accuracy, and defence calculators.',
+  description: 'Winds of Valen Mining, Smithing, Fishing, Potion Making, combat experience, accuracy, and defence calculators.',
 };
 
 export default async function CalculatorsPage({ searchParams }: { searchParams: Promise<{ tab?: string | string[]; skill?: string | string[] }> }) {
@@ -20,7 +20,7 @@ export default async function CalculatorsPage({ searchParams }: { searchParams: 
       <header className="classic-page-heading">
         <p>Player tools</p>
         <h1>Winds of Valen calculators</h1>
-        <span>Plan skill levels, compare training methods, estimate combat experience, and check accuracy against defence.</span>
+        <span>Plan skill levels, compare training methods, see Smithing XP per item, estimate combat experience, and check accuracy against defence.</span>
       </header>
       <CalculatorHub initialTab={initialTab} initialSkill={initialSkill} />
     </main>

@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { SearchBox } from './components/SearchBox';
 import { unifiedSearchEntries } from './lib/unified-search';
 
+/* Native images keep the static Vinext build compatible with the existing game artwork. */
+/* eslint-disable @next/next/no-img-element */
+
 const categories = [
   { title: 'Items', description: 'Weapons, armour, tools, resources, potions, prices, and uses.', image: '/wiki-assets/bronze-sword.png', href: '/wiki?type=items' },
   { title: 'Skills', description: 'Training methods, level requirements, experience rates, and unlocks.', image: '/wiki-assets/skills.png', href: '/wiki?type=guides' },
@@ -20,11 +23,11 @@ const skills = [
 
 const popular = [
   { title: 'Open The Gates', description: 'Quest requirements, steps, boss fight, and rewards.', href: '/wiki/open-the-gates' },
-  { title: 'Valen City', description: 'Access requirements, services, shops, and nearby areas.', href: '/wiki/valen-city' },
-  { title: 'The Darklands', description: 'PvP risks, creatures, routes, and valuable drops.', href: '/wiki/the-darklands' },
+  { title: 'Crystal Caverns bank', description: 'Unlock the cavern bank with a Resonant Essence Geode.', href: '/wiki/crystal-caverns-bank-unlock' },
+  { title: 'Smithing', description: 'Every current recipe plus the full Dusk Knight armour plan.', href: '/wiki/smithing' },
+  { title: 'Dusk Knight Schematics', description: 'Known miniquest reward and the complete crafting path.', href: '/wiki/dusk-knight-schematics-miniquest' },
   { title: 'Mining', description: 'Every ore tier, base experience, and training progression.', href: '/wiki/mining' },
   { title: 'Combat', description: 'Damage types, shield matching, experience, and training.', href: '/wiki/combat-mechanics' },
-  { title: 'Potion Making', description: 'Ingredients, stations, recipes, vials, and experience.', href: '/wiki/potion-making' },
 ];
 
 export default function Home() {
@@ -73,9 +76,10 @@ export default function Home() {
           <aside className="front-section portal-panel calculator-promo">
             <p className="panel-kicker">Player tools</p>
             <h2>Plan your next level</h2>
-            <p>Calculate experience, actions, enemy kills, training time, accuracy, and defence rolls.</p>
+            <p>Calculate experience, actions, enemy kills, training time, accuracy, and defence rolls without leaving the wiki.</p>
             <div>
               <Link href="/calculators?skill=Mining">Mining calculator</Link>
+              <Link href="/calculators?skill=Smithing">Smithing calculator</Link>
               <Link href="/calculators?skill=Fishing">Fishing calculator</Link>
               <Link href="/calculators?tab=combat">Combat calculator</Link>
             </div>
@@ -91,8 +95,8 @@ export default function Home() {
         </section>
 
         <section className="front-start-panel">
-          <div><span>New player guide</span><h2>Start here</h2><p>Learn the controls, train your first skills, understand combat stances, and prepare for your first trip beyond Valen Gate.</p></div>
-          <nav><Link href="/wiki/controls">Controls &amp; commands</Link><Link href="/wiki/combat-mechanics">Combat basics</Link><Link href="/wiki/open-the-gates">First major quest</Link></nav>
+          <div><span>New player guide</span><h2>Start here</h2><p>Learn the controls, understand combat stances, train your first skills, and prepare to unlock Valen City.</p></div>
+          <nav><Link href="/wiki/controls">Controls &amp; commands</Link><Link href="/wiki/combat-mechanics">Combat basics</Link><Link href="/wiki/open-the-gates">Open The Gates walkthrough</Link></nav>
         </section>
       </section>
     </main>

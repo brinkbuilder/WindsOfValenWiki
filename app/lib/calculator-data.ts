@@ -1,4 +1,5 @@
 import type { SearchEntry } from './wiki-data';
+import { smithingRecipes } from './smithing-data';
 
 export const xpTable = [
   0, 0, 74, 160, 258, 371, 500, 649, 820, 1016, 1241, 1500, 1797, 2139, 2531, 2982, 3500, 4095, 4778, 5563,
@@ -11,7 +12,7 @@ export const xpTable = [
   262143500, 301123982, 345900582, 397335504,
 ];
 
-export type SkillName = 'Mining' | 'Fishing' | 'Potion Making' | 'Custom skill';
+export type SkillName = 'Mining' | 'Fishing' | 'Smithing' | 'Potion Making' | 'Custom skill';
 
 export type TrainingAction = {
   name: string;
@@ -41,6 +42,12 @@ export const skillTrainingData: Record<SkillName, TrainingAction[]> = {
     { name: 'Elder Trout', level: 40, xp: 500 },
     { name: 'Carp', level: 50, xp: 1250 },
   ],
+  Smithing: smithingRecipes.map((recipe) => ({
+    name: recipe.output,
+    level: recipe.level,
+    xp: recipe.xp,
+    note: `${recipe.station} · ${recipe.outputQuantity} per craft`,
+  })),
   'Potion Making': [
     { name: 'Weak Health Potion', level: 1, xp: 500 },
     { name: 'Fishing Potion', level: 5, xp: 500 },
@@ -87,6 +94,7 @@ export const enemies: Enemy[] = [
 export const calculatorSearchEntries: SearchEntry[] = [
   { slug: 'mining-calculator', title: 'Mining calculator', type: 'Calculator', summary: 'Levels, experience, and rocks required for any Mining goal.', terms: 'mining calculator xp experience rocks levels actions', href: '/calculators?skill=Mining', source: 'archive' },
   { slug: 'fishing-calculator', title: 'Fishing calculator', type: 'Calculator', summary: 'Levels, experience, and catches required for any Fishing goal.', terms: 'fishing calculator xp experience fish catches levels actions', href: '/calculators?skill=Fishing', source: 'archive' },
+  { slug: 'smithing-calculator', title: 'Smithing calculator', type: 'Calculator', summary: 'See XP per smithable item and plan the crafts needed for any target level.', terms: 'smithing calculator xp experience bars armour weapons recipes crafts levels actions', href: '/calculators?skill=Smithing', source: 'archive' },
   { slug: 'potion-making-calculator', title: 'Potion Making calculator', type: 'Calculator', summary: 'Levels, experience, and brews required for any Potion Making goal.', terms: 'potion making calculator xp experience recipes brews levels actions', href: '/calculators?skill=Potion%20Making', source: 'archive' },
   { slug: 'combat-xp-calculator', title: 'Combat XP calculator', type: 'Calculator', summary: 'Estimate training experience, kills, Health XP, and time.', terms: 'combat xp calculator enemies kills health attack archery defence evasion warding', href: '/calculators?tab=combat', source: 'archive' },
   { slug: 'accuracy-calculator', title: 'Accuracy and defence calculator', type: 'Calculator', summary: 'Compare maximum accuracy and defence rolls.', terms: 'combat accuracy defence chance hit roll equipment calculator', href: '/calculators?tab=accuracy', source: 'archive' },

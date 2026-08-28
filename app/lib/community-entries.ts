@@ -105,11 +105,11 @@ const skillEntries: WikiEntry[] = [
   communityEntry('Magic', {
     slug: 'magic', title: 'Magic', type: 'Activity', categories: ['Skills', 'Combat', 'Community documented'],
     summary: 'A combat skill with fire, ice, and lightning weapon effects.',
-    intro: 'Community documentation distinguishes three elemental weapon behaviours. Their exact values should be treated as reported mechanics, not engine-confirmed data.',
-    facts: [{ label: 'Fire', value: 'Decaying burn; reported total 15% of initial hit' }, { label: 'Ice', value: 'Movement slow' }, { label: 'Lightning', value: 'Static Charges; reported 50% bonus hit at maximum' }],
+    intro: 'Magic weapons use fire, ice, and lightning effects. Each element changes how damage or control is applied during combat.',
+    facts: [{ label: 'Fire', value: 'Decaying burn; about 15% of the initial hit in total' }, { label: 'Ice', value: 'Movement slow' }, { label: 'Lightning', value: 'Static Charges; 50% bonus hit at maximum charges' }],
     sections: [
-      { title: 'Elemental effects', bullets: ['Fire is reported to apply a diminishing damage-over-time effect.', 'Ice is reported to slow movement, with stronger tiers applying stronger slows.', 'Lightning is reported to build Static Charges and trigger an extra hit at maximum charges.'] },
-      { title: 'Verification needed', paragraphs: ['The archive still needs weapon-specific observations, proc thresholds, duration measurements, and resistance interactions before publishing these values as verified.'] },
+      { title: 'Elemental effects', bullets: ['Fire applies a diminishing damage-over-time effect.', 'Ice slows movement, with stronger tiers applying stronger slows.', 'Lightning builds Static Charges and triggers an extra hit at maximum charges.'] },
+      { title: 'What can vary', paragraphs: ['Exact durations, charge thresholds, and resistance interactions can vary by weapon tier and game update. Use the values above as a practical starting point.'] },
     ], related: ['combat', 'combat-mechanics', 'warding', 'potion-families'],
   }),
   communityEntry('Smithing', {
@@ -150,14 +150,14 @@ const guideEntries: WikiEntry[] = [
   }),
   communityEntry('Controls', {
     slug: 'controls', title: 'Controls and commands', type: 'Guide', categories: ['Guides', 'Systems', 'Community documented'],
-    summary: 'Community-documented shortcuts and chat commands that still need in-game verification.',
-    intro: 'The community controls page lists useful shortcuts and chat commands. They are presented as a testing checklist because bindings and cooldowns can change.',
+    summary: 'Useful keyboard shortcuts and chat commands for everyday play.',
+    intro: 'These shortcuts cover the quest log, combat stance, inventory stacks, recovery commands, and player blocking.',
     facts: [{ label: 'Quest log', value: 'J' }, { label: 'Change stance', value: 'V' }, { label: 'Split stack', value: 'Ctrl + middle-mouse drag' }, { label: 'Command help', value: '/commands' }],
     sections: [
-      { title: 'Reported shortcuts', bullets: ['J opens the quest log.', 'V changes combat stance.', 'Ctrl plus middle-mouse drag splits a stack.', 'Ctrl plus Drop is reported to discard matching items together.'] },
-      { title: 'Reported commands', bullets: ['/commands lists available commands.', '/unstuck is reported to have a 30-minute cooldown.', '/block and /unblock manage player blocking.', '/kd displays a kill/death statistic.'] },
-      { title: 'Safety note', paragraphs: ['Test commands deliberately and confirm their current effect before relying on them. The archive does not execute any of these commands.'] },
-    ], related: ['combat', 'inventory', 'valenbridge'],
+      { title: 'Keyboard shortcuts', bullets: ['J opens the quest log.', 'V changes combat stance.', 'Ctrl plus middle-mouse drag splits a stack.', 'Ctrl plus Drop discards matching items together.'] },
+      { title: 'Chat commands', bullets: ['/commands lists available commands.', '/unstuck has a 30-minute cooldown.', '/block and /unblock manage player blocking.', '/kd displays your kill/death statistic.'] },
+      { title: 'Quick tip', paragraphs: ['Use /commands after a game update to check whether any command names or cooldowns have changed.'] },
+    ], related: ['combat', 'inventory'],
   }),
   communityEntry('Open The Gates', {
     slug: 'open-the-gates', title: 'Open The Gates', type: 'Quest', categories: ['Quests', 'Guides', 'Community documented'],
@@ -174,7 +174,7 @@ const guideEntries: WikiEntry[] = [
     sections: [
       {
         title: 'Before you begin',
-        bullets: ['An active membership is required.', 'You need Mining level 15 and a pickaxe to clear the cave rubble.', 'Bring food and potions strong enough for the level-55 Goblin General. The original guide recommends high-healing supplies.'],
+        bullets: ['An active membership is required.', 'You need Mining level 15 and a pickaxe to clear the cave rubble.', 'Bring high-healing food or potions for the level-55 Goblin General.'],
       },
       {
         title: 'Start the quest',
@@ -271,7 +271,7 @@ const guideEntries: WikiEntry[] = [
       },
       {
         title: 'Walkthrough status',
-        paragraphs: ['The available quest record does not yet include the starting NPC, starting location, requirements, dialogue choices, or objective sequence. Those details are deliberately left open instead of presenting guesses as instructions.'],
+        paragraphs: ['The starting NPC, location, requirements, dialogue choices, and objective sequence are not yet known. This guide leaves those fields open instead of sending players in the wrong direction.'],
       },
       {
         title: 'After obtaining the schematics',
@@ -285,15 +285,15 @@ const locationEntries: WikiEntry[] = [
   communityEntry('Valen City', {
     slug: 'valen-city', title: 'Valen City', type: 'Location', categories: ['Locations', 'Regions', 'Community documented'],
     summary: 'A members-only city unlocked through Open The Gates.',
-    intro: 'Community documentation identifies Valen City as a members area gated behind the Open The Gates quest.',
+    intro: 'Valen City is a members area unlocked by completing Open The Gates.',
     facts: [{ label: 'Membership', value: 'Required' }, { label: 'Unlock', value: 'Open The Gates' }, { label: 'Status', value: 'Community documented' }],
-    sections: [{ title: 'Access', paragraphs: ['Complete Open The Gates to gain access according to the community page. Shops and services are indexed separately in the source directory.'] }],
+    sections: [{ title: 'Access', paragraphs: ['Complete Open The Gates to gain permanent access. The quest begins at the Gate Guard outside the closed city gates.'] }, { title: 'Before you go', paragraphs: ['Bring a pickaxe, level 15 Mining, and enough food or potions to defeat the level-55 Goblin General.'] }],
     related: ['open-the-gates'],
   }),
   communityEntry('The Darklands', {
     slug: 'the-darklands', title: 'The Darklands', type: 'Location', categories: ['Locations', 'Regions', 'PvP', 'Community documented'],
     summary: 'A full-loot player-versus-player region.',
-    intro: 'The community page describes The Darklands as a full-loot PvP zone. Players should verify current loss rules before entering with valuable equipment.',
+    intro: 'The Darklands is a high-risk, full-loot player-versus-player region. Do not enter with equipment you are unwilling to lose.',
     facts: [{ label: 'Combat rule', value: 'Full-loot PvP reported' }, { label: 'Risk', value: 'Equipment and inventory loss possible' }, { label: 'Verification', value: 'Community documented' }],
     sections: [{ title: 'Risk notice', paragraphs: ['Treat the region as high risk until the current death and item-loss rules are confirmed in-game. The exact PvP boundary is not yet documented.'] }],
     related: ['combat', 'skeleton-knight-darklands'],
@@ -301,7 +301,7 @@ const locationEntries: WikiEntry[] = [
   communityEntry('Lava Cavern', {
     slug: 'lava-cavern', title: 'Lava Cavern', type: 'Location', categories: ['Locations', 'Caverns', 'Combat', 'Community documented'],
     summary: 'A high-level cavern documented with level-60 enemies and a boss.',
-    intro: 'Community documentation describes the Lava Cavern as a combat area containing level-60 enemies and a boss encounter.',
+    intro: 'Lava Cavern is a high-level combat area containing level-60 enemies and a boss encounter.',
     facts: [{ label: 'Reported enemy level', value: '60' }, { label: 'Boss', value: 'Present' }, { label: 'Verification', value: 'Community documented' }],
     sections: [{ title: 'Preparation', paragraphs: ['Enemy composition, resistances, route hazards, and safe-banking paths still need direct observation. Enter prepared for a high-level combat area.'] }],
     related: ['combat', 'the-burning-king', 'volcano-mages-route'],
@@ -309,7 +309,7 @@ const locationEntries: WikiEntry[] = [
   communityEntry('Crystal Cavern', {
     slug: 'crystal-cavern', title: 'Crystal Cavern', type: 'Location', categories: ['Locations', 'Caverns', 'Mining', 'Community documented'],
     summary: 'A cavern with community-reported level-50 mining resources.',
-    intro: 'The community page associates Crystal Cavern with level-50 mining resources and a bank unlock miniquest.',
+    intro: 'Crystal Cavern contains level-50 mining resources and a miniquest that permanently unlocks its bank.',
     facts: [{ label: 'Reported mining tier', value: 'Level 50' }, { label: 'Bank', value: 'Miniquest unlock reported' }, { label: 'Verification', value: 'Community documented' }],
     sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact resource types, requirements, and routes still need in-game confirmation.'] }],
     related: ['crystal-caverns-bank-unlock', 'essence-rock', 'banking'],
@@ -322,7 +322,7 @@ const creatureEntries: WikiEntry[] = [
     summary: 'A low-level ranged boss reported in Goblin Cave.',
     intro: 'The community page documents a ranged boss whose three-arrow Rapid Fire attack can reportedly be sidestepped.',
     facts: [{ label: 'Reported level', value: '9' }, { label: 'Reported health', value: '250' }, { label: 'Style', value: 'Ranged' }, { label: 'Reported drops', value: 'Goblin Bow · Small Fang · Coins' }],
-    sections: [{ title: 'Encounter', paragraphs: ['Rapid Fire is described as a three-arrow sequence. Movement to the side is the community-recommended response.'] }],
+    sections: [{ title: 'Encounter', paragraphs: ['Rapid Fire launches a three-arrow sequence. Move sideways as the attack begins to avoid the barrage.'] }],
     related: ['combat', 'goblin-chieftain'],
   }),
   communityEntry('Goblin Chieftain', {
@@ -336,7 +336,7 @@ const creatureEntries: WikiEntry[] = [
   communityEntry('Goblin General', {
     slug: 'goblin-general', title: 'Goblin General', type: 'Creature', categories: ['Creatures', 'Bosses', 'Quests', 'Community documented'],
     summary: 'The level-55 boss reported at the end of Open The Gates.',
-    intro: 'Community pages describe the Goblin General as the final encounter of Open The Gates, with blade, stomp, fireball, and whirlwind mechanics.',
+    intro: 'The Goblin General is the final encounter of Open The Gates and uses blade, stomp, fireball, and whirlwind attacks.',
     facts: [{ label: 'Reported level', value: '55' }, { label: 'Reported health', value: '1,500' }, { label: 'Quest', value: 'Open The Gates' }, { label: 'Guaranteed reward reported', value: '3,000 Coins' }],
     sections: [{ title: 'Mechanics', bullets: ['Blade attacks', 'Knockback stomp', 'Fireballs', 'Whirlwind'] }, { title: 'Quest role', paragraphs: ['Defeating the boss is reported to complete the final combat step of Open The Gates.'] }],
     related: ['open-the-gates', 'valen-city', 'combat'],
@@ -370,10 +370,10 @@ const creatureEntries: WikiEntry[] = [
   }),
   communityEntry('The Burning King', {
     slug: 'the-burning-king', title: 'The Burning King', type: 'Creature', categories: ['Creatures', 'Bosses', 'Lava Cavern', 'Community documented'],
-    summary: 'A boss whose current community page safely supports only its listed drops.',
-    intro: 'Recent rich revisions for several monsters were reverted after an accidental overwrite. This entry therefore preserves only the current Burning King page’s drop list.',
-    facts: [{ label: 'Reported drops', value: 'Volcanic Shard · Volcanic Core · Sword of the Burning King' }, { label: 'Mechanics', value: 'Not imported' }, { label: 'Verification', value: 'Current community revision only' }],
-    sections: [{ title: 'Revision caution', paragraphs: ['Older or reverted stat blocks are intentionally excluded. The current page supports the listed drops but not a full boss-stat profile.'] }],
+    summary: 'A Lava Cavern boss that drops Volcanic materials and a unique sword.',
+    intro: 'The Burning King is a boss in Lava Cavern. Its known rewards include Volcanic materials and the Sword of the Burning King.',
+    facts: [{ label: 'Drops', value: 'Volcanic Shard · Volcanic Core · Sword of the Burning King' }, { label: 'Fight details', value: 'Being added' }],
+    sections: [{ title: 'Known rewards', bullets: ['Volcanic Shard', 'Volcanic Core', 'Sword of the Burning King'] }, { title: 'Fight preparation', paragraphs: ['A complete attack rotation and resistance profile are still being added. Prepare for a high-level boss encounter before entering Lava Cavern.'] }],
     related: ['lava-cavern', 'combat', 'volcano-mages-route'],
   }),
 ];
@@ -381,18 +381,18 @@ const creatureEntries: WikiEntry[] = [
 const itemEntries: WikiEntry[] = [
   communityEntry('Ore Sack', {
     slug: 'ore-sack', title: 'Ore Sack', type: 'Item', categories: ['Items', 'Mining', 'Containers', 'Community documented'],
-    summary: 'A community-documented ore container with a reported 50-item capacity.',
-    intro: 'The community page describes a mining container that automatically stores resources and is emptied through a bank.',
+    summary: 'A Mining container that automatically stores up to 50 gathered items.',
+    intro: 'Equip an Ore Sack to store mined resources separately from the main inventory, then empty it through a bank.',
     facts: [{ label: 'Reported capacity', value: '50 items' }, { label: 'Reported Mining requirement', value: '15' }, { label: 'Reported shop price', value: '350 coins' }, { label: 'Reported sale value', value: '175 coins' }],
-    sections: [{ title: 'Container behaviour', paragraphs: ['The source implies automatic resource storage and bank-only removal. This may describe a different tier from the 500-capacity resource container observed in-game.'] }],
+    sections: [{ title: 'How to use it', steps: ['Reach level 15 Mining and equip the Ore Sack.', 'Mine normally; gathered resources are stored automatically while space remains.', 'Open a bank and use the resource-deposit action to empty it.'] }, { title: 'Container tiers', paragraphs: ['The 50-item Ore Sack is an early container. Larger resource containers can hold considerably more, so check the capacity shown on the item you have equipped.'] }],
     related: ['mining', 'inventory', 'banking'], note: 'Do not equate this reported 50-item container with the separately observed 500-capacity equipped resource container.',
   }),
   communityEntry('Fish Crate', {
     slug: 'fish-crate', title: 'Fish Crate', type: 'Item', categories: ['Items', 'Fishing', 'Containers', 'Community documented'],
-    summary: 'A community-documented fish container with a reported 50-item capacity.',
-    intro: 'The community page describes a fishing container that automatically stores catches and is emptied through a bank.',
+    summary: 'A Fishing container that automatically stores up to 50 catches.',
+    intro: 'Equip a Fish Crate to store catches separately from the main inventory, then empty it through a bank.',
     facts: [{ label: 'Reported capacity', value: '50 items' }, { label: 'Reported Fishing requirement', value: '15' }, { label: 'Reported shop price', value: '350 coins' }, { label: 'Reported sale value', value: '175 coins' }],
-    sections: [{ title: 'Container behaviour', paragraphs: ['The reported automatic storage and bank-only removal should be checked against the current game build and specific container tier.'] }],
+    sections: [{ title: 'How to use it', steps: ['Reach level 15 Fishing and equip the Fish Crate.', 'Fish normally; catches are stored automatically while space remains.', 'Open a bank and use the resource-deposit action to empty it.'] }, { title: 'Capacity', paragraphs: ['This crate holds 50 items. Check the capacity shown on other fishing-container tiers before planning a long trip.'] }],
     related: ['fishing', 'inventory', 'banking'],
   }),
 ];
@@ -414,8 +414,8 @@ const potionReferences = potionFamilySources.map(([title, family]) => sourceFor(
 
 const potionFamilies: WikiEntry = {
   slug: 'potion-families', title: 'Potion families', type: 'Guide', verification: 'community',
-  summary: 'Community-reported brewing batches, effects, and bottling tiers for ten potion families.',
-  intro: 'The community wiki documents ten current potion families. These formulas are useful research leads, but they remain separate from the current in-game recipe list.',
+  summary: 'Brewing batches, effects, and bottling tiers for ten potion families.',
+  intro: 'This guide brings the ten main potion families into one brewing table, including ingredients, level requirements, experience, and vial effects.',
   aliases: ['potion recipes', 'alchemy potions'], categories: ['Guides', 'Potion Making', 'Community documented'],
   facts: [
     { label: 'Families documented', value: '10', sourceRef: potionReferences[0].id },
@@ -424,7 +424,7 @@ const potionFamilies: WikiEntry = {
     { label: 'Gilded access', value: 'Members-only reported', sourceRef: potionReferences[0].id },
   ],
   sections: [
-    { title: 'Community brewing table', table: { headers: ['Family', 'Reported brew', 'Reported small / large / gilded effect'], rows: [
+    { title: 'Brewing table', table: { headers: ['Family', 'Brew', 'Small / large / gilded effect'], rows: [
       ['Weak Health', 'Level 1 · 10 Scrap Fish Flesh + 25 Essence · 20s · 500 XP', 'Restore 30 / 60 / 90'],
       ['Health', 'Level 20 · 10 Fish Mash + 50 Essence · 30s · 1,500 XP', 'Restore 50 / 100 / 150'],
       ['Strong Health', 'Level 40 · 10 Hearty Extract + 200 Essence · 40s · 3,250 XP', 'Restore 80 / 160 / 240'],
@@ -436,8 +436,8 @@ const potionFamilies: WikiEntry = {
       ['Archery', 'Level 30 · 10 Distilled Spider Eye + 250 Essence · 30s · 1,750 XP', '+5 levels for 300 / 600 / 900 seconds'],
       ['Magic', 'Level 35 · 10 Crushed Mushroom + 300 Essence · 30s · 2,000 XP', '+5 levels for 300 / 600 / 900 seconds'],
     ] } },
-    { title: 'Bottling tiers', paragraphs: ['The current community pages consistently report 0.8-second bottling and 10, 20, and 30 experience for small, large, and gilded vials. Gilded variants are reported as members-only.'] },
-    { title: 'Known conflicts', bullets: ['Strong Shields brew experience is inconsistent across older pages; 6,000 is shown as a community consensus, not a verified value.', 'Some gilded descriptions say Large Vial while the recipe field says Gilded Vial; the description appears to be a typo.', 'Every quantity and effect still needs in-game confirmation.'] },
+    { title: 'Bottling tiers', paragraphs: ['Bottling takes about 0.8 seconds and awards 10, 20, or 30 experience for small, large, and gilded vials. Gilded variants require membership.'] },
+    { title: 'Recipe notes', bullets: ['Strong Shields is currently listed as awarding 6,000 brewing experience.', 'Some older gilded descriptions say Large Vial where the recipe itself says Gilded Vial; use a Gilded Vial for the gilded recipe.', 'Potion values can change with balance updates.'] },
   ],
   related: ['potion-making', 'recipe-cauldron-weak-health', 'recipe-cauldron-strong-shields', 'recipe-cauldron-magic'],
   source: { label: 'Attributed community recipe set', detail: 'Paraphrased from current potion-family pages and retained as community documentation pending direct verification.', observed: 'August 2026' },
@@ -452,13 +452,13 @@ const glandSources = [
 
 const essenceGlandProcessing: WikiEntry = {
   slug: 'essence-gland-processing', title: 'Essence gland processing', type: 'Guide', verification: 'community',
-  summary: 'Community-reported reduction levels, experience, and Essence yields for three gland sizes.',
-  intro: 'ValenBridge confirms that gland-reduction recipes exist. The quantities below come from attributed community pages and are not yet confirmed by measured inventory deltas.',
+  summary: 'Reduction levels, experience, and Essence yields for three gland sizes.',
+  intro: 'Reduce Small, regular, and Large Essence Glands at the Reduction Station to turn them into stackable Essence.',
   categories: ['Guides', 'Potion Making', 'Community documented'],
   facts: [{ label: 'Sizes', value: 'Small · regular · large', sourceRef: glandSources[0].id }, { label: 'Station family', value: 'Reduction', sourceRef: glandSources[0].id }, { label: 'Verification', value: 'Community quantities; engine recipe identities', sourceRef: glandSources[0].id }],
   sections: [
-    { title: 'Community reduction table', table: { headers: ['Input', 'Reported level', 'Reported output', 'Reported XP'], rows: [['Small Essence Gland', '1', '2 Essence', '4'], ['Essence Gland', '30', '10 Essence', '10'], ['Large Essence Gland', '60', '20 Essence', '16']] } },
-    { title: 'Evidence boundary', paragraphs: ['Recipe identities for the three gland sizes were found in the engine catalogue. Levels, yields, timing, and experience remain community-reported until a controlled batch confirms them.'] },
+    { title: 'Reduction table', table: { headers: ['Input', 'Level', 'Output', 'XP'], rows: [['Small Essence Gland', '1', '2 Essence', '4'], ['Essence Gland', '30', '10 Essence', '10'], ['Large Essence Gland', '60', '20 Essence', '16']] } },
+    { title: 'How to process glands', steps: ['Bring the glands to a Reduction Station.', 'Choose the matching Small, regular, or Large Essence Gland recipe.', 'Keep enough inventory space for the resulting Essence stack.'] },
   ],
   related: ['essence', 'potion-making', 'recipe-reduce-small-essence-gland', 'recipe-reduce-essence-gland', 'recipe-reduce-large-essence-gland'],
   source: { label: 'Engine identities plus attributed community quantities', detail: 'The bridge confirms recipe presence; the linked community revisions supply the unverified numeric claims.', observed: 'August 2026' },

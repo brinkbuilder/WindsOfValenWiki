@@ -29,24 +29,29 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
     });
   }, [entries, group, query]);
 
+  const countFor = (types: string[]) => types.length === 0
+    ? entries.length
+    : entries.filter((entry) => types.includes(entry.type)).length;
+
   return (
     <div className="wiki-index-tool">
       <div className="index-controls">
         <div className="index-tabs" role="tablist" aria-label="Wiki page type">
           {groups.map((item) => (
             <button key={item.key} type="button" role="tab" aria-selected={group === item.key} onClick={() => setGroup(item.key)}>
-              {item.label}
+              <span>{item.label}</span><b>{countFor(item.types)}</b>
             </button>
           ))}
         </div>
-        <label className="index-filter">
+        <div className="index-filter">
           <span className="search-mark" aria-hidden="true" />
-          <span className="sr-only">Filter wiki pages</span>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Type a page name…" />
-        </label>
+          <label className="sr-only" htmlFor="wiki-index-filter">Filter wiki pages</label>
+          <input id="wiki-index-filter" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter this list…" />
+          {query && <button className="index-filter-clear" type="button" onClick={() => setQuery('')} aria-label="Clear page filter">Clear</button>}
+        </div>
       </div>
 
-      <p className="result-count">{filtered.length} {filtered.length === 1 ? 'page' : 'pages'}</p>
+      <p className="result-count" aria-live="polite">Showing {filtered.length} {filtered.length === 1 ? 'page' : 'pages'}</p>
       <div className="index-grid">
         {filtered.map((entry) => (
           <a className="index-card" href={entry.href ?? `/wiki/${entry.slug}`} key={`${entry.href ?? 'wiki'}-${entry.slug}`}>

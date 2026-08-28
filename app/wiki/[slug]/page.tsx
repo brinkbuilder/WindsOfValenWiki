@@ -10,6 +10,12 @@ export function generateStaticParams() {
   return wikiEntries.map((entry) => ({ slug: entry.slug }));
 }
 
+function playerTypeLabel(type: (typeof wikiEntries)[number]['type']) {
+  if (type === 'Activity') return 'Skill';
+  if (type === 'System') return 'Game system';
+  return type;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const entry = wikiBySlug.get(slug);
@@ -27,21 +33,23 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   const entry = wikiBySlug.get(slug);
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
+  const typeLabel = playerTypeLabel(entry.type);
   const skillCalculator = entry.slug === 'mining' ? '/calculators?skill=Mining'
     : entry.slug === 'fishing' ? '/calculators?skill=Fishing'
+      : entry.slug === 'smithing' ? '/calculators?skill=Smithing'
       : entry.slug === 'potion-making' ? '/calculators?skill=Potion%20Making'
         : ['attack', 'archery', 'defence', 'evasion', 'health', 'magic', 'warding', 'combat', 'combat-mechanics'].includes(entry.slug) ? '/calculators?tab=combat'
           : null;
 
   return (
-    <main className="article-page">
+    <main className="article-page" id="top">
       <div className="breadcrumbs" aria-label="Breadcrumb">
         <Link href="/">Home</Link><span>/</span><Link href="/wiki">Wiki</Link><span>/</span><span>{entry.title}</span>
       </div>
 
       <header className="article-title-block">
         <div>
-          <p className="eyebrow">{entry.type} article</p>
+          <p className="eyebrow">{typeLabel}</p>
           <h1>{entry.title}</h1>
           <p>{entry.intro}</p>
           <div className="article-badges">
@@ -103,7 +111,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
               <div className="related-grid">
                 {related.map((item) => item && (
                   <a href={`/wiki/${item.slug}`} key={item.slug}>
-                    <span>{item.type}</span>
+                    <span>{playerTypeLabel(item.type)}</span>
                     <strong>{item.title}</strong>
                     <p>{item.summary}</p>
                     <i aria-hidden="true">→</i>
@@ -115,13 +123,14 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
 
           <div className="article-categories">
             <strong>Categories</strong>
-            {entry.categories.map((category) => <a href={`/search?q=${encodeURIComponent(category)}`} key={category}>{category}</a>)}
+            {entry.categories.map((category) => <Link href={`/search?q=${encodeURIComponent(category)}`} key={category}>{category}</Link>)}
+            <a className="back-to-top" href="#top">Back to top ↑</a>
           </div>
         </article>
 
         <aside className="infobox">
           <div className="infobox-heading">
-            <span>{entry.type}</span>
+            <span>{typeLabel}</span>
             <h2>{entry.title}</h2>
           </div>
           <dl>

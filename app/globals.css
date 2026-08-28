@@ -1322,3 +1322,206 @@ footer { min-height: 120px; font-size: 13px; }
   .article-tabs { padding-inline: 0; }
   .unified-imported-content { padding: 24px 0; }
 }
+
+/* Calculator refinement */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2px; }
+
+.calculator-page { background: #f1e6d2; }
+.calculator-page .breadcrumbs { margin-bottom: 2px; }
+.calculator-page .classic-page-heading { padding-bottom: 24px; }
+.calculator-hub { margin-top: 28px; }
+.calculator-tabs { gap: 6px; }
+.calculator-tabs button { transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.calculator-tabs button:hover { border-color: #806545; background: #f0e1c4; }
+.calculator-card { box-shadow: 0 5px 15px rgba(70,49,27,.08); }
+.calculator-heading-help { display: block; margin-top: 8px; color: #74634c; font-size: 13px; line-height: 1.5; }
+.calculator-card label input:focus,
+.calculator-card label select:focus { border-color: #5d806f; box-shadow: 0 0 0 3px rgba(93,128,111,.14); }
+.calculator-summary strong { color: #3d2b1f; }
+
+.smithing-plan-box { margin-top: 24px; padding: 22px; border: 1px solid #9f8965; background: #f4ead8; }
+.smithing-plan-heading { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
+.smithing-plan-heading p,
+.smithing-list-heading p { margin: 0 0 4px; color: #8a672f; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.smithing-plan-heading h3,
+.smithing-list-heading h3 { margin: 0; color: #38291d; font: 700 24px/1.15 Georgia, serif; }
+.smithing-plan-status { flex: 0 0 auto; padding: 6px 9px; border: 1px solid #b4935a; border-radius: 99px; background: #ead8b5; color: #62471f; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+.smithing-plan-controls { margin-top: 18px; display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 1.2fr); gap: 18px; align-items: end; }
+.smithing-materials { min-height: 44px; padding: 8px 12px; border-left: 3px solid #b18a43; background: rgba(255,250,240,.7); }
+.smithing-materials span { display: block; color: #746149; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.smithing-materials strong { display: block; margin-top: 4px; color: #4b3825; font-size: 13px; line-height: 1.45; }
+.smithing-result-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #b69d76; background: #ead9ba; }
+.smithing-result-grid > div { min-width: 0; padding: 14px 15px; border-right: 1px solid #c4ad85; }
+.smithing-result-grid > div:last-child { border-right: 0; }
+.smithing-result-grid span { display: block; color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.smithing-result-grid strong { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #332519; font: 700 23px/1 Georgia, serif; }
+.smithing-lock-note { margin: 15px 0 0; padding: 10px 12px; border-left: 3px solid #a95143; background: #f4dfd9; color: #704238; font-size: 12px; line-height: 1.5; }
+.smithing-list-heading { margin-top: 30px; padding-bottom: 12px; display: flex; justify-content: space-between; gap: 18px; align-items: end; border-bottom: 1px solid #a88d68; }
+.smithing-list-heading p { margin: 6px 0 0; color: #74634c; font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none; }
+.smithing-list-heading > strong { flex: 0 0 auto; color: #705839; font-size: 12px; }
+.smithing-list-controls { padding: 13px 0; display: flex; justify-content: space-between; gap: 18px; align-items: center; }
+.smithing-filter-search { width: min(320px, 100%); }
+.smithing-filter-search input { height: 38px; }
+.smithing-station-tabs { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.smithing-station-tabs > span { margin-right: 3px; color: #746149; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.smithing-station-tabs button { padding: 7px 10px; border: 1px solid #b9a27e; border-radius: 2px; background: #f9f1e3; color: #5e4931; font-size: 11px; font-weight: 750; cursor: pointer; }
+.smithing-station-tabs button:hover { border-color: #806545; }
+.smithing-station-tabs button[aria-selected='true'] { border-color: #4b3525; background: #4b3525; color: white; }
+.smithing-table-wrap { margin-top: 0; }
+.smithing-table { min-width: 980px; }
+.smithing-table th:nth-child(1) { min-width: 180px; }
+.smithing-table th:nth-child(6) { min-width: 240px; }
+.smithing-table td { vertical-align: top; }
+.smithing-table td:nth-child(4),
+.smithing-table td:nth-child(5) { white-space: nowrap; }
+.smithing-item-button { padding: 0; border: 0; background: transparent; color: #245c8d; text-align: left; cursor: pointer; }
+.smithing-item-button:hover strong,
+.smithing-item-button:focus-visible strong { text-decoration: underline; text-underline-offset: 3px; }
+.smithing-item-button strong { color: inherit; font-size: 14px; }
+.smithing-item-button small { color: #796a54; }
+.smithing-table .calculator-table td b { color: #332519; }
+.smithing-table tr.locked .smithing-item-button { color: #6c645a; }
+.smithing-table tr.selected { background: #eee0c4; box-shadow: inset 3px 0 #b18a43; }
+
+@media (max-width: 900px) {
+  .smithing-plan-controls { grid-template-columns: 1fr; align-items: stretch; }
+  .smithing-list-controls { align-items: stretch; flex-direction: column; }
+  .smithing-filter-search { width: 100%; }
+}
+
+@media (max-width: 650px) {
+  .calculator-heading-help { font-size: 12px; }
+  .smithing-plan-box { padding: 16px; }
+  .smithing-plan-heading { align-items: flex-start; flex-direction: column; }
+  .smithing-plan-heading h3 { font-size: 22px; }
+  .smithing-result-grid { grid-template-columns: 1fr 1fr; }
+  .smithing-result-grid > div:nth-child(2) { border-right: 0; }
+  .smithing-result-grid > div:nth-child(-n+2) { border-bottom: 1px solid #c4ad85; }
+  .smithing-list-heading { align-items: flex-start; flex-direction: column; }
+  .smithing-station-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px; }
+  .smithing-station-tabs > span { flex: 0 0 auto; }
+  .smithing-station-tabs button { flex: 0 0 auto; }
+}
+
+/* Final usability pass: stable rail, compact navigation, and scannable indexes */
+html,
+body { max-width: 100%; overflow-x: clip; }
+
+.wiki-site-frame {
+  width: 100%;
+  grid-template-columns: 236px minmax(0, 1fr);
+  overflow-x: clip;
+}
+
+.wiki-page-column { width: 100%; min-width: 0; overflow-x: clip; }
+
+.wiki-rail.unified-topbar {
+  width: 236px;
+  min-width: 0;
+  padding: 18px 16px;
+  gap: 14px;
+  overflow-x: hidden;
+}
+
+.wiki-rail .rail-brand,
+.unified-topbar .brand {
+  min-width: 0;
+}
+
+.wiki-rail .rail-brand {
+  padding-bottom: 14px;
+  grid-template-columns: 50px minmax(0, 1fr);
+}
+
+.wiki-rail .valen-mark { width: 50px; height: 50px; background-size: 48px; }
+.wiki-rail .brand strong { font-size: 18px; line-height: 1.08; }
+.wiki-rail .brand small { margin-top: 4px; font-size: 9px; }
+.wiki-rail .header-search { min-width: 0; height: 42px; flex: 0 0 42px; }
+.wiki-rail .rail-navigation { display: grid; flex: 0 0 auto; gap: 14px; }
+.wiki-rail .rail-section { gap: 1px; }
+.wiki-rail .rail-section > strong { margin-bottom: 3px; padding-bottom: 6px; font-size: 11px; }
+.wiki-rail .rail-section a { padding: 6px 7px; font-size: 12px; line-height: 1.25; }
+
+.classic-home { width: 100%; padding: 20px; }
+.inner-page,
+.classic-content-page,
+.article-page,
+.source-reader-page.unified-imported-page {
+  width: calc(100% - 40px);
+  margin: 20px auto;
+}
+
+.index-tabs button { display: inline-flex; align-items: center; gap: 7px; }
+.index-tabs button b { min-width: 22px; padding: 2px 6px; border-radius: 99px; background: rgba(61,43,31,.1); font-size: 10px; line-height: 1.4; }
+.index-tabs button[aria-selected='true'] b { background: rgba(255,255,255,.18); color: white; }
+.index-filter { gap: 8px; }
+.index-filter-clear { padding: 5px 7px; border: 0; background: transparent; color: var(--wiki-blue); font-size: 11px; font-weight: 750; cursor: pointer; }
+.index-card { min-height: 138px; }
+.index-card:hover,
+.index-card:focus-visible { transform: translateY(-2px); border-color: #76563b; box-shadow: 0 7px 18px rgba(61,43,31,.12); }
+.back-to-top { margin-left: auto; }
+
+.article-copy { min-width: 0; }
+.article-section p { max-width: 78ch; }
+.wiki-table-wrap { max-width: 100%; overflow-x: auto; }
+.wiki-table { min-width: 620px; }
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .wiki-site-frame { grid-template-columns: 218px minmax(0, 1fr); }
+  .wiki-rail.unified-topbar { width: 218px; }
+  .wiki-rail .rail-navigation { display: grid; }
+  .inner-page,
+  .classic-content-page,
+  .article-page,
+  .source-reader-page.unified-imported-page { width: calc(100% - 28px); margin: 14px auto; padding-inline: 25px; }
+  .article-layout { grid-template-columns: minmax(0, 1fr) 260px; gap: 26px; }
+}
+
+@media (max-width: 900px) {
+  .wiki-site-frame { display: block; }
+  .wiki-rail.unified-topbar {
+    width: 100%;
+    height: 68px;
+    min-height: 0;
+    padding: 8px 14px;
+    flex-direction: row;
+    gap: 10px;
+    overflow: visible;
+  }
+  .wiki-rail .rail-brand { min-width: 188px; padding: 0; grid-template-columns: 42px minmax(0, 1fr); }
+  .wiki-rail .valen-mark { width: 42px; height: 42px; background-size: 40px; }
+  .wiki-rail .header-search { min-width: 0; height: 42px; flex: 1 1 auto; }
+  .wiki-rail .rail-navigation { display: none; }
+  .wiki-rail .mobile-menu { display: block; flex: 0 0 auto; }
+  .classic-home { padding: 12px; }
+  .inner-page,
+  .classic-content-page,
+  .article-page,
+  .source-reader-page.unified-imported-page { width: calc(100% - 24px); margin: 12px auto; }
+  .index-controls { top: 68px; }
+}
+
+@media (max-width: 650px) {
+  .wiki-rail.unified-topbar { padding-inline: 9px; }
+  .wiki-rail .rail-brand { min-width: 42px; grid-template-columns: 42px; }
+  .wiki-rail .rail-brand > span:last-child { display: none; }
+  .wiki-rail .header-search input { padding-inline: 9px; }
+  .classic-home { padding: 6px; }
+  .inner-page,
+  .classic-content-page,
+  .article-page,
+  .source-reader-page.unified-imported-page { width: calc(100% - 12px); margin: 6px auto; padding: 18px 14px 44px; }
+  .index-controls { margin-inline: -4px; padding-inline: 4px; }
+  .index-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .index-tabs button { flex: 0 0 auto; }
+  .table-of-contents ol { column-count: 1; }
+  .article-section h2,
+  .related-section h2 { font-size: 25px; }
+  .article-section p,
+  .article-section li { font-size: 16px; line-height: 1.65; }
+  .article-categories { align-items: flex-start; }
+  .back-to-top { width: 100%; margin: 8px 0 0; text-align: center; }
+}
