@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { wikiBySlug, wikiEntries } from '../../lib/wiki-data';
 
+/* Native images keep this static Vinext build compatible and let quest screenshots open at full size. */
+/* eslint-disable @next/next/no-img-element */
+
 export function generateStaticParams() {
   return wikiEntries.map((entry) => ({ slug: entry.slug }));
 }
@@ -69,12 +72,25 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
               <h2><span>{index + 1}</span>{section.title}</h2>
               {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+              {section.steps && <ol className="quest-steps">{section.steps.map((step) => <li key={step}>{step}</li>)}</ol>}
               {section.table && (
                 <div className="wiki-table-wrap">
                   <table className="wiki-table">
                     <thead><tr>{section.table.headers.map((header) => <th key={header}>{header}</th>)}</tr></thead>
                     <tbody>{section.table.rows.map((row, rowIndex) => <tr key={`${row.join('-')}-${rowIndex}`}>{row.map((cell, cellIndex) => <td key={`${cell}-${cellIndex}`}>{cell}</td>)}</tr>)}</tbody>
                   </table>
+                </div>
+              )}
+              {section.images && (
+                <div className="article-image-grid">
+                  {section.images.map((image) => (
+                    <figure className="article-figure" key={image.src}>
+                      <a href={image.src} aria-label={`Open full-size image: ${image.alt}`}>
+                        <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                      </a>
+                      {image.caption && <figcaption>{image.caption}</figcaption>}
+                    </figure>
+                  ))}
                 </div>
               )}
             </section>

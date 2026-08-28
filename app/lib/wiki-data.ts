@@ -28,11 +28,19 @@ export type WikiTable = {
   rows: string[][];
 };
 
+export type WikiImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type WikiSection = {
   title: string;
   paragraphs?: string[];
   bullets?: string[];
+  steps?: string[];
   table?: WikiTable;
+  images?: WikiImage[];
 };
 
 export type WikiEntry = {
@@ -804,6 +812,31 @@ const smithingGuide: WikiEntry = {
       },
     },
     {
+      title: 'Full Dusk Knight set — raw material totals',
+      paragraphs: ['This shopping list makes the boots, platelegs, platebody, and helmet. It uses the Ebony Dust smelting route and includes every intermediate plate, rod, foil, silk lining, and loose bar needed for the full set. Dusk Knight Schematics are recipe requirements but are not counted as a consumable raw material here.', 'The supplied 8,932-Dust plan makes 1,276 Ebony Bars. The current recipes also require one loose Ebony Bar when the helmet is assembled, so the complete no-shortfall total is 1,277 bars, or 8,939 Ebony Dust.'],
+      table: {
+        headers: ['Raw material', 'Total', 'Processing plan'],
+        rows: [
+          ['Ebony Dust', '8,939', 'Smelt 1,277 Ebony Bars (1,276 supplied subtotal + 1 helmet bar)'],
+          ['Silver Ore', '1,078', 'Smelt 154 Silver Bars'],
+          ['Exquisite Silk', '15', '5 for the pant lining · 6 for the vest lining · 4 for the boot lining'],
+        ],
+      },
+    },
+    {
+      title: 'Full-set component checklist',
+      steps: [
+        'From the 1,277 Ebony Bars, use 1,008 to make 252 Small Ebony Plates.',
+        'Turn the 252 Small Ebony Plates into 63 Ebony Plates.',
+        'Use 40 of the Ebony Plates to make 10 Large Ebony Plates. Keep the other 23 Ebony Plates for the armour components.',
+        'Make 16 Small Ebony Rods, turn them into 4 Ebony Rods, then make 1 Large Ebony Rod.',
+        'Turn the 154 Silver Bars into 22 Silver Plates, then turn those plates into 44 Silver Foil.',
+        'Use 5 Exquisite Silk for the pant lining, 6 for the vest lining, and 4 for the boot lining.',
+        'Keep 3 loose Ebony Bars for final assembly: 2 for the boots and 1 for the helmet.',
+        'Forge the named Dusk Knight components at an anvil, then assemble the four finished pieces at a workbench using the recipe tables above.',
+      ],
+    },
+    {
       title: 'Planning a crafting session',
       bullets: [
         'Start from the final workbench recipe and work backwards through every plate and rod it requires.',
@@ -886,7 +919,6 @@ function playerText(value: string) {
     .replace(internalToken, (token) => friendlyToken(token))
     .replace(/\bValenBridge\b/gi, 'the game guide')
     .replace(/\bbridge-backed\b/gi, 'player-focused')
-    .replace(/\bbridge\b/gi, 'game guide')
     .replace(/\bengine-discovered\b/gi, 'known')
     .replace(/\bengine-confirmed\b/gi, 'documented')
     .replace(/\bengine-readable\b/gi, 'visible')
@@ -931,6 +963,12 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
         .replace(/^Game notes$/i, 'How it works'),
       paragraphs: section.paragraphs?.map(playerText),
       bullets: section.bullets?.map(playerText),
+      steps: section.steps?.map(playerText),
+      images: section.images?.map((image) => ({
+        ...image,
+        alt: playerText(image.alt),
+        caption: image.caption ? playerText(image.caption) : undefined,
+      })),
       table: section.table ? {
         headers: section.table.headers
           .filter((header) => !/technical key/i.test(header))

@@ -161,24 +161,123 @@ const guideEntries: WikiEntry[] = [
   }),
   communityEntry('Open The Gates', {
     slug: 'open-the-gates', title: 'Open The Gates', type: 'Quest', categories: ['Quests', 'Guides', 'Community documented'],
-    summary: 'A novice members quest that unlocks Valen City.',
-    intro: 'The community walkthrough describes a mining-gated quest involving three scouts, Goblin Villagers, rubble clearing, and the Goblin General.',
-    facts: [{ label: 'Membership', value: 'Required' }, { label: 'Mining', value: 'Level 15 reported' }, { label: 'Boss', value: 'Goblin General, level 55 reported' }, { label: 'Reward', value: 'Valen City access · Guard Cloak · 5,000 Mining XP' }],
+    summary: 'A complete novice quest walkthrough for unlocking Valen City.',
+    intro: 'Help the guards outside Valen City, locate three missing scouts, and recover the Goblin Goods from the Goblin General to open the city gates.',
+    facts: [
+      { label: 'Start', value: 'Gate Guard at the Valen City gates' },
+      { label: 'Difficulty', value: 'Novice' },
+      { label: 'Membership', value: 'Required' },
+      { label: 'Mining', value: 'Level 15' },
+      { label: 'Enemies', value: 'Goblin Villagers (15) · Goblin General (55)' },
+      { label: 'Rewards', value: 'Valen City access · Guard Cloak · 5,000 Mining XP' },
+    ],
     sections: [
-      { title: 'Requirements', bullets: ['Membership access', 'Mining level 15', 'A pickaxe'] },
-      { title: 'Community walkthrough', bullets: ['Locate scouts Harry, Thomas, and Walter.', 'Obtain a Guard Helmet from level-15 Goblin Villagers.', 'Clear the blocking rubble.', 'Defeat the Goblin General to complete the gate sequence.'] },
-      { title: 'Reported rewards', paragraphs: ['The page lists access to Valen City, a Guard Cloak, and 5,000 Mining experience.'] },
+      {
+        title: 'Before you begin',
+        bullets: ['An active membership is required.', 'You need Mining level 15 and a pickaxe to clear the cave rubble.', 'Bring food and potions strong enough for the level-55 Goblin General. The original guide recommends high-healing supplies.'],
+      },
+      {
+        title: 'Start the quest',
+        steps: [
+          'Talk to the Gate Guard beside the closed Valen City gates.',
+          'Cross the bridge toward Broken Village and speak to Guard Captain Miller.',
+          'Miller asks you to find the missing scouts Harry, Thomas, and Walter.',
+        ],
+      },
+      {
+        title: 'Find the three scouts',
+        steps: [
+          'Find Harry in the purple wooden fort near the Goblin Villager camp west of the gate.',
+          'Defeat the level-15 Goblin Villagers until one drops a Guard Helmet. Keep it for the quest.',
+          'Continue west toward the cliffs and talk to Thomas.',
+          'Head back downhill toward Captain Miller. At the fork, enter the wooded area and find Walter sitting behind a rock.',
+          'Return to Captain Miller with the Guard Helmet and news of all three scouts.',
+        ],
+        images: [
+          { src: '/quest-assets/open-gates-scout-map.png', alt: 'Map showing the locations of Harry, Thomas, and Walter', caption: 'The three scout locations.' },
+          { src: '/quest-assets/open-gates-harry.png', alt: 'Harry at the purple wooden fort', caption: 'Harry is near the Goblin Villager camp.' },
+          { src: '/quest-assets/open-gates-thomas.png', alt: 'Thomas standing near the western cliffs', caption: 'Thomas is farther west near the cliffs.' },
+          { src: '/quest-assets/open-gates-walter.png', alt: 'Walter sitting behind a rock in the wooded area', caption: 'Walter is behind a rock near the wooded fork.' },
+        ],
+      },
+      {
+        title: 'Clear the cave and defeat the General',
+        steps: [
+          'Return to Thomas after reporting to Captain Miller.',
+          'Use your pickaxe to mine the rubble blocking the cave. This requires Mining level 15.',
+          'Enter the cave and defeat the level-55 Goblin General.',
+          'Collect the Goblin Goods to finish the final objective and complete the gate sequence.',
+        ],
+        images: [{ src: '/quest-assets/open-gates-general-cave.png', alt: 'Entrance and location of the Goblin General cave', caption: 'The cave containing the Goblin General.' }],
+      },
+      {
+        title: 'Rewards',
+        bullets: ['Permanent access to Valen City', 'Guard Cloak, your first back-slot item', '5,000 Mining experience'],
+      },
     ], related: ['valen-city', 'goblin-general', 'mining'],
   }),
   communityEntry('Crystal Caverns Miniquest (Bank unlock)', {
     slug: 'crystal-caverns-bank-unlock', title: 'Crystal Caverns bank unlock', type: 'Quest', categories: ['Quests', 'Guides', 'Banking', 'Community documented'],
-    summary: 'A miniquest that reportedly unlocks permanent Crystal Caverns bank access.',
-    intro: 'The community guide says a rare Resonant Essence Geode can be exchanged with Clara Vance for permanent access to the cavern bank.',
-    facts: [{ label: 'Required item', value: 'Resonant Essence Geode' }, { label: 'Source', value: 'Essence Rocks, rare community-reported drop' }, { label: 'Reward', value: 'Permanent bank access' }, { label: 'Extra geodes', value: '1,000 coins reported' }],
+    summary: 'A complete miniquest guide for permanently unlocking the Crystal Caverns bank.',
+    intro: 'Find Clara Vance inside Crystal Caverns and bring her a Resonant Essence Geode to unlock the cavern bank permanently.',
+    facts: [
+      { label: 'Start', value: 'Clara Vance in the Crystal Caverns mines' },
+      { label: 'Difficulty', value: 'Novice' },
+      { label: 'Membership', value: 'Required' },
+      { label: 'Requirement', value: 'Ability to mine Essence Rocks' },
+      { label: 'Required item', value: '1 Resonant Essence Geode' },
+      { label: 'Reward', value: 'Permanent Crystal Caverns bank access' },
+    ],
     sections: [
-      { title: 'Walkthrough', bullets: ['Mine Essence Rocks until a Resonant Essence Geode is obtained.', 'Bring the geode to Clara Vance.', 'Complete the exchange to unlock the bank permanently.'] },
-      { title: 'Drop-rate caution', paragraphs: ['One community anecdote reports 323 rocks before a geode. That is a single observation, not a published drop rate.'] },
+      {
+        title: 'Start the miniquest',
+        steps: ['Enter the Crystal Caverns mines.', 'Locate Clara Vance and speak to her to begin the bank-unlock miniquest.'],
+        images: [{ src: '/quest-assets/crystal-clara.png', alt: 'Clara Vance inside the Crystal Caverns mines', caption: 'Speak to Clara Vance inside the mines.' }],
+      },
+      {
+        title: 'Obtain a Resonant Essence Geode',
+        steps: ['Mine Essence Rocks until you receive a Resonant Essence Geode, or obtain one from another player.', 'Keep the geode in your inventory and return to Clara Vance.'],
+        paragraphs: ['The geode is a rare drop. One player reported mining 323 Essence Rocks before receiving one; this is a single player result, not a confirmed drop rate.'],
+        images: [
+          { src: '/quest-assets/crystal-essence-rock.png', alt: 'An Essence Rock in Crystal Caverns', caption: 'Mine Essence Rocks for a chance to receive the geode.' },
+          { src: '/quest-assets/crystal-resonant-geode.png', alt: 'Resonant Essence Geode collection-log notification', caption: 'The Resonant Essence Geode.' },
+          { src: '/quest-assets/crystal-geode-323-rocks.png', alt: 'Player inventory after mining 323 Essence Rocks for a geode', caption: 'A player-reported 323-rock attempt; this is not a drop-rate estimate.' },
+        ],
+      },
+      {
+        title: 'Unlock the bank',
+        steps: ['Talk to Clara Vance while carrying the geode.', 'Choose the dialogue option “I found this weird crystal geode”.', 'The Crystal Caverns bank is now permanently available to your character.'],
+        images: [{ src: '/quest-assets/crystal-bank.png', alt: 'The unlocked Crystal Caverns bank', caption: 'The bank unlocked by completing the miniquest.' }],
+      },
+      {
+        title: 'Extra geodes',
+        paragraphs: ['After the unlock, extra Resonant Essence Geodes can be sold to Clara Vance for 1,000 coins each.'],
+      },
     ], related: ['crystal-cavern', 'essence-rock', 'banking'],
+  }),
+  communityEntry('Dusk Knight Shcematics Miniquest', {
+    slug: 'dusk-knight-schematics-miniquest', title: 'Dusk Knight Schematics miniquest', type: 'Quest', categories: ['Quests', 'Guides', 'Smithing', 'Community documented'],
+    summary: 'The miniquest that awards the Dusk Knight Schematics used throughout the Dusk Knight armour crafting chain.',
+    intro: 'Complete this miniquest to obtain the Dusk Knight Schematics required for the new armour components and final set assembly.',
+    facts: [
+      { label: 'Reward', value: 'Dusk Knight Schematics' },
+      { label: 'Used for', value: 'Dusk Knight boots, platelegs, platebody, helmet, and their components' },
+      { label: 'Detailed route', value: 'Not yet documented' },
+    ],
+    sections: [
+      {
+        title: 'What is confirmed',
+        paragraphs: ['The miniquest awards Dusk Knight Schematics. The current Smithing recipes require the schematics when forging every named Dusk Knight component and when assembling each finished armour piece.'],
+      },
+      {
+        title: 'Walkthrough status',
+        paragraphs: ['The available quest record does not yet include the starting NPC, starting location, requirements, dialogue choices, or objective sequence. Those details are deliberately left open instead of presenting guesses as instructions.'],
+      },
+      {
+        title: 'After obtaining the schematics',
+        steps: ['Open the Smithing guide and gather the complete full-set material list.', 'Forge the Dusk Knight metal components at an anvil.', 'Make the three Exquisite Silk linings.', 'Assemble the boots, platelegs, platebody, and helmet at a workbench.'],
+      },
+    ], related: ['smithing', 'dusk-knight-boots', 'dusk-knight-platelegs', 'dusk-knight-platebody', 'dusk-knight-helmet'],
   }),
 ];
 
@@ -196,7 +295,7 @@ const locationEntries: WikiEntry[] = [
     summary: 'A full-loot player-versus-player region.',
     intro: 'The community page describes The Darklands as a full-loot PvP zone. Players should verify current loss rules before entering with valuable equipment.',
     facts: [{ label: 'Combat rule', value: 'Full-loot PvP reported' }, { label: 'Risk', value: 'Equipment and inventory loss possible' }, { label: 'Verification', value: 'Community documented' }],
-    sections: [{ title: 'Risk notice', paragraphs: ['Treat the region as high risk until the current death and item-loss rules are confirmed in-game. The archive does not yet have a bridge export for its PvP boundary.'] }],
+    sections: [{ title: 'Risk notice', paragraphs: ['Treat the region as high risk until the current death and item-loss rules are confirmed in-game. The exact PvP boundary is not yet documented.'] }],
     related: ['combat', 'skeleton-knight-darklands'],
   }),
   communityEntry('Lava Cavern', {
@@ -212,7 +311,7 @@ const locationEntries: WikiEntry[] = [
     summary: 'A cavern with community-reported level-50 mining resources.',
     intro: 'The community page associates Crystal Cavern with level-50 mining resources and a bank unlock miniquest.',
     facts: [{ label: 'Reported mining tier', value: 'Level 50' }, { label: 'Bank', value: 'Miniquest unlock reported' }, { label: 'Verification', value: 'Community documented' }],
-    sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact node classes, requirements, and routes await bridge verification.'] }],
+    sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact resource types, requirements, and routes still need in-game confirmation.'] }],
     related: ['crystal-caverns-bank-unlock', 'essence-rock', 'banking'],
   }),
 ];
@@ -285,7 +384,7 @@ const itemEntries: WikiEntry[] = [
     summary: 'A community-documented ore container with a reported 50-item capacity.',
     intro: 'The community page describes a mining container that automatically stores resources and is emptied through a bank.',
     facts: [{ label: 'Reported capacity', value: '50 items' }, { label: 'Reported Mining requirement', value: '15' }, { label: 'Reported shop price', value: '350 coins' }, { label: 'Reported sale value', value: '175 coins' }],
-    sections: [{ title: 'Container behaviour', paragraphs: ['The source implies automatic resource storage and bank-only removal. This may describe a different tier from the 500-capacity resource container observed through the bridge.'] }],
+    sections: [{ title: 'Container behaviour', paragraphs: ['The source implies automatic resource storage and bank-only removal. This may describe a different tier from the 500-capacity resource container observed in-game.'] }],
     related: ['mining', 'inventory', 'banking'], note: 'Do not equate this reported 50-item container with the separately observed 500-capacity equipped resource container.',
   }),
   communityEntry('Fish Crate', {
@@ -316,7 +415,7 @@ const potionReferences = potionFamilySources.map(([title, family]) => sourceFor(
 const potionFamilies: WikiEntry = {
   slug: 'potion-families', title: 'Potion families', type: 'Guide', verification: 'community',
   summary: 'Community-reported brewing batches, effects, and bottling tiers for ten potion families.',
-  intro: 'The community wiki documents ten current potion families. These formulas are useful research leads, but they remain separate from the bridge-confirmed recipe identities.',
+  intro: 'The community wiki documents ten current potion families. These formulas are useful research leads, but they remain separate from the current in-game recipe list.',
   aliases: ['potion recipes', 'alchemy potions'], categories: ['Guides', 'Potion Making', 'Community documented'],
   facts: [
     { label: 'Families documented', value: '10', sourceRef: potionReferences[0].id },
@@ -338,7 +437,7 @@ const potionFamilies: WikiEntry = {
       ['Magic', 'Level 35 · 10 Crushed Mushroom + 300 Essence · 30s · 2,000 XP', '+5 levels for 300 / 600 / 900 seconds'],
     ] } },
     { title: 'Bottling tiers', paragraphs: ['The current community pages consistently report 0.8-second bottling and 10, 20, and 30 experience for small, large, and gilded vials. Gilded variants are reported as members-only.'] },
-    { title: 'Known conflicts', bullets: ['Strong Shields brew experience is inconsistent across older pages; 6,000 is shown as a community consensus, not a verified value.', 'Some gilded descriptions say Large Vial while the recipe field says Gilded Vial; the description appears to be a typo.', 'Every quantity and effect still needs bridge or player-workflow confirmation.'] },
+    { title: 'Known conflicts', bullets: ['Strong Shields brew experience is inconsistent across older pages; 6,000 is shown as a community consensus, not a verified value.', 'Some gilded descriptions say Large Vial while the recipe field says Gilded Vial; the description appears to be a typo.', 'Every quantity and effect still needs in-game confirmation.'] },
   ],
   related: ['potion-making', 'recipe-cauldron-weak-health', 'recipe-cauldron-strong-shields', 'recipe-cauldron-magic'],
   source: { label: 'Attributed community recipe set', detail: 'Paraphrased from current potion-family pages and retained as community documentation pending direct verification.', observed: 'August 2026' },
