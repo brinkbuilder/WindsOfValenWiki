@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { SearchBox } from './components/SearchBox';
 import { unifiedSearchEntries } from './lib/unified-search';
@@ -55,7 +54,7 @@ export default function Home() {
             {categories.map((category) => (
               <Link className="portal-category" href={category.href} key={category.title}>
                 <span className="portal-category-image">
-                  <Image src={category.image} alt="" width={96} height={96} sizes="96px" />
+                  <img src={category.image} alt="" width={96} height={96} loading="lazy" decoding="async" />
                 </span>
                 <span><strong>{category.title}</strong><small>{category.description}</small></span>
               </Link>
