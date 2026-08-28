@@ -169,9 +169,7 @@ export const mirahezeSearchEntries: SearchEntry[] = mirahezeWikiPages.map((page)
   title: page.title,
   type: 'Community page',
   summary: page.categories.length ? `${mirahezeWikiSnapshot.siteName} · ${page.categories.join(', ')}` : `${mirahezeWikiSnapshot.siteName} source page`,
-  verification: 'community',
   terms: [page.title, ...page.categories, mirahezeWikiSnapshot.siteName].join(' ').toLowerCase(),
   href: `/sources/miraheze/${page.pageId}`,
   source: 'community',
 }));
-

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const emptyDraft = { page: '', finding: '', evidence: '', name: '' };
+const emptyDraft = { page: '', finding: '', details: '', name: '' };
 
 export function ContributionDraft() {
   const [draft, setDraft] = useState(emptyDraft);
@@ -31,17 +31,17 @@ export function ContributionDraft() {
   const text = [
     `Page: ${draft.page || '[page or new article]'}`,
     `Suggested finding: ${draft.finding || '[what should change]'}`,
-    `Evidence: ${draft.evidence || '[how this was verified]'}`,
+    `Helpful details: ${draft.details || '[requirements, steps, drops, or screenshot notes]'}`,
     `Credit: ${draft.name || '[anonymous]'}`,
     '',
-    'Please keep private character names, holdings, coordinates, and automation controls out of the submission.',
+    'Please keep private character and account information out of the submission.',
   ].join('\n');
 
   return (
     <div className="contribution-draft">
       <label><span>Page or article name</span><input value={draft.page} onChange={(event) => setDraft({ ...draft, page: event.target.value })} placeholder="e.g. Infused Coal" /></label>
       <label><span>What did you discover or correct?</span><textarea rows={5} value={draft.finding} onChange={(event) => setDraft({ ...draft, finding: event.target.value })} placeholder="State the smallest clear factual change…" /></label>
-      <label><span>Evidence</span><textarea rows={4} value={draft.evidence} onChange={(event) => setDraft({ ...draft, evidence: event.target.value })} placeholder="Live observation, repeatable steps, item key, recipe asset, screenshot, or route…" /></label>
+      <label><span>Helpful details</span><textarea rows={4} value={draft.details} onChange={(event) => setDraft({ ...draft, details: event.target.value })} placeholder="Requirements, steps, ingredients, drops, directions, or screenshot notes…" /></label>
       <label><span>Credit name (optional)</span><input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} placeholder="Anonymous is fine" /></label>
       <div className="draft-actions">
         <button type="button" onClick={async () => { await navigator.clipboard.writeText(text); setCopied(true); window.setTimeout(() => setCopied(false), 1800); }}>{copied ? 'Copied to clipboard' : 'Copy contribution proposal'}</button>

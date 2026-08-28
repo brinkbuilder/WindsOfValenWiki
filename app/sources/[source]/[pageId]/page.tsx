@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { source, pageId } = await params;
   const record = getWikiSourcePage(source, Number(pageId));
   if (!record) return { title: 'Source page not found' };
-  const description = `${record.source.name} revision ${record.page.revisionId}, presented with attribution in The Valen Archives.`;
+  const description = `Read the ${record.page.title} player guide from ${record.source.name}.`;
   return { title: `${record.page.title} — ${record.source.shortName}`, description, openGraph: { title: record.page.title, description, images: [] }, twitter: { card: 'summary', title: record.page.title, description, images: [] } };
 }
 
@@ -32,34 +32,32 @@ export default async function WikiSourceReaderPage({ params }: PageProps) {
 
       <header className="source-reader-header">
         <div>
-          <p className="eyebrow">Copied with developer permission · revision preserved</p>
+          <p className="eyebrow">Community player guide</p>
           <h1>{page.title}</h1>
           <p>{source.role}</p>
         </div>
         <dl>
           <div><dt>Source</dt><dd>{source.name}</dd></div>
-          <div><dt>Revision</dt><dd>{page.revisionId}</dd></div>
-          <div><dt>Revised</dt><dd><time dateTime={page.revisedAt}>{new Date(page.revisedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}</time></dd></div>
           <div><dt>Licence</dt><dd>{source.licenseName}</dd></div>
         </dl>
       </header>
 
       <nav className="source-reader-actions" aria-label="Source page actions">
         <Link href={directoryHref}>Back to directory</Link>
-        <a href={source.permalink(page)} target="_blank" rel="noreferrer">Open permanent source revision ↗</a>
+        <a href={source.permalink(page)} target="_blank" rel="noreferrer">Visit original wiki ↗</a>
       </nav>
 
       {requiresOriginalInteraction && !error && (
         <aside className="source-reader-notice">
-          <div><strong>Interactive calculator</strong><p>The safe archive copy preserves its static content, but source scripts and form controls are intentionally not executed here.</p></div>
+          <div><strong>Interactive calculator</strong><p>Open this guide on the original wiki to use its calculator.</p></div>
           <a href={source.permalink(page)} target="_blank" rel="noreferrer">Use the original calculator ↗</a>
         </aside>
       )}
 
       {error ? (
         <section className="source-reader-error">
-          <h2>This revision could not be loaded inside the archive.</h2>
-          <p>{error}</p>
+          <h2>This guide is temporarily unavailable here.</h2>
+          <p>You can still read it on the original community wiki.</p>
           <a href={source.permalink(page)} target="_blank" rel="noreferrer">Read it on {source.name} ↗</a>
         </section>
       ) : (
@@ -68,8 +66,8 @@ export default async function WikiSourceReaderPage({ params }: PageProps) {
 
       <footer className="source-attribution">
         <div>
-          <strong>Source and reuse</strong>
-          <p>Copied from <a href={source.permalink(page)} target="_blank" rel="noreferrer">{source.name}, revision {page.revisionId}</a>. {source.id === 'miraheze' ? 'Miraheze material is licensed CC BY-SA 4.0; adaptations on this page retain that attribution and licence.' : 'The game-development team has authorized reuse of this material.'}</p>
+          <strong>Community guide</strong>
+          <p>Originally published on <a href={source.permalink(page)} target="_blank" rel="noreferrer">{source.name}</a>. {source.id === 'miraheze' ? 'Miraheze material is licensed CC BY-SA 4.0.' : 'Reproduced with permission from the Winds of Valen team.'}</p>
         </div>
         {source.licenseUrl && <a href={source.licenseUrl} target="_blank" rel="noreferrer">View licence ↗</a>}
         {images.length > 0 && <span>{images.length} referenced {images.length === 1 ? 'image' : 'images'}</span>}

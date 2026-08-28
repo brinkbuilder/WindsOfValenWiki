@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { SearchEntry } from '../lib/wiki-data';
-import { VerificationBadge } from './VerificationBadge';
 
 function scoreEntry(entry: SearchEntry, query: string) {
   const title = entry.title.toLowerCase();
@@ -108,7 +107,6 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
                 <strong>{entry.title}</strong>
                 <small>{entry.type} · {entry.summary}</small>
               </span>
-              <VerificationBadge verification={entry.verification} compact />
             </a>
           )) : (
             <p className="no-suggestions">No direct title match. Search the full article text instead.</p>

@@ -4,7 +4,7 @@ import { communityWikiPages, communityWikiSnapshot } from '../../lib/community-w
 
 export const metadata: Metadata = {
   title: 'Winds Of Valen Wiki source directory',
-  description: 'An attributed revision-level directory of community Winds of Valen pages cross-referenced by The Valen Archives.',
+  description: 'Browse current community Winds of Valen player guides.',
 };
 
 const categoryCount = (category: string) => communityWikiPages.filter((page) => page.categories.includes(category)).length;
@@ -14,20 +14,20 @@ export default function CommunitySourcePage() {
     <main className="inner-page community-source-page">
       <header className="source-hero">
         <div>
-          <p className="eyebrow">Attributed community source</p>
-          <h1>Winds Of Valen Wiki directory</h1>
-          <p>The development team authorized reuse of this current community wiki. Pages open inside the archive with copied information and images while retaining their source revision and a clear “Community documented” boundary.</p>
+          <p className="eyebrow">Current community guides</p>
+          <h1>Winds Of Valen Wiki</h1>
+          <p>Browse current player guides for skills, items, monsters, regions, quests, bosses, and other useful game topics.</p>
         </div>
         <dl>
           <div><dt>Substantive articles</dt><dd>{communityWikiSnapshot.articleCount}</dd></div>
           <div><dt>Non-redirect pages</dt><dd>{communityWikiSnapshot.pageCount}</dd></div>
-          <div><dt>Snapshot</dt><dd>{communityWikiSnapshot.retrievedAt}</dd></div>
+          <div><dt>Guide categories</dt><dd>Items · Skills · World</dd></div>
         </dl>
       </header>
 
       <section className="source-policy-note">
-        <strong>Evidence boundary</strong>
-        <p>Developer permission allows direct reuse of text and images. Attribution and stable revision links are still preserved, and a community claim never silently replaces a bridge-confirmed value.</p>
+        <strong>Best place to start</strong>
+        <p>This is the current community-maintained wiki. Use it first when both community wikis have a guide for the same topic.</p>
         <a href="https://windsofvalenwiki.com/w/Main_Page" target="_blank" rel="noreferrer">Visit the community wiki <span>↗</span></a>
       </section>
 

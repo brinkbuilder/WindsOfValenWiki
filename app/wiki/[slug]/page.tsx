@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { VerificationBadge } from '../../components/VerificationBadge';
 import { findWikiSourceMatches, wikiSources, wikiSourceReaderPath } from '../../lib/wiki-source-registry';
-import { verificationLabels, wikiBySlug, wikiEntries, type ExternalSource } from '../../lib/wiki-data';
+import { wikiBySlug, wikiEntries, type ExternalSource } from '../../lib/wiki-data';
 
 export function generateStaticParams() {
   return wikiEntries.map((entry) => ({ slug: entry.slug }));
@@ -26,7 +25,6 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   const entry = wikiBySlug.get(slug);
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
-  const verification = verificationLabels[entry.verification];
   const automaticSources: ExternalSource[] = findWikiSourceMatches(entry.title, entry.aliases).map(({ source, page }) => ({
     id: `${source.id}-${page.pageId}`,
     site: source.name,
@@ -37,7 +35,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
     retrievedAt: source.retrievedAt,
     relation: 'supplements',
     scope: ['Matching source article'],
-    note: source.id === 'miraheze' ? 'Legacy cross-reference; prefer newer evidence when values differ.' : 'Current community cross-reference.',
+    note: source.id === 'miraheze' ? 'Older guide; details may differ from the current game.' : 'Current community guide.',
     readerPath: wikiSourceReaderPath(source.id, page.pageId),
   }));
   const externalSources = [...(entry.externalSources ?? []), ...automaticSources]
@@ -61,7 +59,6 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           <h1>{entry.title}</h1>
           <p>{entry.intro}</p>
           <div className="article-badges">
-            <VerificationBadge verification={entry.verification} />
             {entry.categories.slice(0, 2).map((category) => <span className="topic-pill" key={category}>{category}</span>)}
           </div>
         </div>
@@ -70,8 +67,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
 
       <nav className="article-tabs" aria-label="Article views">
         <a className="active" href="#article">Article</a>
-        <a href="#evidence">Evidence</a>
-        {externalSources.length > 0 && <a href="#source-references">Sources</a>}
+        {externalSources.length > 0 && <a href="#source-references">More guides</a>}
         <a href="#related">Related pages</a>
         <a href="/contribute">Suggest an edit</a>
       </nav>
@@ -82,8 +78,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             <strong>Contents</strong>
             <ol>
               {entry.sections.map((section, index) => <li key={section.title}><a href={`#section-${index + 1}`}>{section.title}</a></li>)}
-              <li><a href="#evidence">Evidence and source</a></li>
-              {externalSources.length > 0 && <li><a href="#source-references">External source revisions</a></li>}
+              {externalSources.length > 0 && <li><a href="#source-references">More player guides</a></li>}
             </ol>
           </aside>
 
@@ -103,41 +98,22 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             </section>
           ))}
 
-          <section className="evidence-panel" id="evidence">
-            <div className="evidence-mark" aria-hidden="true">✓</div>
-            <div>
-              <p className="eyebrow">Evidence record</p>
-              <h2>{entry.source.label}</h2>
-              <p>{entry.source.detail}</p>
-              <dl>
-                <div><dt>Observed</dt><dd>{entry.source.observed}</dd></div>
-                <div><dt>Confidence</dt><dd>{verification.label}</dd></div>
-                {entry.technicalId && <div><dt>Technical identity</dt><dd><code>{entry.technicalId}</code></dd></div>}
-              </dl>
-            </div>
-          </section>
-
           {externalSources.length > 0 && (
             <section className="external-sources" id="source-references">
-              <p className="eyebrow">Revision-level attribution</p>
-              <h2>External source revisions</h2>
-              <p className="external-sources-intro">These records remain distinct from the page’s primary verification. Open the copied version inside the archive or inspect the permanent source revision.</p>
+              <p className="eyebrow">Keep reading</p>
+              <h2>More player guides</h2>
+              <p className="external-sources-intro">Related pages from the Winds of Valen community wikis.</p>
               <div className="external-source-list">
                 {externalSources.map((source) => (
                   <article className={`external-source-card source-relation-${source.relation}`} id={`source-${source.id}`} key={`${source.site}-${source.revisionId}`}>
                     <div>
-                      <span>{source.relation}</span>
+                      <span>{source.site}</span>
                       <h3>{source.pageTitle}</h3>
-                      <p>{source.note ?? `Supports: ${source.scope.join(', ')}`}</p>
+                      <p>Open the community guide for additional tips and details.</p>
                     </div>
-                    <dl>
-                      <div><dt>Site</dt><dd>{source.site}</dd></div>
-                      <div><dt>Revision</dt><dd>{source.revisionId}</dd></div>
-                      <div><dt>Revised</dt><dd><time dateTime={source.revisedAt}>{new Date(source.revisedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}</time></dd></div>
-                    </dl>
                     <div className="external-source-actions">
-                      {source.readerPath && <a href={source.readerPath}>Read copied page</a>}
-                      <a href={source.permalink} target="_blank" rel="noreferrer">Original revision ↗</a>
+                      {source.readerPath && <a href={source.readerPath}>Read guide</a>}
+                      <a href={source.permalink} target="_blank" rel="noreferrer">Visit original wiki ↗</a>
                     </div>
                   </article>
                 ))}
@@ -172,13 +148,11 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           <div className="infobox-heading">
             <span>{entry.type}</span>
             <h2>{entry.title}</h2>
-            {entry.technicalId && <code>{entry.technicalId}</code>}
           </div>
           <dl>
-            {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}{fact.sourceRef && <a className="fact-source-ref" href={`#source-${fact.sourceRef}`} aria-label={`Source for ${fact.label}`}>source</a>}</dd></div>)}
+            {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
           </dl>
-          <div className="infobox-status"><VerificationBadge verification={entry.verification} compact /><p>{verification.description}</p></div>
-          <a href="/contribute">Report missing or incorrect data <span>→</span></a>
+          <a href="/contribute">Suggest a correction <span>→</span></a>
         </aside>
       </div>
     </main>

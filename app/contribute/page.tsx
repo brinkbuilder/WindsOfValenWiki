@@ -19,14 +19,14 @@ export default function ContributePage() {
         </section>
         <aside>
           <p className="eyebrow">Contribution checklist</p>
-          <h2>What makes useful evidence?</h2>
+          <h2>What makes a useful edit?</h2>
           <ol>
-            <li><span>01</span><div><strong>Name the page or entity.</strong><p>Use the visible name and technical ID when available.</p></div></li>
-            <li><span>02</span><div><strong>Describe the exact observation.</strong><p>Separate what happened from what you think it means.</p></div></li>
-            <li><span>03</span><div><strong>Include repeatable evidence.</strong><p>Recipe inputs, outputs, item deltas, class names, or route behaviour are ideal.</p></div></li>
-            <li><span>04</span><div><strong>Protect player privacy.</strong><p>Remove character names, balances, exact coordinates, and command data.</p></div></li>
+            <li><span>01</span><div><strong>Use the in-game name.</strong><p>Name the item, creature, place, quest, or skill exactly as players see it.</p></div></li>
+            <li><span>02</span><div><strong>Explain what should change.</strong><p>Keep the correction short and include the useful player-facing detail.</p></div></li>
+            <li><span>03</span><div><strong>Add helpful context.</strong><p>Recipe ingredients, requirements, drops, directions, screenshots, or combat tips are ideal.</p></div></li>
+            <li><span>04</span><div><strong>Protect player privacy.</strong><p>Remove character names and private account information from screenshots.</p></div></li>
           </ol>
-          <a href="/about/data">Read the full data policy <span>→</span></a>
+          <a href="/about/data">Read about the wiki <span>→</span></a>
         </aside>
       </div>
     </main>

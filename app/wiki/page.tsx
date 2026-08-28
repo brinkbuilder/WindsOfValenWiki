@@ -16,7 +16,7 @@ export default async function WikiIndexPage({ searchParams }: { searchParams: Pr
         <div>
           <p className="eyebrow">The complete field index</p>
           <h1>Explore the archives</h1>
-          <p>Browse structured pages generated from bridge exports, recorded routes, player-confirmed field notes, and clearly labelled community documentation.</p>
+          <p>Browse items, recipes, skills, quests, creatures, locations, and practical routes for every stage of your adventure.</p>
         </div>
         <dl className="index-stats">
           <div><dt>Pages</dt><dd>{wikiStats.articles}</dd></div>

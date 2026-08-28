@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import type { SearchEntry } from '../lib/wiki-data';
-import { VerificationBadge } from './VerificationBadge';
 
 const groups = [
   { key: 'all', label: 'All pages', types: [] },
@@ -51,7 +50,6 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
           <a className="index-card" href={`/wiki/${entry.slug}`} key={entry.slug}>
             <div className="index-card-top">
               <span className="index-letter" aria-hidden="true">{entry.type.slice(0, 1)}</span>
-              <VerificationBadge verification={entry.verification} compact />
             </div>
             <p>{entry.type}</p>
             <h2>{entry.title}</h2>

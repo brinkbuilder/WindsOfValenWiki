@@ -62,6 +62,14 @@ function cleanAttributes(attributes: Record<string, string>) {
   return cleaned;
 }
 
+function playerFacingSourceText(value: string) {
+  return value
+    .replace(/\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b/gi, '')
+    .replace(/\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/gi, '')
+    .replace(/\b(?:backend|technical class|class name)\b/gi, 'game')
+    .replace(/\s{2,}/g, ' ');
+}
+
 function sanitizeWikiHtml(html: string, source: WikiSourceDefinition) {
   return sanitizeHtml(html, {
     allowedTags: ['div', 'section', 'article', 'aside', 'header', 'footer', 'nav', 'span', 'p', 'br', 'hr', 'strong', 'b', 'em', 'i', 'u', 's', 'small', 'mark', 'abbr', 'sub', 'sup', 'code', 'pre', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'table', 'caption', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'figure', 'figcaption', 'picture', 'img', 'a'],
@@ -74,6 +82,7 @@ function sanitizeWikiHtml(html: string, source: WikiSourceDefinition) {
     },
     allowedSchemes: ['http', 'https', 'mailto'],
     disallowedTagsMode: 'discard',
+    textFilter: playerFacingSourceText,
     exclusiveFilter: (frame) => /display\s*:\s*none/i.test(frame.attribs?.style ?? '') || /mw-editsection/.test(frame.attribs?.class ?? ''),
     transformTags: {
       '*': (tagName, attribs) => ({ tagName, attribs: cleanAttributes(attribs) }),

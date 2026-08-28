@@ -11,16 +11,16 @@ const categories = [
   {
     eyebrow: 'Database',
     title: 'Items & equipment',
-    description: 'Keys, stack sizes, uses, crafting inputs, and confirmed sources.',
-    count: `${wikiStats.verifiedItems} verified items`,
+    description: 'Uses, crafting inputs, equipment, and where to find them.',
+    count: `${wikiStats.items} item guides`,
     mark: 'I',
     href: '/wiki?type=items',
   },
   {
     eyebrow: 'Bestiary',
     title: 'Creatures',
-    description: 'Observed enemies, spawn states, drops, and combat notes.',
-    count: '2 verified creatures',
+    description: 'Enemy locations, attacks, drops, weaknesses, and combat tips.',
+    count: `${wikiStats.creatures} creature guides`,
     mark: 'B',
     href: '/wiki?type=world',
   },
@@ -35,7 +35,7 @@ const categories = [
   {
     eyebrow: 'World',
     title: 'Routes & locations',
-    description: 'Recorded paths, resource circuits, banks, stations, and hazards.',
+    description: 'Resource circuits, banks, crafting stations, landmarks, and hazards.',
     count: `${wikiStats.routes} mapped routes`,
     mark: 'R',
     href: '/wiki?type=world',
@@ -47,21 +47,21 @@ const discoveries = [
     type: 'Item',
     title: 'Infused Coal',
     detail: '1 Coal + 2 Essence · Reduction Station',
-    status: 'Engine verified',
+    status: 'Crafting material',
     slug: 'infused-coal',
   },
   {
     type: 'Location',
     title: 'Cavern Mine',
     detail: 'Ebony, silver, coal, spiders, and hazard rooms',
-    status: 'Live observation',
+    status: 'Mining location',
     slug: 'cavern-mine',
   },
   {
     type: 'Guide',
     title: 'Silver mining circuit',
     detail: 'Six-rock route with resource-crate banking',
-    status: 'Route verified',
+    status: 'Training guide',
     slug: 'silver-mining',
   },
 ];
@@ -76,7 +76,7 @@ export default function Home() {
           <p className="kicker"><span /> The player-made field guide</p>
           <h1>Every trail has a story.<br />Let’s map them all.</h1>
           <p className="hero-intro">
-            Search a growing encyclopedia of items, creatures, recipes, routes, and player-tested guides—grounded in what the game actually reports.
+            Search a growing encyclopedia of items, creatures, recipes, locations, quests, and practical guides made for Winds of Valen players.
           </p>
 
           <SearchBox entries={allSearchEntries} />
@@ -93,47 +93,47 @@ export default function Home() {
           <div className="field-note-heading">
             <span className="field-note-icon" aria-hidden="true">⌁</span>
             <div>
-              <p>Bridge verified</p>
-              <h2>Today’s field notes</h2>
+              <p>Quick guide</p>
+              <h2>Make Infused Coal</h2>
             </div>
-            <span className="live-pill"><i /> Imported data</span>
+            <span className="live-pill"><i /> Player tip</span>
           </div>
           <div className="field-stat featured-stat">
-            <span>Crafting identity</span>
-            <strong>Recipe_Infused_Coal</strong>
+            <span>Reduction Station recipe</span>
+            <strong>Infused Coal</strong>
             <p>1 Coal + 2 Essence → 1 Infused Coal</p>
           </div>
           <div className="field-stat-grid">
             <div className="field-stat">
-              <span>Mapped routes</span>
+              <span>Travel guides</span>
               <strong>{wikiStats.routes}</strong>
-              <p>Recorded in world space</p>
+              <p>Mining, banking, and combat</p>
             </div>
             <div className="field-stat">
               <span>Potion recipes</span>
               <strong>{wikiStats.recipes}</strong>
-              <p>Asset identities found</p>
+              <p>Across four station groups</p>
             </div>
           </div>
           <div className="provenance">
             <span className="provenance-line" />
-            <p><strong>Not guessed.</strong> Technical facts retain their source, observation time, and verification status.</p>
+            <p><strong>Made for players.</strong> Follow the steps, check what you need, and get back into the game.</p>
           </div>
         </aside>
       </section>
 
       <section className="community-source-strip" aria-labelledby="community-source-heading">
         <div>
-          <p className="eyebrow">New source connected</p>
-          <h2 id="community-source-heading">Both developer wikis are now cross-referenced</h2>
-          <p>Search current and legacy wiki pages alongside bridge-backed archive articles. Source pages open inside the archive with their original information, images, fixed revision, and attribution.</p>
+          <p className="eyebrow">More community knowledge</p>
+          <h2 id="community-source-heading">Guides from both Winds of Valen wikis</h2>
+          <p>Search current guides and useful older pages in one place, including items, quests, maps, calculators, bosses, and skill information.</p>
         </div>
         <dl>
-          <div><dt>Source articles</dt><dd>{indexedSourceArticles}</dd></div>
-          <div><dt>Indexed source pages</dt><dd>{indexedSourcePages}</dd></div>
-          <div><dt>Archive articles</dt><dd>{wikiStats.articles}</dd></div>
+          <div><dt>Community articles</dt><dd>{indexedSourceArticles}</dd></div>
+          <div><dt>Searchable pages</dt><dd>{indexedSourcePages}</dd></div>
+          <div><dt>Player guides</dt><dd>{wikiStats.articles}</dd></div>
         </dl>
-        <Link href="/sources">Browse the source library <span>→</span></Link>
+        <Link href="/sources">Browse community guides <span>→</span></Link>
       </section>
 
       <section className="content-section" id="explore">
@@ -189,7 +189,7 @@ export default function Home() {
             <i /><i /><i /><i /><i /><i />
           </span>
           <h2>Mine silver without losing the trail</h2>
-          <p>A verified six-rock circuit, a 500-capacity resource crate, and a return route that resumes from the nearest waypoint.</p>
+          <p>A six-rock circuit, resource-container banking, and a simple return loop that keeps your mining session moving.</p>
           <Link href="/wiki/silver-mining">Read the silver guide <span>→</span></Link>
         </aside>
       </section>

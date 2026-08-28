@@ -9,11 +9,11 @@ export function SiteFooter() {
       </div>
       <nav className="footer-links" aria-label="Footer navigation">
         <Link href="/wiki">All pages</Link>
-        <Link href="/sources">Source library</Link>
-        <Link href="/about/data">Data policy</Link>
+        <Link href="/sources">Community guides</Link>
+        <Link href="/about/data">About</Link>
         <Link href="/contribute">Contribute</Link>
       </nav>
-      <p>Game data and community notes stay clearly labelled. No private character data is published.</p>
+      <p>Built by the Winds of Valen community to help players spend less time searching and more time adventuring.</p>
     </footer>
   );
 }

@@ -1,69 +1,61 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { verificationLabels } from '../../lib/wiki-data';
 
-export const metadata: Metadata = { title: 'Data and verification', description: 'How The Valen Archives separates bridge-confirmed facts, observations, routes, and community notes.' };
+export const metadata: Metadata = {
+  title: 'About the wiki',
+  description: 'How The Valen Archives helps Winds of Valen players find clear, useful game information.',
+};
 
-export default function DataPolicyPage() {
+export default function AboutWikiPage() {
   return (
     <main className="inner-page policy-page">
       <header className="simple-page-heading">
-        <p className="eyebrow">Trust the trail</p>
-        <h1>How verification works</h1>
-        <p>The wiki is designed to say what is known, how it is known, and what remains uncertain—without publishing private player data.</p>
+        <p className="eyebrow">Made for the community</p>
+        <h1>A player guide first</h1>
+        <p>The Valen Archives brings together practical Winds of Valen knowledge so players can quickly find what they need and return to the game.</p>
       </header>
 
-      <section className="pipeline" aria-label="Data pipeline">
-        <div><span>01</span><strong>Targeted bridge export</strong><p>Read bounded game objects and recipe identities.</p></div>
+      <section className="pipeline" aria-label="How to use the wiki">
+        <div><span>01</span><strong>Find a topic</strong><p>Search by the name shown in game.</p></div>
         <i aria-hidden="true">→</i>
-        <div><span>02</span><strong>Normalised record</strong><p>Attach stable IDs, sources, dates, and confidence.</p></div>
+        <div><span>02</span><strong>Follow the guide</strong><p>Check requirements, steps, drops, and tips.</p></div>
         <i aria-hidden="true">→</i>
-        <div><span>03</span><strong>Wiki templates</strong><p>Generate articles, indexes, search, and related links.</p></div>
+        <div><span>03</span><strong>Help improve it</strong><p>Suggest a correction when something changes.</p></div>
       </section>
 
       <section className="policy-grid">
         <article>
-          <p className="eyebrow">Evidence labels</p>
-          <h2>Six levels of evidence</h2>
-          <div className="label-list">
-            {Object.entries(verificationLabels).map(([key, item]) => (
-              <div key={key}><i className={`verification-${key}`} /><span><strong>{item.label}</strong><p>{item.description}</p></span></div>
-            ))}
-          </div>
-        </article>
-        <article>
-          <p className="eyebrow">System-owned facts</p>
-          <h2>Facts stay attached to provenance</h2>
+          <p className="eyebrow">What belongs here</p>
+          <h2>Information players can use</h2>
           <ul>
-            <li>Item keys, recipe assets, actor classes, and route metrics retain their technical identity.</li>
-            <li>Unknown ingredients, effects, requirements, and drop rates remain visibly unknown.</li>
-            <li>Bank totals are not historical facts until the bank is hydrated after reconnect.</li>
-            <li>Community writing can explain a fact but does not silently replace a bridge-confirmed value.</li>
-            <li>Community claims link to a fixed revision and remain visible when they conflict with newer or stronger evidence.</li>
+            <li>Item uses, equipment, shops, prices, and drops</li>
+            <li>Skill requirements, training methods, and recipes</li>
+            <li>Quest steps, locations, and unlocks</li>
+            <li>Creature attacks, weaknesses, rewards, and strategies</li>
+            <li>Routes, landmarks, banks, and useful shortcuts</li>
           </ul>
         </article>
         <article>
-          <p className="eyebrow">Privacy boundary</p>
-          <h2>What never becomes public</h2>
-          <ul>
-            <li>Character and account names</li>
-            <li>Personal holdings and progression</li>
-            <li>Exact live world coordinates</li>
-            <li>Command files or automation controls</li>
-            <li>Local paths, credentials, and session identifiers</li>
-          </ul>
+          <p className="eyebrow">Clear writing</p>
+          <h2>Use names players recognize</h2>
+          <p>Articles use the names and terms shown in the game, with every section focused on information players can act on.</p>
         </article>
         <article>
-          <p className="eyebrow">Safe importer</p>
-          <h2>Targeted and cached by design</h2>
-          <p>Broad UObject enumeration is excluded because it is unstable on this game build. A production importer should request small, explicit datasets, cache results, and never invoke movement, crafting, inventory, or combat actions.</p>
-          <Link href="/wiki/valenbridge">Read the ValenBridge methodology <span>→</span></Link>
+          <p className="eyebrow">When details are missing</p>
+          <h2>Say what still needs an answer</h2>
+          <p>If a requirement, drop rate, effect, or reward is not known yet, the guide states that plainly. It does not fill the space with developer-only information.</p>
         </article>
         <article>
-          <p className="eyebrow">External provenance</p>
-          <h2>Community pages are references, not silent truth</h2>
-          <p>Both developer wikis contribute page discovery, revision metadata, copied articles, images, and factual leads under explicit project permission. Attribution remains visible, and Miraheze material retains its CC BY-SA 4.0 notice.</p>
-          <Link href="/sources">Browse attributed source revisions <span>→</span></Link>
+          <p className="eyebrow">Community knowledge</p>
+          <h2>Built from the wikis players already use</h2>
+          <p>The current Winds Of Valen Wiki and the older Miraheze archive provide guides, maps, calculators, images, quest notes, and historical information.</p>
+          <Link href="/sources">Browse community guides <span>→</span></Link>
+        </article>
+        <article>
+          <p className="eyebrow">Help the next player</p>
+          <h2>Share a correction or useful tip</h2>
+          <p>Use the contribution form to describe what changed and add any requirements, steps, drops, directions, or screenshot notes that would help another player.</p>
+          <Link href="/contribute">Suggest an edit <span>→</span></Link>
         </article>
       </section>
     </main>

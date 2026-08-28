@@ -484,9 +484,7 @@ export const communitySearchEntries: SearchEntry[] = communityWikiPages.map((pag
   title: page.title,
   type: 'Community page',
   summary: page.categories.length ? `${communityWikiSnapshot.siteName} · ${page.categories.join(', ')}` : `${communityWikiSnapshot.siteName} source page`,
-  verification: 'community',
   terms: [page.title, ...page.categories, communityWikiSnapshot.siteName].join(' ').toLowerCase(),
   href: `/sources/community/${page.pageId}`,
   source: 'community',
 }));
-

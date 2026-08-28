@@ -25,17 +25,17 @@ export const metadata: Metadata = {
     default: 'The Valen Archives — Winds of Valen Player Wiki',
     template: '%s — The Valen Archives',
   },
-  description: 'A player-made Winds of Valen encyclopedia built from bridge-verified game data, recorded routes, and community field notes.',
+  description: 'A player-made Winds of Valen encyclopedia of items, creatures, quests, recipes, locations, and practical guides.',
   openGraph: {
     title: 'The Valen Archives',
-    description: 'A Winds of Valen player wiki built from bridge-verified game data and community field notes.',
+    description: 'A Winds of Valen player wiki for items, creatures, quests, skills, locations, and practical guides.',
     type: 'website',
     images: [],
   },
   twitter: {
     card: 'summary',
     title: 'The Valen Archives',
-    description: 'A Winds of Valen player wiki built from bridge-verified game data and community field notes.',
+    description: 'A Winds of Valen player wiki for items, creatures, quests, skills, locations, and practical guides.',
     images: [],
   },
 };

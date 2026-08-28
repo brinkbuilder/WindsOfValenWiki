@@ -5,8 +5,8 @@ export function SiteHeader() {
     <>
       <div className="announcement">
         <span className="announcement-dot" />
-        Bridge evidence and attributed community sources stay clearly separated.
-        <Link href="/about/data">How verification works</Link>
+        Explore items, quests, bosses, skilling methods, and community guides.
+        <Link href="/about/data">About the wiki</Link>
       </div>
       <header className="topbar">
         <Link className="brand" href="/" aria-label="The Valen Archives home">
@@ -20,7 +20,7 @@ export function SiteHeader() {
           <Link href="/wiki">Explore</Link>
           <Link href="/wiki?type=items">Database</Link>
           <Link href="/wiki?type=guides">Guides</Link>
-          <Link href="/sources">Sources</Link>
+          <Link href="/sources">Community guides</Link>
           <Link href="/recent">Recent changes</Link>
         </nav>
         <Link className="contribute-button" href="/contribute">Contribute</Link>
@@ -31,8 +31,8 @@ export function SiteHeader() {
             <Link href="/wiki?type=items">Items & database</Link>
             <Link href="/wiki?type=guides">Guides</Link>
             <Link href="/recent">Recent changes</Link>
-            <Link href="/sources">Source library</Link>
-            <Link href="/about/data">Verification</Link>
+            <Link href="/sources">Community guides</Link>
+            <Link href="/about/data">About the wiki</Link>
             <Link href="/contribute">Contribute</Link>
           </nav>
         </details>
