@@ -304,7 +304,7 @@ const locationEntries: WikiEntry[] = [
     intro: 'Lava Cavern is a high-level combat area containing level-60 enemies and a boss encounter.',
     facts: [{ label: 'Reported enemy level', value: '60' }, { label: 'Boss', value: 'Present' }, { label: 'Verification', value: 'Community documented' }],
     sections: [{ title: 'Preparation', paragraphs: ['Enemy composition, resistances, route hazards, and safe-banking paths still need direct observation. Enter prepared for a high-level combat area.'] }],
-    related: ['combat', 'the-burning-king', 'volcano-mages-route'],
+    related: ['combat', 'ashen-mage', 'ashen-archer', 'ashen-warrior', 'the-burning-king', 'volcano-mages-route'],
   }),
   communityEntry('Crystal Cavern', {
     slug: 'crystal-cavern', title: 'Crystal Cavern', type: 'Location', categories: ['Locations', 'Caverns', 'Mining', 'Community documented'],
@@ -312,11 +312,55 @@ const locationEntries: WikiEntry[] = [
     intro: 'Crystal Cavern contains level-50 mining resources and a miniquest that permanently unlocks its bank.',
     facts: [{ label: 'Reported mining tier', value: 'Level 50' }, { label: 'Bank', value: 'Miniquest unlock reported' }, { label: 'Verification', value: 'Community documented' }],
     sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact resource types, requirements, and routes still need in-game confirmation.'] }],
-    related: ['crystal-caverns-bank-unlock', 'essence-rock', 'banking'],
+    related: ['crystal-caverns-bank-unlock', 'essence-rock', 'ashen-mage', 'banking'],
   }),
 ];
 
 const creatureEntries: WikiEntry[] = [
+  communityEntry('Ashen Mage', {
+    slug: 'ashen-mage', title: 'Ashen Mage', type: 'Creature', categories: ['Creatures', 'Caverns', 'Combat', 'Community documented'],
+    summary: 'A level-95 undead caster found deep inside the Crystal Caverns.',
+    intro: 'Ashen Mages wield charred fire staffs and attack with mystical and fire magic. Their full-health combat estimate is 2,925 total XP per defeat before the 75/25 split.',
+    facts: [{ label: 'Reported level', value: '95' }, { label: 'Reported health', value: '1,500' }, { label: 'Location', value: 'Crystal Caverns' }, { label: 'Style', value: 'Mystical and fire' }, { label: 'Reported drops', value: 'Coins · Dirt/Ash · Coal · Gold Dust · Charred Ring Piece 3' }],
+    sections: [
+      { title: 'Combat profile', bullets: ['Uses mystical and fire attacks.', 'Full-health XP estimate: 2,925 total XP before the combat split.', 'Watch the attack animation and keep fire resistance in mind.'] },
+      { title: 'Known drops', paragraphs: ['The current guide lists Coins, Dirt/Ash, Coal, Gold Dust, and Charred Ring Piece 3. Drop rates are not provided.'] },
+    ],
+    related: ['combat', 'cavern-mine', 'the-burning-king'],
+  }),
+  communityEntry('Ashen Archer', {
+    slug: 'ashen-archer', title: 'Ashen Archer', type: 'Creature', aliases: ['Ashen Ranger', 'Ashen Rangers'], categories: ['Creatures', 'Caverns', 'Combat', 'Community documented'],
+    summary: 'A level-95 undead ranged attacker found in the West Mine Ashen Cavern.',
+    intro: 'Ashen Archers wield charred large bows and pressure players with quick ranged attacks from a distance. They are also commonly referred to as Ashen Rangers.',
+    facts: [{ label: 'Reported level', value: '95' }, { label: 'Reported health', value: '1,500' }, { label: 'Reported total XP', value: '2,925' }, { label: 'Location', value: 'West Mine Ashen Cavern' }, { label: 'Style', value: 'Ranged' }, { label: 'Reported drops', value: 'Coins · Gold Dust · Coal Ore · Charred Ring Piece 2' }],
+    sections: [
+      { title: 'Combat profile', bullets: ['Uses quick ranged attacks with a charred large bow.', 'Keep moving and use suitable protection against Pierce attacks.', 'A defeat awards 2,925 total XP before the combat split.'] },
+      { title: 'Known drops', paragraphs: ['The current guide lists Coins, Gold Dust, Coal Ore, and Charred Ring Piece 2. Drop rates are not provided.'] },
+    ],
+    related: ['combat', 'the-burning-king', 'ashen-mage'],
+  }),
+  communityEntry('Ashen Warrior', {
+    slug: 'ashen-warrior', title: 'Ashen Warrior', type: 'Creature', categories: ['Creatures', 'Caverns', 'Combat', 'Community documented'],
+    summary: 'A level-95 undead melee attacker found in the West Mine Ashen Cavern.',
+    intro: 'Ashen Warriors wield charred large swords and rely on heavy melee attacks. Their full-health combat estimate is 2,925 total XP per defeat before the 75/25 split.',
+    facts: [{ label: 'Reported level', value: '95' }, { label: 'Reported health', value: '1,500' }, { label: 'Location', value: 'West Mine Ashen Cavern' }, { label: 'Style', value: 'Heavy melee' }, { label: 'Reported drops', value: 'Coins · Gold Dust · Coal Ore · Charred Ring Piece 1' }],
+    sections: [
+      { title: 'Combat profile', bullets: ['Uses heavy melee attacks with a charred large sword.', 'Use Heavy protection and keep enough room to reposition.', 'Full-health XP estimate: 2,925 total XP before the combat split.'] },
+      { title: 'Known drops', paragraphs: ['The current guide lists Coins, Gold Dust, Coal Ore, and Charred Ring Piece 1. Drop rates are not provided.'] },
+    ],
+    related: ['combat', 'the-burning-king', 'ashen-archer'],
+  }),
+  communityEntry('Cavern Goblin', {
+    slug: 'cavern-goblin', title: 'Cavern Goblin', type: 'Creature', categories: ['Creatures', 'Caverns', 'Combat', 'Community documented'],
+    summary: 'A level-37 goblin found in the West Mine Deep Cavern.',
+    intro: 'Cavern Goblins are pale, deep-cavern enemies that use quick attacks and can be found around the West Mine Deep Cavern.',
+    facts: [{ label: 'Reported level', value: '37' }, { label: 'Reported health', value: '400' }, { label: 'Reported total XP', value: '548' }, { label: 'Location', value: 'West Mine Deep Cavern' }, { label: 'Style', value: 'Quick ranged' }, { label: 'Reported drops', value: 'Bone Ring · Small Fang · Spider Eye · Coins' }],
+    sections: [
+      { title: 'Combat profile', bullets: ['Uses quick attacks from the deep cavern.', 'A defeat awards 548 total XP before the combat split.', 'Watch the surrounding cavern hazards while moving between targets.'] },
+      { title: 'Known drops', paragraphs: ['The current guide lists Bone Ring, Small Fang, Spider Eye, and Coins. Drop rates are not provided.'] },
+    ],
+    related: ['combat', 'cavern-mine', 'cavern-goblin-hunter'],
+  }),
   communityEntry('Goblin Watcher', {
     slug: 'goblin-watcher', title: 'Goblin Watcher', type: 'Creature', categories: ['Creatures', 'Bosses', 'Community documented'],
     summary: 'A low-level ranged boss reported in Goblin Cave.',

@@ -443,7 +443,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Creatures', paragraphs: ['Cavern Spiders and spider eggs appear around the mine. Cavern Spiders currently return about 15 seconds after defeat.'] },
       { title: 'Hazards', paragraphs: ['Some rooms use circle and box-shaped warning markers. Move out of the marked area before the attack lands. Exact damage and timing still need to be added.'] },
     ],
-    related: ['cavern-spider', 'mining', 'ebony-cave-clean-route'],
+    related: ['cavern-spider', 'cavern-goblin', 'cavern-goblin-hunter', 'mining', 'ebony-cave-clean-route'],
     source: bridgeSource,
   },
   {

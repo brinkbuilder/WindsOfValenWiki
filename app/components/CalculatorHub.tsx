@@ -174,7 +174,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
           <div className="calculator-heading"><div><p>Combat calculator</p><h2 id="combat-calculator-heading">Estimate kills and training time</h2></div></div>
           <LevelFields currentLevel={combatLevel} currentXp={combatXp} targetLevel={combatTarget} onCurrentLevel={setCombatLevel} onCurrentXp={setCombatXp} onTargetLevel={setCombatTarget} />
           <div className="calculator-fields combat-fields">
-            <label><span>Enemy</span><select value={enemyName} onChange={(event) => setEnemyName(event.target.value)}>{enemies.map((enemy) => <option value={enemy.name} key={enemy.name}>{enemy.name} — level {enemy.level}</option>)}</select></label>
+            <label><span>Enemy</span><select value={enemyName} onChange={(event) => setEnemyName(event.target.value)}>{enemies.map((enemy) => <option value={enemy.name} key={enemy.name}>{enemy.name}{enemy.aliases?.[0] ? ` (${enemy.aliases[0]})` : ''} — level {enemy.level}</option>)}</select></label>
             <label><span>Seconds per kill</span><input type="number" min="1" value={killTime} onChange={(event) => setKillTime(Math.max(1, Number(event.target.value) || 1))} /></label>
             <label><span>Travel / respawn seconds</span><input type="number" min="0" value={travelTime} onChange={(event) => setTravelTime(Math.max(0, Number(event.target.value) || 0))} /></label>
             <label><span>Current Health XP</span><input type="number" min="0" value={healthXp} onChange={(event) => setHealthXp(Math.max(0, Number(event.target.value) || 0))} /></label>
