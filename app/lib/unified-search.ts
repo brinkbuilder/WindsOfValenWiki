@@ -4,7 +4,7 @@ import { wikiSourceSearchEntries } from './wiki-source-registry';
 
 const seenTitles = new Set<string>();
 
-export const unifiedSearchEntries = [...calculatorSearchEntries, ...wikiSourceSearchEntries, ...searchEntries]
+export const unifiedSearchEntries = [...calculatorSearchEntries, ...searchEntries, ...wikiSourceSearchEntries]
   .filter((entry) => !/^Calculator:/i.test(entry.title) && !/^Fighting Leveling Calculator(?:\/Data)?$/i.test(entry.title))
   .filter((entry) => {
     const title = entry.title.trim().toLowerCase();

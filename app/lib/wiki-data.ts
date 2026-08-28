@@ -1,4 +1,5 @@
 import { communityEntries } from './community-entries';
+import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 
 export type Verification = 'engine' | 'observed' | 'route' | 'player' | 'documented' | 'community';
 
@@ -621,6 +622,202 @@ const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
   };
 });
 
+const smithingSource = {
+  label: 'Current Smithing catalogue',
+  detail: 'Read from the furnace, anvil, and workbench available to a player in the current game build.',
+  observed: '28 August 2026',
+};
+
+function smithingRecipeTitle(recipe: SmithingRecipe) {
+  if (recipe.slug === 'gold-bar-from-ore') return 'Gold Bar from Gold Ore recipe';
+  if (recipe.slug === 'gold-bar-from-dust') return 'Gold Bar from Gold Dust recipe';
+  if (recipe.slug === 'ebony-bar-from-ore') return 'Ebony Bar from Ebony Ore recipe';
+  if (recipe.slug === 'ebony-bar-from-dust') return 'Ebony Bar from Ebony Dust recipe';
+  return `${recipe.output} recipe`;
+}
+
+const smithingRecipeEntries: WikiEntry[] = smithingRecipes.map((recipe) => ({
+  slug: `recipe-smithing-${recipe.slug}`,
+  title: smithingRecipeTitle(recipe),
+  type: 'Recipe',
+  verification: 'engine',
+  summary: `Make ${recipe.outputQuantity} ${recipe.output} at the ${recipe.station} with level ${recipe.level} Smithing.`,
+  intro: `${recipe.output} is made at the ${recipe.station}. You need level ${recipe.level} Smithing and the ingredients listed below.`,
+  aliases: recipe.output.startsWith('Dusk Knight') ? [recipe.output.replace('Dusk Knight', 'DuskKnight')] : [],
+  categories: ['Recipes', 'Smithing', recipe.station],
+  facts: [
+    { label: 'Station', value: recipe.station },
+    { label: 'Smithing level', value: String(recipe.level) },
+    { label: 'Craft time', value: `${recipe.seconds} seconds` },
+    { label: 'Output', value: `${recipe.outputQuantity} ${recipe.output}` },
+  ],
+  sections: [
+    {
+      title: 'Ingredients',
+      table: {
+        headers: ['Ingredient', 'Quantity'],
+        rows: recipe.ingredients.map(({ item, quantity }) => [item, String(quantity)]),
+      },
+    },
+    {
+      title: 'How to craft it',
+      bullets: [
+        `Reach level ${recipe.level} Smithing.`,
+        `Bring ${formatSmithingIngredients(recipe)}.`,
+        recipe.station === 'Furnace'
+          ? 'Open a furnace and choose this bar from the available recipes.'
+          : recipe.station === 'Anvil'
+            ? 'Bring a Smithing Hammer, open an anvil, and choose this component.'
+            : 'Open a workbench and choose this item to assemble it.',
+        `One craft produces ${recipe.outputQuantity} ${recipe.output} and takes about ${recipe.seconds} seconds.`,
+      ],
+    },
+  ],
+  related: ['smithing', smithingItemSlug(recipe.output)],
+  source: smithingSource,
+}));
+
+const recipesByOutput = new Map<string, SmithingRecipe[]>();
+for (const recipe of smithingRecipes) {
+  const group = recipesByOutput.get(recipe.output) ?? [];
+  group.push(recipe);
+  recipesByOutput.set(recipe.output, group);
+}
+
+const smithingItemEntries: WikiEntry[] = [...recipesByOutput.entries()].map(([item, methods]) => {
+  const uses = smithingRecipes.filter((recipe) => recipe.ingredients.some((ingredient) => ingredient.item === item));
+  const isEquipment = /(?:Sword|Platelegs|Platebody|Helmet|Gloves|Ring|Ward|Boots)$/.test(item) || item === 'Ore Crate';
+  const isComponent = item.startsWith('Dusk Knight') && !isEquipment;
+  const description = smithingItemDescriptions[item]
+    ?? (isComponent
+      ? `${item} is a forged component used in Dusk Knight armour assembly.`
+      : isEquipment
+        ? `${item} is equipment assembled through Smithing.`
+        : `${item} is a Smithing material used in later recipes.`);
+
+  return {
+    slug: smithingItemSlug(item),
+    title: item,
+    type: 'Item',
+    verification: 'engine',
+    summary: description,
+    intro: `${description} The current crafting methods are listed below.`,
+    aliases: item.startsWith('Dusk Knight') ? [item.replace('Dusk Knight', 'DuskKnight')] : [],
+    categories: ['Items', 'Smithing', isEquipment ? 'Equipment' : 'Materials'],
+    facts: [
+      { label: 'Crafted at', value: [...new Set(methods.map((recipe) => recipe.station))].join(' or ') },
+      { label: 'Smithing level', value: [...new Set(methods.map((recipe) => String(recipe.level)))].join(' or ') },
+      { label: 'Craft time', value: [...new Set(methods.map((recipe) => `${recipe.seconds} seconds`))].join(' or ') },
+    ],
+    sections: [
+      {
+        title: methods.length === 1 ? 'Crafting method' : 'Crafting methods',
+        table: {
+          headers: ['Station', 'Level', 'Ingredients', 'Output', 'Time'],
+          rows: methods.map((recipe) => [
+            recipe.station,
+            String(recipe.level),
+            formatSmithingIngredients(recipe),
+            `${recipe.outputQuantity} ${recipe.output}`,
+            `${recipe.seconds}s`,
+          ]),
+        },
+      },
+      uses.length > 0
+        ? {
+            title: 'Used in Smithing',
+            table: {
+              headers: ['Result', 'Station', 'Level', 'Amount needed'],
+              rows: uses.map((recipe) => [
+                recipe.output,
+                recipe.station,
+                String(recipe.level),
+                String(recipe.ingredients.find((ingredient) => ingredient.item === item)?.quantity ?? 0),
+              ]),
+            },
+          }
+        : {
+            title: 'Using the item',
+            paragraphs: [isEquipment
+              ? 'This is a finished piece of equipment rather than an intermediate Smithing material.'
+              : 'No later Smithing recipe currently consumes this item.'],
+          },
+    ],
+    related: ['smithing', ...methods.map((recipe) => `recipe-smithing-${recipe.slug}`)],
+    source: smithingSource,
+  };
+});
+
+const smithingGuide: WikiEntry = {
+  slug: 'smithing',
+  title: 'Smithing',
+  type: 'Activity',
+  verification: 'engine',
+  summary: 'The complete current Smithing guide, covering every furnace, anvil, and workbench recipe.',
+  intro: 'Smithing turns ore into bars, bars into shaped components, and those components into weapons, armour, equipment, and specialist items.',
+  aliases: ['smithing guide', 'smelting', 'blacksmithing'],
+  categories: ['Activities', 'Skills', 'Crafting', 'Smithing'],
+  facts: [
+    { label: 'Total recipes', value: String(smithingRecipes.length) },
+    { label: 'Furnace recipes', value: String(smithingRecipes.filter((recipe) => recipe.station === 'Furnace').length) },
+    { label: 'Anvil recipes', value: String(smithingRecipes.filter((recipe) => recipe.station === 'Anvil').length) },
+    { label: 'Workbench recipes', value: String(smithingRecipes.filter((recipe) => recipe.station === 'Workbench').length) },
+  ],
+  sections: [
+    {
+      title: 'How Smithing works',
+      bullets: [
+        'Mine or obtain the ore and secondary materials required by the item you want.',
+        'Smelt ores into bars at a furnace.',
+        'Use a Smithing Hammer at an anvil to shape bars into plates, rods, foil, frames, and armour components.',
+        'Use a workbench to assemble weapons, armour, an ore crate, the Volcanic Ring, the Volcanic Ward, and Dusk Knight equipment.',
+        'Keep intermediate plates and rods until you have checked the complete final-item recipe; advanced equipment uses several stages.',
+      ],
+    },
+    {
+      title: 'Furnace recipes',
+      table: {
+        headers: ['Level', 'Output', 'Ingredients', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Furnace').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+      },
+    },
+    {
+      title: 'Anvil recipes',
+      table: {
+        headers: ['Level', 'Output', 'Ingredients', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Anvil').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+      },
+    },
+    {
+      title: 'Workbench recipes',
+      table: {
+        headers: ['Level', 'Output', 'Ingredients', 'Time'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.seconds}s`]),
+      },
+    },
+    {
+      title: 'Dusk Knight armour path',
+      paragraphs: ['Dusk Knight armour is a two-stage process. Forge each named metal component at an anvil, then combine the required components with an Exquisite Silk lining and the schematics at a workbench. The current recipes list Dusk Knight Schematics as a requirement for every component and final-assembly step.'],
+      table: {
+        headers: ['Final item', 'Level', 'Workbench assembly'],
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench' && recipe.output.startsWith('Dusk Knight')).map((recipe) => [recipe.output, String(recipe.level), formatSmithingIngredients(recipe)]),
+      },
+    },
+    {
+      title: 'Planning a crafting session',
+      bullets: [
+        'Start from the final workbench recipe and work backwards through every plate and rod it requires.',
+        'Leave room for unstackable bars and components before starting a long chain.',
+        'Silver Foil is produced two at a time from one Silver Plate.',
+        'Gold Bars and Ebony Bars each have two furnace methods, using either ore or dust where listed.',
+        'Craft times shown in the tables are the base recipe durations currently presented by the game.',
+      ],
+    },
+  ],
+  related: ['mining', 'smithing-hammer', 'ore-crate', 'dusk-knight-boots', 'dusk-knight-platelegs', 'dusk-knight-platebody', 'dusk-knight-helmet'],
+  source: smithingSource,
+};
+
 type RouteSpec = {
   slug: string;
   title: string;
@@ -758,8 +955,14 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
   };
 }
 
-const allWikiEntries = [...curatedEntries, ...recipeEntries, ...routeEntries, ...communityEntries]
-  .filter((entry) => entry.slug !== 'valenbridge')
+const smithingReplacementSlugs = new Set(['smithing', ...smithingItemEntries.map((entry) => entry.slug)]);
+const allWikiEntries = [
+  ...[...curatedEntries, ...recipeEntries, ...routeEntries, ...communityEntries]
+    .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug)),
+  smithingGuide,
+  ...smithingItemEntries,
+  ...smithingRecipeEntries,
+]
   .map(playerFacingEntry);
 const duplicateSlugs = allWikiEntries
   .map((entry) => entry.slug)
@@ -834,7 +1037,7 @@ export function searchWiki(query: string): WikiEntry[] {
 
 export const wikiStats = {
   articles: wikiEntries.length,
-  recipes: recipeEntries.length,
+  recipes: wikiEntries.filter((entry) => entry.type === 'Recipe').length,
   routes: routeEntries.length,
   communityArticles: communityEntries.length,
   items: wikiEntries.filter((entry) => entry.type === 'Item').length,
