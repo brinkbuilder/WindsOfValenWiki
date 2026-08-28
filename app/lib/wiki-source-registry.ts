@@ -82,12 +82,22 @@ export function getWikiSourcePage(sourceId: string, pageId: number) {
 }
 
 const normalizeTitle = (value: string) => value.trim().toLowerCase().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ');
+const preserveTitleCase = (value: string) => value.trim().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ');
 
 export function findWikiSourceMatches(title: string, aliases: string[] = []) {
-  const candidates = new Set([title, ...aliases].map(normalizeTitle));
-  return wikiSources.flatMap((source) => source.pages
-    .filter((page) => candidates.has(normalizeTitle(page.title)))
-    .map((page) => ({ source, page })));
+  const exactTitle = preserveTitleCase(title);
+  const exactAliases = new Set(aliases.map(preserveTitleCase));
+  const normalizedCandidates = new Set([title, ...aliases].map(normalizeTitle));
+  return wikiSources.flatMap((source) => {
+    const primaryMatches = source.pages.filter((page) => preserveTitleCase(page.title) === exactTitle);
+    const aliasMatches = primaryMatches.length === 0
+      ? source.pages.filter((page) => exactAliases.has(preserveTitleCase(page.title)))
+      : [];
+    const normalizedMatches = primaryMatches.length === 0 && aliasMatches.length === 0
+      ? source.pages.filter((page) => normalizedCandidates.has(normalizeTitle(page.title)))
+      : [];
+    return [...primaryMatches, ...aliasMatches, ...normalizedMatches].map((page) => ({ source, page }));
+  });
 }
 
 export function wikiSourceReaderPath(sourceId: WikiSourceId, pageId: number) {

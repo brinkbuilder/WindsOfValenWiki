@@ -22,6 +22,7 @@ export default async function WikiSourceReaderPage({ params }: PageProps) {
   if (!sourcePage) notFound();
   const { source, page, html, images, error } = sourcePage;
   const directoryHref = `/sources/${source.slug}`;
+  const requiresOriginalInteraction = /calculator/i.test(page.title);
 
   return (
     <main className="source-reader-page">
@@ -47,6 +48,13 @@ export default async function WikiSourceReaderPage({ params }: PageProps) {
         <Link href={directoryHref}>Back to directory</Link>
         <a href={source.permalink(page)} target="_blank" rel="noreferrer">Open permanent source revision ↗</a>
       </nav>
+
+      {requiresOriginalInteraction && !error && (
+        <aside className="source-reader-notice">
+          <div><strong>Interactive calculator</strong><p>The safe archive copy preserves its static content, but source scripts and form controls are intentionally not executed here.</p></div>
+          <a href={source.permalink(page)} target="_blank" rel="noreferrer">Use the original calculator ↗</a>
+        </aside>
+      )}
 
       {error ? (
         <section className="source-reader-error">

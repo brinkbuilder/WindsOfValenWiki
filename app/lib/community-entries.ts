@@ -245,6 +245,17 @@ const creatureEntries: WikiEntry[] = [
     sections: [{ title: 'Mechanics', bullets: ['Switches between mace and sword', 'Switches between Parry and Wooden shields', 'Uses stomp and charge attacks', 'Triggers falling stalactites'] }],
     related: ['combat', 'combat-mechanics', 'skeleton-warriors-return-route'],
   }),
+  communityEntry('Skeleton Knight (Darklands)', {
+    slug: 'skeleton-knight-darklands', title: 'Skeleton Knight (Darklands)', type: 'Creature', categories: ['Creatures', 'Darklands', 'Community documented'],
+    summary: 'An armoured level-67 skeleton reported in the Darklands caves.',
+    intro: 'The current community page describes a slow, heavy-damage skeleton wielding a large black sword. All numeric values remain community-reported until checked in the live build.',
+    facts: [{ label: 'Reported level', value: '67' }, { label: 'Reported health', value: '1,000' }, { label: 'Reported XP', value: '1,670' }, { label: 'Reported attack', value: '125 heavy · 3 attack speed' }],
+    sections: [
+      { title: 'Combat profile', bullets: ['75 Slash Accuracy reported', '35 Slash, 100 Pierce, 50 Fire, 150 Ice, and 25 Lightning resistance reported', 'No Block or Deflect Power reported'] },
+      { title: 'Reported drops', paragraphs: ['The page lists health and shield potions, a Titanium Ring, Gold Dust, a Gold Bar, worm bait, and coins. Drop rates are not provided.'] },
+    ],
+    related: ['the-darklands', 'combat', 'combat-mechanics'],
+  }),
   communityEntry('Cavern Goblin Hunter', {
     slug: 'cavern-goblin-hunter', title: 'Cavern Goblin Hunter', type: 'Creature', categories: ['Creatures', 'Bosses', 'Caverns', 'Community documented'],
     summary: 'A level-107 ranged boss documented in the cavern enemy set.',

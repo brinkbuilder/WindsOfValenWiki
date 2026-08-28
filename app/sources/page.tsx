@@ -17,12 +17,12 @@ export default function SourcesPage() {
         <p>Two established developer wikis now feed the archive alongside ValenBridge observations. Pages, images, revisions, and licensing remain traceable to their origin.</p>
       </header>
 
-      <section className="source-library-stats" aria-label="Combined source statistics">
+      <dl className="source-library-stats" aria-label="Combined source statistics">
         <div><dt>Source wikis</dt><dd>{wikiSources.length}</dd></div>
         <div><dt>Indexed pages</dt><dd>{wikiSources.reduce((total, source) => total + source.pageCount, 0)}</dd></div>
         <div><dt>Distinct titles</dt><dd>{distinctTitles}</dd></div>
         <div><dt>Media files</dt><dd>{wikiSources.reduce((total, source) => total + source.fileCount, 0)}</dd></div>
-      </section>
+      </dl>
 
       <section className="source-library-grid">
         {wikiSources.map((source) => (

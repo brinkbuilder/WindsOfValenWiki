@@ -14,6 +14,7 @@ type ParsedResponse = {
 };
 
 const normalizeTitle = (value: string) => value.trim().replace(/_/g, ' ').toLowerCase();
+const preserveTitleCase = (value: string) => value.trim().replace(/_/g, ' ');
 
 function sourceTitleFromUrl(url: URL, source: WikiSourceDefinition) {
   if (url.origin !== new URL(source.baseUrl).origin) return undefined;
@@ -32,7 +33,8 @@ function rewriteLink(value: string | undefined, source: WikiSourceDefinition) {
     const url = new URL(value, source.baseUrl);
     const linkedTitle = sourceTitleFromUrl(url, source);
     if (linkedTitle) {
-      const match = source.pages.find((page) => normalizeTitle(page.title) === normalizeTitle(linkedTitle));
+      const match = source.pages.find((page) => preserveTitleCase(page.title) === preserveTitleCase(linkedTitle))
+        ?? source.pages.find((page) => normalizeTitle(page.title) === normalizeTitle(linkedTitle));
       if (match) return wikiSourceReaderPath(source.id, match.pageId);
     }
     return ['http:', 'https:', 'mailto:'].includes(url.protocol) ? url.toString() : '';
@@ -100,6 +102,7 @@ export async function readWikiSourcePage(sourceId: string, pageId: number) {
     formatversion: '2',
   });
   try {
+    const signal = AbortSignal.timeout(12_000);
     // Miraheze's edge currently blocks `oldid` in a query string, but accepts the
     // same MediaWiki API request as form data. Keep the current wiki on GET so its
     // response remains cacheable, and use POST only for the legacy mirror.
@@ -111,10 +114,12 @@ export async function readWikiSourcePage(sourceId: string, pageId: number) {
             'User-Agent': 'ValenArchives/1.0 (developer-authorized wiki integration)',
           },
           body: params.toString(),
+          signal,
         })
       : await fetch(`${source.apiUrl}?${params.toString()}`, {
           headers: { 'User-Agent': 'ValenArchives/1.0 (developer-authorized wiki integration)' },
           next: { revalidate: 3600 },
+          signal,
         });
     if (!response.ok) throw new Error(`Source returned ${response.status}`);
     const payload = await response.json() as ParsedResponse;
