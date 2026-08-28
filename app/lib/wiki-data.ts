@@ -270,12 +270,13 @@ const curatedEntries: WikiEntry[] = [
     title: 'Fishing',
     type: 'Activity',
     verification: 'player',
-    summary: 'A gathering activity based on interacting with renewable ripple spots.',
-    intro: 'Fishing begins with a single successful spot interaction and continues automatically. The current observations show no timing minigame.',
+    summary: 'A gathering skill for catching fish used as food, bait, and potion ingredients.',
+    intro: 'Fishing is a gathering profession. Equip a fishing rod, bring the required bait, and interact with a fishing spot to begin catching fish automatically.',
     categories: ['Activities', 'Skills', 'Fishing'],
     facts: [{ label: 'Interaction', value: 'Click once' }, { label: 'Loop', value: 'Automatic' }, { label: 'Resource', value: 'Depleting ripple spot' }, { label: 'Known fish', value: 'Carp, Blue Gill' }],
     sections: [
       { title: 'How fishing works', bullets: ['Equip the correct rod and bait for the chosen spot.', 'Interact with a visible ripple once.', 'Fishing continues automatically while the spot remains available.', 'Move to another spot when the ripple depletes; spots later respawn.', 'Bank or process the catch when the inventory is full.'] },
+      { title: 'Fishing progression', table: { headers: ['Level', 'Fish', 'Bait', 'Location', 'Base XP'], rows: [['1', 'Minnow', 'Tiny Fish Bait or Tiny Worm Bait', 'South of Valen Gate, beside the Broken Village bridge', '8'], ['5', 'Common Trout', 'Small Fish Bait or Small Worm Bait', 'East of Valen Gate, along the river', '75'], ['10', 'Perch', 'Small Fish Bait or Small Worm Bait', 'Across the Broken Village bridge', '225'], ['20', 'Bass', 'Small Fish Bait or Small Worm Bait', 'Forest Alcove near the bandit camps', '200'], ['30', 'Bluegill', 'Small Fish Bait or Small Worm Bait', 'Beside the Mercenary Camp bank', '75'], ['40', 'Elder Trout', 'Medium Fish Bait or Medium Worm Bait', 'Town Mine west of Valen Gate', '500'], ['50', 'Carp', 'No bait listed', 'Location guide in progress', '1,250']] } },
       { title: 'Bait', paragraphs: ['The observed Carp workflow uses Small Fish Bait. Bait can be made by using a knife on caught fish through the appropriate harvest recipe.'] },
       { title: 'Choosing a spot', paragraphs: ['Ripple graphics do not always make the fish species obvious. Check the hover name before starting so you bring the correct rod and bait.'] },
     ],
@@ -287,12 +288,13 @@ const curatedEntries: WikiEntry[] = [
     title: 'Mining',
     type: 'Activity',
     verification: 'documented',
-    summary: 'A gathering activity using charge-based ore rocks and equipped resource containers.',
-    intro: 'Mining uses ore rocks that deplete after repeated gathering and later become available again. Resource containers can extend trips before banking.',
+    summary: 'A gathering skill for extracting ores, dust, geodes, and rare gems from rocks.',
+    intro: 'Mining is trained by equipping a pickaxe and mining rocks. Higher levels unlock better resources, while ore containers extend trips before banking.',
     categories: ['Activities', 'Skills', 'Mining'],
     facts: [{ label: 'Availability', value: 'Charges > 0' }, { label: 'Known ores', value: 'Silver, gold, essence, coal, ebony' }, { label: 'Resource crate', value: 'Up to 500 observed' }, { label: 'Verification', value: 'Live state + tests' }],
     sections: [
       { title: 'Rock depletion', paragraphs: ['Move to the next rock when the current one depletes. Continue around the patch while waiting for earlier rocks to return.'] },
+      { title: 'Mining progression', table: { headers: ['Level', 'Rock', 'Resource', 'Rare item', 'Base XP'], rows: [['1', 'Copper Rock', 'Copper Ore', 'Weak Power Gem', '15'], ['1', 'Tin Rock', 'Tin Ore', 'Weak Power Gem', '15'], ['10', 'Iron Rock', 'Iron Ore', 'Power Gem', '30'], ['20', 'Coal Rock', 'Coal Ore', 'Strong Power Gem', '80'], ['30', 'Mithril Rock', 'Mithril Ore', 'Fishing Gem', '150'], ['40', 'Silver Rock', 'Silver Ore', 'Strange Gem', '300'], ['40', 'Gold Rock', 'Gold Ore or Gold Dust', 'Mining Gem', '350'], ['50', 'Essence Rock', 'Essence Geode', 'Essence rare drop', '550'], ['60', 'Ebony Rock', 'Ebony Ore or Ebony Dust', 'Strong Mining Gem', '500']] } },
       { title: 'Resource containers', paragraphs: ['Ore containers are equipped separately from the normal 28-slot inventory. Deposit their contents through the resource action in the bank.'] },
       { title: 'Known patches', bullets: ['Silver: six-rock patch.', 'Gold: six-rock volcanic patch.', 'Essence: three-rock patch.', 'Cavern Mine: ebony, silver, coal, and ebony-dust rocks.'] },
     ],
@@ -323,12 +325,13 @@ const curatedEntries: WikiEntry[] = [
     title: 'Potion Making',
     type: 'Activity',
     verification: 'engine',
-    summary: 'A multi-station crafting skill with 36 known recipes.',
-    intro: 'Potion Making uses Knife, Crush, Reduction, and Cauldron stations. Complete formulas are listed where ingredients and outputs are known; unfinished recipe pages clearly show which details are still missing.',
+    summary: 'A crafting skill that turns fish, monster drops, plants, and Essence into useful potions.',
+    intro: 'Potion Making uses cutting, crushing, reduction, brewing, and bottling stations. Process ingredients, brew them with Essence, then use a vial to collect the finished potion.',
     categories: ['Activities', 'Skills', 'Crafting'],
     facts: [{ label: 'Discovered recipes', value: '36' }, { label: 'Groups', value: 'Cauldron, Crush, Knife, Reduction' }, { label: 'Verified workflow', value: 'Infused Coal' }, { label: 'Verification', value: 'Engine catalogue' }],
     sections: [
       { title: 'Stations', table: { headers: ['Group', 'Purpose', 'Recipes found'], rows: [['Cauldron', 'Bottles and potions', '13'], ['Crush Station', 'Crushing ingredients', '7'], ['Knife Station', 'Harvesting fish', '7'], ['Reduction Station', 'Reducing ingredients', '9']] } },
+      { title: 'Potion progression', table: { headers: ['Level', 'Potion family', 'Main ingredient', 'Essence', 'Base XP'], rows: [['1', 'Weak Health', '10 Scrap Fish Flesh', '25', '500'], ['5', 'Fishing', '10 Fish Oil', '25', '500'], ['10', 'Shields', '10 Crushed Fish Scales', '50', '1,500'], ['15', 'Mining', '10 Root Paste', '50', '1,500'], ['20', 'Health', '10 Fish Mash', '50', '1,500'], ['25', 'Attack', '10 Fang Dust', '200', '1,500'], ['30', 'Archery', '10 Distilled Spider Eye', '250', '1,750'], ['35', 'Magic', '10 Crushed Mushroom', '300', '2,000'], ['40', 'Strong Health', '10 Hearty Extract', '200', '3,250'], ['50', 'Strong Shields', '10 Fine Fish Scales', '500', '6,000']] } },
       { title: 'Using the recipe list', paragraphs: ['Each recipe page shows its station. Ingredients, requirements, effects, and yields are included where known, while incomplete pages list the details that still need to be added.'] },
       { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence derived from 10 Large Essence Glands; the exact Essence yield remains unknown.'] },
     ],
@@ -770,7 +773,7 @@ export const wikiBySlug = new Map(wikiEntries.map((entry) => [entry.slug, entry]
 export type SearchEntry = {
   slug: string;
   title: string;
-  type: WikiEntry['type'] | 'Community page';
+  type: WikiEntry['type'] | 'Community page' | 'Calculator';
   summary: string;
   terms: string;
   href?: string;

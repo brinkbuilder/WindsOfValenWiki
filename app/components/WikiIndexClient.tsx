@@ -5,6 +5,7 @@ import type { SearchEntry } from '../lib/wiki-data';
 
 const groups = [
   { key: 'all', label: 'All pages', types: [] },
+  { key: 'calculators', label: 'Calculators', types: ['Calculator'] },
   { key: 'items', label: 'Items', types: ['Item', 'Resource'] },
   { key: 'recipes', label: 'Recipes', types: ['Recipe'] },
   { key: 'guides', label: 'Skills & guides', types: ['Guide', 'Activity'] },

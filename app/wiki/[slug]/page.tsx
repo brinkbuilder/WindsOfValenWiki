@@ -24,6 +24,11 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   const entry = wikiBySlug.get(slug);
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
+  const skillCalculator = entry.slug === 'mining' ? '/calculators?skill=Mining'
+    : entry.slug === 'fishing' ? '/calculators?skill=Fishing'
+      : entry.slug === 'potion-making' ? '/calculators?skill=Potion%20Making'
+        : ['attack', 'archery', 'defence', 'evasion', 'health', 'magic', 'warding', 'combat', 'combat-mechanics'].includes(entry.slug) ? '/calculators?tab=combat'
+          : null;
 
   return (
     <main className="article-page">
@@ -38,6 +43,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           <p>{entry.intro}</p>
           <div className="article-badges">
             {entry.categories.slice(0, 2).map((category) => <span className="topic-pill" key={category}>{category}</span>)}
+            {skillCalculator && <Link className="article-tool-button" href={skillCalculator}>Open calculator</Link>}
           </div>
         </div>
       </header>
@@ -45,6 +51,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
       <nav className="article-tabs" aria-label="Article views">
         <a className="active" href="#article">Article</a>
         {related.length > 0 && <a href="#related">Related pages</a>}
+        {skillCalculator && <Link href={skillCalculator}>Calculator</Link>}
         <a href="/contribute">Suggest an edit</a>
       </nav>
 

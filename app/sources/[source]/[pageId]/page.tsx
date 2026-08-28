@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getWikiSourcePage } from '../../../lib/wiki-source-registry';
 import { readWikiSourcePage } from '../../../lib/wiki-source-reader';
 
@@ -29,6 +29,13 @@ export default async function ConsolidatedWikiPage({ params }: PageProps) {
   const topic = page.categories[0] ?? 'Wiki';
   const isCalculator = /calculator/i.test(page.title);
 
+  if (isCalculator) {
+    if (/mining/i.test(page.title)) redirect('/calculators?skill=Mining');
+    if (/fishing/i.test(page.title)) redirect('/calculators?skill=Fishing');
+    if (/potion/i.test(page.title)) redirect('/calculators?skill=Potion%20Making');
+    redirect('/calculators?tab=combat');
+  }
+
   return (
     <main className="source-reader-page unified-imported-page">
       <div className="breadcrumbs" aria-label="Breadcrumb">
@@ -36,16 +43,9 @@ export default async function ConsolidatedWikiPage({ params }: PageProps) {
       </div>
 
       <header className="imported-article-header">
-        <p className="eyebrow">{topic} article</p>
+        <p className="eyebrow">{topic}</p>
         <h1>{page.title}</h1>
-        <p>Winds of Valen player information, consolidated into The Valen Archives.</p>
       </header>
-
-      {isCalculator && !error && (
-        <aside className="source-reader-notice unified-article-notice">
-          <div><strong>Calculator page</strong><p>The guide content is available below. Interactive calculator controls are being rebuilt for this wiki.</p></div>
-        </aside>
-      )}
 
       {error ? (
         <section className="source-reader-error">

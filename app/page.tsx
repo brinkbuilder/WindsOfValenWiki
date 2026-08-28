@@ -1,83 +1,100 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { SearchBox } from './components/SearchBox';
 import { unifiedSearchEntries } from './lib/unified-search';
 
 const categories = [
-  { title: 'Items & equipment', description: 'Weapons, armour, materials, containers, prices, uses, and where to find them.', mark: 'I', href: '/wiki?type=items' },
-  { title: 'Skills & training', description: 'Fishing, mining, combat, potion making, smithing, and practical training methods.', mark: 'S', href: '/wiki?type=guides' },
-  { title: 'Creatures & bosses', description: 'Locations, attacks, weaknesses, drops, respawn times, and encounter strategies.', mark: 'C', href: '/wiki?type=world' },
-  { title: 'Quests', description: 'Requirements, step-by-step walkthroughs, choices, unlocks, and rewards.', mark: 'Q', href: '/wiki?type=quests' },
-  { title: 'Recipes', description: 'Ingredients, station requirements, outputs, experience, and processing chains.', mark: 'R', href: '/wiki?type=recipes' },
-  { title: 'Places & travel', description: 'Regions, caverns, banks, resource areas, hazards, landmarks, and routes.', mark: 'W', href: '/wiki?type=world' },
+  { title: 'Items', description: 'Weapons, armour, tools, resources, potions, prices, and uses.', image: '/wiki-assets/bronze-sword.png', href: '/wiki?type=items' },
+  { title: 'Skills', description: 'Training methods, level requirements, experience rates, and unlocks.', image: '/wiki-assets/skills.png', href: '/wiki?type=guides' },
+  { title: 'Quests', description: 'Requirements, walkthroughs, bosses, choices, and rewards.', image: '/wiki-assets/quest.png', href: '/wiki?type=quests' },
+  { title: 'World', description: 'Regions, mines, banks, shops, creatures, hazards, and travel.', image: '/wiki-assets/world-map.png', href: '/wiki?type=world' },
 ];
 
-const featured = [
-  { type: 'Crafting', title: 'Infused Coal', detail: '1 Coal + 2 Essence at a Reduction Station', href: '/wiki/infused-coal' },
-  { type: 'Mining', title: 'Silver mining circuit', detail: 'Six rocks, resource-container banking, and a repeatable loop', href: '/wiki/silver-mining' },
-  { type: 'Boss', title: 'Skeleton Knight (Darklands)', detail: 'Combat profile, resistances, attacks, and reported drops', href: '/wiki/skeleton-knight-darklands' },
-  { type: 'Quest', title: 'Open The Gates', detail: 'Follow the quest and prepare for the Goblin General', href: '/wiki/open-the-gates' },
+const skills = [
+  { name: 'Combat', mark: '⚔', href: '/wiki/combat-mechanics' },
+  { name: 'Mining', mark: '⛏', href: '/wiki/mining' },
+  { name: 'Smithing', mark: '⚒', href: '/wiki/smithing' },
+  { name: 'Archery', mark: '➶', href: '/wiki/archery' },
+  { name: 'Fishing', mark: '◉', href: '/wiki/fishing' },
+  { name: 'Potion Making', mark: '⚗', href: '/wiki/potion-making' },
+];
+
+const popular = [
+  { title: 'Open The Gates', description: 'Quest requirements, steps, boss fight, and rewards.', href: '/wiki/open-the-gates' },
+  { title: 'Valen City', description: 'Access requirements, services, shops, and nearby areas.', href: '/wiki/valen-city' },
+  { title: 'The Darklands', description: 'PvP risks, creatures, routes, and valuable drops.', href: '/wiki/the-darklands' },
+  { title: 'Mining', description: 'Every ore tier, base experience, and training progression.', href: '/wiki/mining' },
+  { title: 'Combat', description: 'Damage types, shield matching, experience, and training.', href: '/wiki/combat-mechanics' },
+  { title: 'Potion Making', description: 'Ingredients, stations, recipes, vials, and experience.', href: '/wiki/potion-making' },
 ];
 
 export default function Home() {
   return (
-    <main className="wiki-home" id="top">
-      <section className="wiki-home-hero">
-        <div className="wiki-home-hero-copy">
-          <p className="kicker"><span /> The community encyclopedia</p>
-          <h1>Winds of Valen Wiki</h1>
-          <p>One clear, searchable guide to items, skills, quests, creatures, recipes, and the world of Valen.</p>
-          <SearchBox entries={unifiedSearchEntries} />
-          <div className="popular-searches" aria-label="Popular searches">
-            <span>Popular:</span>
-            <Link href="/wiki/infused-coal">Infused Coal</Link>
-            <Link href="/wiki/silver-mining">Silver mining</Link>
-            <Link href="/wiki/potion-families">Potion families</Link>
-            <Link href="/wiki/the-darklands">The Darklands</Link>
+    <main className="classic-home" id="top">
+      <section className="wiki-front-page">
+        <header className="front-welcome">
+          <div>
+            <p>Welcome to the</p>
+            <h1>Winds of Valen Wiki</h1>
+            <span>The complete community guide to the fantasy sandbox MMORPG.</span>
           </div>
-        </div>
-        <aside className="wiki-home-start">
-          <span>New player?</span>
-          <h2>Start your adventure</h2>
-          <p>Find the basics first, then explore skills, equipment, regions, and bosses at your own pace.</p>
-          <nav>
-            <Link href="/wiki?type=guides">Getting started <b>→</b></Link>
-            <Link href="/wiki/combat-mechanics">Combat basics <b>→</b></Link>
-            <Link href="/wiki?type=guides">Training guides <b>→</b></Link>
-          </nav>
-        </aside>
-      </section>
+        </header>
 
-      <section className="wiki-home-section" aria-labelledby="browse-heading">
-        <div className="wiki-section-heading">
-          <div><span>Browse by topic</span><h2 id="browse-heading">Find what you need</h2></div>
-          <Link href="/wiki">View all {unifiedSearchEntries.length} pages →</Link>
+        <div className="front-search-row">
+          <div>
+            <strong>What are you looking for?</strong>
+            <span>Search every guide, item, creature, quest, recipe, and location.</span>
+          </div>
+          <SearchBox entries={unifiedSearchEntries} mode="page" />
+          <p><b>{unifiedSearchEntries.length}</b> player pages</p>
         </div>
-        <div className="wiki-category-grid">
-          {categories.map((category) => (
-            <Link href={category.href} className="wiki-category-card" key={category.title}>
-              <span className="wiki-category-mark" aria-hidden="true">{category.mark}</span>
-              <div><h3>{category.title}</h3><p>{category.description}</p></div>
-              <b aria-hidden="true">→</b>
-            </Link>
-          ))}
-        </div>
-      </section>
 
-      <section className="wiki-home-section wiki-home-featured" aria-labelledby="featured-heading">
-        <div className="wiki-section-heading">
-          <div><span>Useful right now</span><h2 id="featured-heading">Popular player guides</h2></div>
-          <Link href="/recent">Recent updates →</Link>
+        <section className="front-section" aria-labelledby="categories-heading">
+          <div className="classic-section-title"><h2 id="categories-heading">Browse the encyclopedia</h2><Link href="/wiki">View the A–Z index</Link></div>
+          <div className="portal-category-grid">
+            {categories.map((category) => (
+              <Link className="portal-category" href={category.href} key={category.title}>
+                <span className="portal-category-image">
+                  <Image src={category.image} alt="" width={96} height={96} sizes="96px" />
+                </span>
+                <span><strong>{category.title}</strong><small>{category.description}</small></span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <div className="front-columns">
+          <section className="front-section portal-panel" aria-labelledby="popular-heading">
+            <div className="classic-section-title"><h2 id="popular-heading">Popular player guides</h2></div>
+            <div className="popular-guide-list">
+              {popular.map((page) => <Link href={page.href} key={page.title}><strong>{page.title}</strong><span>{page.description}</span><b>›</b></Link>)}
+            </div>
+          </section>
+
+          <aside className="front-section portal-panel calculator-promo">
+            <p className="panel-kicker">Player tools</p>
+            <h2>Plan your next level</h2>
+            <p>Calculate experience, actions, enemy kills, training time, accuracy, and defence rolls.</p>
+            <div>
+              <Link href="/calculators?skill=Mining">Mining calculator</Link>
+              <Link href="/calculators?skill=Fishing">Fishing calculator</Link>
+              <Link href="/calculators?tab=combat">Combat calculator</Link>
+            </div>
+            <Link className="classic-button" href="/calculators">Open all calculators</Link>
+          </aside>
         </div>
-        <div className="wiki-featured-grid">
-          {featured.map((entry) => (
-            <Link href={entry.href} key={entry.title}>
-              <span>{entry.type}</span>
-              <h3>{entry.title}</h3>
-              <p>{entry.detail}</p>
-              <b aria-hidden="true">Read guide →</b>
-            </Link>
-          ))}
-        </div>
+
+        <section className="front-section" aria-labelledby="skills-heading">
+          <div className="classic-section-title"><h2 id="skills-heading">Skill training</h2><Link href="/calculators">Experience calculators</Link></div>
+          <div className="skill-portal-grid">
+            {skills.map((skill) => <Link href={skill.href} key={skill.name}><span>{skill.mark}</span><strong>{skill.name}</strong><small>Training guide</small></Link>)}
+          </div>
+        </section>
+
+        <section className="front-start-panel">
+          <div><span>New player guide</span><h2>Start here</h2><p>Learn the controls, train your first skills, understand combat stances, and prepare for your first trip beyond Valen Gate.</p></div>
+          <nav><Link href="/wiki/controls">Controls &amp; commands</Link><Link href="/wiki/combat-mechanics">Combat basics</Link><Link href="/wiki/open-the-gates">First major quest</Link></nav>
+        </section>
       </section>
     </main>
   );

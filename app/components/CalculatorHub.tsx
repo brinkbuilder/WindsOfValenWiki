@@ -1,0 +1,143 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import { combatMultiplier, enemies, levelForXp, skillTrainingData, xpForLevel, type SkillName } from '../lib/calculator-data';
+
+type CalculatorTab = 'skill' | 'combat' | 'accuracy';
+
+const number = new Intl.NumberFormat('en-US');
+
+function clampLevel(value: number) {
+  return Math.max(1, Math.min(99, Math.floor(value || 1)));
+}
+
+function formatTime(totalSeconds: number) {
+  if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return '0 minutes';
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.ceil((totalSeconds % 3600) / 60);
+  return [days ? `${days}d` : '', hours ? `${hours}h` : '', minutes ? `${minutes}m` : ''].filter(Boolean).join(' ');
+}
+
+function LevelFields({ currentLevel, currentXp, targetLevel, onCurrentLevel, onCurrentXp, onTargetLevel }: {
+  currentLevel: number;
+  currentXp: number;
+  targetLevel: number;
+  onCurrentLevel: (value: number) => void;
+  onCurrentXp: (value: number) => void;
+  onTargetLevel: (value: number) => void;
+}) {
+  return (
+    <div className="calculator-fields level-fields">
+      <label><span>Current level</span><input type="number" min="1" max="99" value={currentLevel} onChange={(event) => { const level = clampLevel(Number(event.target.value)); onCurrentLevel(level); onCurrentXp(xpForLevel(level)); }} /></label>
+      <label><span>Current total XP</span><input type="number" min="0" value={currentXp} onChange={(event) => onCurrentXp(Math.max(0, Number(event.target.value) || 0))} /></label>
+      <label><span>Target level</span><input type="number" min="2" max="99" value={targetLevel} onChange={(event) => onTargetLevel(clampLevel(Number(event.target.value)))} /></label>
+    </div>
+  );
+}
+
+export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }: { initialTab?: CalculatorTab; initialSkill?: SkillName }) {
+  const [tab, setTab] = useState<CalculatorTab>(initialTab);
+  const [skill, setSkill] = useState<SkillName>(initialSkill);
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [currentXp, setCurrentXp] = useState(0);
+  const [targetLevel, setTargetLevel] = useState(10);
+  const [customActionXp, setCustomActionXp] = useState(100);
+
+  const xpNeeded = Math.max(0, xpForLevel(targetLevel) - currentXp);
+  const skillResults = useMemo(() => skillTrainingData[skill].map((action) => ({
+    ...action,
+    xp: skill === 'Custom skill' ? customActionXp : action.xp,
+    actions: (skill === 'Custom skill' ? customActionXp : action.xp) > 0 ? Math.ceil(xpNeeded / (skill === 'Custom skill' ? customActionXp : action.xp)) : 0,
+    available: currentLevel >= action.level,
+  })), [currentLevel, customActionXp, skill, xpNeeded]);
+
+  const [combatLevel, setCombatLevel] = useState(1);
+  const [combatXp, setCombatXp] = useState(0);
+  const [combatTarget, setCombatTarget] = useState(20);
+  const [enemyName, setEnemyName] = useState(enemies[2].name);
+  const [killTime, setKillTime] = useState(12);
+  const [travelTime, setTravelTime] = useState(3);
+  const [healthLevel, setHealthLevel] = useState(1);
+  const selectedEnemy = enemies.find((enemy) => enemy.name === enemyName) ?? enemies[0];
+  const combatXpNeeded = Math.max(0, xpForLevel(combatTarget) - combatXp);
+  const totalXpPerKill = Math.round(selectedEnemy.health * combatMultiplier(selectedEnemy.level));
+  const trainingXpPerKill = totalXpPerKill * 0.75;
+  const healthXpPerKill = totalXpPerKill * 0.25;
+  const killsNeeded = trainingXpPerKill > 0 ? Math.ceil(combatXpNeeded / trainingXpPerKill) : 0;
+  const totalTrainingSeconds = killsNeeded * Math.max(0, killTime + travelTime);
+  const resultingHealthXp = xpForLevel(healthLevel) + killsNeeded * healthXpPerKill;
+
+  const [attackLevel, setAttackLevel] = useState(20);
+  const [accuracyBonus, setAccuracyBonus] = useState(25);
+  const [defenceLevel, setDefenceLevel] = useState(20);
+  const [defenceBonus, setDefenceBonus] = useState(25);
+  const maxAccuracy = Math.max(0, attackLevel + 8) * Math.max(0, accuracyBonus + 32);
+  const maxDefence = Math.max(0, defenceLevel + 8) * Math.max(0, defenceBonus + 32);
+  const hitChance = maxAccuracy > maxDefence
+    ? 1 - (maxDefence + 2) / (2 * (maxAccuracy + 1))
+    : maxAccuracy / (2 * (maxDefence + 1));
+
+  return (
+    <div className="calculator-hub">
+      <div className="calculator-tabs" role="tablist" aria-label="Calculator type">
+        <button type="button" role="tab" aria-selected={tab === 'skill'} onClick={() => setTab('skill')}>Skill planner</button>
+        <button type="button" role="tab" aria-selected={tab === 'combat'} onClick={() => setTab('combat')}>Combat XP</button>
+        <button type="button" role="tab" aria-selected={tab === 'accuracy'} onClick={() => setTab('accuracy')}>Accuracy &amp; defence</button>
+      </div>
+
+      {tab === 'skill' && (
+        <section className="calculator-card" aria-labelledby="skill-calculator-heading">
+          <div className="calculator-heading">
+            <div><p>Skill calculator</p><h2 id="skill-calculator-heading">Plan a training goal</h2></div>
+            <label className="skill-select"><span>Skill</span><select value={skill} onChange={(event) => setSkill(event.target.value as SkillName)}>{Object.keys(skillTrainingData).map((name) => <option key={name}>{name}</option>)}</select></label>
+          </div>
+          <LevelFields currentLevel={currentLevel} currentXp={currentXp} targetLevel={targetLevel} onCurrentLevel={setCurrentLevel} onCurrentXp={setCurrentXp} onTargetLevel={setTargetLevel} />
+          {skill === 'Custom skill' && <div className="custom-xp-field"><label><span>XP earned per action</span><input type="number" min="1" value={customActionXp} onChange={(event) => setCustomActionXp(Math.max(1, Number(event.target.value) || 1))} /></label><p>Use this for Smithing or any activity whose XP per action you already know.</p></div>}
+          <div className="calculator-summary">
+            <div><span>Experience required</span><strong>{number.format(xpNeeded)}</strong></div>
+            <p>Level {currentLevel} ({number.format(currentXp)} XP) → level {targetLevel} ({number.format(xpForLevel(targetLevel))} XP)</p>
+          </div>
+          <div className="calculator-table-wrap"><table className="calculator-table"><thead><tr><th>Training method</th><th>Level</th><th>XP each</th><th>Actions needed</th></tr></thead><tbody>{skillResults.map((action) => <tr className={action.available ? '' : 'locked'} key={action.name}><td><strong>{action.name}</strong>{action.note && <small>{action.note}</small>}</td><td>{action.level}</td><td>{number.format(action.xp)}</td><td><b>{number.format(action.actions)}</b>{!action.available && <small>Unlock at {action.level}</small>}</td></tr>)}</tbody></table></div>
+        </section>
+      )}
+
+      {tab === 'combat' && (
+        <section className="calculator-card" aria-labelledby="combat-calculator-heading">
+          <div className="calculator-heading"><div><p>Combat calculator</p><h2 id="combat-calculator-heading">Estimate kills and training time</h2></div></div>
+          <LevelFields currentLevel={combatLevel} currentXp={combatXp} targetLevel={combatTarget} onCurrentLevel={setCombatLevel} onCurrentXp={setCombatXp} onTargetLevel={setCombatTarget} />
+          <div className="calculator-fields combat-fields">
+            <label><span>Enemy</span><select value={enemyName} onChange={(event) => setEnemyName(event.target.value)}>{enemies.map((enemy) => <option value={enemy.name} key={enemy.name}>{enemy.name} — level {enemy.level}</option>)}</select></label>
+            <label><span>Seconds per kill</span><input type="number" min="1" value={killTime} onChange={(event) => setKillTime(Math.max(1, Number(event.target.value) || 1))} /></label>
+            <label><span>Travel / respawn seconds</span><input type="number" min="0" value={travelTime} onChange={(event) => setTravelTime(Math.max(0, Number(event.target.value) || 0))} /></label>
+            <label><span>Current Health level</span><input type="number" min="1" max="99" value={healthLevel} onChange={(event) => setHealthLevel(clampLevel(Number(event.target.value)))} /></label>
+          </div>
+          <div className="combat-result-grid">
+            <div><span>Training XP needed</span><strong>{number.format(combatXpNeeded)}</strong></div>
+            <div><span>Estimated kills</span><strong>{number.format(killsNeeded)}</strong></div>
+            <div><span>Estimated time</span><strong>{formatTime(totalTrainingSeconds)}</strong></div>
+            <div><span>Health level after</span><strong>{levelForXp(resultingHealthXp)}</strong></div>
+          </div>
+          <div className="combat-breakdown">
+            <div><strong>{selectedEnemy.name}</strong><span>Level {selectedEnemy.level} · {number.format(selectedEnemy.health)} health · {selectedEnemy.location}</span></div>
+            <dl><div><dt>Total XP per kill</dt><dd>{number.format(totalXpPerKill)}</dd></div><div><dt>Training share (75%)</dt><dd>{number.format(Math.round(trainingXpPerKill))}</dd></div><div><dt>Health share (25%)</dt><dd>{number.format(Math.round(healthXpPerKill))}</dd></div><div><dt>Combat multiplier</dt><dd>{combatMultiplier(selectedEnemy.level).toFixed(2)}×</dd></div></dl>
+          </div>
+          <p className="calculator-note">This estimate uses the documented combat model: damage × the enemy level multiplier, split 75% to the active combat skill and 25% to Health. Actual results can vary when damage is lost to overkill or an encounter behaves differently.</p>
+        </section>
+      )}
+
+      {tab === 'accuracy' && (
+        <section className="calculator-card" aria-labelledby="accuracy-calculator-heading">
+          <div className="calculator-heading"><div><p>Combat calculator</p><h2 id="accuracy-calculator-heading">Compare accuracy and defence rolls</h2></div></div>
+          <div className="roll-columns">
+            <fieldset><legend>Attacker</legend><label><span>Attack level</span><input type="number" min="1" max="200" value={attackLevel} onChange={(event) => setAttackLevel(Math.max(1, Number(event.target.value) || 1))} /></label><label><span>Equipped accuracy</span><input type="number" min="0" value={accuracyBonus} onChange={(event) => setAccuracyBonus(Math.max(0, Number(event.target.value) || 0))} /></label></fieldset>
+            <fieldset><legend>Defender</legend><label><span>Defence level</span><input type="number" min="1" max="200" value={defenceLevel} onChange={(event) => setDefenceLevel(Math.max(1, Number(event.target.value) || 1))} /></label><label><span>Equipped defence</span><input type="number" min="0" value={defenceBonus} onChange={(event) => setDefenceBonus(Math.max(0, Number(event.target.value) || 0))} /></label></fieldset>
+          </div>
+          <div className="accuracy-result"><span>Estimated chance to hit</span><strong>{(Math.max(0, Math.min(1, hitChance)) * 100).toFixed(1)}%</strong><div><p>Maximum accuracy roll <b>{number.format(maxAccuracy)}</b></p><p>Maximum defence roll <b>{number.format(maxDefence)}</b></p></div></div>
+          <div className="formula-box"><h3>Formulas used</h3><p><code>Max accuracy = (Attack level + 8) × (Equipped accuracy + 32)</code></p><p><code>Max defence = (Defence level + 8) × (Equipped defence + 32)</code></p></div>
+          <p className="calculator-note">This tool compares the documented roll model. It does not include every potion, temporary effect, enemy-specific modifier, or special attack.</p>
+        </section>
+      )}
+    </div>
+  );
+}

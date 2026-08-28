@@ -22,20 +22,20 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: 'The Valen Archives — Winds of Valen Player Wiki',
-    template: '%s — The Valen Archives',
+    default: 'Winds of Valen Wiki',
+    template: '%s — Winds of Valen Wiki',
   },
-  description: 'A player-made Winds of Valen encyclopedia of items, creatures, quests, recipes, locations, and practical guides.',
+  description: 'The complete player guide to Winds of Valen: skills, items, quests, creatures, locations, recipes, and calculators.',
   openGraph: {
-    title: 'The Valen Archives',
-    description: 'A Winds of Valen player wiki for items, creatures, quests, skills, locations, and practical guides.',
+    title: 'Winds of Valen Wiki',
+    description: 'Skills, items, quests, creatures, locations, recipes, and calculators in one player encyclopedia.',
     type: 'website',
     images: [],
   },
   twitter: {
     card: 'summary',
-    title: 'The Valen Archives',
-    description: 'A Winds of Valen player wiki for items, creatures, quests, skills, locations, and practical guides.',
+    title: 'Winds of Valen Wiki',
+    description: 'Skills, items, quests, creatures, locations, recipes, and calculators in one player encyclopedia.',
     images: [],
   },
 };
@@ -44,9 +44,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable}`}>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <div className="wiki-site-frame">
+          <SiteHeader />
+          <div className="wiki-page-column">
+            {children}
+            <SiteFooter />
+          </div>
+        </div>
       </body>
     </html>
   );
