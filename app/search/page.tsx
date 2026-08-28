@@ -1,26 +1,30 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SearchBox } from '../components/SearchBox';
 import { VerificationBadge } from '../components/VerificationBadge';
-import { searchEntries, searchWiki } from '../lib/wiki-data';
+import { wikiSourceSearchEntries } from '../lib/wiki-source-registry';
+import { searchEntries, searchIndex } from '../lib/wiki-data';
 
 export const metadata: Metadata = { title: 'Search' };
+
+const allSearchEntries = [...searchEntries, ...wikiSourceSearchEntries];
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
   const params = await searchParams;
   const query = Array.isArray(params.q) ? params.q[0] ?? '' : params.q ?? '';
-  const results = searchWiki(query);
+  const results = searchIndex(allSearchEntries, query);
   return (
     <main className="inner-page search-page">
       <header className="simple-page-heading">
         <p className="eyebrow">Search the archives</p>
         <h1>{query ? `Results for “${query}”` : 'Find a page'}</h1>
-        <p>Exact names, aliases, technical IDs, categories, and article summaries are indexed.</p>
+        <p>Search archive articles plus both authorized developer-wiki directories. Source results open their fixed revision inside the archive.</p>
       </header>
-      <SearchBox entries={searchEntries} mode="page" defaultValue={query} />
+      <SearchBox entries={allSearchEntries} mode="page" defaultValue={query} />
       <p className="result-count">{results.length} {results.length === 1 ? 'result' : 'results'}</p>
       <div className="search-results">
         {results.map((entry) => (
-          <a href={`/wiki/${entry.slug}`} key={entry.slug}>
+          <a href={entry.href ?? `/wiki/${entry.slug}`} key={entry.slug} target={entry.href?.startsWith('http') ? '_blank' : undefined} rel={entry.href?.startsWith('http') ? 'noreferrer' : undefined}>
             <span className="result-type">{entry.type}</span>
             <div><h2>{entry.title}</h2><p>{entry.summary}</p></div>
             <VerificationBadge verification={entry.verification} compact />
@@ -28,7 +32,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           </a>
         ))}
       </div>
-      {results.length === 0 && <div className="empty-results"><strong>No pages matched “{query}”.</strong><p>Try the engine class, item name, route, or a broader activity.</p><a href="/wiki">Browse the complete index</a></div>}
+      {results.length === 0 && <div className="empty-results"><strong>No pages matched “{query}”.</strong><p>Try the engine class, item name, route, or a broader activity.</p><Link href="/wiki">Browse the complete index</Link></div>}
     </main>
   );
 }

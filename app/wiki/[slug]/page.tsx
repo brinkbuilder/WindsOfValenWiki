@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { VerificationBadge } from '../../components/VerificationBadge';
-import { verificationLabels, wikiBySlug, wikiEntries } from '../../lib/wiki-data';
+import { findWikiSourceMatches, wikiSources, wikiSourceReaderPath } from '../../lib/wiki-source-registry';
+import { verificationLabels, wikiBySlug, wikiEntries, type ExternalSource } from '../../lib/wiki-data';
 
 export function generateStaticParams() {
   return wikiEntries.map((entry) => ({ slug: entry.slug }));
@@ -25,11 +27,32 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
   const verification = verificationLabels[entry.verification];
+  const automaticSources: ExternalSource[] = findWikiSourceMatches(entry.title, entry.aliases).map(({ source, page }) => ({
+    id: `${source.id}-${page.pageId}`,
+    site: source.name,
+    pageTitle: page.title,
+    permalink: source.permalink(page),
+    revisionId: page.revisionId,
+    revisedAt: page.revisedAt,
+    retrievedAt: source.retrievedAt,
+    relation: 'supplements',
+    scope: ['Matching source article'],
+    note: source.id === 'miraheze' ? 'Legacy cross-reference; prefer newer evidence when values differ.' : 'Current community cross-reference.',
+    readerPath: wikiSourceReaderPath(source.id, page.pageId),
+  }));
+  const externalSources = [...(entry.externalSources ?? []), ...automaticSources]
+    .filter((source, index, sources) => sources.findIndex((candidate) => candidate.permalink === source.permalink) === index)
+    .map((source) => {
+      if (source.readerPath) return source;
+      const matchedSource = wikiSources.find((candidate) => candidate.name === source.site);
+      const matchedPage = matchedSource?.pages.find((candidate) => candidate.revisionId === source.revisionId);
+      return matchedSource && matchedPage ? { ...source, readerPath: wikiSourceReaderPath(matchedSource.id, matchedPage.pageId) } : source;
+    });
 
   return (
     <main className="article-page">
       <div className="breadcrumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/wiki">Wiki</a><span>/</span><span>{entry.title}</span>
+        <Link href="/">Home</Link><span>/</span><Link href="/wiki">Wiki</Link><span>/</span><span>{entry.title}</span>
       </div>
 
       <header className="article-title-block">
@@ -48,6 +71,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
       <nav className="article-tabs" aria-label="Article views">
         <a className="active" href="#article">Article</a>
         <a href="#evidence">Evidence</a>
+        {externalSources.length > 0 && <a href="#source-references">Sources</a>}
         <a href="#related">Related pages</a>
         <a href="/contribute">Suggest an edit</a>
       </nav>
@@ -59,6 +83,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             <ol>
               {entry.sections.map((section, index) => <li key={section.title}><a href={`#section-${index + 1}`}>{section.title}</a></li>)}
               <li><a href="#evidence">Evidence and source</a></li>
+              {externalSources.length > 0 && <li><a href="#source-references">External source revisions</a></li>}
             </ol>
           </aside>
 
@@ -92,6 +117,34 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             </div>
           </section>
 
+          {externalSources.length > 0 && (
+            <section className="external-sources" id="source-references">
+              <p className="eyebrow">Revision-level attribution</p>
+              <h2>External source revisions</h2>
+              <p className="external-sources-intro">These records remain distinct from the page’s primary verification. Open the copied version inside the archive or inspect the permanent source revision.</p>
+              <div className="external-source-list">
+                {externalSources.map((source) => (
+                  <article className={`external-source-card source-relation-${source.relation}`} id={`source-${source.id}`} key={`${source.site}-${source.revisionId}`}>
+                    <div>
+                      <span>{source.relation}</span>
+                      <h3>{source.pageTitle}</h3>
+                      <p>{source.note ?? `Supports: ${source.scope.join(', ')}`}</p>
+                    </div>
+                    <dl>
+                      <div><dt>Site</dt><dd>{source.site}</dd></div>
+                      <div><dt>Revision</dt><dd>{source.revisionId}</dd></div>
+                      <div><dt>Revised</dt><dd><time dateTime={source.revisedAt}>{new Date(source.revisedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}</time></dd></div>
+                    </dl>
+                    <div className="external-source-actions">
+                      {source.readerPath && <a href={source.readerPath}>Read copied page</a>}
+                      <a href={source.permalink} target="_blank" rel="noreferrer">Original revision ↗</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
           {related.length > 0 && (
             <section className="related-section" id="related">
               <p className="eyebrow">Keep exploring</p>
@@ -122,7 +175,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             {entry.technicalId && <code>{entry.technicalId}</code>}
           </div>
           <dl>
-            {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+            {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}{fact.sourceRef && <a className="fact-source-ref" href={`#source-${fact.sourceRef}`} aria-label={`Source for ${fact.label}`}>source</a>}</dd></div>)}
           </dl>
           <div className="infobox-status"><VerificationBadge verification={entry.verification} compact /><p>{verification.description}</p></div>
           <a href="/contribute">Report missing or incorrect data <span>→</span></a>

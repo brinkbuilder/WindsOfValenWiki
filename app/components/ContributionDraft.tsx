@@ -9,12 +9,19 @@ export function ContributionDraft() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    let restoreTimer: number | undefined;
     try {
       const saved = window.localStorage.getItem('valen-wiki-contribution');
-      if (saved) setDraft({ ...emptyDraft, ...JSON.parse(saved) });
+      if (saved) {
+        const restoredDraft = { ...emptyDraft, ...JSON.parse(saved) };
+        restoreTimer = window.setTimeout(() => setDraft(restoredDraft), 0);
+      }
     } catch {
       // A blocked storage API should never prevent someone drafting a note.
     }
+    return () => {
+      if (restoreTimer !== undefined) window.clearTimeout(restoreTimer);
+    };
   }, []);
 
   useEffect(() => {

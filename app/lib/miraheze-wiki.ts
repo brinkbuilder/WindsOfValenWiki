@@ -1,0 +1,177 @@
+import type { SearchEntry } from './wiki-data';
+
+export type MirahezeWikiPage = {
+  pageId: number;
+  title: string;
+  revisionId: number;
+  revisedAt: string;
+  categories: string[];
+};
+
+export const mirahezeWikiSnapshot = {
+  siteName: 'Winds of Valen Miraheze Wiki',
+  baseUrl: 'https://windsofvalen.miraheze.org',
+  apiUrl: 'https://windsofvalen.miraheze.org/w/api.php',
+  retrievedAt: '28 August 2026',
+  articleCount: 126,
+  pageCount: 126,
+  fileCount: 362,
+  licenseName: 'CC BY-SA 4.0',
+  licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+} as const;
+
+export const mirahezeWikiPages: MirahezeWikiPage[] = [
+  {"pageId":319,"title":"Achievements","revisionId":2022,"revisedAt":"2026-01-17T21:00:43Z","categories":[]},
+  {"pageId":744,"title":"Archery","revisionId":6132,"revisedAt":"2026-03-19T23:08:38Z","categories":[]},
+  {"pageId":731,"title":"Archery Stall","revisionId":5841,"revisedAt":"2026-03-14T00:11:47Z","categories":[]},
+  {"pageId":280,"title":"Armour Stall","revisionId":5559,"revisedAt":"2026-03-01T15:08:14Z","categories":[]},
+  {"pageId":47,"title":"Bandit","revisionId":5890,"revisedAt":"2026-03-14T01:36:58Z","categories":[]},
+  {"pageId":49,"title":"Bandit Leader","revisionId":5944,"revisedAt":"2026-03-14T16:08:30Z","categories":[]},
+  {"pageId":51,"title":"Bandit Mercenary","revisionId":5897,"revisedAt":"2026-03-14T12:55:42Z","categories":[]},
+  {"pageId":55,"title":"Bandit Mercenary Boss","revisionId":5952,"revisedAt":"2026-03-14T16:18:09Z","categories":[]},
+  {"pageId":225,"title":"Bank","revisionId":712,"revisedAt":"2026-01-11T23:13:37Z","categories":[]},
+  {"pageId":201,"title":"Bars","revisionId":6316,"revisedAt":"2026-04-20T02:37:47Z","categories":[]},
+  {"pageId":293,"title":"Blacksmith Stall","revisionId":5563,"revisedAt":"2026-03-01T15:09:40Z","categories":[]},
+  {"pageId":604,"title":"Blue Gill Spot","revisionId":5601,"revisedAt":"2026-03-04T22:28:18Z","categories":[]},
+  {"pageId":257,"title":"Broken Village","revisionId":5011,"revisedAt":"2026-02-22T16:09:45Z","categories":[]},
+  {"pageId":657,"title":"Carp Spot","revisionId":4708,"revisedAt":"2026-02-20T23:48:11Z","categories":[]},
+  {"pageId":622,"title":"Cauldron","revisionId":5326,"revisedAt":"2026-02-23T21:08:36Z","categories":[]},
+  {"pageId":378,"title":"Character Creator Stall","revisionId":5315,"revisedAt":"2026-02-23T20:51:06Z","categories":[]},
+  {"pageId":385,"title":"Clans","revisionId":5055,"revisedAt":"2026-02-22T16:18:59Z","categories":[]},
+  {"pageId":290,"title":"Coal Rock","revisionId":5066,"revisedAt":"2026-02-22T16:27:35Z","categories":[]},
+  {"pageId":32,"title":"Coins","revisionId":4784,"revisedAt":"2026-02-21T12:48:11Z","categories":[]},
+  {"pageId":656,"title":"Combat Level Explained by Djinn","revisionId":4992,"revisedAt":"2026-02-22T16:05:26Z","categories":[]},
+  {"pageId":599,"title":"Common Trout Spot","revisionId":5599,"revisedAt":"2026-03-04T22:27:43Z","categories":[]},
+  {"pageId":694,"title":"Conquer the Giants: Ultimate Bossing Guide by Artio","revisionId":5607,"revisedAt":"2026-03-05T19:06:57Z","categories":[]},
+  {"pageId":253,"title":"Copper Rock","revisionId":5063,"revisedAt":"2026-02-22T16:27:04Z","categories":[]},
+  {"pageId":705,"title":"Cow","revisionId":6193,"revisedAt":"2026-04-04T01:03:14Z","categories":[]},
+  {"pageId":568,"title":"Cutting Table","revisionId":5566,"revisedAt":"2026-03-01T15:10:44Z","categories":[]},
+  {"pageId":262,"title":"Damage Types Explained","revisionId":5991,"revisedAt":"2026-03-14T17:00:12Z","categories":[]},
+  {"pageId":69,"title":"Darklands","revisionId":4988,"revisedAt":"2026-02-22T16:03:33Z","categories":[]},
+  {"pageId":444,"title":"Datalist","revisionId":2448,"revisedAt":"2026-01-27T09:06:14Z","categories":[]},
+  {"pageId":484,"title":"Developer Mechanics & Calculations","revisionId":5573,"revisedAt":"2026-03-03T21:05:55Z","categories":[]},
+  {"pageId":458,"title":"Download","revisionId":5574,"revisedAt":"2026-03-03T21:08:38Z","categories":[]},
+  {"pageId":606,"title":"Elder Trout Spot","revisionId":5602,"revisedAt":"2026-03-04T22:28:32Z","categories":[]},
+  {"pageId":57,"title":"Elf","revisionId":5898,"revisedAt":"2026-03-14T12:58:42Z","categories":[]},
+  {"pageId":59,"title":"Elf Scholar","revisionId":5899,"revisedAt":"2026-03-14T13:00:11Z","categories":[]},
+  {"pageId":61,"title":"Elf Warden","revisionId":5953,"revisedAt":"2026-03-14T16:20:39Z","categories":[]},
+  {"pageId":275,"title":"Elven Haven","revisionId":5015,"revisedAt":"2026-02-22T16:10:27Z","categories":[]},
+  {"pageId":3,"title":"Enemies","revisionId":5784,"revisedAt":"2026-03-13T22:30:30Z","categories":[]},
+  {"pageId":327,"title":"Enemy Weakness & Defense","revisionId":5968,"revisedAt":"2026-03-14T16:44:12Z","categories":[]},
+  {"pageId":523,"title":"Events","revisionId":5056,"revisedAt":"2026-02-22T16:19:08Z","categories":[]},
+  {"pageId":192,"title":"Experience","revisionId":6083,"revisedAt":"2026-03-16T23:21:50Z","categories":[]},
+  {"pageId":756,"title":"Farmlands","revisionId":6056,"revisedAt":"2026-03-14T22:20:35Z","categories":[]},
+  {"pageId":205,"title":"Fighting Leveling Calculator","revisionId":2027,"revisedAt":"2026-01-18T15:23:44Z","categories":[]},
+  {"pageId":392,"title":"Fighting Leveling Calculator/Data","revisionId":1980,"revisedAt":"2026-01-16T23:59:47Z","categories":[]},
+  {"pageId":441,"title":"Fishing","revisionId":6519,"revisedAt":"2026-04-21T01:30:32Z","categories":["Pages with broken file links"]},
+  {"pageId":552,"title":"Fishing Guide","revisionId":4995,"revisedAt":"2026-02-22T16:06:06Z","categories":[]},
+  {"pageId":674,"title":"Fishing Map","revisionId":4876,"revisedAt":"2026-02-21T18:48:46Z","categories":[]},
+  {"pageId":531,"title":"Fishing Stall","revisionId":5564,"revisedAt":"2026-03-01T15:10:03Z","categories":[]},
+  {"pageId":269,"title":"Forest Alcove","revisionId":5016,"revisedAt":"2026-02-22T16:10:38Z","categories":[]},
+  {"pageId":515,"title":"Full Item List (Drops Only)","revisionId":6315,"revisedAt":"2026-04-20T02:37:37Z","categories":[]},
+  {"pageId":214,"title":"Furnace","revisionId":674,"revisedAt":"2026-01-11T22:31:27Z","categories":[]},
+  {"pageId":25,"title":"Goblin","revisionId":6191,"revisedAt":"2026-04-04T01:00:42Z","categories":[]},
+  {"pageId":27,"title":"Goblin Berserker","revisionId":5901,"revisedAt":"2026-03-14T13:03:17Z","categories":[]},
+  {"pageId":754,"title":"Goblin Cave","revisionId":6054,"revisedAt":"2026-03-14T22:20:01Z","categories":[]},
+  {"pageId":41,"title":"Goblin Chieftain","revisionId":5946,"revisedAt":"2026-03-14T16:11:20Z","categories":[]},
+  {"pageId":271,"title":"Goblin Village","revisionId":5014,"revisedAt":"2026-02-22T16:10:16Z","categories":[]},
+  {"pageId":38,"title":"Goblin Villager","revisionId":5892,"revisedAt":"2026-03-14T01:40:50Z","categories":[]},
+  {"pageId":711,"title":"Goblin Watcher","revisionId":6004,"revisedAt":"2026-03-14T21:38:50Z","categories":[]},
+  {"pageId":291,"title":"Gold Rock","revisionId":5069,"revisedAt":"2026-02-22T16:28:05Z","categories":[]},
+  {"pageId":268,"title":"Graveyard","revisionId":5022,"revisedAt":"2026-02-22T16:11:59Z","categories":[]},
+  {"pageId":437,"title":"Guide to Killing Things Good by Artio","revisionId":5000,"revisedAt":"2026-02-22T16:07:04Z","categories":[]},
+  {"pageId":231,"title":"Hammers","revisionId":1068,"revisedAt":"2026-01-13T14:30:06Z","categories":[]},
+  {"pageId":300,"title":"Help & FaQ","revisionId":6241,"revisedAt":"2026-04-08T13:34:52Z","categories":[]},
+  {"pageId":707,"title":"Hen","revisionId":6187,"revisedAt":"2026-04-04T00:53:05Z","categories":[]},
+  {"pageId":43,"title":"Highwayman","revisionId":5894,"revisedAt":"2026-03-14T01:42:41Z","categories":[]},
+  {"pageId":189,"title":"Holiday item store","revisionId":5320,"revisedAt":"2026-02-23T21:04:02Z","categories":[]},
+  {"pageId":438,"title":"How To Detect A Bot/Clicker ?","revisionId":4991,"revisedAt":"2026-02-22T16:05:14Z","categories":[]},
+  {"pageId":476,"title":"How To Level Shield Skills Guide by Alice","revisionId":4999,"revisedAt":"2026-02-22T16:06:53Z","categories":[]},
+  {"pageId":206,"title":"Info/Guides/Tools","revisionId":6569,"revisedAt":"2026-05-04T19:20:27Z","categories":[]},
+  {"pageId":289,"title":"Iron Rock","revisionId":5065,"revisedAt":"2026-02-22T16:27:23Z","categories":[]},
+  {"pageId":64,"title":"Items","revisionId":6553,"revisedAt":"2026-04-21T02:07:03Z","categories":[]},
+  {"pageId":283,"title":"Jewellery Stall","revisionId":5562,"revisedAt":"2026-03-01T15:09:25Z","categories":[]},
+  {"pageId":678,"title":"Links","revisionId":6201,"revisedAt":"2026-04-05T03:01:05Z","categories":[]},
+  {"pageId":324,"title":"Locations","revisionId":5950,"revisedAt":"2026-03-14T16:14:36Z","categories":[]},
+  {"pageId":321,"title":"Lore/History","revisionId":5666,"revisedAt":"2026-03-06T20:51:58Z","categories":[]},
+  {"pageId":1,"title":"Main Page","revisionId":6150,"revisedAt":"2026-04-03T22:16:51Z","categories":[]},
+  {"pageId":274,"title":"Mercenary Camp","revisionId":5017,"revisedAt":"2026-02-22T16:10:49Z","categories":[]},
+  {"pageId":68,"title":"Mining","revisionId":6489,"revisedAt":"2026-04-21T00:44:46Z","categories":[]},
+  {"pageId":297,"title":"Mining Guide","revisionId":4993,"revisedAt":"2026-02-22T16:05:41Z","categories":[]},
+  {"pageId":233,"title":"Mining Stall","revisionId":5556,"revisedAt":"2026-03-01T15:06:34Z","categories":[]},
+  {"pageId":551,"title":"Minnow Spot","revisionId":5598,"revisedAt":"2026-03-04T22:27:27Z","categories":[]},
+  {"pageId":230,"title":"Mithril Rock","revisionId":5593,"revisedAt":"2026-03-03T22:45:36Z","categories":[]},
+  {"pageId":211,"title":"Money Guide","revisionId":5394,"revisedAt":"2026-02-27T23:06:19Z","categories":[]},
+  {"pageId":198,"title":"Ore","revisionId":6552,"revisedAt":"2026-04-21T02:05:52Z","categories":[]},
+  {"pageId":475,"title":"Page Updates","revisionId":6139,"revisedAt":"2026-03-19T23:20:03Z","categories":[]},
+  {"pageId":273,"title":"Path at West Mine","revisionId":5021,"revisedAt":"2026-02-22T16:11:45Z","categories":[]},
+  {"pageId":601,"title":"Perch Spot","revisionId":5597,"revisedAt":"2026-03-04T22:27:10Z","categories":[]},
+  {"pageId":624,"title":"Pestle and Mortar","revisionId":5327,"revisedAt":"2026-02-23T21:09:04Z","categories":[]},
+  {"pageId":203,"title":"Pickaxes","revisionId":6509,"revisedAt":"2026-04-21T01:14:51Z","categories":[]},
+  {"pageId":824,"title":"Pirate Captain","revisionId":6560,"revisedAt":"2026-04-21T02:24:45Z","categories":["Pages with broken file links"]},
+  {"pageId":826,"title":"Pirate Corsair","revisionId":6562,"revisedAt":"2026-04-21T02:27:34Z","categories":["Pages with broken file links"]},
+  {"pageId":825,"title":"Pirate Deckhand","revisionId":6561,"revisedAt":"2026-04-21T02:26:41Z","categories":["Pages with broken file links"]},
+  {"pageId":827,"title":"Pirate Rigger","revisionId":6563,"revisedAt":"2026-04-21T02:28:10Z","categories":["Pages with broken file links"]},
+  {"pageId":477,"title":"Potion Making","revisionId":6555,"revisedAt":"2026-04-21T02:10:01Z","categories":["Pages with broken file links"]},
+  {"pageId":553,"title":"Potion Making Guide","revisionId":5398,"revisedAt":"2026-02-27T23:22:07Z","categories":[]},
+  {"pageId":287,"title":"Potion Stall","revisionId":5557,"revisedAt":"2026-03-01T15:06:53Z","categories":[]},
+  {"pageId":429,"title":"Professions","revisionId":6202,"revisedAt":"2026-04-05T03:04:21Z","categories":[]},
+  {"pageId":426,"title":"PvP","revisionId":4985,"revisedAt":"2026-02-22T16:02:43Z","categories":[]},
+  {"pageId":307,"title":"QuestingPapa’s Intro to Combat Guide","revisionId":4997,"revisedAt":"2026-02-22T16:06:27Z","categories":[]},
+  {"pageId":384,"title":"Races","revisionId":5033,"revisedAt":"2026-02-22T16:14:28Z","categories":[]},
+  {"pageId":619,"title":"Reduction Station","revisionId":5325,"revisedAt":"2026-02-23T21:08:13Z","categories":[]},
+  {"pageId":710,"title":"Rooster","revisionId":6188,"revisedAt":"2026-04-04T00:55:56Z","categories":[]},
+  {"pageId":282,"title":"Shield Stall","revisionId":5561,"revisedAt":"2026-03-01T15:09:10Z","categories":[]},
+  {"pageId":29,"title":"Skeleton","revisionId":5889,"revisedAt":"2026-03-14T01:34:40Z","categories":[]},
+  {"pageId":63,"title":"Skeleton Knight","revisionId":5896,"revisedAt":"2026-03-14T01:45:06Z","categories":[]},
+  {"pageId":45,"title":"Skeleton Miner","revisionId":5891,"revisedAt":"2026-03-14T01:38:52Z","categories":[]},
+  {"pageId":31,"title":"Skeleton Pioneer","revisionId":5955,"revisedAt":"2026-03-14T16:22:46Z","categories":[]},
+  {"pageId":33,"title":"Skills","revisionId":6195,"revisedAt":"2026-04-05T02:49:25Z","categories":[]},
+  {"pageId":602,"title":"Small Bass Spot","revisionId":5600,"revisedAt":"2026-03-04T22:28:02Z","categories":[]},
+  {"pageId":190,"title":"Smithing","revisionId":6123,"revisedAt":"2026-03-19T23:00:56Z","categories":[]},
+  {"pageId":296,"title":"Smithing Guide","revisionId":5756,"revisedAt":"2026-03-09T18:06:54Z","categories":[]},
+  {"pageId":499,"title":"Stall Items List","revisionId":5996,"revisedAt":"2026-03-14T17:06:51Z","categories":[]},
+  {"pageId":294,"title":"Stalls","revisionId":5857,"revisedAt":"2026-03-14T00:21:53Z","categories":[]},
+  {"pageId":310,"title":"Starting the game","revisionId":4982,"revisedAt":"2026-02-22T15:58:50Z","categories":[]},
+  {"pageId":281,"title":"Sword Stall","revisionId":5560,"revisedAt":"2026-03-01T15:08:29Z","categories":[]},
+  {"pageId":677,"title":"Test","revisionId":5476,"revisedAt":"2026-03-01T01:42:17Z","categories":[]},
+  {"pageId":288,"title":"Tin Rock","revisionId":5064,"revisedAt":"2026-02-22T16:27:14Z","categories":[]},
+  {"pageId":284,"title":"Town 1","revisionId":5012,"revisedAt":"2026-02-22T16:09:55Z","categories":[]},
+  {"pageId":250,"title":"Town 2","revisionId":5013,"revisedAt":"2026-02-22T16:10:05Z","categories":[]},
+  {"pageId":325,"title":"Town 2 Graveyard","revisionId":5023,"revisedAt":"2026-02-22T16:12:10Z","categories":[]},
+  {"pageId":270,"title":"Town Mine","revisionId":5018,"revisedAt":"2026-02-22T16:10:58Z","categories":[]},
+  {"pageId":522,"title":"True North","revisionId":5031,"revisedAt":"2026-02-22T16:14:05Z","categories":[]},
+  {"pageId":34,"title":"Upcoming updates","revisionId":5971,"revisedAt":"2026-03-14T16:46:34Z","categories":[]},
+  {"pageId":474,"title":"Updates","revisionId":6145,"revisedAt":"2026-04-03T21:44:00Z","categories":[]},
+  {"pageId":302,"title":"Video Guides","revisionId":5009,"revisedAt":"2026-02-22T16:08:54Z","categories":[]},
+  {"pageId":292,"title":"Volcanic Gold Rock","revisionId":5070,"revisedAt":"2026-02-22T16:28:15Z","categories":[]},
+  {"pageId":272,"title":"West Mine","revisionId":5020,"revisedAt":"2026-02-22T16:11:18Z","categories":[]},
+  {"pageId":308,"title":"Ymko's Fighting Guide","revisionId":4998,"revisedAt":"2026-02-22T16:06:42Z","categories":[]},
+];
+
+export function mirahezePageUrl(page: Pick<MirahezeWikiPage, 'title'>) {
+  return `${mirahezeWikiSnapshot.baseUrl}/wiki/${encodeURIComponent(page.title.replace(/ /g, '_'))}`;
+}
+
+export function mirahezePermalink(page: Pick<MirahezeWikiPage, 'title' | 'revisionId'>) {
+  return `${mirahezeWikiSnapshot.baseUrl}/w/index.php?title=${encodeURIComponent(page.title.replace(/ /g, '_'))}&oldid=${page.revisionId}`;
+}
+
+const normalizeTitle = (value: string) => value.trim().toLowerCase().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ');
+
+export function findMirahezePages(title: string, aliases: string[] = []) {
+  const candidates = new Set([title, ...aliases].map(normalizeTitle));
+  return mirahezeWikiPages.filter((page) => candidates.has(normalizeTitle(page.title)));
+}
+
+export const mirahezeSearchEntries: SearchEntry[] = mirahezeWikiPages.map((page) => ({
+  slug: `miraheze-${page.pageId}`,
+  title: page.title,
+  type: 'Community page',
+  summary: page.categories.length ? `${mirahezeWikiSnapshot.siteName} · ${page.categories.join(', ')}` : `${mirahezeWikiSnapshot.siteName} source page`,
+  verification: 'community',
+  terms: [page.title, ...page.categories, mirahezeWikiSnapshot.siteName].join(' ').toLowerCase(),
+  href: `/sources/miraheze/${page.pageId}`,
+  source: 'community',
+}));
+

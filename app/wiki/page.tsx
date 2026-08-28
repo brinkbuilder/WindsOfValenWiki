@@ -16,12 +16,13 @@ export default async function WikiIndexPage({ searchParams }: { searchParams: Pr
         <div>
           <p className="eyebrow">The complete field index</p>
           <h1>Explore the archives</h1>
-          <p>Browse structured pages generated from bridge exports, recorded routes, working project knowledge, and player-confirmed field notes.</p>
+          <p>Browse structured pages generated from bridge exports, recorded routes, player-confirmed field notes, and clearly labelled community documentation.</p>
         </div>
         <dl className="index-stats">
           <div><dt>Pages</dt><dd>{wikiStats.articles}</dd></div>
           <div><dt>Recipes</dt><dd>{wikiStats.recipes}</dd></div>
           <div><dt>Routes</dt><dd>{wikiStats.routes}</dd></div>
+          <div><dt>Community</dt><dd>{wikiStats.communityArticles}</dd></div>
         </dl>
       </section>
       <WikiIndexClient entries={searchEntries} initialType={initialType ?? 'all'} />

@@ -1,8 +1,25 @@
-export type Verification = 'engine' | 'observed' | 'route' | 'player' | 'documented';
+import { communityEntries } from './community-entries';
+
+export type Verification = 'engine' | 'observed' | 'route' | 'player' | 'documented' | 'community';
 
 export type WikiFact = {
   label: string;
   value: string;
+  sourceRef?: string;
+};
+
+export type ExternalSource = {
+  id: string;
+  site: string;
+  pageTitle: string;
+  permalink: string;
+  revisionId: number;
+  revisedAt: string;
+  retrievedAt: string;
+  relation: 'corroborates' | 'supplements' | 'conflicts';
+  scope: string[];
+  note?: string;
+  readerPath?: string;
 };
 
 export type WikiTable = {
@@ -20,7 +37,7 @@ export type WikiSection = {
 export type WikiEntry = {
   slug: string;
   title: string;
-  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'Route' | 'System' | 'Resource';
+  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'Route' | 'System' | 'Resource' | 'Quest';
   verification: Verification;
   summary: string;
   intro: string;
@@ -30,6 +47,7 @@ export type WikiEntry = {
   facts: WikiFact[];
   sections: WikiSection[];
   related?: string[];
+  externalSources?: ExternalSource[];
   source: {
     label: string;
     detail: string;
@@ -655,8 +673,13 @@ const routeEntries: WikiEntry[] = routeSpecs.map((route) => ({
   source: routeSource,
 }));
 
-export const wikiEntries: WikiEntry[] = [...curatedEntries, ...recipeEntries, ...routeEntries]
-  .sort((a, b) => a.title.localeCompare(b.title));
+const allWikiEntries = [...curatedEntries, ...recipeEntries, ...routeEntries, ...communityEntries];
+const duplicateSlugs = allWikiEntries
+  .map((entry) => entry.slug)
+  .filter((slug, index, slugs) => slugs.indexOf(slug) !== index);
+if (duplicateSlugs.length) throw new Error(`Duplicate wiki slugs: ${[...new Set(duplicateSlugs)].join(', ')}`);
+
+export const wikiEntries: WikiEntry[] = allWikiEntries.sort((a, b) => a.title.localeCompare(b.title));
 
 export const wikiBySlug = new Map(wikiEntries.map((entry) => [entry.slug, entry]));
 
@@ -666,9 +689,19 @@ export const verificationLabels: Record<Verification, { label: string; descripti
   route: { label: 'Route verified', description: 'Supported by a recorded world route or resource patch.' },
   player: { label: 'Player confirmed', description: 'Measured through a repeatable player workflow.' },
   documented: { label: 'Project documented', description: 'Confirmed in the working implementation and tests.' },
+  community: { label: 'Community documented', description: 'Attributed to a community source and not independently confirmed by ValenBridge.' },
 };
 
-export type SearchEntry = Pick<WikiEntry, 'slug' | 'title' | 'type' | 'summary' | 'verification'> & { terms: string };
+export type SearchEntry = {
+  slug: string;
+  title: string;
+  type: WikiEntry['type'] | 'Community page';
+  summary: string;
+  verification: Verification;
+  terms: string;
+  href?: string;
+  source?: 'archive' | 'community';
+};
 
 export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
   slug: entry.slug,
@@ -676,11 +709,30 @@ export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
   type: entry.type,
   summary: entry.summary,
   verification: entry.verification,
+  source: 'archive',
   terms: [entry.title, entry.type, entry.summary, entry.technicalId, ...(entry.aliases ?? []), ...entry.categories]
     .filter(Boolean)
     .join(' ')
     .toLowerCase(),
 }));
+
+export function searchIndex(entries: SearchEntry[], query: string): SearchEntry[] {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return entries;
+  return entries
+    .map((entry) => {
+      const title = entry.title.toLowerCase();
+      let score = 0;
+      if (title === normalized) score = 100;
+      else if (title.startsWith(normalized)) score = 70;
+      else if (title.includes(normalized)) score = 50;
+      else if (entry.terms.includes(normalized)) score = 20;
+      return { entry, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || (a.entry.source === b.entry.source ? 0 : a.entry.source === 'archive' ? -1 : 1) || a.entry.title.localeCompare(b.entry.title))
+    .map(({ entry }) => entry);
+}
 
 export function searchWiki(query: string): WikiEntry[] {
   const normalized = query.trim().toLowerCase();
@@ -708,5 +760,6 @@ export const wikiStats = {
   articles: wikiEntries.length,
   recipes: recipeEntries.length,
   routes: routeEntries.length,
+  communityArticles: communityEntries.length,
   verifiedItems: curatedEntries.filter((entry) => entry.type === 'Item' && entry.verification === 'engine').length,
 };

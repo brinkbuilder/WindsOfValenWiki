@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { verificationLabels } from '../../lib/wiki-data';
 
 export const metadata: Metadata = { title: 'Data and verification', description: 'How The Valen Archives separates bridge-confirmed facts, observations, routes, and community notes.' };
@@ -23,7 +24,7 @@ export default function DataPolicyPage() {
       <section className="policy-grid">
         <article>
           <p className="eyebrow">Evidence labels</p>
-          <h2>Five levels of evidence</h2>
+          <h2>Six levels of evidence</h2>
           <div className="label-list">
             {Object.entries(verificationLabels).map(([key, item]) => (
               <div key={key}><i className={`verification-${key}`} /><span><strong>{item.label}</strong><p>{item.description}</p></span></div>
@@ -38,6 +39,7 @@ export default function DataPolicyPage() {
             <li>Unknown ingredients, effects, requirements, and drop rates remain visibly unknown.</li>
             <li>Bank totals are not historical facts until the bank is hydrated after reconnect.</li>
             <li>Community writing can explain a fact but does not silently replace a bridge-confirmed value.</li>
+            <li>Community claims link to a fixed revision and remain visible when they conflict with newer or stronger evidence.</li>
           </ul>
         </article>
         <article>
@@ -55,7 +57,13 @@ export default function DataPolicyPage() {
           <p className="eyebrow">Safe importer</p>
           <h2>Targeted and cached by design</h2>
           <p>Broad UObject enumeration is excluded because it is unstable on this game build. A production importer should request small, explicit datasets, cache results, and never invoke movement, crafting, inventory, or combat actions.</p>
-          <a href="/wiki/valenbridge">Read the ValenBridge methodology <span>→</span></a>
+          <Link href="/wiki/valenbridge">Read the ValenBridge methodology <span>→</span></Link>
+        </article>
+        <article>
+          <p className="eyebrow">External provenance</p>
+          <h2>Community pages are references, not silent truth</h2>
+          <p>Both developer wikis contribute page discovery, revision metadata, copied articles, images, and factual leads under explicit project permission. Attribution remains visible, and Miraheze material retains its CC BY-SA 4.0 notice.</p>
+          <Link href="/sources">Browse attributed source revisions <span>→</span></Link>
         </article>
       </section>
     </main>

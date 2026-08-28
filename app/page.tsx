@@ -1,5 +1,11 @@
+import Link from 'next/link';
 import { SearchBox } from './components/SearchBox';
+import { wikiSources, wikiSourceSearchEntries } from './lib/wiki-source-registry';
 import { searchEntries, wikiStats } from './lib/wiki-data';
+
+const allSearchEntries = [...searchEntries, ...wikiSourceSearchEntries];
+const indexedSourcePages = wikiSources.reduce((total, source) => total + source.pageCount, 0);
+const indexedSourceArticles = wikiSources.reduce((total, source) => total + source.articleCount, 0);
 
 const categories = [
   {
@@ -73,13 +79,13 @@ export default function Home() {
             Search a growing encyclopedia of items, creatures, recipes, routes, and player-tested guides—grounded in what the game actually reports.
           </p>
 
-          <SearchBox entries={searchEntries} />
+          <SearchBox entries={allSearchEntries} />
 
           <div className="popular-searches" aria-label="Popular searches">
             <span>Popular:</span>
-            <a href="/wiki/infused-coal">Infused Coal</a>
-            <a href="/wiki/silver-mining">Silver mining</a>
-            <a href="/wiki/cavern-mine">Cavern Mine</a>
+            <Link href="/wiki/infused-coal">Infused Coal</Link>
+            <Link href="/wiki/silver-mining">Silver mining</Link>
+            <Link href="/wiki/cavern-mine">Cavern Mine</Link>
           </div>
         </div>
 
@@ -116,25 +122,39 @@ export default function Home() {
         </aside>
       </section>
 
+      <section className="community-source-strip" aria-labelledby="community-source-heading">
+        <div>
+          <p className="eyebrow">New source connected</p>
+          <h2 id="community-source-heading">Both developer wikis are now cross-referenced</h2>
+          <p>Search current and legacy wiki pages alongside bridge-backed archive articles. Source pages open inside the archive with their original information, images, fixed revision, and attribution.</p>
+        </div>
+        <dl>
+          <div><dt>Source articles</dt><dd>{indexedSourceArticles}</dd></div>
+          <div><dt>Indexed source pages</dt><dd>{indexedSourcePages}</dd></div>
+          <div><dt>Archive articles</dt><dd>{wikiStats.articles}</dd></div>
+        </dl>
+        <Link href="/sources">Browse the source library <span>→</span></Link>
+      </section>
+
       <section className="content-section" id="explore">
         <div className="section-heading">
           <div>
             <p className="eyebrow">Start exploring</p>
             <h2>What are you looking for?</h2>
           </div>
-          <a className="text-link" href="/wiki">Browse all {wikiStats.articles} pages <span>→</span></a>
+          <Link className="text-link" href="/wiki">Browse all {wikiStats.articles} pages <span>→</span></Link>
         </div>
 
         <div className="category-grid">
           {categories.map((category) => (
-            <a className="category-card" href={category.href} key={category.title}>
+            <Link className="category-card" href={category.href} key={category.title}>
               <div className="category-mark" aria-hidden="true">{category.mark}</div>
               <p className="eyebrow">{category.eyebrow}</p>
               <h3>{category.title}</h3>
               <p className="category-description">{category.description}</p>
               <span className="category-count">{category.count}</span>
               <span className="card-arrow" aria-hidden="true">↗</span>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -146,11 +166,11 @@ export default function Home() {
               <p className="eyebrow">From the field</p>
               <h2>Recent discoveries</h2>
             </div>
-            <a className="text-link" href="/recent">View recent changes <span>→</span></a>
+            <Link className="text-link" href="/recent">View recent changes <span>→</span></Link>
           </div>
           <div className="discovery-list">
             {discoveries.map((item, index) => (
-              <a className="discovery-row" href={`/wiki/${item.slug}`} key={item.title}>
+              <Link className="discovery-row" href={`/wiki/${item.slug}`} key={item.title}>
                 <span className="discovery-number">0{index + 1}</span>
                 <div>
                   <p><span>{item.type}</span> {item.status}</p>
@@ -158,7 +178,7 @@ export default function Home() {
                   <small>{item.detail}</small>
                 </div>
                 <span className="row-arrow" aria-hidden="true">→</span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -170,7 +190,7 @@ export default function Home() {
           </span>
           <h2>Mine silver without losing the trail</h2>
           <p>A verified six-rock circuit, a 500-capacity resource crate, and a return route that resumes from the nearest waypoint.</p>
-          <a href="/wiki/silver-mining">Read the silver guide <span>→</span></a>
+          <Link href="/wiki/silver-mining">Read the silver guide <span>→</span></Link>
         </aside>
       </section>
     </main>

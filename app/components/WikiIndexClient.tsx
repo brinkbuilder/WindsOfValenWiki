@@ -8,7 +8,7 @@ const groups = [
   { key: 'all', label: 'All pages', types: [] },
   { key: 'items', label: 'Items', types: ['Item', 'Resource'] },
   { key: 'recipes', label: 'Recipes', types: ['Recipe'] },
-  { key: 'guides', label: 'Guides & activities', types: ['Guide', 'Activity'] },
+  { key: 'guides', label: 'Guides, quests & activities', types: ['Guide', 'Activity', 'Quest'] },
   { key: 'world', label: 'World', types: ['Creature', 'Location', 'Route'] },
   { key: 'systems', label: 'Systems', types: ['System'] },
 ];

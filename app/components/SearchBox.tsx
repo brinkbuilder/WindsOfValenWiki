@@ -44,8 +44,10 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  const navigateTo = (slug: string) => {
-    window.location.assign(`/wiki/${slug}`);
+  const hrefFor = (entry: SearchEntry) => entry.href ?? `/wiki/${entry.slug}`;
+
+  const navigateTo = (entry: SearchEntry) => {
+    window.location.assign(hrefFor(entry));
   };
 
   return (
@@ -55,6 +57,7 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
         <label className="sr-only" htmlFor={`${mode}-wiki-search`}>Search the wiki</label>
         <input
           ref={inputRef}
+          role="combobox"
           id={`${mode}-wiki-search`}
           name="q"
           value={query}
@@ -77,7 +80,7 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
               setActive((value) => (value - 1 + matches.length) % matches.length);
             } else if (event.key === 'Enter' && open && matches[active]) {
               event.preventDefault();
-              navigateTo(matches[active].slug);
+              navigateTo(matches[active]);
             } else if (event.key === 'Escape') {
               setOpen(false);
             }
@@ -92,7 +95,9 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
           {matches.length > 0 ? matches.map((entry, index) => (
             <a
               key={entry.slug}
-              href={`/wiki/${entry.slug}`}
+              href={hrefFor(entry)}
+              target={entry.href?.startsWith('http') ? '_blank' : undefined}
+              rel={entry.href?.startsWith('http') ? 'noreferrer' : undefined}
               className={index === active ? 'active' : ''}
               role="option"
               aria-selected={index === active}
