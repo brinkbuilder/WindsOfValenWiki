@@ -138,6 +138,32 @@ export const smithingRecipes: SmithingRecipe[] = rawSmithingRecipes.map((recipe)
   return result;
 });
 
+export type SmithingMaterialTotal = {
+  item: string;
+  quantity: number;
+};
+
+export function smithingMaterialTotals(recipe: SmithingRecipe, crafts: number): SmithingMaterialTotal[] {
+  const totals = new Map<string, number>();
+  const expand = (item: string, quantity: number, stack: Set<string>) => {
+    const producer = smithingRecipes.find((candidate) => candidate.output === item);
+    if (!producer || stack.has(item)) {
+      totals.set(item, (totals.get(item) ?? 0) + quantity);
+      return;
+    }
+
+    const producerCrafts = Math.ceil(quantity / producer.outputQuantity);
+    const nextStack = new Set(stack);
+    nextStack.add(item);
+    producer.ingredients.forEach((ingredient) => expand(ingredient.item, ingredient.quantity * producerCrafts, nextStack));
+  };
+
+  if (crafts > 0) recipe.ingredients.forEach((ingredient) => expand(ingredient.item, ingredient.quantity * crafts, new Set()));
+  return [...totals.entries()]
+    .map(([item, quantity]) => ({ item, quantity }))
+    .sort((a, b) => a.item.localeCompare(b.item));
+}
+
 export const smithingItemDescriptions: Record<string, string> = {
   'Bronze Bar': 'A bronze bar used to make early Smithing equipment.',
   'Iron Bar': 'An iron bar that can be shaped into plates and rods.',

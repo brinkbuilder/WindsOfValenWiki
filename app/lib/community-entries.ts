@@ -372,7 +372,7 @@ const creatureEntries: WikiEntry[] = [
     slug: 'the-burning-king', title: 'The Burning King', type: 'Creature', categories: ['Creatures', 'Bosses', 'Lava Cavern', 'Community documented'],
     summary: 'A Lava Cavern boss that drops Volcanic materials and a unique sword.',
     intro: 'The Burning King is a boss in Lava Cavern. Its known rewards include Volcanic materials and the Sword of the Burning King.',
-    facts: [{ label: 'Drops', value: 'Volcanic Shard · Volcanic Core · Sword of the Burning King' }, { label: 'Fight details', value: 'Being added' }],
+    facts: [{ label: 'Reported level', value: '307' }, { label: 'Reported health', value: '10,000' }, { label: 'Reported total XP', value: '30,260' }, { label: 'Drops', value: 'Volcanic Shard · Volcanic Core · Sword of the Burning King' }],
     sections: [{ title: 'Known rewards', bullets: ['Volcanic Shard', 'Volcanic Core', 'Sword of the Burning King'] }, { title: 'Fight preparation', paragraphs: ['A complete attack rotation and resistance profile are still being added. Prepare for a high-level boss encounter before entering Lava Cavern.'] }],
     related: ['lava-cavern', 'combat', 'volcano-mages-route'],
   }),

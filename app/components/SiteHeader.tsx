@@ -21,6 +21,7 @@ export function SiteHeader() {
             <Link href="/">Home</Link>
             <Link href="/wiki">Browse all pages</Link>
             <Link href="/calculators">Calculators</Link>
+            <Link href="/sources">Source library</Link>
             <Link href="/recent">Recent updates</Link>
           </div>
           <div className="rail-section">
@@ -46,6 +47,7 @@ export function SiteHeader() {
             <Link href="/">Main page</Link>
             <Link href="/wiki">All pages</Link>
             <Link href="/calculators">Calculators</Link>
+            <Link href="/sources">Source library</Link>
             <Link href="/wiki?type=items">Items</Link>
             <Link href="/wiki?type=guides">Skills &amp; guides</Link>
             <Link href="/wiki?type=quests">Quests</Link>

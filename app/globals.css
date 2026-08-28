@@ -1353,11 +1353,19 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .smithing-materials { min-height: 44px; padding: 8px 12px; border-left: 3px solid #b18a43; background: rgba(255,250,240,.7); }
 .smithing-materials span { display: block; color: #746149; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .smithing-materials strong { display: block; margin-top: 4px; color: #4b3825; font-size: 13px; line-height: 1.45; }
+.smithing-total-materials { margin-top: 16px; padding: 13px 15px; border-top: 1px solid #c4ad85; background: rgba(255,250,240,.55); }
+.smithing-total-materials > div { display: flex; justify-content: space-between; gap: 15px; align-items: baseline; }
+.smithing-total-materials span { color: #5d4931; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.smithing-total-materials small { color: #806e55; font-size: 11px; }
+.smithing-total-materials ul { margin: 10px 0 0; padding: 0; display: flex; gap: 6px 18px; flex-wrap: wrap; list-style: none; }
+.smithing-total-materials li { color: #4b3825; font-size: 12px; }
+.smithing-total-materials li b { color: #332519; }
 .smithing-result-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #b69d76; background: #ead9ba; }
 .smithing-result-grid > div { min-width: 0; padding: 14px 15px; border-right: 1px solid #c4ad85; }
 .smithing-result-grid > div:last-child { border-right: 0; }
 .smithing-result-grid span { display: block; color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .smithing-result-grid strong { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #332519; font: 700 23px/1 Georgia, serif; }
+.smithing-estimate-label { display: block; margin-top: 5px; color: #8b672f; font-size: 10px; }
 .smithing-lock-note { margin: 15px 0 0; padding: 10px 12px; border-left: 3px solid #a95143; background: #f4dfd9; color: #704238; font-size: 12px; line-height: 1.5; }
 .smithing-list-heading { margin-top: 30px; padding-bottom: 12px; display: flex; justify-content: space-between; gap: 18px; align-items: end; border-bottom: 1px solid #a88d68; }
 .smithing-list-heading p { margin: 6px 0 0; color: #74634c; font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none; }
@@ -1385,6 +1393,8 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .smithing-table .calculator-table td b { color: #332519; }
 .smithing-table tr.locked .smithing-item-button { color: #6c645a; }
 .smithing-table tr.selected { background: #eee0c4; box-shadow: inset 3px 0 #b18a43; }
+.combat-breakdown > div small { display: block; margin-top: 7px; color: #8b6b3d; font-size: 11px; }
+.draft-error { margin: -4px 0 0; color: #9a463a; font-size: 12px; line-height: 1.5; }
 
 @media (max-width: 900px) {
   .smithing-plan-controls { grid-template-columns: 1fr; align-items: stretch; }
@@ -1397,6 +1407,7 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
   .smithing-plan-box { padding: 16px; }
   .smithing-plan-heading { align-items: flex-start; flex-direction: column; }
   .smithing-plan-heading h3 { font-size: 22px; }
+  .smithing-total-materials > div { align-items: flex-start; flex-direction: column; gap: 4px; }
   .smithing-result-grid { grid-template-columns: 1fr 1fr; }
   .smithing-result-grid > div:nth-child(2) { border-right: 0; }
   .smithing-result-grid > div:nth-child(-n+2) { border-bottom: 1px solid #c4ad85; }

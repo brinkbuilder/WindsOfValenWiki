@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { combatMultiplier, enemies, levelForXp, skillTrainingData, xpForLevel, type SkillName } from '../lib/calculator-data';
-import { formatSmithingIngredients, smithingRecipes, type SmithingStation } from '../lib/smithing-data';
+import { formatSmithingIngredients, smithingMaterialTotals, smithingRecipes, type SmithingStation } from '../lib/smithing-data';
 
 type CalculatorTab = 'skill' | 'combat' | 'accuracy';
 type SmithingStationFilter = 'All' | SmithingStation;
@@ -13,14 +13,19 @@ function clampLevel(value: number) {
   return Math.max(1, Math.min(99, Math.floor(value || 1)));
 }
 
+function clampTargetLevel(value: number) {
+  return Math.max(2, Math.min(99, Math.floor(value || 2)));
+}
+
 function formatTime(totalSeconds: number) {
   if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return '0s';
-  const days = Math.floor(totalSeconds / 86400);
-  const remainderAfterDays = totalSeconds % 86400;
+  const roundedSeconds = Math.ceil(totalSeconds);
+  const days = Math.floor(roundedSeconds / 86400);
+  const remainderAfterDays = roundedSeconds % 86400;
   const hours = Math.floor(remainderAfterDays / 3600);
   const remainderAfterHours = remainderAfterDays % 3600;
   const minutes = Math.floor(remainderAfterHours / 60);
-  const seconds = Math.ceil(remainderAfterHours % 60);
+  const seconds = remainderAfterHours % 60;
   return [days ? `${days}d` : '', hours ? `${hours}h` : '', minutes ? `${minutes}m` : '', seconds ? `${seconds}s` : ''].filter(Boolean).join(' ');
 }
 
@@ -43,8 +48,8 @@ function LevelFields({ currentLevel, currentXp, targetLevel, onCurrentLevel, onC
   return (
     <div className="calculator-fields level-fields">
       <label><span>Current level</span><input type="number" min="1" max="99" value={currentLevel} onChange={(event) => { const level = clampLevel(Number(event.target.value)); onCurrentLevel(level); onCurrentXp(xpForLevel(level)); }} /></label>
-      <label><span>Current total XP</span><input type="number" min="0" value={currentXp} onChange={(event) => onCurrentXp(Math.max(0, Number(event.target.value) || 0))} /></label>
-      <label><span>Target level</span><input type="number" min="2" max="99" value={targetLevel} onChange={(event) => onTargetLevel(clampLevel(Number(event.target.value)))} /></label>
+      <label><span>Current total XP</span><input type="number" min="0" value={currentXp} onChange={(event) => { const xp = Math.max(0, Number(event.target.value) || 0); onCurrentXp(xp); onCurrentLevel(levelForXp(xp)); }} /></label>
+      <label><span>Target level</span><input type="number" min="2" max="99" value={targetLevel} onChange={(event) => onTargetLevel(clampTargetLevel(Number(event.target.value)))} /></label>
     </div>
   );
 }
@@ -82,6 +87,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const selectedSmithingRecipe = smithingRecipes.find((recipe) => recipe.slug === selectedSmithingSlug) ?? smithingRecipes[0];
   const selectedSmithingCrafts = selectedSmithingRecipe.xp > 0 ? Math.ceil(xpNeeded / selectedSmithingRecipe.xp) : 0;
   const selectedSmithingOutput = selectedSmithingCrafts * selectedSmithingRecipe.outputQuantity;
+  const selectedSmithingMaterials = smithingMaterialTotals(selectedSmithingRecipe, selectedSmithingCrafts);
 
   const [combatLevel, setCombatLevel] = useState(1);
   const [combatXp, setCombatXp] = useState(0);
@@ -89,15 +95,16 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const [enemyName, setEnemyName] = useState(enemies[2].name);
   const [killTime, setKillTime] = useState(12);
   const [travelTime, setTravelTime] = useState(3);
-  const [healthLevel, setHealthLevel] = useState(1);
+  const [healthXp, setHealthXp] = useState(0);
   const selectedEnemy = enemies.find((enemy) => enemy.name === enemyName) ?? enemies[0];
   const combatXpNeeded = Math.max(0, xpForLevel(combatTarget) - combatXp);
-  const totalXpPerKill = Math.round(selectedEnemy.health * combatMultiplier(selectedEnemy.level));
+  const totalXpPerKill = selectedEnemy.totalXp ?? Math.round(selectedEnemy.health * combatMultiplier(selectedEnemy.level));
   const trainingXpPerKill = totalXpPerKill * 0.75;
   const healthXpPerKill = totalXpPerKill * 0.25;
   const killsNeeded = trainingXpPerKill > 0 ? Math.ceil(combatXpNeeded / trainingXpPerKill) : 0;
-  const totalTrainingSeconds = killsNeeded * Math.max(0, killTime + travelTime);
-  const resultingHealthXp = xpForLevel(healthLevel) + killsNeeded * healthXpPerKill;
+  const totalTrainingSeconds = killsNeeded * Math.max(0, killTime) + Math.max(0, killsNeeded - 1) * Math.max(0, travelTime);
+  const resultingHealthXp = healthXp + killsNeeded * healthXpPerKill;
+  const effectiveXpMultiplier = selectedEnemy.health > 0 ? totalXpPerKill / selectedEnemy.health : 0;
 
   const [attackLevel, setAttackLevel] = useState(20);
   const [accuracyBonus, setAccuracyBonus] = useState(25);
@@ -139,11 +146,12 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
                   <div className="smithing-materials"><span>Materials per craft</span><strong>{formatSmithingIngredients(selectedSmithingRecipe)}</strong></div>
                 </div>
                 <div className="smithing-result-grid" aria-live="polite">
-                  <div><span>XP per craft</span><strong>{number.format(selectedSmithingRecipe.xp)}</strong></div>
+                  <div><span>XP per craft</span><strong>{number.format(selectedSmithingRecipe.xp)}</strong>{selectedSmithingRecipe.xpBasis === 'derived' && <small className="smithing-estimate-label">Estimated from ingredients</small>}</div>
                   <div><span>Crafts needed</span><strong>{number.format(selectedSmithingCrafts)}</strong></div>
                   <div><span>Items produced</span><strong>{number.format(selectedSmithingOutput)}</strong></div>
                   <div><span>Base time</span><strong>{formatTime(selectedSmithingCrafts * selectedSmithingRecipe.seconds)}</strong></div>
                 </div>
+                <div className="smithing-total-materials"><div><span>Total materials for this plan</span><small>Intermediate items are rolled up; inputs without a catalogue recipe stay listed as supplied.</small></div><ul>{selectedSmithingMaterials.length ? selectedSmithingMaterials.map((material) => <li key={material.item}><b>{number.format(material.quantity)}</b> {material.item}</li>) : <li>No crafts needed for this target.</li>}</ul></div>
                 {currentLevel < selectedSmithingRecipe.level && <p className="smithing-lock-note">You need Smithing level {selectedSmithingRecipe.level} to make this item. It is shown so you can plan ahead.</p>}
               </div>
 
@@ -169,7 +177,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
             <label><span>Enemy</span><select value={enemyName} onChange={(event) => setEnemyName(event.target.value)}>{enemies.map((enemy) => <option value={enemy.name} key={enemy.name}>{enemy.name} — level {enemy.level}</option>)}</select></label>
             <label><span>Seconds per kill</span><input type="number" min="1" value={killTime} onChange={(event) => setKillTime(Math.max(1, Number(event.target.value) || 1))} /></label>
             <label><span>Travel / respawn seconds</span><input type="number" min="0" value={travelTime} onChange={(event) => setTravelTime(Math.max(0, Number(event.target.value) || 0))} /></label>
-            <label><span>Current Health level</span><input type="number" min="1" max="99" value={healthLevel} onChange={(event) => setHealthLevel(clampLevel(Number(event.target.value)))} /></label>
+            <label><span>Current Health XP</span><input type="number" min="0" value={healthXp} onChange={(event) => setHealthXp(Math.max(0, Number(event.target.value) || 0))} /></label>
           </div>
           <div className="combat-result-grid">
             <div><span>Training XP needed</span><strong>{number.format(combatXpNeeded)}</strong></div>
@@ -178,10 +186,10 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
             <div><span>Health level after</span><strong>{levelForXp(resultingHealthXp)}</strong></div>
           </div>
           <div className="combat-breakdown">
-            <div><strong>{selectedEnemy.name}</strong><span>Level {selectedEnemy.level} · {number.format(selectedEnemy.health)} health · {selectedEnemy.location}</span></div>
-            <dl><div><dt>Total XP per kill</dt><dd>{number.format(totalXpPerKill)}</dd></div><div><dt>Training share (75%)</dt><dd>{number.format(Math.round(trainingXpPerKill))}</dd></div><div><dt>Health share (25%)</dt><dd>{number.format(Math.round(healthXpPerKill))}</dd></div><div><dt>Combat multiplier</dt><dd>{combatMultiplier(selectedEnemy.level).toFixed(2)}×</dd></div></dl>
+            <div><strong>{selectedEnemy.name}</strong><span>Level {selectedEnemy.level} · {number.format(selectedEnemy.health)} health · {selectedEnemy.location}</span><small>{selectedEnemy.totalXp ? 'Documented XP total' : 'Full-health XP estimate'}</small></div>
+            <dl><div><dt>Total XP per kill</dt><dd>{number.format(totalXpPerKill)}</dd></div><div><dt>Training share (75%)</dt><dd>{number.format(Math.round(trainingXpPerKill))}</dd></div><div><dt>Health share (25%)</dt><dd>{number.format(Math.round(healthXpPerKill))}</dd></div><div><dt>Effective XP multiplier</dt><dd>{effectiveXpMultiplier.toFixed(2)}×</dd></div></dl>
           </div>
-          <p className="calculator-note">This estimate uses the documented combat model: damage × the enemy level multiplier, split 75% to the active combat skill and 25% to Health. Actual results can vary when damage is lost to overkill or an encounter behaves differently.</p>
+          <p className="calculator-note">This estimate uses documented total XP per kill where available; otherwise it assumes damage equal to the enemy&apos;s full health and applies the level multiplier. XP is split 75% to the active combat skill and 25% to Health. Actual results can vary with overkill, group scaling, or encounter mechanics.</p>
         </section>
       )}
 

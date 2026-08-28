@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { findWikiSourceMatches, wikiSources, wikiSourceReaderPath } from '../../lib/wiki-source-registry';
 import { wikiBySlug, wikiEntries } from '../../lib/wiki-data';
+import type { ExternalSource } from '../../lib/wiki-data';
 
 /* Native images keep this static Vinext build compatible and let quest screenshots open at full size. */
 /* eslint-disable @next/next/no-img-element */
@@ -14,6 +16,14 @@ function playerTypeLabel(type: (typeof wikiEntries)[number]['type']) {
   if (type === 'Activity') return 'Skill';
   if (type === 'System') return 'Game system';
   return type;
+}
+
+function verificationLabel(verification: (typeof wikiEntries)[number]['verification']) {
+  if (verification === 'engine') return 'Game documented';
+  if (verification === 'player') return 'Player confirmed';
+  if (verification === 'route') return 'Route recorded';
+  if (verification === 'community') return 'Community source';
+  return 'Documented';
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -34,6 +44,27 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
   const typeLabel = playerTypeLabel(entry.type);
+  const automaticSources: ExternalSource[] = findWikiSourceMatches(entry.title, entry.aliases).map(({ source, page }) => ({
+    id: `${source.id}-${page.pageId}`,
+    site: source.name,
+    pageTitle: page.title,
+    permalink: source.permalink(page),
+    revisionId: page.revisionId,
+    revisedAt: page.revisedAt,
+    retrievedAt: source.retrievedAt,
+    relation: 'supplements',
+    scope: ['Matching source article'],
+    note: source.id === 'miraheze' ? 'Older guide; details may differ from the current game.' : 'Current community guide.',
+    readerPath: wikiSourceReaderPath(source.id, page.pageId),
+  }));
+  const externalSources = [...(entry.externalSources ?? []), ...automaticSources]
+    .filter((source, index, sources) => sources.findIndex((candidate) => candidate.permalink === source.permalink) === index)
+    .map((source) => {
+      if (source.readerPath) return source;
+      const matchedSource = wikiSources.find((candidate) => candidate.name === source.site);
+      const matchedPage = matchedSource?.pages.find((candidate) => candidate.revisionId === source.revisionId);
+      return matchedSource && matchedPage ? { ...source, readerPath: wikiSourceReaderPath(matchedSource.id, matchedPage.pageId) } : source;
+    });
   const skillCalculator = entry.slug === 'mining' ? '/calculators?skill=Mining'
     : entry.slug === 'fishing' ? '/calculators?skill=Fishing'
       : entry.slug === 'smithing' ? '/calculators?skill=Smithing'
@@ -53,6 +84,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           <h1>{entry.title}</h1>
           <p>{entry.intro}</p>
           <div className="article-badges">
+            <span className={`verification-badge verification-${entry.verification}`}><i />{verificationLabel(entry.verification)}</span>
             {entry.categories.slice(0, 2).map((category) => <span className="topic-pill" key={category}>{category}</span>)}
             {skillCalculator && <Link className="article-tool-button" href={skillCalculator}>Open calculator</Link>}
           </div>
@@ -62,6 +94,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
       <nav className="article-tabs" aria-label="Article views">
         <a className="active" href="#article">Article</a>
         {related.length > 0 && <a href="#related">Related pages</a>}
+        {externalSources.length > 0 && <a href="#source-references">Sources</a>}
         {skillCalculator && <Link href={skillCalculator}>Calculator</Link>}
         <a href="/contribute">Suggest an edit</a>
       </nav>
@@ -72,6 +105,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             <strong>Contents</strong>
             <ol>
               {entry.sections.map((section, index) => <li key={section.title}><a href={`#section-${index + 1}`}>{section.title}</a></li>)}
+              {externalSources.length > 0 && <li><a href="#source-references">Source notes</a></li>}
             </ol>
           </aside>
 
@@ -104,6 +138,30 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             </section>
           ))}
 
+          {externalSources.length > 0 && (
+            <section className="external-sources" id="source-references">
+              <p className="eyebrow">Keep reading</p>
+              <h2>Source notes</h2>
+              <p className="external-sources-intro">Use these community pages for additional context. Older sources may differ from the current game.</p>
+              <div className="external-source-list">
+                {externalSources.map((source) => (
+                  <article className={`external-source-card source-relation-${source.relation}`} id={`source-${source.id}`} key={`${source.site}-${source.revisionId}`}>
+                    <div>
+                      <span>{source.site}</span>
+                      <h3>{source.pageTitle}</h3>
+                      <p>{source.note ?? 'Open the source guide for additional player details.'}</p>
+                    </div>
+                    <dl><div><dt>Revision</dt><dd>{source.revisionId}</dd></div><div><dt>Updated</dt><dd>{source.revisedAt.slice(0, 10)}</dd></div></dl>
+                    <div className="external-source-actions">
+                      {source.readerPath && <Link href={source.readerPath}>Read guide</Link>}
+                      <a href={source.permalink} target="_blank" rel="noreferrer">Visit original wiki ↗</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
           {related.length > 0 && (
             <section className="related-section" id="related">
               <p className="eyebrow">Keep exploring</p>
@@ -134,7 +192,10 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             <h2>{entry.title}</h2>
           </div>
           <dl>
-            {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+            {entry.facts.map((fact) => {
+              const source = fact.sourceRef ? externalSources.find((candidate) => candidate.id === fact.sourceRef) : undefined;
+              return <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}{source && <a className="fact-source-ref" href={`#source-${source.id}`}>Source note</a>}</dd></div>;
+            })}
           </dl>
           <a href="/contribute">Suggest a correction <span>→</span></a>
         </aside>

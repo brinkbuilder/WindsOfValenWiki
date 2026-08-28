@@ -38,7 +38,7 @@ export const skillTrainingData: Record<SkillName, TrainingAction[]> = {
     { name: 'Common Trout', level: 5, xp: 75 },
     { name: 'Perch', level: 10, xp: 225 },
     { name: 'Bass', level: 20, xp: 200 },
-    { name: 'Bluegill', level: 30, xp: 75 },
+    { name: 'Blue Gill', level: 30, xp: 75 },
     { name: 'Elder Trout', level: 40, xp: 500 },
     { name: 'Carp', level: 50, xp: 1250 },
   ],
@@ -70,12 +70,14 @@ export type Enemy = {
   level: number;
   health: number;
   location: string;
+  totalXp?: number;
 };
 
 export const enemies: Enemy[] = [
   { name: 'Goblin', level: 1, health: 50, location: 'Broken Village' },
   { name: 'Skeleton', level: 6, health: 75, location: 'Graveyard' },
   { name: 'Goblin Berserker', level: 9, health: 250, location: 'Broken Village' },
+  { name: 'Goblin Watcher', level: 9, health: 250, location: 'Goblin Cave', totalXp: 273 },
   { name: 'Bandit', level: 10, health: 120, location: 'Forest Alcove' },
   { name: 'Skeleton Miner', level: 13, health: 125, location: 'Town Mine' },
   { name: 'Goblin Villager', level: 15, health: 200, location: 'Goblin Village' },
@@ -84,11 +86,14 @@ export const enemies: Enemy[] = [
   { name: 'Highwayman', level: 28, health: 300, location: 'West Mine path' },
   { name: 'Bandit Mercenary', level: 30, health: 300, location: 'Mercenary Camp' },
   { name: 'Elf', level: 37, health: 400, location: 'Elven Haven' },
-  { name: 'Goblin Chieftain', level: 40, health: 1000, location: 'Goblin Village' },
-  { name: 'Skeleton Knight (Darklands)', level: 67, health: 1000, location: 'The Darklands' },
-  { name: 'Bandit Mercenary Boss', level: 74, health: 2000, location: 'Mercenary Camp' },
-  { name: 'Skeleton Pioneer', level: 90, health: 2500, location: 'West Mine' },
+  { name: 'Goblin Chieftain', level: 40, health: 1000, location: 'Goblin Village', totalXp: 1400 },
+  { name: 'Goblin General', level: 55, health: 1500, location: 'General Cave' },
+  { name: 'Skeleton Knight (Darklands)', level: 67, health: 1000, location: 'The Darklands', totalXp: 1670 },
+  { name: 'Bandit Mercenary Boss', level: 74, health: 2000, location: 'Mercenary Camp', totalXp: 3480 },
+  { name: 'Skeleton Pioneer', level: 90, health: 2500, location: 'West Mine', totalXp: 4750 },
+  { name: 'Cavern Goblin Hunter', level: 107, health: 3000, location: 'West Mine Deep Cavern', totalXp: 6105 },
   { name: 'Elf Warden', level: 120, health: 3500, location: 'Elven Haven' },
+  { name: 'The Burning King', level: 307, health: 10000, location: 'West Mine Ashen Cavern', totalXp: 30260 },
 ];
 
 export const calculatorSearchEntries: SearchEntry[] = [

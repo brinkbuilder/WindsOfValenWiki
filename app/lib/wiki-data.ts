@@ -285,7 +285,7 @@ const curatedEntries: WikiEntry[] = [
     facts: [{ label: 'Interaction', value: 'Click once' }, { label: 'Loop', value: 'Automatic' }, { label: 'Resource', value: 'Depleting ripple spot' }, { label: 'Known fish', value: 'Carp, Blue Gill' }],
     sections: [
       { title: 'How fishing works', bullets: ['Equip the correct rod and bait for the chosen spot.', 'Interact with a visible ripple once.', 'Fishing continues automatically while the spot remains available.', 'Move to another spot when the ripple depletes; spots later respawn.', 'Bank or process the catch when the inventory is full.'] },
-      { title: 'Fishing progression', table: { headers: ['Level', 'Fish', 'Bait', 'Location', 'Base XP'], rows: [['1', 'Minnow', 'Tiny Fish Bait or Tiny Worm Bait', 'South of Valen Gate, beside the Broken Village bridge', '8'], ['5', 'Common Trout', 'Small Fish Bait or Small Worm Bait', 'East of Valen Gate, along the river', '75'], ['10', 'Perch', 'Small Fish Bait or Small Worm Bait', 'Across the Broken Village bridge', '225'], ['20', 'Bass', 'Small Fish Bait or Small Worm Bait', 'Forest Alcove near the bandit camps', '200'], ['30', 'Bluegill', 'Small Fish Bait or Small Worm Bait', 'Beside the Mercenary Camp bank', '75'], ['40', 'Elder Trout', 'Medium Fish Bait or Medium Worm Bait', 'Town Mine west of Valen Gate', '500'], ['50', 'Carp', 'No bait listed', 'Location guide in progress', '1,250']] } },
+      { title: 'Fishing progression', table: { headers: ['Level', 'Fish', 'Bait', 'Location', 'Base XP'], rows: [['1', 'Minnow', 'Tiny Fish Bait or Tiny Worm Bait', 'South of Valen Gate, beside the Broken Village bridge', '8'], ['5', 'Common Trout', 'Small Fish Bait or Small Worm Bait', 'East of Valen Gate, along the river', '75'], ['10', 'Perch', 'Small Fish Bait or Small Worm Bait', 'Across the Broken Village bridge', '225'], ['20', 'Bass', 'Small Fish Bait or Small Worm Bait', 'Forest Alcove near the bandit camps', '200'], ['30', 'Blue Gill', 'Small Fish Bait or Small Worm Bait', 'Beside the Mercenary Camp bank', '75'], ['40', 'Elder Trout', 'Medium Fish Bait or Medium Worm Bait', 'Town Mine west of Valen Gate', '500'], ['50', 'Carp', 'Small Fish Bait (observed)', 'Location guide in progress', '1,250']] } },
       { title: 'Bait', paragraphs: ['The observed Carp workflow uses Small Fish Bait. Bait can be made by using a knife on caught fish through the appropriate harvest recipe.'] },
       { title: 'Choosing a spot', paragraphs: ['Ripple graphics do not always make the fish species obvious. Check the hover name before starting so you bring the correct rod and bait.'] },
     ],
@@ -356,7 +356,7 @@ const curatedEntries: WikiEntry[] = [
         ['Reduction Station', 'Essence Gland, Hardened Scales, Large Essence Gland, Minced Hearty Fish Flesh, Rare Blue Gill, Rare Minnow, Small Essence Gland, Spider Eye, Infused Coal'],
       ] } },
       { title: 'Using this guide', paragraphs: ['Start with the potion-progression table when you want a finished potion. Use the recipe directory to identify the station for intermediate ingredients, then follow any linked workflow for exact quantities.'] },
-      { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence derived from 10 Large Essence Glands; the exact Essence yield remains unknown.'] },
+      { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence from 10 Large Essence Glands. The current reduction table lists 20 Essence per gland.'] },
     ],
     related: ['infused-coal', 'carp-processing', 'bank-to-potion-stations-route'],
     source: bridgeSource,
@@ -606,7 +606,7 @@ const knownRecipeNotes: Record<string, { summary: string; bullets: string[]; rel
   },
   'recipe-reduce-large-essence-gland': {
     summary: 'A confirmed recipe identity used to reduce Large Essence Glands.',
-    bullets: ['The recipe consumed ten Large Essence Glands in the confirmed batch.', 'The exact Essence yield has not yet been supplied and remains unknown.'],
+    bullets: ['The recipe consumed ten Large Essence Glands in the confirmed batch.', 'The current reduction table lists 20 Essence per Large Essence Gland.'],
     related: ['carp-processing', 'essence'],
   },
   'recipe-crush-refined-hardened-scales': {
@@ -623,7 +623,7 @@ const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
     title: recipe.title,
     type: 'Recipe',
     verification: known ? 'player' : 'engine',
-    summary: known?.summary ?? `A Potion Making recipe used at the ${recipe.group}.`,
+    summary: known?.summary ?? `A Potion Making recipe used at the ${recipe.group}; details still need to be added.`,
     intro: known?.summary ?? `${recipe.title} belongs to the ${recipe.group}. Its ingredients, quantities, requirements, and output have not yet been added to this guide.`,
     aliases: [],
     categories: ['Recipes', 'Potion Making', recipe.group],
@@ -906,9 +906,12 @@ const routeEntries: WikiEntry[] = routeSpecs.map((route) => ({
   facts: [
     { label: 'Guide type', value: 'Travel route' },
     { label: 'Purpose', value: route.purpose },
+    { label: 'Recorded stops', value: String(route.points) },
+    { label: 'Approximate route length', value: `${route.distance.toLocaleString('en-US')} distance units` },
   ],
   sections: [
     { title: 'Purpose', paragraphs: [route.purpose] },
+    { title: 'Route overview', paragraphs: [`This recorded route contains ${route.points} stops and spans approximately ${route.distance.toLocaleString('en-US')} distance units. Exact coordinates are intentionally not published; use the destination and related guide as your landmarks.`] },
     { title: 'Before you go', bullets: ['Clear enough inventory space for the activity.', 'Bring the equipment and supplies needed for the destination.', 'Use visible landmarks and check the related area guide if the route has changed.'] },
   ],
   related: route.related,
@@ -1008,10 +1011,10 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
     technicalId: undefined,
     facts: entry.facts
       .filter((fact) => !hiddenFactLabel.test(fact.label) && !internalValue.test(fact.value))
-      .map((fact) => ({ label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
+      .map((fact) => ({ ...fact, label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
       .filter((fact) => fact.label && fact.value),
     sections,
-    externalSources: undefined,
+    externalSources: entry.externalSources,
   };
 }
 
@@ -1043,23 +1046,36 @@ export type SearchEntry = {
   source?: 'archive' | 'community';
 };
 
-const incompletePotionRecipeSlugs = new Set(recipeSpecs
-  .filter((recipe) => !knownRecipeNotes[recipe.slug])
-  .map((recipe) => recipe.slug));
+function searchableText(entry: WikiEntry) {
+  const sections = entry.sections.flatMap((section) => [
+    section.title,
+    ...(section.paragraphs ?? []),
+    ...(section.bullets ?? []),
+    ...(section.steps ?? []),
+    ...(section.table?.headers ?? []),
+    ...(section.table?.rows.flat() ?? []),
+    ...(section.images?.flatMap((image) => [image.alt, image.caption ?? '']) ?? []),
+  ]);
+  return [
+    entry.title,
+    entry.type,
+    entry.summary,
+    entry.intro,
+    ...(entry.aliases ?? []),
+    ...entry.categories,
+    ...entry.facts.flatMap((fact) => [fact.label, fact.value]),
+    ...sections,
+  ].filter(Boolean).join(' ').toLowerCase();
+}
 
-export const searchEntries: SearchEntry[] = wikiEntries
-  .filter((entry) => !incompletePotionRecipeSlugs.has(entry.slug))
-  .map((entry) => ({
+export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
   slug: entry.slug,
   title: entry.title,
   type: entry.type,
   summary: entry.summary,
   source: 'archive',
-  terms: [entry.title, entry.type, entry.summary, ...(entry.aliases ?? []), ...entry.categories]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase(),
-  }));
+  terms: searchableText(entry),
+}));
 
 export function searchIndex(entries: SearchEntry[], query: string): SearchEntry[] {
   const normalized = query.trim().toLowerCase();
@@ -1085,10 +1101,7 @@ export function searchWiki(query: string): WikiEntry[] {
   return wikiEntries
     .map((entry) => {
       const title = entry.title.toLowerCase();
-      const terms = [title, entry.type, entry.summary, ...(entry.aliases ?? []), ...entry.categories]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
+      const terms = searchableText(entry);
       let score = 0;
       if (title === normalized) score = 100;
       else if (title.startsWith(normalized)) score = 70;

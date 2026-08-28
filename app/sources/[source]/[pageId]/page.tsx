@@ -39,7 +39,7 @@ export default async function ConsolidatedWikiPage({ params }: PageProps) {
   return (
     <main className="source-reader-page unified-imported-page">
       <div className="breadcrumbs" aria-label="Breadcrumb">
-        <Link href="/">Home</Link><span>/</span><Link href="/wiki">Wiki</Link><span>/</span><span>{page.title}</span>
+        <Link href="/">Home</Link><span>/</span><Link href="/sources">Sources</Link><span>/</span><Link href={`/sources/${source.slug}`}>{source.shortName}</Link><span>/</span><span>{page.title}</span>
       </div>
 
       <header className="imported-article-header">
@@ -57,7 +57,10 @@ export default async function ConsolidatedWikiPage({ params }: PageProps) {
         <article className="source-reader-content unified-imported-content" dangerouslySetInnerHTML={{ __html: html }} />
       )}
 
-      {source.id === 'miraheze' && <p className="wiki-licence-note">Legacy community material is adapted under CC BY-SA 4.0.</p>}
+      <div className="source-attribution">
+        <div><strong>Source attribution</strong><p>{source.name} · Revision {page.revisionId} · updated {page.revisedAt.slice(0, 10)} · snapshot retrieved {source.retrievedAt}</p></div>
+        <div><a href={source.permalink(page)} target="_blank" rel="noreferrer">Open original page ↗</a>{source.licenseUrl && <a href={source.licenseUrl} target="_blank" rel="noreferrer">{source.licenseName}</a>}</div>
+      </div>
     </main>
   );
 }
