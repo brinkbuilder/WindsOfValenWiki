@@ -110,11 +110,6 @@ button, input { font: inherit; }
 .guide-card h2 { max-width: 290px; margin-top: 26px; font-size: 34px; line-height: .98; }
 .guide-card > p:not(.eyebrow) { max-width: 320px; margin: 17px 0 24px; color: #536a62; font-size: 11px; line-height: 1.65; }
 .guide-card > a { position: relative; z-index: 1; display: inline-flex; gap: 25px; align-items: center; padding-bottom: 5px; border-bottom: 1px solid #789286; font-size: 10px; font-weight: 800; }
-.guide-route { height: 37px; display: flex; align-items: center; gap: 0; }
-.guide-route i { width: 8px; height: 8px; border: 2px solid #658c7b; border-radius: 50%; background: #d8e5db; }
-.guide-route i:not(:last-child)::after { content: ''; display: block; width: 27px; height: 1px; margin: 2px 0 0 6px; border-top: 1px dashed #789b8c; }
-.guide-route i:not(:last-child) { margin-right: 25px; }
-.guide-route i:nth-child(3) { width: 12px; height: 12px; border-color: var(--gold); background: var(--gold); }
 
 footer { min-height: 135px; padding: 34px clamp(24px, 7vw, 112px); display: flex; justify-content: space-between; gap: 40px; align-items: center; background: #102e27; color: #b9c9c3; font-size: 10px; line-height: 1.6; }
 footer > div { display: flex; align-items: center; gap: 13px; }
@@ -154,8 +149,6 @@ footer strong { color: #fff; font-family: var(--display); font-size: 15px; }
 .verification-badge.compact { padding: 5px 8px; font-size: 7px; letter-spacing: .06em; }
 .verification-badge.verification-observed { border-color: #afbed2; background: #eaf0f6; color: #3d5f82; }
 .verification-badge.verification-observed i, .label-list i.verification-observed { background: #5d83ad; }
-.verification-badge.verification-route { border-color: #d4bd98; background: #f5eddf; color: #88622d; }
-.verification-badge.verification-route i, .label-list i.verification-route { background: #bd873b; }
 .verification-badge.verification-player { border-color: #bcb0d7; background: #f0ebf7; color: #674f91; }
 .verification-badge.verification-player i, .label-list i.verification-player { background: #8065aa; }
 .verification-badge.verification-documented { border-color: #b9b9b0; background: #efefe9; color: #5e625a; }

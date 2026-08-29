@@ -1,7 +1,7 @@
 import { communityEntries } from './community-entries';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 
-export type Verification = 'engine' | 'observed' | 'route' | 'player' | 'documented' | 'community';
+export type Verification = 'engine' | 'observed' | 'player' | 'documented' | 'community';
 
 export type WikiFact = {
   label: string;
@@ -46,7 +46,7 @@ export type WikiSection = {
 export type WikiEntry = {
   slug: string;
   title: string;
-  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'Route' | 'System' | 'Resource' | 'Quest';
+  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'System' | 'Resource' | 'Quest';
   verification: Verification;
   summary: string;
   intro: string;
@@ -68,12 +68,6 @@ const bridgeSource = {
   label: 'ValenBridge engine export',
   detail: 'Read directly from loaded Unreal objects through the project’s read-only Lua bridge.',
   observed: '27 August 2026',
-};
-
-const routeSource = {
-  label: 'Recorded world route',
-  detail: 'Derived from route JSON recorded against live world-space positions. Exact coordinates remain private.',
-  observed: '25–27 August 2026',
 };
 
 const documentedSource = {
@@ -129,7 +123,7 @@ const curatedEntries: WikiEntry[] = [
         paragraphs: ['Choose Infused Coal at a Reduction Station. If enough ingredients are available, the station can continue processing the batch after the first selection.'],
       },
     ],
-    related: ['coal', 'essence', 'potion-making', 'recipe-infused-coal', 'bank-to-potion-stations-route'],
+    related: ['coal', 'essence', 'potion-making', 'recipe-infused-coal'],
     source: playerSource,
   },
   {
@@ -201,7 +195,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Processing', bullets: ['Cut 10 Carp into 10 Hardened Fish Scales and 10 Large Essence Glands.', 'Reduce the scales into 10 Polished Fish Scales.', 'Crush those scales into 10 Fine Fish Scales.', 'Reduce the Large Essence Glands separately; see the gland-processing guide for current yields.'] },
       { title: 'Fishing', paragraphs: ['Carp spots were observed around a dedicated pier. Fishing continues automatically after one successful spot interaction, and the spot eventually depletes and respawns.'] },
     ],
-    related: ['fishing', 'carp-processing', 'recipe-harvest-carp', 'carp-to-bank-route'],
+    related: ['fishing', 'carp-processing', 'recipe-harvest-carp'],
     source: playerSource,
   },
   {
@@ -289,7 +283,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Bait', paragraphs: ['The observed Carp workflow uses Small Fish Bait. Bait can be made by using a knife on caught fish through the appropriate harvest recipe.'] },
       { title: 'Choosing a spot', paragraphs: ['Ripple graphics do not always make the fish species obvious. Check the hover name before starting so you bring the correct rod and bait.'] },
     ],
-    related: ['carp', 'carp-processing', 'carp-to-bank-route', 'potion-making'],
+    related: ['carp', 'carp-processing', 'potion-making'],
     source: playerSource,
   },
   {
@@ -307,27 +301,8 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Resource containers', paragraphs: ['Ore containers are equipped separately from the normal 28-slot inventory. Deposit their contents through the resource action in the bank.'] },
       { title: 'Known patches', bullets: ['Silver: six-rock patch.', 'Gold: six-rock volcanic patch.', 'Essence: three-rock patch.', 'Cavern Mine: ebony, silver, coal, and ebony-dust rocks.'] },
     ],
-    related: ['silver-mining', 'silver-rock', 'gold-rock', 'essence-rock', 'cavern-mine'],
+    related: ['silver-rock', 'gold-rock', 'essence-rock', 'cavern-mine'],
     source: documentedSource,
-  },
-  {
-    slug: 'silver-mining',
-    title: 'Silver mining circuit',
-    type: 'Guide',
-    verification: 'route',
-    summary: 'A six-rock loop with resource-container banking.',
-    intro: 'The silver circuit visits six rocks, fills an equipped resource container, and returns to a bank before repeating the loop.',
-    aliases: ['silver route', 'silver mine loop'],
-    categories: ['Guides', 'Mining', 'Routes'],
-    technicalId: 'B_MiningRock_Silver_C',
-    facts: [{ label: 'Rocks', value: '6' }, { label: 'Rock class', value: 'B_MiningRock_Silver_C' }, { label: 'Return route', value: '38 points' }, { label: 'Route length', value: '~16,242 uu' }, { label: 'Observed capacity', value: '500 ore' }],
-    sections: [
-      { title: 'Quick guide', bullets: ['Equip the silver resource container and a suitable pickaxe.', 'Start at the recorded patch and mine the nearest charged rock.', 'Continue through the six-rock set, skipping any rock with zero charges.', 'When the resource container is full, follow the Silver Mine to Bank route.', 'Open the bank and deposit the equipped resource container.', 'Return to the patch and resume from the nearest useful rock.'] },
-      { title: 'Route tips', paragraphs: ['Start with the nearest available rock and continue around the patch. After banking, return to whichever rock gives the shortest useful restart.'] },
-      { title: 'Details still needed', bullets: ['Rock respawn timing', 'Mining requirements', 'Experience rates', 'Capacity for each resource-container tier'] },
-    ],
-    related: ['mining', 'silver-rock', 'silver-mine-to-bank-route', 'banking'],
-    source: routeSource,
   },
   {
     slug: 'potion-making',
@@ -358,7 +333,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Using this guide', paragraphs: ['Start with the potion-progression table when you want a finished potion. Use the recipe directory to identify the station for intermediate ingredients, then follow any linked workflow for exact quantities.'] },
       { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence from 10 Large Essence Glands. The current reduction table lists 20 Essence per gland.'] },
     ],
-    related: ['infused-coal', 'carp-processing', 'bank-to-potion-stations-route'],
+    related: ['infused-coal', 'carp-processing'],
     source: bridgeSource,
   },
   {
@@ -392,7 +367,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Tabs and slots', paragraphs: ['The four tabs contain 100 slots each. Organize commonly used supplies near the front to reduce banking time.'] },
       { title: 'Resource deposits', paragraphs: ['Use the bank’s resource-deposit action to empty an equipped ore or fish container. Make sure the bank has enough room for the transfer.'] },
     ],
-    related: ['inventory', 'silver-mining', 'coins', 'carp-to-bank-route'],
+    related: ['inventory', 'coins'],
     source: documentedSource,
   },
   {
@@ -443,7 +418,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Creatures', paragraphs: ['Cavern Spiders and spider eggs appear around the mine. Cavern Spiders currently return about 15 seconds after defeat.'] },
       { title: 'Hazards', paragraphs: ['Some rooms use circle and box-shaped warning markers. Move out of the marked area before the attack lands. Exact damage and timing still need to be added.'] },
     ],
-    related: ['cavern-spider', 'cavern-goblin', 'cavern-goblin-hunter', 'mining', 'ebony-cave-clean-route'],
+    related: ['cavern-spider', 'cavern-goblin', 'cavern-goblin-hunter', 'mining'],
     source: bridgeSource,
   },
   {
@@ -473,52 +448,52 @@ const curatedEntries: WikiEntry[] = [
     intro: 'The Volcano Skeleton Archer attacks from range in the volcanic combat area. Drops, health, accuracy, damage, and respawn time still need to be added.',
     categories: ['Creatures', 'Bestiary', 'Volcano'],
     technicalId: 'B_VolcanoSkeleton_Archer_C',
-    facts: [{ label: 'Class', value: 'B_VolcanoSkeleton_Archer_C' }, { label: 'Combat style', value: 'Ranged (name-derived)' }, { label: 'Location', value: 'Volcano route area' }, { label: 'Verification', value: 'Live observation' }],
+    facts: [{ label: 'Class', value: 'B_VolcanoSkeleton_Archer_C' }, { label: 'Combat style', value: 'Ranged (name-derived)' }, { label: 'Location', value: 'Volcano area' }, { label: 'Verification', value: 'Live observation' }],
     sections: [{ title: 'Combat tips', paragraphs: ['Close the distance quickly or use ranged cover where available. Bring enough food or potions until its damage and attack timing are fully documented.'] }],
-    related: ['combat', 'volcano-mages-route', 'volcano-respawn-route'],
+    related: ['combat'],
     source: documentedSource,
   },
   {
     slug: 'silver-rock',
     title: 'Silver rock',
     type: 'Resource',
-    verification: 'route',
+    verification: 'observed',
     summary: 'A mining rock used to gather Silver.',
     intro: 'A six-rock Silver patch supports a repeatable mining loop. Move to the next rock when the current one depletes.',
     categories: ['Resources', 'Mining'],
     technicalId: 'B_MiningRock_Silver_C',
-    facts: [{ label: 'Class', value: 'B_MiningRock_Silver_C' }, { label: 'Recorded patch', value: '6 rocks' }, { label: 'Availability', value: 'Charges > 0' }, { label: 'Verification', value: 'Route verified' }],
+    facts: [{ label: 'Class', value: 'B_MiningRock_Silver_C' }, { label: 'Recorded patch', value: '6 rocks' }, { label: 'Availability', value: 'Charges > 0' }, { label: 'Verification', value: 'Live observation' }],
     sections: [{ title: 'Mining', paragraphs: ['Mine around the six-rock loop and move on whenever a rock depletes. Use a resource container to extend the trip before banking.'] }],
-    related: ['silver-mining', 'mining', 'silver-mine-to-bank-route'],
-    source: routeSource,
+    related: ['mining'],
+    source: documentedSource,
   },
   {
     slug: 'gold-rock',
     title: 'Gold rock',
     type: 'Resource',
-    verification: 'route',
+    verification: 'observed',
     summary: 'A volcanic gold mining rock with a recorded six-rock patch.',
     intro: 'A six-rock Gold patch can be found in the volcanic area. Its requirements, experience, respawn timing, and yield still need to be added.',
     categories: ['Resources', 'Mining', 'Volcano'],
     technicalId: 'B_MiningRock_Gold_Volcanic_C',
-    facts: [{ label: 'Class', value: 'B_MiningRock_Gold_Volcanic_C' }, { label: 'Recorded patch', value: '6 rocks' }, { label: 'Area', value: 'Volcanic' }, { label: 'Verification', value: 'Route verified' }],
+    facts: [{ label: 'Class', value: 'B_MiningRock_Gold_Volcanic_C' }, { label: 'Recorded patch', value: '6 rocks' }, { label: 'Area', value: 'Volcanic' }, { label: 'Verification', value: 'Live observation' }],
     sections: [{ title: 'Mining', paragraphs: ['Continue around the six-rock patch as rocks deplete. Prepare for volcanic-area hazards and nearby enemies.'] }],
-    related: ['mining', 'gold-dust-mine-to-bank-route'],
-    source: routeSource,
+    related: ['mining'],
+    source: documentedSource,
   },
   {
     slug: 'essence-rock',
     title: 'Essence rock',
     type: 'Resource',
-    verification: 'route',
+    verification: 'observed',
     summary: 'A mining rock used to gather Essence-related resources.',
-    intro: 'Three Essence rocks were recorded in one patch, with a dedicated route from the mining area to a bank.',
+    intro: 'Three Essence rocks were recorded in one patch near a bank.',
     categories: ['Resources', 'Mining', 'Potion Making'],
     technicalId: 'B_MiningRock_Essence_C',
-    facts: [{ label: 'Class', value: 'B_MiningRock_Essence_C' }, { label: 'Recorded patch', value: '3 rocks' }, { label: 'Bank route', value: '8 points' }, { label: 'Verification', value: 'Route verified' }],
-    sections: [{ title: 'Mining', paragraphs: ['Mine around the three-rock patch, then use the nearby bank route when your inventory or resource container is full. The exact yield still needs to be added.'] }],
-    related: ['essence', 'mining', 'essence-mining-to-bank-route'],
-    source: routeSource,
+    facts: [{ label: 'Class', value: 'B_MiningRock_Essence_C' }, { label: 'Recorded patch', value: '3 rocks' }, { label: 'Availability', value: 'Charges > 0' }, { label: 'Verification', value: 'Live observation' }],
+    sections: [{ title: 'Mining', paragraphs: ['Mine around the three-rock patch. The exact yield and requirements still need to be added.'] }],
+    related: ['essence', 'mining'],
+    source: documentedSource,
   },
   {
     slug: 'valenbridge',
@@ -533,7 +508,7 @@ const curatedEntries: WikiEntry[] = [
     facts: [{ label: 'Transport', value: 'Atomic JSON files' }, { label: 'State cadence', value: 'About 2 seconds when idle' }, { label: 'Scope', value: 'Character-scoped' }, { label: 'Public policy', value: 'No private player data' }],
     sections: [
       { title: 'Evidence flow', paragraphs: ['The bridge observes engine state, exports bounded records, and the wiki normalises those records into stable article fields, search terms, generated indexes, and evidence labels. Editorial prose remains separate from system-owned facts.'] },
-      { title: 'Verification labels', table: { headers: ['Label', 'Meaning'], rows: [['Engine verified', 'Read from a targeted engine object or item instance.'], ['Live observation', 'Seen in a timestamped world snapshot.'], ['Route verified', 'Supported by a recorded world-space route or patch.'], ['Player confirmed', 'Measured through a repeatable workflow and inventory checks.'], ['Project documented', 'Confirmed by implementation notes and passing tests.']] } },
+      { title: 'Verification labels', table: { headers: ['Label', 'Meaning'], rows: [['Engine verified', 'Read from a targeted engine object or item instance.'], ['Live observation', 'Seen in a timestamped world snapshot.'], ['Player confirmed', 'Measured through a repeatable workflow and inventory checks.'], ['Project documented', 'Confirmed by implementation notes and passing tests.']] } },
       { title: 'Privacy and safety', bullets: ['Character names, holdings, exact coordinates, and command files are excluded.', 'Bank totals are not treated as durable until the bank is hydrated after reconnect.', 'Broad UObject sweeps are not part of the importer; targeted, cached exports are required.', 'Actions that alter inventory or movement are never run by the public wiki importer.'] },
       { title: 'What still needs research', paragraphs: ['Many engine identities are known before their player-facing effects, requirements, or yields. Those fields stay visibly unknown instead of being guessed.'] },
     ],
@@ -829,7 +804,7 @@ const smithingGuide: WikiEntry = {
     },
     {
       title: 'Full Dusk Knight set — raw material totals',
-      paragraphs: ['This shopping list makes the boots, platelegs, platebody, and helmet. It uses the Ebony Dust smelting route and includes every intermediate plate, rod, foil, silk lining, and loose bar needed for the full set. Dusk Knight Schematics are recipe requirements but are not counted as a consumable raw material here.', 'The supplied 8,932-Dust plan makes 1,276 Ebony Bars. The current recipes also require one loose Ebony Bar when the helmet is assembled, so the complete no-shortfall total is 1,277 bars, or 8,939 Ebony Dust.'],
+      paragraphs: ['This shopping list makes the boots, platelegs, platebody, and helmet. It uses the Ebony Dust smelting plan and includes every intermediate plate, rod, foil, silk lining, and loose bar needed for the full set. Dusk Knight Schematics are recipe requirements but are not counted as a consumable raw material here.', 'The supplied 8,932-Dust plan makes 1,276 Ebony Bars. The current recipes also require one loose Ebony Bar when the helmet is assembled, so the complete no-shortfall total is 1,277 bars, or 8,939 Ebony Dust.'],
       table: {
         headers: ['Raw material', 'Total', 'Processing plan'],
         rows: [
@@ -867,61 +842,10 @@ const smithingGuide: WikiEntry = {
   source: smithingSource,
 };
 
-type RouteSpec = {
-  slug: string;
-  title: string;
-  points: number;
-  distance: number;
-  purpose: string;
-  related: string[];
-};
-
-const routeSpecs: RouteSpec[] = [
-  { slug: 'ashen-mages-return-route', title: 'Ashen Mages return route', points: 38, distance: 16465, purpose: 'Return path for the Ashen Mages combat area.', related: ['combat'] },
-  { slug: 'bank-to-furnace-route', title: 'Bank to Furnace route', points: 11, distance: 4488, purpose: 'Connects a bank with a furnace station.', related: ['banking'] },
-  { slug: 'bank-to-potion-stations-route', title: 'Bank to Potion Stations route', points: 8, distance: 3718, purpose: 'Connects the bank with the Potion Making station cluster.', related: ['banking', 'potion-making', 'infused-coal'] },
-  { slug: 'carp-to-bank-route', title: 'Carp to Bank route', points: 34, distance: 17717, purpose: 'Carries a full Carp inventory from the fishing pier to a bank.', related: ['carp', 'fishing', 'banking'] },
-  { slug: 'cavern-goblins-return-route', title: 'Cavern Goblins return route', points: 37, distance: 14927, purpose: 'Return path for the Cavern Goblins combat area.', related: ['combat', 'cavern-mine'] },
-  { slug: 'ebony-cave-clean-route', title: 'Ebony Cave survey route', points: 92, distance: 40322, purpose: 'A long-form recorded survey through the Ebony Cave area.', related: ['cavern-mine', 'mining'] },
-  { slug: 'ebony-cave-demo-route', title: 'Ebony Cave demo route', points: 2, distance: 791, purpose: 'A short two-point route captured during Ebony Cave testing.', related: ['cavern-mine'] },
-  { slug: 'ebony-cave-demo-b-route', title: 'Ebony Cave demo route B', points: 6, distance: 1966, purpose: 'A second short route captured during Ebony Cave testing.', related: ['cavern-mine'] },
-  { slug: 'essence-mining-to-bank-route', title: 'Essence Mine to Bank route', points: 8, distance: 2496, purpose: 'Connects the recorded Essence rock patch with a bank.', related: ['essence-rock', 'mining', 'banking'] },
-  { slug: 'gold-dust-mine-to-bank-route', title: 'Gold Dust Mine to Bank route', points: 75, distance: 47195, purpose: 'A long route from the Gold Dust mining area to a bank.', related: ['gold-rock', 'mining', 'banking'] },
-  { slug: 'lich-return-route', title: 'Lich return route', points: 18, distance: 10680, purpose: 'Return path for a Lich combat area.', related: ['combat'] },
-  { slug: 'mine-to-bank-route', title: 'Mine to Bank route', points: 76, distance: 46259, purpose: 'A long general mining return route.', related: ['mining', 'banking'] },
-  { slug: 'silver-mine-to-bank-route', title: 'Silver Mine to Bank route', points: 38, distance: 16242, purpose: 'The bank leg of the verified six-rock silver circuit.', related: ['silver-mining', 'silver-rock', 'banking'] },
-  { slug: 'skeleton-warriors-return-route', title: 'Skeleton Warriors return route', points: 32, distance: 13187, purpose: 'Return path for the Skeleton Warriors combat area.', related: ['combat'] },
-  { slug: 'volcano-mages-route', title: 'Volcano Mages route', points: 29, distance: 18998, purpose: 'A recorded path through the Volcano Mages area.', related: ['combat', 'volcano-skeleton-archer'] },
-  { slug: 'volcano-respawn-route', title: 'Volcano respawn route', points: 20, distance: 14536, purpose: 'A return path from the observed volcano respawn area.', related: ['combat', 'volcano-skeleton-archer'] },
-];
-
-const routeEntries: WikiEntry[] = routeSpecs.map((route) => ({
-  slug: route.slug,
-  title: route.title,
-  type: 'Route',
-  verification: 'route',
-  summary: route.purpose,
-  intro: `${route.purpose} Use nearby landmarks and the linked area guides to prepare before travelling.`,
-  categories: ['Routes', 'World'],
-  facts: [
-    { label: 'Guide type', value: 'Travel route' },
-    { label: 'Purpose', value: route.purpose },
-    { label: 'Recorded stops', value: String(route.points) },
-    { label: 'Approximate route length', value: `${route.distance.toLocaleString('en-US')} distance units` },
-  ],
-  sections: [
-    { title: 'Purpose', paragraphs: [route.purpose] },
-    { title: 'Route overview', paragraphs: [`This recorded route contains ${route.points} stops and spans approximately ${route.distance.toLocaleString('en-US')} distance units. Exact coordinates are intentionally not published; use the destination and related guide as your landmarks.`] },
-    { title: 'Before you go', bullets: ['Clear enough inventory space for the activity.', 'Bring the equipment and supplies needed for the destination.', 'Use visible landmarks and check the related area guide if the route has changed.'] },
-  ],
-  related: route.related,
-  source: routeSource,
-}));
-
 const internalToken = /\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b|\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/gi;
 const internalValue = /\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b|\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/i;
 const internalAlias = /^(?:item\s+\d+|(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?|lua bridge|wiki importer)$/i;
-const hiddenFactLabel = /^(?:verification|guide status|status|caution|item key|asset|recipe asset|class|rock class|zone class|backend|visible widget|identity field|quantity field|target identity|progress signal|completion|transport|state cadence|scope|public policy|coordinate model|waypoints|recorded length|route length|return route)$/i;
+const hiddenFactLabel = /^(?:verification|guide status|status|caution|item key|asset|recipe asset|class|rock class|zone class|backend|visible widget|identity field|quantity field|target identity|progress signal|completion|transport|state cadence|scope|public policy|coordinate model)$/i;
 
 function friendlyToken(value: string) {
   return value
@@ -1020,7 +944,7 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
 
 const smithingReplacementSlugs = new Set(['smithing', ...smithingItemEntries.map((entry) => entry.slug)]);
 const allWikiEntries = [
-  ...[...curatedEntries, ...recipeEntries, ...routeEntries, ...communityEntries]
+  ...[...curatedEntries, ...recipeEntries, ...communityEntries]
     .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug)),
   smithingGuide,
   ...smithingItemEntries,
@@ -1117,7 +1041,6 @@ export function searchWiki(query: string): WikiEntry[] {
 export const wikiStats = {
   articles: wikiEntries.length,
   recipes: wikiEntries.filter((entry) => entry.type === 'Recipe').length,
-  routes: routeEntries.length,
   communityArticles: communityEntries.length,
   items: wikiEntries.filter((entry) => entry.type === 'Item').length,
   creatures: wikiEntries.filter((entry) => entry.type === 'Creature').length,

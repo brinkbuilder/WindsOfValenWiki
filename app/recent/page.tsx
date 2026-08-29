@@ -10,7 +10,6 @@ const recent = [
   { slug: 'cavern-mine', note: 'Added resources, creatures, and hazards found in the Cavern Mine.', time: '27 Aug 2026' },
   { slug: 'cavern-spider', note: 'Added its location and current respawn timing.', time: '27 Aug 2026' },
   { slug: 'infused-coal', note: 'Added the complete formula and a 26-item batch example.', time: '27 Aug 2026' },
-  { slug: 'silver-mining', note: 'Documented the six-rock route and resource-container banking.', time: '27 Aug 2026' },
   { slug: 'potion-making', note: 'Added the current recipes across four crafting stations.', time: '27 Aug 2026' },
   { slug: 'banking', note: 'Added bank capacity, tabs, and resource-container tips.', time: '26 Aug 2026' },
 ];

@@ -21,7 +21,6 @@ function playerTypeLabel(type: (typeof wikiEntries)[number]['type']) {
 function verificationLabel(verification: (typeof wikiEntries)[number]['verification']) {
   if (verification === 'engine') return 'Game documented';
   if (verification === 'player') return 'Player confirmed';
-  if (verification === 'route') return 'Route recorded';
   if (verification === 'community') return 'Community source';
   return 'Documented';
 }

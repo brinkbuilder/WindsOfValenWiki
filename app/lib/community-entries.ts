@@ -120,7 +120,7 @@ const skillEntries: WikiEntry[] = [
     sections: [
       { title: 'Rework boundary', paragraphs: ['The August 2026 update changed recipes, equipment values, facility use, material inputs, and hammer behaviour. Numeric tables from older guides should not be imported as current facts.'] },
       { title: 'Research priorities', bullets: ['Current ore-to-bar formulas', 'Workbench equipment recipes', 'Cloth and leather inputs', 'Smithing Power behaviour', 'Anvil hammer requirements'] },
-    ], related: ['mining', 'bank-to-furnace-route'], relation: 'conflicts', note: 'This revision predates the August 2026 smithing rework and may contain obsolete formulas.',
+    ], related: ['mining'], relation: 'conflicts', note: 'This revision predates the August 2026 smithing rework and may contain obsolete formulas.',
   }),
   communityEntry('Warding', {
     slug: 'warding', title: 'Warding', type: 'Activity', categories: ['Skills', 'Combat', 'Community documented'],
@@ -262,7 +262,7 @@ const guideEntries: WikiEntry[] = [
     facts: [
       { label: 'Reward', value: 'Dusk Knight Schematics' },
       { label: 'Used for', value: 'Dusk Knight boots, platelegs, platebody, helmet, and their components' },
-      { label: 'Detailed route', value: 'Not yet documented' },
+      { label: 'Detailed path', value: 'Not yet documented' },
     ],
     sections: [
       {
@@ -303,15 +303,15 @@ const locationEntries: WikiEntry[] = [
     summary: 'A high-level cavern documented with level-60 enemies and a boss.',
     intro: 'Lava Cavern is a high-level combat area containing level-60 enemies and a boss encounter.',
     facts: [{ label: 'Reported enemy level', value: '60' }, { label: 'Boss', value: 'Present' }, { label: 'Verification', value: 'Community documented' }],
-    sections: [{ title: 'Preparation', paragraphs: ['Enemy composition, resistances, route hazards, and safe-banking paths still need direct observation. Enter prepared for a high-level combat area.'] }],
-    related: ['combat', 'ashen-mage', 'ashen-archer', 'ashen-warrior', 'the-burning-king', 'volcano-mages-route'],
+    sections: [{ title: 'Preparation', paragraphs: ['Enemy composition, resistances, area hazards, and safe-banking paths still need direct observation. Enter prepared for a high-level combat area.'] }],
+    related: ['combat', 'ashen-mage', 'ashen-archer', 'ashen-warrior', 'the-burning-king'],
   }),
   communityEntry('Crystal Cavern', {
     slug: 'crystal-cavern', title: 'Crystal Cavern', type: 'Location', categories: ['Locations', 'Caverns', 'Mining', 'Community documented'],
     summary: 'A cavern with community-reported level-50 mining resources.',
     intro: 'Crystal Cavern contains level-50 mining resources and a miniquest that permanently unlocks its bank.',
     facts: [{ label: 'Reported mining tier', value: 'Level 50' }, { label: 'Bank', value: 'Miniquest unlock reported' }, { label: 'Verification', value: 'Community documented' }],
-    sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact resource types, requirements, and routes still need in-game confirmation.'] }],
+    sections: [{ title: 'Known leads', paragraphs: ['Essence Rocks and the Resonant Essence Geode miniquest are the strongest documented leads. Exact resource types, requirements, and travel paths still need in-game confirmation.'] }],
     related: ['crystal-caverns-bank-unlock', 'essence-rock', 'ashen-mage', 'banking'],
   }),
 ];
@@ -391,7 +391,7 @@ const creatureEntries: WikiEntry[] = [
     intro: 'The community page reports a weapon-and-shield swap encounter with stomp, charge, and falling-stalactite mechanics.',
     facts: [{ label: 'Reported level', value: '90' }, { label: 'Reported health', value: '2,500' }, { label: 'Reported XP', value: '4,750' }, { label: 'Reported drops', value: 'Skeleton Rapier · Small Worm Bait · Coins' }],
     sections: [{ title: 'Mechanics', bullets: ['Switches between mace and sword', 'Switches between Parry and Wooden shields', 'Uses stomp and charge attacks', 'Triggers falling stalactites'] }],
-    related: ['combat', 'combat-mechanics', 'skeleton-warriors-return-route'],
+    related: ['combat', 'combat-mechanics'],
   }),
   communityEntry('Skeleton Knight (Darklands)', {
     slug: 'skeleton-knight-darklands', title: 'Skeleton Knight (Darklands)', type: 'Creature', categories: ['Creatures', 'Darklands', 'Community documented'],
@@ -410,7 +410,7 @@ const creatureEntries: WikiEntry[] = [
     intro: 'The community page describes a high-level encounter built around randomized arrow barrages, platform movement, and falling stalactites.',
     facts: [{ label: 'Reported level', value: '107' }, { label: 'Reported health', value: '3,000' }, { label: 'Reported XP', value: '6,105' }, { label: 'Reported drops', value: 'Bone Mask · Bone Bow · Small Fang · Spider Eye · Coins' }],
     sections: [{ title: 'Mechanics', bullets: ['Three-arrow randomized barrage', 'Leaps between platforms', 'Falling-stalactite hazard'] }],
-    related: ['combat', 'cavern-mine', 'cavern-goblins-return-route'],
+    related: ['combat', 'cavern-mine'],
   }),
   communityEntry('The Burning King', {
     slug: 'the-burning-king', title: 'The Burning King', type: 'Creature', categories: ['Creatures', 'Bosses', 'Lava Cavern', 'Community documented'],
@@ -418,7 +418,7 @@ const creatureEntries: WikiEntry[] = [
     intro: 'The Burning King is a boss in Lava Cavern. Its known rewards include Volcanic materials and the Sword of the Burning King.',
     facts: [{ label: 'Reported level', value: '307' }, { label: 'Reported health', value: '10,000' }, { label: 'Reported total XP', value: '30,260' }, { label: 'Drops', value: 'Volcanic Shard · Volcanic Core · Sword of the Burning King' }],
     sections: [{ title: 'Known rewards', bullets: ['Volcanic Shard', 'Volcanic Core', 'Sword of the Burning King'] }, { title: 'Fight preparation', paragraphs: ['A complete attack rotation and resistance profile are still being added. Prepare for a high-level boss encounter before entering Lava Cavern.'] }],
-    related: ['lava-cavern', 'combat', 'volcano-mages-route'],
+    related: ['lava-cavern', 'combat'],
   }),
 ];
 

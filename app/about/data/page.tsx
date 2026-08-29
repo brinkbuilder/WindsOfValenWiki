@@ -32,7 +32,7 @@ export default function AboutWikiPage() {
             <li>Skill requirements, training methods, and recipes</li>
             <li>Quest steps, locations, and unlocks</li>
             <li>Creature attacks, weaknesses, rewards, and strategies</li>
-            <li>Routes, landmarks, banks, and useful shortcuts</li>
+            <li>Landmarks, banks, shops, and useful shortcuts</li>
           </ul>
         </article>
         <article>
