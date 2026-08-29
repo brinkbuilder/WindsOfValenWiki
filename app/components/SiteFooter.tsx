@@ -10,6 +10,7 @@ export function SiteFooter() {
       <nav className="footer-links" aria-label="Footer navigation">
         <Link href="/wiki">All pages</Link>
         <Link href="/calculators">Calculators</Link>
+        <Link href="/calculators/combat-level">Combat level</Link>
         <Link href="/sources">Sources</Link>
         <Link href="/about/data">About</Link>
         <Link href="/contribute">Contribute</Link>

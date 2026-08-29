@@ -22,6 +22,7 @@ export default async function CalculatorsPage({ searchParams }: { searchParams: 
         <h1>Winds of Valen calculators</h1>
         <span>Plan skill levels, compare training methods, see Smithing XP per item, estimate combat experience, and check accuracy against defence.</span>
       </header>
+      <Link className="standalone-calculator-link" href="/calculators/combat-level"><span>Separate combat tool</span><strong>Combat Level Calculator</strong><p>Combine your highest offensive, defensive, and Health levels into one overall combat level.</p><b>Open calculator →</b></Link>
       <CalculatorHub initialTab={initialTab} initialSkill={initialSkill} />
     </main>
   );

@@ -1,4 +1,5 @@
 import { communityEntries } from './community-entries';
+import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionRecipeDetails, potionReductionRecipes } from './potion-data';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 
 export type Verification = 'engine' | 'observed' | 'player' | 'documented' | 'community';
@@ -82,6 +83,14 @@ const playerSource = {
   observed: 'August 2026',
 };
 
+function potionOutput(detail: (typeof potionRecipeDetails)[string]) {
+  return detail.secondaryOutput ? `${detail.output} + ${detail.secondaryOutput}` : detail.output;
+}
+
+function potionDetailRow(detail: (typeof potionRecipeDetails)[string]) {
+  return [detail.input, `LVL ${detail.level}`, potionOutput(detail), detail.duration ? `${detail.duration} seconds` : 'Not listed', detail.notes];
+}
+
 const curatedEntries: WikiEntry[] = [
   {
     slug: 'infused-coal',
@@ -159,7 +168,7 @@ const curatedEntries: WikiEntry[] = [
       { title: 'Uses', paragraphs: ['Two Essence are consumed alongside one Coal to make one Infused Coal.'] },
       { title: 'How to obtain it', paragraphs: ['Essence can be processed from small, regular, and large Essence Glands at a Reduction Station. See the gland-processing guide for current yield information.'] },
     ],
-    related: ['infused-coal', 'recipe-reduce-essence-gland', 'recipe-reduce-large-essence-gland', 'essence-rock'],
+    related: ['infused-coal', 'recipe-reduce-essence-gland', 'recipe-reduce-large-essence-gland', 'recipe-reduce-essence-geode', 'essence-rock'],
     source: documentedSource,
   },
   {
@@ -317,20 +326,17 @@ const curatedEntries: WikiEntry[] = [
       'Gilded Potion bottle recipe', 'Small Potion bottle recipe', 'Strong Potion bottle recipe',
       'Crush Glowing Mushroom', 'Crush Hearty Fish Flesh', 'Crush Mud Root', 'Crush Plain Fish Flesh', 'Crush Scales', 'Crush Small Fang',
       'Harvest Big Trout', 'Harvest Blue Gill', 'Harvest Minnow', 'Harvest Perch', 'Harvest Small Bass', 'Harvest Small Trout',
-      'Reduce Essence Gland', 'Reduce Minced Hearty Fish Flesh', 'Reduce Rare Blue Gill', 'Reduce Rare Minnow', 'Reduce Small Essence Gland', 'Reduce Spider Eye',
+      'Reduce Essence Gland', 'Reduce Essence Geode', 'Reduce Minced Hearty Fish Flesh', 'Reduce Rare Blue Gill', 'Reduce Rare Minnow', 'Reduce Small Essence Gland', 'Reduce Spider Eye',
     ],
     categories: ['Activities', 'Skills', 'Crafting'],
-    facts: [{ label: 'Discovered recipes', value: '36' }, { label: 'Groups', value: 'Cauldron, Crush, Knife, Reduction' }, { label: 'Verified workflow', value: 'Infused Coal' }, { label: 'Verification', value: 'Engine catalogue' }],
+    facts: [{ label: 'Discovered recipes', value: '37' }, { label: 'Groups', value: 'Cauldron, Crush, Knife, Reduction' }, { label: 'Verified workflow', value: 'Infused Coal' }, { label: 'Verification', value: 'Engine catalogue' }],
     sections: [
-      { title: 'Stations', table: { headers: ['Group', 'Purpose', 'Recipes found'], rows: [['Cauldron', 'Bottles and potions', '13'], ['Crush Station', 'Crushing ingredients', '7'], ['Knife Station', 'Harvesting fish', '7'], ['Reduction Station', 'Reducing ingredients', '9']] } },
-      { title: 'Potion progression', table: { headers: ['Level', 'Potion family', 'Main ingredient', 'Essence', 'Base XP'], rows: [['1', 'Weak Health', '10 Scrap Fish Flesh', '25', '500'], ['5', 'Fishing', '10 Fish Oil', '25', '500'], ['10', 'Shields', '10 Crushed Fish Scales', '50', '1,500'], ['15', 'Mining', '10 Root Paste', '50', '1,500'], ['20', 'Health', '10 Fish Mash', '50', '1,500'], ['25', 'Attack', '10 Fang Dust', '200', '1,500'], ['30', 'Archery', '10 Distilled Spider Eye', '250', '1,750'], ['35', 'Magic', '10 Crushed Mushroom', '300', '2,000'], ['40', 'Strong Health', '10 Hearty Extract', '200', '3,250'], ['50', 'Strong Shields', '10 Fine Fish Scales', '500', '6,000']] } },
-      { title: 'Recipe directory', table: { headers: ['Station', 'Recipes'], rows: [
-        ['Cauldron', 'Weak Health, Health, Strong Health, Shields, Strong Shields, Fishing, Mining, Attack, Archery, Magic, and small, strong, or gilded bottling'],
-        ['Crush Station', 'Glowing Mushroom, Hearty Fish Flesh, Mud Root, Plain Fish Flesh, Refined Hardened Scales, Scales, Small Fang'],
-        ['Knife Station', 'Big Trout, Blue Gill, Carp, Minnow, Perch, Small Bass, Small Trout'],
-        ['Reduction Station', 'Essence Gland, Hardened Scales, Large Essence Gland, Minced Hearty Fish Flesh, Rare Blue Gill, Rare Minnow, Small Essence Gland, Spider Eye, Infused Coal'],
-      ] } },
-      { title: 'Using this guide', paragraphs: ['Start with the potion-progression table when you want a finished potion. Use the recipe directory to identify the station for intermediate ingredients, then follow any linked workflow for exact quantities.'] },
+      { title: 'Stations', table: { headers: ['Group', 'Purpose', 'Recipes found'], rows: [['Cauldron', 'Bottles and potions', '13'], ['Crush Station', 'Crushing ingredients', '7'], ['Knife Station', 'Harvesting fish', '7'], ['Reduction Station', 'Reducing ingredients and fuel', '10']] } },
+      { title: 'Fish processing', table: { headers: ['Fish name', 'Level required', 'Primary material output', 'Essence material output'], rows: fishProcessingRecipes.map((recipe) => [recipe.input, `LVL ${recipe.level}`, recipe.output, recipe.secondaryOutput ?? '(None)']) } },
+      { title: 'Reduction and processing', table: { headers: ['Input material', 'Level required', 'Output material / resource', 'Purpose / notes'], rows: potionReductionRecipes.map((recipe) => [recipe.input, `LVL ${recipe.level}`, recipe.output, recipe.notes]) } },
+      { title: 'Crush recipes', table: { headers: ['Raw material ingredient', 'Level required', 'Processed material output', 'Ingredient sourcing / notes'], rows: potionCrushRecipes.map((recipe) => [recipe.input, `LVL ${recipe.level}`, recipe.output, recipe.notes]) } },
+      { title: 'Potion recipes', table: { headers: ['Potion name', 'Level required', 'Recipe cost', 'Duration (seconds)', 'Primary ingredient source'], rows: potionBrewRecipes.map((recipe) => [recipe.output, `LVL ${recipe.level}`, recipe.input, String(recipe.duration), recipe.notes.replace(/^Primary ingredient source: /, '')]) } },
+      { title: 'Using this guide', paragraphs: ['Start with fish processing when you need a primary potion ingredient. Follow the reduction or crush table for the next preparation step, then use the potion table to check the level, cost, duration, and source. Small, Strong, and Gilded bottle pages remain in the recipe index; their supplied costs were not included in these tables.'] },
       { title: 'Known workflows', bullets: ['Infused Coal: 1 Coal + 2 Essence → 1 Infused Coal.', 'Carp processing: 10 Carp → 10 Fine Fish Scales plus Essence from 10 Large Essence Glands. The current reduction table lists 20 Essence per gland.'] },
     ],
     related: ['infused-coal', 'carp-processing'],
@@ -346,7 +352,7 @@ const curatedEntries: WikiEntry[] = [
     categories: ['Guides', 'Potion Making', 'Fishing'],
     facts: [{ label: 'Input', value: '10 Carp' }, { label: 'Output', value: '10 Fine Fish Scales' }, { label: 'By-product', value: '10 Large Essence Glands' }, { label: 'Stations', value: 'Cut, reduce, crush' }],
     sections: [
-      { title: 'Quick guide', table: { headers: ['Step', 'Recipe', 'Result'], rows: [['1', 'Recipe_Harvest_Carp', '10 Hardened Fish Scales + 10 Large Essence Glands'], ['2', 'Recipe_Reduce_HardenedScales', '10 Polished Fish Scales'], ['3', 'Recipe_Reduce_LargeEssenceGland', 'Essence; exact yield unknown'], ['4', 'Recipe_Crush_RefinedHardenedScales', '10 Fine Fish Scales']] } },
+      { title: 'Quick guide', table: { headers: ['Step', 'Recipe', 'Result'], rows: [['1', 'Recipe_Harvest_Carp', '10 Hardened Fish Scales + 10 Large Essence Glands'], ['2', 'Recipe_Reduce_HardenedScales', '10 Polished Fish Scales'], ['3', 'Recipe_Reduce_LargeEssenceGland', '200 Essence from 10 Large Essence Glands'], ['4', 'Recipe_Crush_RefinedHardenedScales', '10 Fine Fish Scales']] } },
       { title: 'Useful tip', paragraphs: ['Complete each stage before moving to the next station so the intermediate materials remain easy to track in your inventory.'] },
     ],
     related: ['carp', 'fishing', 'potion-making', 'recipe-harvest-carp', 'recipe-crush-refined-hardened-scales'],
@@ -553,6 +559,7 @@ const recipeSpecs: RecipeSpec[] = [
   { slug: 'recipe-harvest-small-bass', title: 'Harvest Small Bass', id: 'Recipe_Harvest_SmallBass', group: 'Knife Station' },
   { slug: 'recipe-harvest-small-trout', title: 'Harvest Small Trout', id: 'Recipe_Harvest_SmallTrout', group: 'Knife Station' },
   { slug: 'recipe-infused-coal', title: 'Infused Coal recipe', id: 'Recipe_Infused_Coal', group: 'Reduction Station' },
+  { slug: 'recipe-reduce-essence-geode', title: 'Reduce Essence Geode', id: 'Recipe_Reduce_EssenceGeode', group: 'Reduction Station' },
   { slug: 'recipe-reduce-essence-gland', title: 'Reduce Essence Gland', id: 'Recipe_Reduce_EssenceGland', group: 'Reduction Station' },
   { slug: 'recipe-reduce-hardened-scales', title: 'Reduce Hardened Scales', id: 'Recipe_Reduce_HardenedScales', group: 'Reduction Station' },
   { slug: 'recipe-reduce-large-essence-gland', title: 'Reduce Large Essence Gland', id: 'Recipe_Reduce_LargeEssenceGland', group: 'Reduction Station' },
@@ -591,22 +598,45 @@ const knownRecipeNotes: Record<string, { summary: string; bullets: string[]; rel
   },
 };
 
+const potionDataSource = {
+  label: 'Potion Making reference tables',
+  detail: 'Supplied processing, fish, and potion recipe tables consolidated into player-facing recipe pages.',
+  observed: 'August 2026',
+};
+
+function potionDetailSection(detail: (typeof potionRecipeDetails)[string]) {
+  return {
+    title: 'Recipe details',
+    table: {
+      headers: ['Input', 'Level required', 'Output', 'Duration', 'Purpose / notes'],
+      rows: [potionDetailRow(detail)],
+    },
+  };
+}
+
 const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
   const known = knownRecipeNotes[recipe.slug];
+  const detail = potionRecipeDetails[recipe.slug];
   return {
     slug: recipe.slug,
     title: recipe.title,
     type: 'Recipe',
-    verification: known ? 'player' : 'engine',
-    summary: known?.summary ?? `A Potion Making recipe used at the ${recipe.group}; details still need to be added.`,
-    intro: known?.summary ?? `${recipe.title} belongs to the ${recipe.group}. Its ingredients, quantities, requirements, and output have not yet been added to this guide.`,
+    verification: known ? 'player' : detail ? 'documented' : 'engine',
+    summary: known?.summary ?? (detail ? `${detail.input} produces ${potionOutput(detail)} at the ${recipe.group}.` : `A Potion Making recipe used at the ${recipe.group}; details still need to be added.`),
+    intro: known?.summary ?? (detail ? `${recipe.title} uses ${detail.input} at the ${recipe.group}. It requires ${detail.level} Potion Making and produces ${potionOutput(detail)}.` : `${recipe.title} belongs to the ${recipe.group}. Its ingredients, quantities, requirements, and output have not yet been added to this guide.`),
     aliases: [],
     categories: ['Recipes', 'Potion Making', recipe.group],
     facts: [
       { label: 'Station', value: recipe.group },
-      { label: 'Guide status', value: known ? 'Ingredients and outputs listed' : 'More details needed' },
+      ...(detail ? [
+        { label: 'Required level', value: `LVL ${detail.level}` },
+        { label: 'Output', value: potionOutput(detail) },
+        ...(detail.duration ? [{ label: 'Duration', value: `${detail.duration} seconds` }] : []),
+      ] : [{ label: 'Guide status', value: known ? 'Ingredients and outputs listed' : 'More details needed' }]),
     ],
-    sections: known
+    sections: detail
+      ? [potionDetailSection(detail), ...(known ? [{ title: 'Workflow notes', bullets: known.bullets }] : [])]
+      : known
       ? [
           { title: 'Recipe details', bullets: known.bullets },
         ]
@@ -615,7 +645,7 @@ const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
           { title: 'Details still needed', bullets: ['Input items and quantities', 'Output item and quantity', 'Skill or level requirement', 'Experience reward', 'Potion effect or ingredient use'] },
         ],
     related: known?.related ?? ['potion-making'],
-    source: known ? playerSource : bridgeSource,
+    source: detail ? potionDataSource : known ? playerSource : bridgeSource,
   };
 });
 

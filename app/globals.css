@@ -1529,3 +1529,60 @@ body { max-width: 100%; overflow-x: clip; }
   .article-categories { align-items: flex-start; }
   .back-to-top { width: 100%; margin: 8px 0 0; text-align: center; }
 }
+
+/* Dedicated combat level calculator */
+.combat-level-link { margin-top: 17px; padding: 13px 14px; display: grid; gap: 4px; border: 1px solid #9b7847; background: rgba(255,250,237,.09); color: #fff4dc; }
+.combat-level-link:hover { border-color: #d7b56e; background: rgba(255,250,237,.15); }
+.combat-level-link strong { color: #f4d99f; font: 700 16px Georgia, serif; }
+.combat-level-link span { color: #ddccb0; font-size: 11px; line-height: 1.4; }
+.combat-level-link b { margin-top: 3px; color: #f1d08e; font-size: 11px; }
+.standalone-calculator-link { margin-top: 22px; padding: 16px 18px; display: grid; grid-template-columns: auto 1fr auto; gap: 3px 15px; align-items: center; border: 1px solid #b18a43; background: #ead9ba; color: #3e2d1f; }
+.standalone-calculator-link:hover { border-color: #6f5437; background: #e3cfaa; }
+.standalone-calculator-link > span { grid-row: 1 / span 2; padding: 6px 8px; border: 1px solid #c09c5e; color: #765625; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.standalone-calculator-link strong { font: 700 20px/1.1 Georgia, serif; }
+.standalone-calculator-link p { grid-column: 2; margin: 0; color: #6b5a43; font-size: 12px; line-height: 1.4; }
+.standalone-calculator-link b { grid-column: 3; grid-row: 1 / span 2; color: #5c421e; font-size: 11px; }
+.combat-level-page .classic-page-heading > span { max-width: 760px; }
+.combat-level-calculator { margin-top: 24px; padding: 28px; }
+.calculator-reset-button { flex: 0 0 auto; padding: 9px 13px; border: 1px solid #a58b67; background: #f8efdf; color: #4b3525; font-size: 11px; font-weight: 800; cursor: pointer; }
+.calculator-reset-button:hover { border-color: #6f5437; background: #ead9ba; }
+.combat-level-layout { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 22px; align-items: start; }
+.combat-level-inputs { display: grid; gap: 16px; }
+.combat-level-inputs fieldset { margin: 0; padding: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; border: 1px solid #b39a75; background: #f7eedf; }
+.combat-level-inputs fieldset legend { padding: 0 8px; color: #38291d; font: 700 18px Georgia, serif; }
+.combat-level-inputs label { display: block; }
+.combat-level-inputs label > span { display: block; margin-bottom: 6px; color: #6b5a43; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.combat-level-inputs input { height: 42px; text-align: center; }
+.combat-level-health-fieldset { grid-template-columns: minmax(140px, 220px) 1fr !important; align-items: end; }
+.combat-level-health-fieldset p { margin: 0 0 10px; color: #74634c; font-size: 12px; line-height: 1.5; }
+.combat-level-result { padding: 23px; border: 1px solid #765a3b; background: #4b3525; color: #fff6e5; text-align: center; }
+.combat-level-result > span { color: #dfbd77; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.combat-level-result > strong { display: block; margin: 10px 0 12px; color: #f8dda0; font: 700 56px/1 Georgia, serif; }
+.combat-level-result > p { margin: 0; color: #decfb5; font-size: 12px; line-height: 1.55; }
+.combat-level-result > p b { color: #fff0c9; }
+.combat-level-breakdown { margin: 21px 0 0; border-top: 1px solid rgba(255,255,255,.17); text-align: left; }
+.combat-level-breakdown div { display: flex; justify-content: space-between; gap: 15px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.combat-level-breakdown dt { color: #cdbb9d; font-size: 11px; }
+.combat-level-breakdown dd { margin: 0; color: #f8dda0; font-size: 12px; font-weight: 800; }
+.combat-level-calculator > .calculator-note { margin-top: 24px; }
+.calculator-credit { margin: 25px 0 0; padding-top: 13px; border-top: 1px solid #d0b991; color: #7a6549; font-size: 11px; text-align: center; }
+.calculator-credit strong { color: #4b3525; }
+
+@media (max-width: 900px) {
+  .combat-level-layout { grid-template-columns: 1fr; }
+  .combat-level-result { max-width: 620px; }
+}
+
+@media (max-width: 650px) {
+  .combat-level-calculator { padding: 18px 14px; }
+  .combat-level-calculator .calculator-heading { align-items: stretch; flex-direction: column; }
+  .calculator-reset-button { width: fit-content; }
+  .combat-level-inputs fieldset,
+  .combat-level-health-fieldset { grid-template-columns: 1fr !important; }
+  .combat-level-health-fieldset p { margin-top: 2px; }
+  .combat-level-result > strong { font-size: 48px; }
+  .standalone-calculator-link { grid-template-columns: 1fr auto; }
+  .standalone-calculator-link > span { grid-row: auto; grid-column: 1 / -1; width: fit-content; }
+  .standalone-calculator-link p { grid-column: 1 / -1; }
+  .standalone-calculator-link b { grid-column: 2; grid-row: 2; }
+}

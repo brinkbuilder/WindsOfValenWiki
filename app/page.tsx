@@ -81,8 +81,9 @@ export default function Home() {
               <Link href="/calculators?skill=Mining">Mining calculator</Link>
               <Link href="/calculators?skill=Smithing">Smithing calculator</Link>
               <Link href="/calculators?skill=Fishing">Fishing calculator</Link>
-              <Link href="/calculators?tab=combat">Combat calculator</Link>
+              <Link href="/calculators?tab=combat">Combat XP calculator</Link>
             </div>
+            <Link className="combat-level-link" href="/calculators/combat-level"><strong>Combat Level Calculator</strong><span>Combine your combat skills into one overall level.</span><b>Open tool →</b></Link>
             <Link className="classic-button" href="/calculators">Open all calculators</Link>
           </aside>
         </div>
