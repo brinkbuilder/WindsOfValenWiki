@@ -74,7 +74,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           : null;
 
   return (
-    <main className="article-page" id="top">
+    <main className={`article-page${entry.slug === 'world-map' ? ' world-map-article' : ''}`} id="top">
       <div className="breadcrumbs" aria-label="Breadcrumb">
         <Link href="/">Home</Link><span>/</span><Link href="/wiki">Wiki</Link><span>/</span><span>{entry.title}</span>
       </div>

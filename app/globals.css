@@ -1802,6 +1802,11 @@ body { max-width: 100%; overflow-x: clip; }
 }
 
 /* Complete interactive world atlas */
+.world-map-article .article-layout { grid-template-columns: minmax(0, 1fr); }
+.world-map-article .article-copy { width: 100%; }
+.world-map-article .article-copy > .table-of-contents { max-width: 900px; }
+.world-map-article .infobox { display: none; }
+.world-map-article .article-section > p { max-width: 92ch; }
 .world-interactive-map { margin: 24px 0 18px; padding: 20px; border: 1px solid #5d4a33; background: #111714; color: #e9e3d6; box-shadow: 0 12px 34px rgba(32,24,16,.24); font-family: var(--sans); }
 .world-map-heading { display: flex; justify-content: space-between; gap: 24px; align-items: end; }
 .world-map-heading > div > span { color: #d6ad68; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
