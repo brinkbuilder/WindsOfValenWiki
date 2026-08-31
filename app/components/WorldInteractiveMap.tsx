@@ -1,6 +1,6 @@
 'use client';
 
-/* The map artwork and point coordinates are community-maintained; this interface keeps every destination inside this player wiki. */
+/* The atlas uses a calibrated player-facing marker layer over the wiki's original world artwork. */
 /* eslint-disable @next/next/no-img-element */
 
 import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type WheelEvent as ReactWheelEvent } from 'react';
@@ -29,6 +29,53 @@ type TravelRoute = {
 const MAP_WIDTH = 4992;
 const MAP_HEIGHT = 5376;
 const markerTypes: MarkerType[] = ['area', 'location', 'ore', 'fishing', 'enemy', 'boss'];
+
+type CalibrationAnchor = {
+  source: { x: number; y: number };
+  target: { x: number; y: number };
+};
+
+/*
+ * The original marker survey and the recreated atlas use slightly different
+ * terrain spacing. These anchors provide a smooth regional correction so
+ * nearby shops, resources, enemies, and route stops remain grouped together.
+ */
+const calibrationAnchors: CalibrationAnchor[] = [
+  { source: { x: 2701, y: 902 }, target: { x: 2500, y: 730 } }, // Valen City
+  { source: { x: 2393, y: 1325 }, target: { x: 2500, y: 1600 } }, // Valen Gate
+  { source: { x: 3300, y: 750 }, target: { x: 3550, y: 1250 } }, // Alcott Forest
+  { source: { x: 3950, y: 1000 }, target: { x: 4100, y: 1050 } }, // Elven Haven
+  { source: { x: 1100, y: 1700 }, target: { x: 1200, y: 1950 } }, // West Cavern
+  { source: { x: 1783, y: 1400 }, target: { x: 1650, y: 1900 } }, // Goblin Village
+  { source: { x: 2900, y: 2050 }, target: { x: 2700, y: 2100 } }, // Farmlands
+  { source: { x: 3285, y: 2451 }, target: { x: 3450, y: 2550 } }, // Valen Port
+  { source: { x: 1190, y: 2521 }, target: { x: 1540, y: 3880 } }, // Grave Town
+  { source: { x: 1190, y: 3700 }, target: { x: 1100, y: 3500 } }, // Darklands
+];
+
+function calibratedMarkerPosition(marker: Pick<WorldMarker, 'x' | 'y'>) {
+  const nearby = calibrationAnchors
+    .map((anchor) => {
+      const distance = Math.hypot(marker.x - anchor.source.x, marker.y - anchor.source.y);
+      return { anchor, distance };
+    })
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3);
+
+  if (nearby[0]?.distance < 1) return nearby[0].anchor.target;
+
+  const weighted = nearby.map(({ anchor, distance }) => ({
+    offsetX: anchor.target.x - anchor.source.x,
+    offsetY: anchor.target.y - anchor.source.y,
+    weight: 1 / Math.max(1, distance * distance),
+  }));
+  const totalWeight = weighted.reduce((total, point) => total + point.weight, 0);
+
+  return {
+    x: marker.x + weighted.reduce((total, point) => total + point.offsetX * point.weight, 0) / totalWeight,
+    y: marker.y + weighted.reduce((total, point) => total + point.offsetY * point.weight, 0) / totalWeight,
+  };
+}
 
 const typeDetails: Record<MarkerType, { label: string; symbol: string }> = {
   area: { label: 'Cities & areas', symbol: '◆' },
@@ -219,12 +266,13 @@ export function WorldInteractiveMap() {
   const focusMarker = (marker: WorldMarker, requestedZoom = 3.2) => {
     const viewport = viewportRef.current;
     if (!viewport) return;
+    const position = calibratedMarkerPosition(marker);
     const nextScale = Math.min(fitScale * 8, Math.max(view.scale, fitScale * requestedZoom));
     setSelectedId(marker.id);
     setView({
       scale: nextScale,
-      x: viewport.clientWidth / 2 - marker.x * nextScale,
-      y: viewport.clientHeight / 2 - marker.y * nextScale,
+      x: viewport.clientWidth / 2 - position.x * nextScale,
+      y: viewport.clientHeight / 2 - position.y * nextScale,
     });
   };
 
@@ -363,11 +411,12 @@ export function WorldInteractiveMap() {
                 const queryMatch = !query.trim() || `${marker.label} ${marker.wikiTitle ?? ''}`.toLowerCase().includes(query.trim().toLowerCase());
                 const routeNumber = routeOrder.get(marker.id);
                 const visible = typeVisible && queryMatch && (marker.type === 'area' || denseMarkersVisible || selectedId === marker.id || Boolean(routeNumber));
+                const position = calibratedMarkerPosition(marker);
                 return (
                   <button
                     type="button"
                     className={`world-map-marker marker-${marker.type}${selectedId === marker.id ? ' selected' : ''}${routeNumber ? ' route-stop' : ''}${visible ? '' : ' hidden'}`}
-                    style={{ left: view.x + marker.x * view.scale, top: view.y + marker.y * view.scale }}
+                    style={{ left: view.x + position.x * view.scale, top: view.y + position.y * view.scale }}
                     onClick={() => focusMarker(marker)}
                     aria-label={`${typeDetails[marker.type].label}: ${marker.label}`}
                     aria-pressed={selectedId === marker.id}
@@ -398,7 +447,7 @@ export function WorldInteractiveMap() {
               </div>
               <p>{markerDescription(selectedMarker)}</p>
               <dl>
-                <div><dt>Map position</dt><dd>{selectedMarker.x < MAP_WIDTH / 2 ? 'West' : 'East'} · {selectedMarker.y < MAP_HEIGHT / 2 ? 'North' : 'South'}</dd></div>
+                <div><dt>Map position</dt><dd>{calibratedMarkerPosition(selectedMarker).x < MAP_WIDTH / 2 ? 'West' : 'East'} · {calibratedMarkerPosition(selectedMarker).y < MAP_HEIGHT / 2 ? 'North' : 'South'}</dd></div>
                 <div><dt>Nearby planning</dt><dd>Select the closest area, bank, resource, or enemy markers before you travel.</dd></div>
               </dl>
               <div className="world-marker-actions">
