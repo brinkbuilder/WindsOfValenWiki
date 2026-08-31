@@ -1285,6 +1285,145 @@ footer { min-height: 120px; font-size: 13px; }
 .article-figure img { display: block; width: 100%; height: 300px; object-fit: contain; }
 .article-image-grid.single-image .article-figure img { height: auto; max-height: none; }
 .article-figure figcaption { min-height: 58px; padding: 12px 14px; color: #493c2c; font: 14px/1.45 Georgia, 'Times New Roman', serif; }
+
+/* Ebony Caves interactive field map */
+.ebony-interactive-map { margin: 24px 0 18px; padding: 20px; border: 1px solid #59462f; background: #0b0d0d; color: #e8dcc6; box-shadow: 0 10px 30px rgba(20,15,10,.25); font-family: var(--sans); }
+.ebony-map-header { display: flex; justify-content: space-between; gap: 24px; align-items: end; }
+.ebony-map-kicker { color: #c5a46e; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.ebony-map-header h3 { margin: 5px 0 0; color: #f3e6cf; font: 700 28px/1.1 Georgia, serif; }
+.ebony-map-header > div > p { max-width: 680px; margin: 8px 0 0; color: #bfb29e; font: 13px/1.55 var(--sans); }
+.ebony-map-totals { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(74px, 1fr)); border: 1px solid #4e4030; background: #121515; }
+.ebony-map-totals div { min-width: 0; padding: 9px 11px; border-right: 1px solid #4e4030; text-align: center; }
+.ebony-map-totals div:last-child { border-right: 0; }
+.ebony-map-totals dt { color: #9e8c72; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.ebony-map-totals dd { margin: 3px 0 0; color: #ead8b9; font: 700 20px/1 Georgia, serif; }
+.ebony-map-routes { margin-top: 17px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.ebony-map-routes button { min-height: 104px; padding: 12px; border: 1px solid #493d2f; background: #121515; color: #d7c8b0; text-align: left; cursor: pointer; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+.ebony-map-routes button:hover { border-color: #a98651; transform: translateY(-1px); }
+.ebony-map-routes button.active { border-color: #c29b5f; background: #282014; box-shadow: inset 0 3px #c29b5f; }
+.ebony-map-routes span { display: block; color: #b99a68; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.ebony-map-routes strong { display: block; margin-top: 5px; color: #eee0c8; font: 700 15px/1.2 Georgia, serif; }
+.ebony-map-routes small { display: block; margin-top: 6px; color: #a99d8b; font-size: 10px; line-height: 1.35; }
+.ebony-map-toolbar { margin-top: 12px; padding: 10px; display: flex; justify-content: space-between; gap: 12px; align-items: end; border: 1px solid #42372b; background: #101313; }
+.ebony-map-filters { display: flex; gap: 5px; flex-wrap: wrap; }
+.ebony-map-filters button { padding: 7px 9px; border: 1px solid #4d4133; background: #171a1a; color: #bdb09d; font-size: 10px; font-weight: 750; cursor: pointer; }
+.ebony-map-filters button:hover { border-color: #93754b; color: #f0e0c5; }
+.ebony-map-filters button[aria-pressed='true'] { border-color: #c09a60; background: #3a2d1e; color: #f5e7cf; }
+.ebony-room-select { width: min(270px, 100%); }
+.ebony-room-select span { display: block; margin-bottom: 4px; color: #a7957b; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.ebony-room-select select { width: 100%; height: 34px; padding: 0 9px; border: 1px solid #574936; background: #171a1a; color: #e3d4bc; font-size: 11px; }
+.ebony-map-workspace { margin-top: 12px; display: grid; grid-template-columns: minmax(0, 1fr) 285px; gap: 12px; align-items: start; }
+.ebony-map-board { min-width: 0; border: 1px solid #4b3e2e; background: #070909; }
+.ebony-map-controls { min-height: 40px; padding: 6px; display: flex; gap: 5px; align-items: center; border-bottom: 1px solid #4b3e2e; background: #111414; }
+.ebony-map-controls button { min-width: 32px; height: 28px; padding: 0 9px; border: 1px solid #554735; background: #1c2020; color: #e2d3ba; font-size: 11px; font-weight: 800; cursor: pointer; }
+.ebony-map-controls button:hover:not(:disabled) { border-color: #b28c54; background: #32271a; }
+.ebony-map-controls button:disabled { opacity: .35; cursor: not-allowed; }
+.ebony-map-controls output { min-width: 47px; color: #bfa77f; font-size: 10px; font-weight: 800; text-align: center; }
+.ebony-map-controls button:nth-last-child(2) { margin-left: auto; }
+.ebony-map-viewport { position: relative; overflow: auto; width: 100%; aspect-ratio: 3 / 2; background: #050606; cursor: grab; scrollbar-color: #725b3c #111414; overscroll-behavior: contain; }
+.ebony-map-viewport.is-dragging { cursor: grabbing; user-select: none; }
+.ebony-map-canvas { position: relative; min-width: 100%; aspect-ratio: 3 / 2; transition: width .18s ease; }
+.ebony-map-canvas > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; user-select: none; }
+.ebony-map-pin { position: absolute; z-index: 2; width: 28px; height: 28px; padding: 0; display: grid; border: 2px solid #f3e5c9; border-radius: 50%; place-items: center; transform: translate(-50%, -50%); background: #6e4b91; color: white; box-shadow: 0 0 0 3px rgba(0,0,0,.55), 0 2px 8px #000; cursor: pointer; transition: opacity .15s ease, transform .15s ease, box-shadow .15s ease; }
+.ebony-map-pin:hover,
+.ebony-map-pin.selected { z-index: 5; transform: translate(-50%, -50%) scale(1.18); box-shadow: 0 0 0 4px rgba(229,199,143,.5), 0 3px 12px #000; }
+.ebony-map-pin.filtered { opacity: .12; pointer-events: none; }
+.ebony-map-pin span,
+.ebony-map-pin b { font: 900 11px/1 var(--sans); }
+.ebony-map-pin em { position: absolute; top: 31px; left: 50%; width: max-content; max-width: 118px; padding: 3px 5px; border: 1px solid rgba(164,136,94,.65); transform: translateX(-50%); background: rgba(8,10,10,.88); color: #f0e1c8; font: normal 8px/1.2 var(--sans); white-space: nowrap; pointer-events: none; }
+.ebony-map-pin.selected em { border-color: #dbb976; background: #2b2115; color: white; font-weight: 800; }
+.ebony-map-pin.pin-ebonyOre { background: #65508b; }
+.ebony-map-pin.pin-ebonyDust { background: #912a86; }
+.ebony-map-pin.pin-silverOre { background: #89929a; color: #111; }
+.ebony-map-pin.pin-mixed { background: #9b6930; }
+.ebony-map-pin.pin-spiders { background: #8f372c; }
+.ebony-map-pin.pin-entrance { background: #39745f; }
+.ebony-map-pin.pin-junction { background: #3c6481; }
+.ebony-map-pin.route-stop { border-color: #ffe0a3; background: #ba7c27; color: #130d06; }
+.ebony-map-caption { padding: 10px 12px; display: flex; gap: 7px 13px; align-items: baseline; flex-wrap: wrap; border-top: 1px solid #4b3e2e; color: #aa9d89; font-size: 10px; line-height: 1.4; }
+.ebony-map-caption strong { color: #e4c998; font-size: 11px; }
+.ebony-map-caption a { margin-left: auto; color: #d3b175; font-weight: 800; }
+.ebony-map-legend { padding: 9px 12px; display: flex; gap: 8px 14px; flex-wrap: wrap; border-top: 1px solid #30291f; background: #101313; }
+.ebony-map-legend span { display: inline-flex; gap: 5px; align-items: center; color: #a99d8b; font-size: 9px; }
+.ebony-map-legend i { width: 9px; height: 9px; border: 1px solid #e0d3be; border-radius: 50%; background: #666; }
+.ebony-map-legend .legend-ore { background: #65508b; }
+.ebony-map-legend .legend-dust { background: #912a86; }
+.ebony-map-legend .legend-silver { background: #89929a; }
+.ebony-map-legend .legend-mixed { background: #9b6930; }
+.ebony-map-legend .legend-danger { background: #8f372c; }
+.ebony-map-legend .legend-route { background: #ba7c27; }
+.ebony-room-guide { min-height: 520px; border: 1px solid #4b3e2e; background: #121515; }
+.ebony-room-heading { position: relative; padding: 16px; border-bottom: 1px solid #4b3e2e; background: linear-gradient(135deg, #211a13, #121515); }
+.ebony-room-heading > span { color: #b69866; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.ebony-room-heading h4 { margin: 5px 0 0; color: #f0e1c8; font: 700 21px/1.15 Georgia, serif; }
+.ebony-room-heading > b { display: inline-block; margin-top: 9px; padding: 4px 6px; border: 1px solid #9f5042; background: #3a1f1c; color: #eab6ad; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.ebony-room-resources { padding: 13px 15px; border-bottom: 1px solid #393128; }
+.ebony-room-resources > strong { color: #a89577; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.ebony-room-resources ul { margin: 9px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; list-style: none; }
+.ebony-room-resources li { padding: 8px; display: flex; gap: 8px; align-items: center; border: 1px solid #4d4133; background: #1a1d1d; color: #d9cbb5; font: 10px/1.2 var(--sans); }
+.ebony-room-resources li b { display: grid; width: 22px; height: 22px; border-radius: 50%; place-items: center; background: #745d8e; color: white; }
+.ebony-room-resources li.resource-ebonyDust b { background: #912a86; }
+.ebony-room-resources li.resource-silverOre b { background: #89929a; color: #111; }
+.ebony-room-resources > p { margin: 7px 0 0; color: #988d7e; font: 11px/1.4 var(--sans); }
+.ebony-room-details { margin: 0; padding: 5px 15px; }
+.ebony-room-details div { padding: 10px 0; border-bottom: 1px solid #312b24; }
+.ebony-room-details dt { color: #b69866; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.ebony-room-details dd { margin: 4px 0 0; color: #c5b9a6; font: 11px/1.48 var(--sans); }
+.center-room-button { margin: 8px 15px 15px; width: calc(100% - 30px); min-height: 34px; border: 1px solid #806642; background: #2a2116; color: #e5cda4; font-size: 10px; font-weight: 800; cursor: pointer; }
+.center-room-button:hover { border-color: #c29b5f; background: #3b2d1c; }
+.active-route-steps { margin: 0 15px 15px; padding: 12px; border: 1px solid #493d2e; background: #0e1111; }
+.active-route-steps > span { color: #a78c61; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.active-route-steps h5 { margin: 4px 0 8px; color: #e6d5b8; font: 700 15px Georgia, serif; }
+.active-route-steps ol { margin: 0; padding-left: 24px; color: #8f806b; }
+.active-route-steps li { padding: 2px 0; font: 10px/1.35 var(--sans); }
+.active-route-steps li.current { color: #d8b777; font-weight: 800; }
+.active-route-steps button { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.active-route-steps button:hover { color: #f0d49d; text-decoration: underline; }
+.ebony-map-learning-notes { margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ebony-map-learning-notes article { padding: 13px; border: 1px solid #493d2e; background: #121515; }
+.ebony-map-learning-notes span { color: #a98b5f; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.ebony-map-learning-notes h4 { margin: 4px 0 5px; color: #eadbc2; font: 700 15px Georgia, serif; }
+.ebony-map-learning-notes article p { margin: 0; color: #a99d8b; font: 10px/1.5 var(--sans); }
+.ebony-interactive-map.is-expanded { position: fixed; inset: 0; z-index: 10000; margin: 0; padding: 18px; overflow: auto; border: 0; }
+.ebony-interactive-map.is-expanded .ebony-map-workspace { grid-template-columns: minmax(0, 1fr) 340px; }
+.ebony-interactive-map.is-expanded .ebony-map-viewport { height: min(64vh, 760px); aspect-ratio: auto; }
+.ebony-interactive-map.is-expanded .ebony-map-learning-notes { margin-bottom: 18px; }
+
+@media (max-width: 1050px) {
+  .ebony-map-header { align-items: stretch; flex-direction: column; }
+  .ebony-map-totals { width: 100%; }
+  .ebony-map-routes { grid-template-columns: 1fr 1fr; }
+  .ebony-map-workspace,
+  .ebony-interactive-map.is-expanded .ebony-map-workspace { grid-template-columns: 1fr; }
+  .ebony-room-guide { min-height: 0; }
+}
+
+@media (max-width: 650px) {
+  .ebony-interactive-map { margin-inline: -7px; padding: 12px; }
+  .ebony-map-header h3 { font-size: 23px; }
+  .ebony-map-totals { grid-template-columns: 1fr 1fr; }
+  .ebony-map-totals div:nth-child(2) { border-right: 0; }
+  .ebony-map-totals div:nth-child(-n+2) { border-bottom: 1px solid #4e4030; }
+  .ebony-map-routes { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .ebony-map-routes button { flex: 0 0 82%; scroll-snap-align: start; }
+  .ebony-map-toolbar { align-items: stretch; flex-direction: column; }
+  .ebony-room-select { width: 100%; }
+  .ebony-map-controls button:nth-last-child(2) { margin-left: 0; }
+  .ebony-map-controls button:last-child { margin-left: auto; }
+  .ebony-map-pin em { display: none; }
+  .ebony-map-pin.selected em { display: block; }
+  .ebony-map-caption { align-items: flex-start; flex-direction: column; }
+  .ebony-map-caption a { margin-left: 0; }
+  .ebony-map-learning-notes { grid-template-columns: 1fr; }
+  .ebony-interactive-map.is-expanded { padding: 10px; }
+  .ebony-interactive-map.is-expanded .ebony-map-viewport { height: 52vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ebony-map-canvas,
+  .ebony-map-pin,
+  .ebony-map-routes button { transition: none; }
+}
 .infobox-heading { padding: 17px 18px; }
 .infobox-heading h2 { font-size: 26px; }
 .unified-imported-page { max-width: 1440px; padding-top: 30px; }
