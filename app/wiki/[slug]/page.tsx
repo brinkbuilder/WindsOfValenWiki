@@ -123,7 +123,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
                 </div>
               )}
               {section.images && (
-                <div className="article-image-grid">
+                <div className={`article-image-grid${section.images.length === 1 ? ' single-image' : ''}`}>
                   {section.images.map((image) => (
                     <figure className="article-figure" key={image.src}>
                       <a href={image.src} aria-label={`Open full-size image: ${image.alt}`}>

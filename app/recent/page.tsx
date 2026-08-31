@@ -4,10 +4,10 @@ import { wikiBySlug } from '../lib/wiki-data';
 export const metadata: Metadata = { title: 'Recent discoveries', description: 'The latest Winds of Valen guides and findings added to The Valen Archives.' };
 
 const recent = [
+  { slug: 'cavern-mine', note: 'Added the complete Ebony Caves map, room-by-room resource counts, navigation directions, and mining routes.', time: '31 Aug 2026' },
   { slug: 'open-the-gates', note: 'Rebuilt the complete quest walkthrough with requirements, all three scout locations, boss directions, rewards, and five images.', time: '28 Aug 2026' },
   { slug: 'crystal-caverns-bank-unlock', note: 'Added the complete bank-unlock miniquest, dialogue choice, reward details, and five images.', time: '28 Aug 2026' },
   { slug: 'smithing', note: 'Added all current Smithing recipes and a no-shortfall Dusk Knight full-set material checklist.', time: '28 Aug 2026' },
-  { slug: 'cavern-mine', note: 'Added resources, creatures, and hazards found in the Cavern Mine.', time: '27 Aug 2026' },
   { slug: 'cavern-spider', note: 'Added its location and current respawn timing.', time: '27 Aug 2026' },
   { slug: 'infused-coal', note: 'Added the complete formula and a 26-item batch example.', time: '27 Aug 2026' },
   { slug: 'potion-making', note: 'Added the current recipes across four crafting stations.', time: '27 Aug 2026' },
