@@ -428,7 +428,7 @@ const curatedEntries: WikiEntry[] = [
     sections: [
       {
         title: 'Interactive world atlas',
-        paragraphs: ['The map includes every marker in the current community world dataset. Area markers remain visible at the overview scale; zoom in, search, choose a filter, or start a route to reveal detailed points without covering the map in overlapping labels.'],
+        paragraphs: ['The map includes 157 player-facing world markers on original, watermark-free atlas artwork recreated from the in-game world layout. Area markers remain visible at the overview scale; zoom in, search, choose a filter, or start a route to reveal detailed points without covering the map in overlapping labels.'],
       },
       {
         title: 'How to use the map',
@@ -475,7 +475,7 @@ const curatedEntries: WikiEntry[] = [
       },
     ],
     related: ['valen-city', 'the-darklands', 'cavern-mine', 'mining', 'fishing', 'banking', 'open-the-gates'],
-    source: { label: 'Community world atlas', detail: 'World artwork and the complete player-maintained marker set used with project permission.', observed: '31 August 2026' },
+    source: { label: 'Winds of Valen world guide', detail: 'Original wiki artwork based on the in-game world layout, paired with a player-facing marker set.', observed: '31 August 2026' },
   },
   {
     slug: 'cavern-mine',

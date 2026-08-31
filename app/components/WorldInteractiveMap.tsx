@@ -354,7 +354,7 @@ export function WorldInteractiveMap() {
               className="world-map-image-layer"
               style={{ width: MAP_WIDTH, height: MAP_HEIGHT, transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}
             >
-              <img src="/wiki-assets/world-map-full.jpg" alt="Complete overhead map of the world of Valen" draggable="false" />
+              <img src="/wiki-assets/world-map-original.png" alt="Original overhead atlas of the world of Valen" draggable="false" />
             </div>
 
             <div className={`world-map-marker-layer${relativeZoom >= 2.6 ? ' show-labels' : ''}`}>
@@ -385,7 +385,7 @@ export function WorldInteractiveMap() {
 
           <div className="world-map-caption">
             <span><strong>How to explore:</strong> drag to pan, use the mouse wheel or controls to zoom, and select a marker for details.</span>
-            <a href="/wiki-assets/world-map-full.jpg">Open the full-resolution world artwork</a>
+            <a href="/wiki-assets/world-map-original.png">Open the full-resolution recreated world map</a>
           </div>
         </div>
 
@@ -433,7 +433,7 @@ export function WorldInteractiveMap() {
         <article><span>Map clarity</span><h4>Zoom for local services</h4><p>At the world overview, area markers stay visible. Zoom in or choose a filter to reveal dense shop, station, enemy, and resource markers.</p></article>
         <article><span>Safety</span><h4>Bank before danger</h4><p>Use the bank filter before boss routes or Darklands travel. Bosses use star markers, ordinary enemies use triangles, and areas use diamonds.</p></article>
       </div>
-      <p className="world-map-credit">World artwork and 157 marker coordinates assembled by the Winds of Valen community.</p>
+      <p className="world-map-credit">Original atlas artwork recreated for the Winds of Valen player wiki from the in-game world layout.</p>
     </section>
   );
 }
