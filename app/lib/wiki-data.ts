@@ -423,7 +423,7 @@ const curatedEntries: WikiEntry[] = [
       {
         title: 'Cave map',
         paragraphs: ['The entrance is at the bottom of the map, with north pointing upward. Select the map to open the full-resolution version and read every room label.'],
-        images: [{ src: '/wiki-assets/ebony-caves-map.png', alt: 'Detailed map of the Ebony Caves showing the southern entrance, connecting tunnels, resource rooms, and spider chambers', caption: 'The Ebony Caves layout. Purple clusters mark Ebony Ore or Ebony Dust, white clusters mark Silver Ore, and spider symbols mark dangerous chambers.' }],
+        images: [{ src: '/wiki-assets/ebony-caves-map.png', alt: 'Detailed map of the Ebony Caves showing the southern entrance, connecting tunnels, resource rooms, and spider chambers', caption: 'Map layout by Ichigo. Purple clusters mark Ebony Ore or Ebony Dust, white clusters mark Silver Ore, and spider symbols mark dangerous chambers.' }],
       },
       {
         title: 'Resource rooms',
