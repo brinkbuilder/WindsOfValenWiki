@@ -1335,6 +1335,18 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .calculator-card label select:focus { border-color: #5d806f; box-shadow: 0 0 0 3px rgba(93,128,111,.14); }
 .calculator-summary strong { color: #3d2b1f; }
 
+.potion-batch-planner { margin-top: 24px; padding: 22px; border: 1px solid #8f7653; background: #f4ead8; }
+.potion-batch-controls { margin-top: 18px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; }
+.potion-result-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #b69d76; background: #ead9ba; }
+.potion-result-grid > div { min-width: 0; padding: 14px 15px; border-right: 1px solid #c4ad85; border-bottom: 1px solid #c4ad85; }
+.potion-result-grid > div:nth-child(3n) { border-right: 0; }
+.potion-result-grid > div:nth-last-child(-n+3) { border-bottom: 0; }
+.potion-result-grid span { display: block; color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.potion-result-grid strong { display: block; margin-top: 5px; color: #332519; font: 700 23px/1 Georgia, serif; }
+.potion-material-summary { margin-top: 14px; padding: 12px 14px; display: grid; gap: 4px; border-left: 3px solid #5d806f; background: rgba(255,250,240,.72); }
+.potion-material-summary strong { color: #4b3825; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.potion-material-summary span { color: #62513d; font-size: 12px; line-height: 1.55; }
+
 .smithing-plan-box { margin-top: 24px; padding: 22px; border: 1px solid #9f8965; background: #f4ead8; }
 .smithing-plan-heading { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
 .smithing-plan-heading p,
@@ -1359,7 +1371,18 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .smithing-result-grid span { display: block; color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .smithing-result-grid strong { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #332519; font: 700 23px/1 Georgia, serif; }
 .smithing-estimate-label { display: block; margin-top: 5px; color: #8b672f; font-size: 10px; }
+.smithing-quantity-field { margin: 16px 0 0; }
 .smithing-lock-note { margin: 15px 0 0; padding: 10px 12px; border-left: 3px solid #a95143; background: #f4dfd9; color: #704238; font-size: 12px; line-height: 1.5; }
+.dusk-set-plan { margin-top: 18px; padding: 19px 21px; display: grid; grid-template-columns: minmax(220px,.7fr) 1.3fr; gap: 16px 24px; border: 1px solid #806748; background: #e5d4b5; }
+.dusk-set-plan p { margin: 0 0 4px; color: #7e5d2a; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.dusk-set-plan h3 { margin: 0; color: #38291d; font: 700 23px/1.15 Georgia, serif; }
+.dusk-set-plan > div > span { display: block; margin-top: 6px; color: #6a5944; font-size: 12px; line-height: 1.45; }
+.dusk-set-plan ul { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; list-style: none; }
+.dusk-set-plan li { padding: 10px; border: 1px solid #b9a37e; background: rgba(255,250,240,.62); text-align: center; }
+.dusk-set-plan li b, .dusk-set-plan li span { display: block; }
+.dusk-set-plan li b { color: #3d2b1f; font: 700 22px Georgia, serif; }
+.dusk-set-plan li span { margin-top: 3px; color: #6b5943; font-size: 11px; }
+.dusk-set-plan > small { grid-column: 1 / -1; color: #725f47; font-size: 11px; line-height: 1.5; }
 .smithing-list-heading { margin-top: 30px; padding-bottom: 12px; display: flex; justify-content: space-between; gap: 18px; align-items: end; border-bottom: 1px solid #a88d68; }
 .smithing-list-heading p { margin: 6px 0 0; color: #74634c; font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none; }
 .smithing-list-heading > strong { flex: 0 0 auto; color: #705839; font-size: 12px; }
@@ -1387,16 +1410,29 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .smithing-table tr.locked .smithing-item-button { color: #6c645a; }
 .smithing-table tr.selected { background: #eee0c4; box-shadow: inset 3px 0 #b18a43; }
 .combat-breakdown > div small { display: block; margin-top: 7px; color: #8b6b3d; font-size: 11px; }
+.max-hit-fields { grid-template-columns: repeat(5, minmax(125px, 1fr)); }
+.max-hit-result > div { flex-wrap: wrap; }
 .draft-error { margin: -4px 0 0; color: #9a463a; font-size: 12px; line-height: 1.5; }
 
 @media (max-width: 900px) {
+  .potion-batch-controls { grid-template-columns: 1fr 1fr; }
   .smithing-plan-controls { grid-template-columns: 1fr; align-items: stretch; }
   .smithing-list-controls { align-items: stretch; flex-direction: column; }
   .smithing-filter-search { width: 100%; }
+  .dusk-set-plan { grid-template-columns: 1fr; }
+  .dusk-set-plan > small { grid-column: auto; }
+  .max-hit-fields { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 650px) {
   .calculator-heading-help { font-size: 12px; }
+  .potion-batch-planner { padding: 16px; }
+  .potion-batch-controls { grid-template-columns: 1fr; }
+  .potion-result-grid { grid-template-columns: 1fr 1fr; }
+  .potion-result-grid > div:nth-child(3n) { border-right: 1px solid #c4ad85; }
+  .potion-result-grid > div:nth-child(2n) { border-right: 0; }
+  .potion-result-grid > div:nth-last-child(-n+3) { border-bottom: 1px solid #c4ad85; }
+  .potion-result-grid > div:nth-last-child(-n+2) { border-bottom: 0; }
   .smithing-plan-box { padding: 16px; }
   .smithing-plan-heading { align-items: flex-start; flex-direction: column; }
   .smithing-plan-heading h3 { font-size: 22px; }
@@ -1408,6 +1444,9 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
   .smithing-station-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px; }
   .smithing-station-tabs > span { flex: 0 0 auto; }
   .smithing-station-tabs button { flex: 0 0 auto; }
+  .dusk-set-plan { padding: 16px; }
+  .dusk-set-plan ul { grid-template-columns: 1fr; }
+  .max-hit-fields { grid-template-columns: 1fr; }
 }
 
 /* Final usability pass: stable rail, compact navigation, and scannable indexes */

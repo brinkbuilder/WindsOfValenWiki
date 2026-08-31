@@ -1,16 +1,21 @@
 import type { SearchEntry } from './wiki-data';
+import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionReductionRecipes, potionVials } from './potion-data';
 import { smithingRecipes } from './smithing-data';
 
-export const xpTable = [
-  0, 0, 74, 160, 258, 371, 500, 649, 820, 1016, 1241, 1500, 1797, 2139, 2531, 2982, 3500, 4095, 4778, 5563,
-  6464, 7500, 8690, 10056, 11626, 13429, 15500, 17879, 20612, 23751, 27358, 31500, 36258, 41724, 48003, 55215,
-  63500, 73017, 83949, 96506, 110930, 127500, 146533, 168397, 193512, 222361, 255500, 293567, 337294, 387523,
-  445222, 511500, 587634, 675088, 775547, 890944, 1023500, 1175767, 1350676, 1551594, 1782388, 2047500, 2352034,
-  2701852, 3103688, 3565275, 4095500, 4704568, 5404204, 6207875, 7131050, 8191500, 9409637, 10808909, 12416250,
-  14262600, 16383500, 18819774, 21618318, 24833000, 28525701, 32767500, 37640048, 43237135, 49666500, 57051902,
-  65535500, 75280595, 86474770, 99333501, 114104303, 131071500, 150561691, 172950041, 198667502, 228209107,
-  262143500, 301123982, 345900582, 397335504,
-];
+export {
+  MAX_LEVEL,
+  actionsRequired,
+  calculateMaxHit,
+  combatLevelForXp,
+  combatMultiplier,
+  combatXpForLevel,
+  combatXpTable,
+  exactHitChance,
+  levelForXp,
+  maximumCombatRoll,
+  xpForLevel,
+  xpTable,
+} from './calculator-engine';
 
 export type SkillName = 'Mining' | 'Fishing' | 'Smithing' | 'Potion Making' | 'Custom skill';
 
@@ -19,6 +24,7 @@ export type TrainingAction = {
   level: number;
   xp: number;
   note?: string;
+  group?: string;
 };
 
 export const skillTrainingData: Record<SkillName, TrainingAction[]> = {
@@ -29,9 +35,11 @@ export const skillTrainingData: Record<SkillName, TrainingAction[]> = {
     { name: 'Coal Rock', level: 20, xp: 80 },
     { name: 'Mithril Rock', level: 30, xp: 150 },
     { name: 'Silver Rock', level: 40, xp: 300 },
-    { name: 'Gold Rock', level: 40, xp: 350, note: 'Ore or dust' },
+    { name: 'Gold Rock (Ore)', level: 40, xp: 350 },
+    { name: 'Gold Rock (Dust)', level: 40, xp: 350 },
     { name: 'Essence Rock', level: 50, xp: 550 },
-    { name: 'Ebony Rock', level: 60, xp: 500, note: 'Ore or dust' },
+    { name: 'Ebony Rock (Ore)', level: 60, xp: 500 },
+    { name: 'Ebony Rock (Dust)', level: 60, xp: 500 },
   ],
   Fishing: [
     { name: 'Minnow', level: 1, xp: 8 },
@@ -42,23 +50,18 @@ export const skillTrainingData: Record<SkillName, TrainingAction[]> = {
     { name: 'Elder Trout', level: 40, xp: 500 },
     { name: 'Carp', level: 50, xp: 1250 },
   ],
-  Smithing: smithingRecipes.map((recipe) => ({
+  Smithing: smithingRecipes.flatMap((recipe) => recipe.xp === null ? [] : [{
     name: recipe.output,
     level: recipe.level,
     xp: recipe.xp,
     note: `${recipe.station} · ${recipe.outputQuantity} per craft`,
-  })),
+  }]),
   'Potion Making': [
-    { name: 'Weak Health Potion', level: 1, xp: 500 },
-    { name: 'Fishing Potion', level: 5, xp: 500 },
-    { name: 'Shields Potion', level: 10, xp: 1500 },
-    { name: 'Mining Potion', level: 15, xp: 1500 },
-    { name: 'Health Potion', level: 20, xp: 1500 },
-    { name: 'Attack Potion', level: 25, xp: 1500 },
-    { name: 'Archery Potion', level: 30, xp: 1750 },
-    { name: 'Magic Potion', level: 35, xp: 2000 },
-    { name: 'Strong Health Potion', level: 40, xp: 3250 },
-    { name: 'Strong Shields Potion', level: 50, xp: 6000 },
+    ...potionBrewRecipes.map((recipe) => ({ name: recipe.output, level: recipe.level, xp: recipe.xp, note: 'Cauldron · brew XP per batch', group: 'Brewing' })),
+    ...potionVials.map((vial) => ({ name: `Bottle with ${vial.name}`, level: vial.level, xp: vial.bottlingXp, note: 'Bottling XP per finished potion', group: 'Bottling' })),
+    ...fishProcessingRecipes.map((recipe) => ({ name: `Cut ${recipe.input}`, level: recipe.level, xp: recipe.xp, note: 'Cutting Table', group: 'Cutting' })),
+    ...potionCrushRecipes.map((recipe) => ({ name: `Crush ${recipe.input}`, level: recipe.level, xp: recipe.xp, note: 'Crush Station', group: 'Crushing' })),
+    ...potionReductionRecipes.map((recipe) => ({ name: `Reduce ${recipe.input}`, level: recipe.level, xp: recipe.xp, note: 'Reduction Station', group: 'Reduction' })),
   ],
   'Custom skill': [
     { name: 'Your training action', level: 1, xp: 1, note: 'Enter the XP earned per action' },
@@ -70,59 +73,57 @@ export type Enemy = {
   aliases?: string[];
   level: number;
   health: number;
+  defence: number;
   location: string;
-  totalXp?: number;
+  totalXp: number;
 };
 
 export const enemies: Enemy[] = [
-  { name: 'Goblin', level: 1, health: 50, location: 'Broken Village' },
-  { name: 'Skeleton', level: 6, health: 75, location: 'Graveyard' },
-  { name: 'Goblin Berserker', level: 9, health: 250, location: 'Broken Village' },
-  { name: 'Goblin Watcher', level: 9, health: 250, location: 'Goblin Cave', totalXp: 273 },
-  { name: 'Bandit', level: 10, health: 120, location: 'Forest Alcove' },
-  { name: 'Skeleton Miner', level: 13, health: 125, location: 'Town Mine' },
-  { name: 'Goblin Villager', level: 15, health: 200, location: 'Goblin Village' },
-  { name: 'Bandit Leader', level: 25, health: 500, location: 'Forest Alcove' },
-  { name: 'Skeleton Knight', level: 26, health: 350, location: 'West Mine' },
-  { name: 'Highwayman', level: 28, health: 300, location: 'West Mine path' },
-  { name: 'Bandit Mercenary', level: 30, health: 300, location: 'Mercenary Camp' },
-  { name: 'Elf', level: 37, health: 400, location: 'Elven Haven' },
-  { name: 'Cavern Goblin', level: 37, health: 400, location: 'West Mine Deep Cavern', totalXp: 548 },
-  { name: 'Goblin Chieftain', level: 40, health: 1000, location: 'Goblin Village', totalXp: 1400 },
-  { name: 'Goblin General', level: 55, health: 1500, location: 'General Cave' },
-  { name: 'Skeleton Knight (Darklands)', level: 67, health: 1000, location: 'The Darklands', totalXp: 1670 },
-  { name: 'Bandit Mercenary Boss', level: 74, health: 2000, location: 'Mercenary Camp', totalXp: 3480 },
-  { name: 'Skeleton Pioneer', level: 90, health: 2500, location: 'West Mine', totalXp: 4750 },
-  { name: 'Ashen Mage', level: 95, health: 1500, location: 'Crystal Caverns' },
-  { name: 'Ashen Archer', aliases: ['Ashen Ranger', 'Ashen Rangers'], level: 95, health: 1500, location: 'West Mine Ashen Cavern', totalXp: 2925 },
-  { name: 'Ashen Warrior', level: 95, health: 1500, location: 'West Mine Ashen Cavern' },
-  { name: 'Cavern Goblin Hunter', level: 107, health: 3000, location: 'West Mine Deep Cavern', totalXp: 6105 },
-  { name: 'Elf Warden', level: 120, health: 3500, location: 'Elven Haven' },
-  { name: 'The Burning King', level: 307, health: 10000, location: 'West Mine Ashen Cavern', totalXp: 30260 },
+  { name: 'Goblin', level: 1, totalXp: 50, location: 'Broken Village', health: 50, defence: 1 },
+  { name: 'Hen', level: 1, totalXp: 40, location: 'Farmlands', health: 40, defence: 1 },
+  { name: 'Rooster', level: 1, totalXp: 40, location: 'Farmlands', health: 40, defence: 1 },
+  { name: 'Cow', level: 5, totalXp: 105, location: 'Farmlands', health: 100, defence: 5 },
+  { name: 'Skeleton', level: 6, totalXp: 80, location: 'Wheat Fields', health: 75, defence: 6 },
+  { name: 'Goblin Berserker (Boss)', level: 9, totalXp: 273, location: 'Broken Village', health: 250, defence: 6 },
+  { name: 'Goblin Watcher (Boss)', level: 9, totalXp: 273, location: 'Broken Village', health: 250, defence: 3 },
+  { name: 'Bandit', level: 10, totalXp: 132, location: 'Forest', health: 120, defence: 10 },
+  { name: 'Pirate Corsair', level: 10, totalXp: 132, location: 'Valen Port', health: 120, defence: 5 },
+  { name: 'Pirate Rigger', level: 10, totalXp: 132, location: 'Valen Port', health: 120, defence: 5 },
+  { name: 'Pirate Deckhand', level: 10, totalXp: 132, location: 'Valen Port', health: 120, defence: 5 },
+  { name: 'Skeleton Miner', level: 13, totalXp: 141, location: 'Valen Gate / Grave Town', health: 125, defence: 13 },
+  { name: 'Goblin Villager', level: 15, totalXp: 229, location: 'Goblin Village', health: 200, defence: 13 },
+  { name: 'Pirate Captain (Boss)', level: 25, totalXp: 625, location: 'Valen Port', health: 500, defence: 10 },
+  { name: 'Bandit Leader (Boss)', level: 25, totalXp: 626, location: 'Forest Alcove', health: 500, defence: 15 },
+  { name: 'Skeleton Knight', level: 26, totalXp: 442, location: 'West Mine', health: 350, defence: 20 },
+  { name: 'Highwayman', level: 28, totalXp: 384, location: 'West Mine', health: 300, defence: 23 },
+  { name: 'Bandit Mercenary', level: 30, totalXp: 389, location: 'Mercenary Camp', health: 300, defence: 25 },
+  { name: 'Slum Bandit', level: 30, totalXp: 390, location: 'Valen City', health: 300, defence: 20 },
+  { name: 'Elf', level: 37, totalXp: 548, location: 'Elven Haven', health: 400, defence: 30 },
+  { name: 'Elf Scholar', level: 37, totalXp: 548, location: 'Elven Haven', health: 400, defence: 20 },
+  { name: 'Noble Skeleton', level: 37, totalXp: 548, location: 'Valen City', health: 400, defence: 20 },
+  { name: 'Cavern Goblin', level: 37, totalXp: 548, location: 'West Mine Deep Cavern', health: 400, defence: 20 },
+  { name: 'Goblin Chieftain (Boss)', level: 40, totalXp: 1400, location: 'Goblin Village', health: 1000, defence: 18 },
+  { name: 'Goblin General (Boss)', level: 55, totalXp: 1900, location: 'General Cave', health: 1500, defence: 20 },
+  { name: 'Skeleton Knight (Darklands)', level: 67, totalXp: 1670, location: 'Darklands', health: 1000, defence: 40 },
+  { name: 'Bandit Mercenary Boss', level: 74, totalXp: 3480, location: 'Mercenary Camp', health: 2000, defence: 27 },
+  { name: 'Skeleton Pioneer (Boss)', level: 90, totalXp: 4750, location: 'West Mine', health: 2500, defence: 30 },
+  { name: 'Ashen Warrior', level: 95, totalXp: 2925, location: 'West Mine Ashen Cavern', health: 1500, defence: 60 },
+  { name: 'Ashen Archer', aliases: ['Ashen Ranger', 'Ashen Rangers'], level: 95, totalXp: 2925, location: 'West Mine Ashen Cavern', health: 1500, defence: 50 },
+  { name: 'Ashen Mage', level: 95, totalXp: 2925, location: 'West Mine Ashen Cavern', health: 1500, defence: 50 },
+  { name: 'Cavern Goblin Hunter (Boss)', level: 107, totalXp: 6105, location: 'West Mine Deep Cavern', health: 3000, defence: 35 },
+  { name: 'Fire Lich (Boss)', level: 120, totalXp: 7350, location: 'Grave Town', health: 3500, defence: 35 },
+  { name: 'Elf Warden (Boss)', level: 120, totalXp: 7350, location: 'Elven Haven', health: 3500, defence: 35 },
+  { name: 'The Burning King (Boss)', level: 307, totalXp: 30260, location: 'West Mine Ashen Cavern', health: 10000, defence: 60 },
 ];
 
 export const calculatorSearchEntries: SearchEntry[] = [
   { slug: 'mining-calculator', title: 'Mining calculator', type: 'Calculator', summary: 'Levels, experience, and rocks required for any Mining goal.', terms: 'mining calculator xp experience rocks levels actions', href: '/calculators?skill=Mining', source: 'archive' },
   { slug: 'fishing-calculator', title: 'Fishing calculator', type: 'Calculator', summary: 'Levels, experience, and catches required for any Fishing goal.', terms: 'fishing calculator xp experience fish catches levels actions', href: '/calculators?skill=Fishing', source: 'archive' },
-  { slug: 'smithing-calculator', title: 'Smithing calculator', type: 'Calculator', summary: 'See XP per smithable item and plan the crafts needed for any target level.', terms: 'smithing calculator xp experience bars armour weapons recipes crafts levels actions', href: '/calculators?skill=Smithing', source: 'archive' },
-  { slug: 'potion-making-calculator', title: 'Potion Making calculator', type: 'Calculator', summary: 'Levels, experience, and brews required for any Potion Making goal.', terms: 'potion making calculator xp experience recipes brews levels actions', href: '/calculators?skill=Potion%20Making', source: 'archive' },
+  { slug: 'smithing-calculator', title: 'Smithing calculator', type: 'Calculator', summary: 'See XP per smithable item and plan the crafts and raw materials needed for any target level.', terms: 'smithing calculator xp experience bars armour weapons recipes crafts levels actions', href: '/calculators?skill=Smithing', source: 'archive' },
+  { slug: 'potion-making-calculator', title: 'Potion Making calculator', type: 'Calculator', summary: 'Plan complete cauldron batches, bottling XP, ingredients, and finished potions.', terms: 'potion making calculator xp experience recipes brews batches cauldron vial levels actions', href: '/calculators?skill=Potion%20Making', source: 'archive' },
   { slug: 'combat-xp-calculator', title: 'Combat XP calculator', type: 'Calculator', summary: 'Estimate training experience, kills, Health XP, and time.', terms: 'combat xp calculator enemies kills health attack archery defence evasion warding', href: '/calculators?tab=combat', source: 'archive' },
+  { slug: 'max-hit-calculator', title: 'Max hit calculator', type: 'Calculator', summary: 'Calculate a maximum melee, archery, or magic hit from in-game equipment values.', terms: 'max hit calculator melee archery magic power weapon damage attack speed', href: '/calculators?tab=max-hit', source: 'archive' },
   { slug: 'combat-level-calculator', title: 'Combat Level Calculator', type: 'Calculator', summary: 'Calculate your overall combat level from offensive, defensive, and Health levels.', terms: 'combat level calculator attack archery range magic defence defense evasion warding health', href: '/calculators/combat-level', source: 'archive' },
   { slug: 'accuracy-calculator', title: 'Accuracy and defence calculator', type: 'Calculator', summary: 'Compare maximum accuracy and defence rolls.', terms: 'combat accuracy defence chance hit roll equipment calculator', href: '/calculators?tab=accuracy', source: 'archive' },
   { slug: 'custom-skill-calculator', title: 'Custom skill calculator', type: 'Calculator', summary: 'Use any XP-per-action value with the Winds of Valen level table.', terms: 'custom skill calculator xp experience level actions smithing', href: '/calculators?skill=Custom%20skill', source: 'archive' },
 ];
-
-export function xpForLevel(level: number) {
-  return xpTable[Math.max(1, Math.min(99, Math.floor(level)))] ?? 0;
-}
-
-export function levelForXp(xp: number) {
-  let result = 1;
-  for (let level = 2; level <= 99; level += 1) if (xp >= xpForLevel(level)) result = level;
-  return result;
-}
-
-export function combatMultiplier(level: number) {
-  if (level <= 100) return 1 + Math.max(0, level) * 0.01;
-  return 2 + (Math.min(200, level) - 100) * 0.005;
-}

@@ -13,21 +13,57 @@ export type SmithingRecipe = {
   level: number;
   seconds: number;
   ingredients: SmithingIngredient[];
-  xp: number;
-  xpBasis: 'documented' | 'derived';
+  xp: number | null;
+  xpBasis: 'confirmed' | 'unconfirmed';
 };
 
 const ingredient = (item: string, quantity: number): SmithingIngredient => ({ item, quantity });
 
-const documentedSmithingXp: Record<string, number> = {
+const confirmedSmithingXp: Record<string, number> = {
   'bronze-bar': 15,
   'iron-bar': 30,
   'steel-bar': 55,
   'mithril-bar': 155,
   'gold-bar-from-ore': 800,
   'gold-bar-from-dust': 800,
-  'ebony-bar-from-ore': 1650,
-  'ebony-bar-from-dust': 1650,
+  'silver-bar': 675,
+  'ebony-bar-from-ore': 1800,
+  'ebony-bar-from-dust': 1800,
+  'iron-plate': 30,
+  'iron-rod': 10,
+  'steel-plate': 60,
+  'steel-rod': 30,
+  'large-steel-plate': 70,
+  'large-steel-rod': 40,
+  'mithril-plate': 500,
+  'mithril-rod': 250,
+  'large-mithril-plate': 550,
+  'large-mithril-rod': 275,
+  'silver-plate': 400,
+  'silver-foil': 400,
+  'gold-plate': 400,
+  'golden-shield-frame': 1000,
+  'small-ebony-plate': 6000,
+  'small-ebony-rod': 3000,
+  'ebony-plate': 6500,
+  'ebony-rod': 3250,
+  'large-ebony-plate': 7000,
+  'large-ebony-rod': 3500,
+  'dusk-knight-boot-left-sabaton': 10000,
+  'dusk-knight-boot-right-sabaton': 10000,
+  'dusk-knight-boot-greave': 15000,
+  'dusk-knight-leg-cuisses': 15000,
+  'dusk-knight-leg-tuille': 10000,
+  'dusk-knight-leg-poleyn': 10000,
+  'dusk-knight-leg-tasset': 14000,
+  'dusk-knight-body-breastplate': 18000,
+  'dusk-knight-body-pauldron': 10000,
+  'dusk-knight-body-couter': 10000,
+  'dusk-knight-body-rerebrace': 12000,
+  'dusk-knight-body-vambrace': 12000,
+  'dusk-knight-helmet-face-plate': 15000,
+  'dusk-knight-helmet-head-plate': 15000,
+  'dusk-knight-helmet-spike': 15000,
   'bronze-sword': 90,
   'bronze-platelegs': 120,
   'bronze-platebody': 60,
@@ -46,9 +82,6 @@ const documentedSmithingXp: Record<string, number> = {
   'mithril-platebody': 1550,
   'mithril-helmet': 620,
 };
-
-/* Silver is not included in the published XP table; 100 XP per ore is used for its current 7-ore recipe. */
-const smithingXpOverrides: Record<string, number> = { ...documentedSmithingXp, 'silver-bar': 700 };
 
 const rawSmithingRecipes: Omit<SmithingRecipe, 'xp' | 'xpBasis'>[] = [
   { slug: 'bronze-bar', output: 'Bronze Bar', outputQuantity: 1, station: 'Furnace', level: 1, seconds: 3, ingredients: [ingredient('Copper Ore', 1), ingredient('Tin Ore', 1)] },
@@ -123,19 +156,13 @@ const rawSmithingRecipes: Omit<SmithingRecipe, 'xp' | 'xpBasis'>[] = [
   { slug: 'dusk-knight-helmet', output: 'Dusk Knight Helmet', outputQuantity: 1, station: 'Workbench', level: 68, seconds: 120, ingredients: [ingredient('Dusk Knight Helmet Face Plate', 1), ingredient('Dusk Knight Helmet Head Plate', 1), ingredient('Dusk Knight Helmet Spike', 1), ingredient('Ebony Bar', 1), ingredient('Dusk Knight Schematics', 1)] },
 ];
 
-const calculatedXpByOutput = new Map<string, number>();
-
 export const smithingRecipes: SmithingRecipe[] = rawSmithingRecipes.map((recipe) => {
-  const overriddenXp = smithingXpOverrides[recipe.slug];
-  const xp = overriddenXp ?? recipe.ingredients.reduce((total, { item, quantity }) => total + quantity * (calculatedXpByOutput.get(item) ?? 0), 0);
-  const xpBasis: SmithingRecipe['xpBasis'] = overriddenXp === undefined ? 'derived' : documentedSmithingXp[recipe.slug] === undefined ? 'derived' : 'documented';
-  const result = {
+  const xp = confirmedSmithingXp[recipe.slug] ?? null;
+  return {
     ...recipe,
     xp,
-    xpBasis,
+    xpBasis: xp === null ? 'unconfirmed' : 'confirmed',
   };
-  calculatedXpByOutput.set(recipe.output, xp / recipe.outputQuantity);
-  return result;
 });
 
 export type SmithingMaterialTotal = {
@@ -143,25 +170,86 @@ export type SmithingMaterialTotal = {
   quantity: number;
 };
 
-export function smithingMaterialTotals(recipe: SmithingRecipe, crafts: number): SmithingMaterialTotal[] {
+export type SmithingMaterialOptions = {
+  goldSource: 'ore' | 'dust';
+  ebonySource: 'ore' | 'dust';
+};
+
+export const defaultSmithingMaterialOptions: SmithingMaterialOptions = {
+  goldSource: 'ore',
+  ebonySource: 'dust',
+};
+
+export const duskKnightSetRequirements: SmithingIngredient[] = [
+  ingredient('Dusk Knight Boots', 1),
+  ingredient('Dusk Knight Platelegs', 1),
+  ingredient('Dusk Knight Platebody', 1),
+  ingredient('Dusk Knight Helmet', 1),
+];
+
+const reusableRequirements = new Set(['Dusk Knight Schematics']);
+const suppliedMaterialRecipes: Record<string, SmithingIngredient[]> = {
+  'Exquisite Silk Boot Line': [ingredient('Exquisite Silk', 4)],
+  'Exquisite Silk Pant Line': [ingredient('Exquisite Silk', 5)],
+  'Exquisite Silk Vest Line': [ingredient('Exquisite Silk', 6)],
+};
+
+function recipeForItem(item: string, options: SmithingMaterialOptions) {
+  if (item === 'Gold Bar') return smithingRecipes.find((recipe) => recipe.slug === `gold-bar-from-${options.goldSource}`);
+  if (item === 'Ebony Bar') return smithingRecipes.find((recipe) => recipe.slug === `ebony-bar-from-${options.ebonySource}`);
+  return smithingRecipes.find((recipe) => recipe.output === item);
+}
+
+function materialDepth(item: string, options: SmithingMaterialOptions, stack = new Set<string>()): number {
+  if (stack.has(item) || reusableRequirements.has(item)) return 0;
+  const supplied = suppliedMaterialRecipes[item];
+  const producer = recipeForItem(item, options);
+  const inputs = supplied ?? producer?.ingredients;
+  if (!inputs?.length) return 0;
+  const nextStack = new Set(stack);
+  nextStack.add(item);
+  return 1 + Math.max(...inputs.map((input) => materialDepth(input.item, options, nextStack)));
+}
+
+export function smithingMaterialTotalsForItems(
+  requirements: SmithingIngredient[],
+  options: SmithingMaterialOptions = defaultSmithingMaterialOptions,
+): SmithingMaterialTotal[] {
+  const pending = new Map<string, number>();
   const totals = new Map<string, number>();
-  const expand = (item: string, quantity: number, stack: Set<string>) => {
-    const producer = smithingRecipes.find((candidate) => candidate.output === item);
-    if (!producer || stack.has(item)) {
+  requirements.forEach(({ item, quantity }) => pending.set(item, (pending.get(item) ?? 0) + quantity));
+
+  while (pending.size) {
+    const [item, quantity] = [...pending.entries()].sort((a, b) => materialDepth(b[0], options) - materialDepth(a[0], options))[0];
+    pending.delete(item);
+    if (reusableRequirements.has(item)) continue;
+
+    const supplied = suppliedMaterialRecipes[item];
+    const producer = recipeForItem(item, options);
+    if (supplied) {
+      supplied.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * quantity));
+    } else if (producer) {
+      const producerCrafts = Math.ceil(quantity / producer.outputQuantity);
+      producer.ingredients.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * producerCrafts));
+    } else {
       totals.set(item, (totals.get(item) ?? 0) + quantity);
-      return;
     }
+  }
 
-    const producerCrafts = Math.ceil(quantity / producer.outputQuantity);
-    const nextStack = new Set(stack);
-    nextStack.add(item);
-    producer.ingredients.forEach((ingredient) => expand(ingredient.item, ingredient.quantity * producerCrafts, nextStack));
-  };
-
-  if (crafts > 0) recipe.ingredients.forEach((ingredient) => expand(ingredient.item, ingredient.quantity * crafts, new Set()));
   return [...totals.entries()]
     .map(([item, quantity]) => ({ item, quantity }))
     .sort((a, b) => a.item.localeCompare(b.item));
+}
+
+export function smithingMaterialTotals(
+  recipe: SmithingRecipe,
+  crafts: number,
+  options: SmithingMaterialOptions = defaultSmithingMaterialOptions,
+): SmithingMaterialTotal[] {
+  const requirements = crafts > 0
+    ? recipe.ingredients.map(({ item, quantity }) => ingredient(item, quantity * crafts))
+    : [];
+  return smithingMaterialTotalsForItems(requirements, options);
 }
 
 export const smithingItemDescriptions: Record<string, string> = {

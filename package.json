@@ -10,7 +10,8 @@
     "build": "vinext build",
     "vercel-build": "next build",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "test:calculators": "node --experimental-strip-types scripts/verify-calculators.mjs"
   },
   "dependencies": {
     "next": "16.3.3",

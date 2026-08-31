@@ -4,7 +4,7 @@ import { CombatLevelCalculator } from '../../components/CombatLevelCalculator';
 
 export const metadata: Metadata = {
   title: 'Combat Level Calculator',
-  description: 'Calculate an estimated Winds of Valen combat level from your offensive, defensive, and Health levels.',
+  description: 'Calculate a Winds of Valen combat level from your offensive, defensive, and Health levels.',
 };
 
 export default function CombatLevelCalculatorPage() {

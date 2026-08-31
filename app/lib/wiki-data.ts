@@ -663,6 +663,10 @@ function smithingRecipeTitle(recipe: SmithingRecipe) {
   return `${recipe.output} recipe`;
 }
 
+function formatSmithingXp(recipe: SmithingRecipe) {
+  return recipe.xp === null ? 'Not confirmed' : String(recipe.xp);
+}
+
 const smithingRecipeEntries: WikiEntry[] = smithingRecipes.map((recipe) => ({
   slug: `recipe-smithing-${recipe.slug}`,
   title: smithingRecipeTitle(recipe),
@@ -675,7 +679,7 @@ const smithingRecipeEntries: WikiEntry[] = smithingRecipes.map((recipe) => ({
   facts: [
     { label: 'Station', value: recipe.station },
     { label: 'Smithing level', value: String(recipe.level) },
-    { label: 'Smithing XP', value: `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}` },
+    { label: 'Smithing XP', value: formatSmithingXp(recipe) },
     { label: 'Craft time', value: `${recipe.seconds} seconds` },
     { label: 'Output', value: `${recipe.outputQuantity} ${recipe.output}` },
   ],
@@ -747,7 +751,7 @@ const smithingItemEntries: WikiEntry[] = [...recipesByOutput.entries()].map(([it
             String(recipe.level),
             formatSmithingIngredients(recipe),
             `${recipe.outputQuantity} ${recipe.output}`,
-            `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`,
+            formatSmithingXp(recipe),
             `${recipe.seconds}s`,
           ]),
         },
@@ -807,21 +811,21 @@ const smithingGuide: WikiEntry = {
       title: 'Furnace recipes',
       table: {
         headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Furnace').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Furnace').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), formatSmithingXp(recipe), `${recipe.seconds}s`]),
       },
     },
     {
       title: 'Anvil recipes',
       table: {
         headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Anvil').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Anvil').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), formatSmithingXp(recipe), `${recipe.seconds}s`]),
       },
     },
     {
       title: 'Workbench recipes',
       table: {
         headers: ['Level', 'Output', 'Ingredients', 'XP', 'Time'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), `${recipe.xp}${recipe.xpBasis === 'derived' ? ' (estimated)' : ''}`, `${recipe.seconds}s`]),
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench').map((recipe) => [String(recipe.level), `${recipe.outputQuantity} ${recipe.output}`, formatSmithingIngredients(recipe), formatSmithingXp(recipe), `${recipe.seconds}s`]),
       },
     },
     {
@@ -829,7 +833,7 @@ const smithingGuide: WikiEntry = {
       paragraphs: ['Dusk Knight armour is a two-stage process. Forge each named metal component at an anvil, then combine the required components with an Exquisite Silk lining and the schematics at a workbench. The current recipes list Dusk Knight Schematics as a requirement for every component and final-assembly step.'],
       table: {
         headers: ['Final item', 'Level', 'Workbench assembly', 'XP'],
-        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench' && recipe.output.startsWith('Dusk Knight')).map((recipe) => [recipe.output, String(recipe.level), formatSmithingIngredients(recipe), `${recipe.xp} (estimated)`]),
+        rows: smithingRecipes.filter((recipe) => recipe.station === 'Workbench' && recipe.output.startsWith('Dusk Knight')).map((recipe) => [recipe.output, String(recipe.level), formatSmithingIngredients(recipe), formatSmithingXp(recipe)]),
       },
     },
     {

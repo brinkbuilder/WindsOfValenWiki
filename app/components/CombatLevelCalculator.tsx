@@ -24,7 +24,7 @@ const defaultStats: CombatStats = {
 
 function levelValue(value: string) {
   const parsed = Number(value);
-  return Number.isFinite(parsed) ? Math.max(1, Math.floor(parsed)) : 1;
+  return Number.isFinite(parsed) ? Math.max(1, Math.min(100, Math.floor(parsed))) : 1;
 }
 
 export function CombatLevelCalculator() {
@@ -53,28 +53,28 @@ export function CombatLevelCalculator() {
         <div className="combat-level-inputs">
           <fieldset>
             <legend>Offensive skills</legend>
-            <label htmlFor="combat-level-attack"><span>Attack</span><input id="combat-level-attack" type="number" min="1" value={stats.attack} onChange={(event) => updateStat('attack', event.target.value)} /></label>
-            <label htmlFor="combat-level-archery"><span>Archery / range</span><input id="combat-level-archery" type="number" min="1" value={stats.archery} onChange={(event) => updateStat('archery', event.target.value)} /></label>
-            <label htmlFor="combat-level-magic"><span>Magic</span><input id="combat-level-magic" type="number" min="1" value={stats.magic} onChange={(event) => updateStat('magic', event.target.value)} /></label>
+            <label htmlFor="combat-level-attack"><span>Attack</span><input id="combat-level-attack" type="number" min="1" max="100" value={stats.attack} onChange={(event) => updateStat('attack', event.target.value)} /></label>
+            <label htmlFor="combat-level-archery"><span>Archery / range</span><input id="combat-level-archery" type="number" min="1" max="100" value={stats.archery} onChange={(event) => updateStat('archery', event.target.value)} /></label>
+            <label htmlFor="combat-level-magic"><span>Magic</span><input id="combat-level-magic" type="number" min="1" max="100" value={stats.magic} onChange={(event) => updateStat('magic', event.target.value)} /></label>
           </fieldset>
           <fieldset>
             <legend>Defensive skills</legend>
-            <label htmlFor="combat-level-defence"><span>Defence</span><input id="combat-level-defence" type="number" min="1" value={stats.defence} onChange={(event) => updateStat('defence', event.target.value)} /></label>
-            <label htmlFor="combat-level-evasion"><span>Evasion</span><input id="combat-level-evasion" type="number" min="1" value={stats.evasion} onChange={(event) => updateStat('evasion', event.target.value)} /></label>
-            <label htmlFor="combat-level-warding"><span>Warding</span><input id="combat-level-warding" type="number" min="1" value={stats.warding} onChange={(event) => updateStat('warding', event.target.value)} /></label>
+            <label htmlFor="combat-level-defence"><span>Defence</span><input id="combat-level-defence" type="number" min="1" max="100" value={stats.defence} onChange={(event) => updateStat('defence', event.target.value)} /></label>
+            <label htmlFor="combat-level-evasion"><span>Evasion</span><input id="combat-level-evasion" type="number" min="1" max="100" value={stats.evasion} onChange={(event) => updateStat('evasion', event.target.value)} /></label>
+            <label htmlFor="combat-level-warding"><span>Warding</span><input id="combat-level-warding" type="number" min="1" max="100" value={stats.warding} onChange={(event) => updateStat('warding', event.target.value)} /></label>
           </fieldset>
           <fieldset className="combat-level-health-fieldset">
             <legend>Health</legend>
-            <label htmlFor="combat-level-health"><span>Health level</span><input id="combat-level-health" type="number" min="1" value={stats.health} onChange={(event) => updateStat('health', event.target.value)} /></label>
+            <label htmlFor="combat-level-health"><span>Health level</span><input id="combat-level-health" type="number" min="1" max="100" value={stats.health} onChange={(event) => updateStat('health', event.target.value)} /></label>
             <p>Each Health level above 1 adds 0.25 to the result.</p>
           </fieldset>
         </div>
 
         <div className="combat-level-result" aria-live="polite">
-          <span>Estimated combat level</span>
+          <span>Formula result</span>
           <strong>{combatLevel.toFixed(2)}</strong>
           <p>Based on the highest offensive level of <b>{highestOffense}</b> and defensive level of <b>{highestDefense}</b>.</p>
-          <dl>
+          <dl className="combat-level-breakdown">
             <div><dt>Offensive contribution</dt><dd>{(highestOffense * 0.5).toFixed(2)}</dd></div>
             <div><dt>Defensive contribution</dt><dd>{(highestDefense * 0.5).toFixed(2)}</dd></div>
             <div><dt>Health contribution</dt><dd>{healthContribution.toFixed(2)}</dd></div>
@@ -82,7 +82,7 @@ export function CombatLevelCalculator() {
         </div>
       </div>
 
-      <p className="calculator-note">This follows the supplied formula: highest offense x 0.5 + highest defence x 0.5 + (Health - 1) x 0.25. The result is displayed to two decimal places; confirm the game&apos;s rounding behavior in-game.</p>
+      <p className="calculator-note">This follows the supplied formula: highest offense × 0.5 + highest defence × 0.5 + (Health − 1) × 0.25. The exact formula result is displayed to two decimal places; the game&apos;s displayed rounding convention has not been separately confirmed.</p>
       <p className="calculator-credit">Combat Level Calculator by <strong>Simpuhl</strong>.</p>
     </section>
   );
