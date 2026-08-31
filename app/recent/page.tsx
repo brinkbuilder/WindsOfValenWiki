@@ -4,6 +4,7 @@ import { wikiBySlug } from '../lib/wiki-data';
 export const metadata: Metadata = { title: 'Recent discoveries', description: 'The latest Winds of Valen guides and findings added to The Valen Archives.' };
 
 const recent = [
+  { slug: 'world-map', note: 'Added the complete interactive world atlas with 157 searchable markers, six filters, four numbered routes, full-screen exploration, and local player guides.', time: '31 Aug 2026' },
   { slug: 'cavern-mine', note: 'Added an interactive Ebony Caves map with zooming, room filters, numbered routes, resource counts, navigation directions, and mining advice.', time: '31 Aug 2026' },
   { slug: 'open-the-gates', note: 'Rebuilt the complete quest walkthrough with requirements, all three scout locations, boss directions, rewards, and five images.', time: '28 Aug 2026' },
   { slug: 'crystal-caverns-bank-unlock', note: 'Added the complete bank-unlock miniquest, dialogue choice, reward details, and five images.', time: '28 Aug 2026' },

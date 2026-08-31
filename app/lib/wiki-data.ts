@@ -410,6 +410,74 @@ const curatedEntries: WikiEntry[] = [
     source: documentedSource,
   },
   {
+    slug: 'world-map',
+    title: 'Interactive World Map',
+    type: 'Location',
+    verification: 'player',
+    summary: 'A complete searchable atlas with 157 markers for areas, banks, shops, crafting stations, ores, fishing spots, enemies, and bosses.',
+    intro: 'Use the interactive world map to plan trips across Valen. Search for any destination, filter marker categories, zoom into crowded towns, or follow a numbered route designed for new players.',
+    aliases: ['World Map', 'Map', 'Atlas'],
+    categories: ['Locations', 'World', 'Travel', 'Guides'],
+    facts: [
+      { label: 'Marker count', value: '157' },
+      { label: 'Major areas', value: '10' },
+      { label: 'Mining markers', value: '40' },
+      { label: 'Fishing spots', value: '8' },
+      { label: 'Enemy and boss markers', value: '24' },
+    ],
+    sections: [
+      {
+        title: 'Interactive world atlas',
+        paragraphs: ['The map includes every marker in the current community world dataset. Area markers remain visible at the overview scale; zoom in, search, choose a filter, or start a route to reveal detailed points without covering the map in overlapping labels.'],
+      },
+      {
+        title: 'How to use the map',
+        steps: [
+          'Begin with Valen Gate selected to learn the central starting area.',
+          'Drag the map to pan and use the mouse wheel, plus and minus buttons, or touch controls to zoom.',
+          'Search by a specific name such as Bank, Mithril, Carp, or Elf Warden.',
+          'Toggle areas, services, mining, fishing, enemies, and bosses to show only what you need.',
+          'Select a marker to read its purpose, centre it, and open the most relevant guide inside this wiki.',
+          'Choose a numbered route to move through its stops in order. Use Fit world whenever you want to return to the full overview.',
+        ],
+      },
+      {
+        title: 'World orientation',
+        table: {
+          headers: ['Region', 'Direction from Valen Gate', 'What players use it for'],
+          rows: [
+            ['Valen City', 'North', 'Members city, bank, shops, advanced crafting, Large Cauldron'],
+            ['Alcott Forest and Elven Haven', 'East and north-east', 'Bandits, elves, bosses, Mithril, Bass, Blue Gill, and Carp'],
+            ['Farmlands and Valen Port', 'South-east', 'Early animals, fishing, pirates, bank, shops, and crafting'],
+            ['Goblin Village and West Cavern', 'West', 'Goblin combat, ore progression, underground enemies, and bosses'],
+            ['Grave Town', 'South-west', 'Banking, Smithing, undead combat, and the road into the Darklands'],
+            ['Darklands', 'Far south-west', 'High-risk PvP travel, volcanic mining, and stronger enemies'],
+          ],
+        },
+      },
+      {
+        title: 'Marker guide',
+        table: {
+          headers: ['Marker', 'Count', 'Use'],
+          rows: [
+            ['Cities and areas', '10', 'Orient yourself and understand the surrounding region'],
+            ['Banks, shops, and stations', '75', 'Store items, respawn, heal, buy supplies, and craft'],
+            ['Mining', '40', 'Find named ore rocks and additional mining areas'],
+            ['Fishing', '8', 'Find Minnow, Common Trout, Perch, Bass, Blue Gill, Elder Trout, and Carp waters'],
+            ['Enemies', '15', 'Locate combat training spawns'],
+            ['Bosses', '9', 'Plan supplies and nearby banking before major encounters'],
+          ],
+        },
+      },
+      {
+        title: 'Recommended first route',
+        paragraphs: ['Choose New player circuit above the map. It begins at Valen Gate, follows the early Minnow, Common Trout, and Perch waters, crosses the Farmlands, and finishes at Valen Port. This teaches the central river, the south-eastern roads, and two important settlements without sending a new player into the Darklands.'],
+      },
+    ],
+    related: ['valen-city', 'the-darklands', 'cavern-mine', 'mining', 'fishing', 'banking', 'open-the-gates'],
+    source: { label: 'Community world atlas', detail: 'World artwork and the complete player-maintained marker set used with project permission.', observed: '31 August 2026' },
+  },
+  {
     slug: 'cavern-mine',
     title: 'Ebony Caves',
     type: 'Location',

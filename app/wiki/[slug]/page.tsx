@@ -5,6 +5,7 @@ import { findWikiSourceMatches, wikiSources, wikiSourceReaderPath } from '../../
 import { wikiBySlug, wikiEntries } from '../../lib/wiki-data';
 import type { ExternalSource } from '../../lib/wiki-data';
 import { EbonyCavesInteractiveMap } from '../../components/EbonyCavesInteractiveMap';
+import { WorldInteractiveMap } from '../../components/WorldInteractiveMap';
 
 /* Native images keep this static Vinext build compatible and let quest screenshots open at full size. */
 /* eslint-disable @next/next/no-img-element */
@@ -123,7 +124,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
                   </table>
                 </div>
               )}
-              {entry.slug === 'cavern-mine' && index === 0 ? <EbonyCavesInteractiveMap /> : section.images && (
+              {entry.slug === 'world-map' && index === 0 ? <WorldInteractiveMap /> : entry.slug === 'cavern-mine' && index === 0 ? <EbonyCavesInteractiveMap /> : section.images && (
                 <div className={`article-image-grid${section.images.length === 1 ? ' single-image' : ''}`}>
                   {section.images.map((image) => (
                     <figure className="article-figure" key={image.src}>

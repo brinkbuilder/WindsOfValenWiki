@@ -31,6 +31,7 @@ export function SiteHeader() {
             <Link href="/wiki?type=guides">Skills &amp; training</Link>
             <Link href="/wiki?type=quests">Quest guides</Link>
             <Link href="/wiki?type=items">Items &amp; equipment</Link>
+            <Link href="/wiki/world-map">Interactive world map</Link>
             <Link href="/wiki?type=world">Creatures &amp; places</Link>
           </div>
           <div className="rail-section">
@@ -53,6 +54,7 @@ export function SiteHeader() {
             <Link href="/wiki?type=items">Items</Link>
             <Link href="/wiki?type=guides">Skills &amp; guides</Link>
             <Link href="/wiki?type=quests">Quests</Link>
+            <Link href="/wiki/world-map">Interactive world map</Link>
             <Link href="/wiki?type=world">Creatures & places</Link>
             <Link href="/recent">Recent changes</Link>
             <Link href="/about/data">About the wiki</Link>
