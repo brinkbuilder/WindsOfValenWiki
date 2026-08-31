@@ -15,13 +15,15 @@ import {
   xpForLevel,
   type SkillName,
 } from '../lib/calculator-data';
-import { potionBrewRecipes, potionCauldrons, potionVials, potionsPerBatch } from '../lib/potion-data';
+import { potionBrewRecipes, potionCauldrons, potionOutputName, potionTimePlan, potionVials, potionsPerBatch } from '../lib/potion-data';
 import {
   defaultSmithingMaterialOptions,
   duskKnightSetRequirements,
   formatSmithingIngredients,
+  smithingDirectCraftTime,
   smithingMaterialTotals,
   smithingMaterialTotalsForItems,
+  smithingProductionTimePlan,
   smithingRecipes,
   type SmithingMaterialOptions,
   type SmithingStation,
@@ -93,6 +95,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const [selectedPotionSlug, setSelectedPotionSlug] = useState(potionBrewRecipes[0].slug);
   const [cauldronId, setCauldronId] = useState<(typeof potionCauldrons)[number]['id']>('small');
   const [vialId, setVialId] = useState<(typeof potionVials)[number]['id']>('large');
+  const [potionTimeQuantity, setPotionTimeQuantity] = useState(10);
   const selectedPotion = potionBrewRecipes.find((recipe) => recipe.slug === selectedPotionSlug) ?? potionBrewRecipes[0];
   const selectedCauldron = potionCauldrons.find((cauldron) => cauldron.id === cauldronId) ?? potionCauldrons[0];
   const selectedVial = potionVials.find((vial) => vial.id === vialId) ?? potionVials[0];
@@ -102,11 +105,14 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const potionBatchesNeeded = actionsRequired(xpNeeded, completeBatchXp);
   const totalFinishedPotions = potionBatchesNeeded * batchYield;
   const potionRequiredLevel = Math.max(selectedPotion.level, selectedVial.level);
+  const selectedPotionOutput = potionOutputName(selectedPotion, selectedVial);
+  const selectedPotionTime = potionTimePlan(selectedPotion, selectedCauldron, selectedVial, potionTimeQuantity);
 
   const [smithingStation, setSmithingStation] = useState<SmithingStationFilter>('All');
   const [smithingQuery, setSmithingQuery] = useState('');
   const [selectedSmithingSlug, setSelectedSmithingSlug] = useState(smithingRecipes[0].slug);
   const [unconfirmedCraftQuantity, setUnconfirmedCraftQuantity] = useState(1);
+  const [smithingTimeQuantity, setSmithingTimeQuantity] = useState(1);
   const [goldSource, setGoldSource] = useState<SmithingMaterialOptions['goldSource']>(defaultSmithingMaterialOptions.goldSource);
   const [ebonySource, setEbonySource] = useState<SmithingMaterialOptions['ebonySource']>(defaultSmithingMaterialOptions.ebonySource);
   const materialOptions = useMemo(() => ({ goldSource, ebonySource }), [ebonySource, goldSource]);
@@ -123,6 +129,9 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const selectedSmithingOutput = plannedSmithingCrafts * selectedSmithingRecipe.outputQuantity;
   const selectedSmithingMaterials = useMemo(() => smithingMaterialTotals(selectedSmithingRecipe, plannedSmithingCrafts, materialOptions), [materialOptions, plannedSmithingCrafts, selectedSmithingRecipe]);
   const duskSetMaterials = useMemo(() => smithingMaterialTotalsForItems(duskKnightSetRequirements, materialOptions), [materialOptions]);
+  const smithingAssemblySeconds = smithingDirectCraftTime(selectedSmithingRecipe, smithingTimeQuantity);
+  const smithingBarsTime = useMemo(() => smithingProductionTimePlan(selectedSmithingRecipe, smithingTimeQuantity, materialOptions, 'bars'), [materialOptions, selectedSmithingRecipe, smithingTimeQuantity]);
+  const smithingRawTime = useMemo(() => smithingProductionTimePlan(selectedSmithingRecipe, smithingTimeQuantity, materialOptions, 'raw'), [materialOptions, selectedSmithingRecipe, smithingTimeQuantity]);
 
   const [combatLevel, setCombatLevel] = useState(1);
   const [combatXp, setCombatXp] = useState(0);
@@ -179,8 +188,9 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
               <div className="potion-batch-controls">
                 <label><span>Potion</span><select value={selectedPotionSlug} onChange={(event) => setSelectedPotionSlug(event.target.value)}>{potionBrewRecipes.map((recipe) => <option value={recipe.slug} key={recipe.slug}>{recipe.output} · level {recipe.level}</option>)}</select></label>
                 <label><span>Cauldron</span><select value={cauldronId} onChange={(event) => setCauldronId(event.target.value as typeof cauldronId)}>{potionCauldrons.map((cauldron) => <option value={cauldron.id} key={cauldron.id}>{cauldron.name} · {number.format(cauldron.capacityMl)} ml</option>)}</select></label>
-                <label><span>Vial</span><select value={vialId} onChange={(event) => setVialId(event.target.value as typeof vialId)}>{potionVials.map((vial) => <option value={vial.id} key={vial.id}>{vial.name} · {vial.volumeMl} ml</option>)}</select></label>
+                <label><span>Potion tier</span><select value={vialId} onChange={(event) => setVialId(event.target.value as typeof vialId)}>{potionVials.map((vial) => <option value={vial.id} key={vial.id}>{vial.tier} · {vial.name} · level {vial.level}</option>)}</select></label>
               </div>
+              <div className="potion-output-callout" aria-live="polite"><span>Selected finished potion</span><strong>{selectedPotionOutput}</strong><small>{selectedVial.volumeMl} ml each · {batchYield} from this cauldron</small></div>
               <div className="potion-result-grid" aria-live="polite">
                 <div><span>Potions per batch</span><strong>{number.format(batchYield)}</strong></div>
                 <div><span>Brew XP</span><strong>{number.format(selectedPotion.xp)}</strong></div>
@@ -192,6 +202,17 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
               <div className="potion-material-summary"><strong>Total supplies</strong><span>{selectedPotion.ingredients.map((item) => `${number.format(item.quantity * potionBatchesNeeded)} ${item.item}`).join(' · ')} · {number.format(totalFinishedPotions)} {selectedVial.name}s</span></div>
               <p className="calculator-note">One batch means one full cauldron. With Large Vials, the small cauldron makes <b>10 potions</b> and the large cauldron makes <b>15 potions</b>. Complete-batch XP includes brewing and bottling; preparation XP from cutting, crushing, or reducing is listed below but is not added because it depends on how you source each ingredient.</p>
               {currentLevel < potionRequiredLevel && <p className="smithing-lock-note">This setup requires Potion Making level {potionRequiredLevel}: level {selectedPotion.level} for the brew and level {selectedVial.level} for the vial.</p>}
+
+              <div className="production-time-panel">
+                <div className="production-time-heading"><div><p>Time calculator</p><h4>How long will {selectedPotionOutput} take?</h4></div><label><span>Potions to finish</span><input type="number" min="1" value={potionTimeQuantity} onChange={(event) => setPotionTimeQuantity(Math.max(1, Math.floor(Number(event.target.value) || 1)))} /></label></div>
+                <div className="production-time-grid">
+                  <div><span>Cauldron batches</span><strong>{number.format(selectedPotionTime.batches)}</strong><small>{selectedPotionTime.availablePotions} potion capacity</small></div>
+                  <div><span>Brewing time</span><strong>{formatTime(selectedPotionTime.brewSeconds)}</strong><small>{selectedPotion.duration}s per batch</small></div>
+                  <div><span>Bottling time</span><strong>{formatTime(selectedPotionTime.bottlingSeconds)}</strong><small>{selectedVial.bottlingSeconds}s per potion</small></div>
+                  <div className="primary"><span>Total active time</span><strong>{formatTime(selectedPotionTime.totalSeconds)}</strong><small>{selectedPotionTime.leftoverCapacity ? `${selectedPotionTime.leftoverCapacity} potion capacity left in the final batch` : 'Uses every brewed dose'}</small></div>
+                </div>
+                <p className="calculator-note">This total assumes the listed potion ingredients and empty vials are ready. It includes the documented base brewing and bottling animations, but not gathering ingredients, converting Essence, walking between stations, or speed bonuses.</p>
+              </div>
             </div>
           )}
 
@@ -215,6 +236,17 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
                 <div className="smithing-total-materials"><div><span>Total raw materials for this plan</span><small>Shared outputs such as Silver Foil are pooled before rounding.</small></div><ul>{selectedSmithingMaterials.length ? selectedSmithingMaterials.map((material) => <li key={material.item}><b>{number.format(material.quantity)}</b> {material.item}</li>) : <li>No crafts are needed for this target.</li>}</ul></div>
                 {selectedSmithingRecipe.output.startsWith('Dusk Knight') && <p className="calculator-note">Dusk Knight Schematics are required as a reusable recipe catalyst and are not multiplied into the raw-material total.</p>}
                 {currentLevel < selectedSmithingRecipe.level && <p className="smithing-lock-note">You need Smithing level {selectedSmithingRecipe.level} to make this item. It is shown so you can plan ahead.</p>}
+
+                <div className="production-time-panel smithing-time-panel">
+                  <div className="production-time-heading"><div><p>Time calculator</p><h4>How long will {selectedSmithingRecipe.output} take?</h4></div><label><span>Finished items to make</span><input type="number" min="1" value={smithingTimeQuantity} onChange={(event) => setSmithingTimeQuantity(Math.max(1, Math.floor(Number(event.target.value) || 1)))} /></label></div>
+                  <div className="production-time-grid smithing-time-grid">
+                    <div><span>Pieces already made</span><strong>{formatTime(smithingAssemblySeconds)}</strong><small>Final {selectedSmithingRecipe.station.toLowerCase()} craft only</small></div>
+                    <div className="primary"><span>Starting with bars</span><strong>{formatTime(smithingBarsTime.totalSeconds)}</strong><small>Bars and non-Smithing supplies ready</small></div>
+                    <div><span>Starting with ore / dust</span><strong>{formatTime(smithingRawTime.totalSeconds)}</strong><small>Includes smelting every required bar</small></div>
+                  </div>
+                  <details className="time-breakdown"><summary>Show the bar-to-item crafting breakdown</summary><ul>{smithingBarsTime.steps.map((step) => <li key={step.slug}><span>{number.format(step.crafts)} × {step.output} at the {step.station}</span><b>{formatTime(step.totalSeconds)}</b></li>)}</ul></details>
+                  <p className="calculator-note">Times are the sum of the current base recipe durations and assume sequential crafting with no travel, menu time, failed actions, or speed bonuses. “Starting with bars” still assumes required cloth, leather, Essence, special drops, and reusable schematics are already available.</p>
+                </div>
               </div>
 
               <div className="dusk-set-plan">

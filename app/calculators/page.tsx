@@ -5,7 +5,7 @@ import { skillTrainingData, type SkillName } from '../lib/calculator-data';
 
 export const metadata: Metadata = {
   title: 'Calculators',
-  description: 'Winds of Valen skill, Potion Making batch, Smithing material, combat experience, max hit, accuracy, and defence calculators.',
+  description: 'Winds of Valen skill, Gilded potion batch and time, Smithing material and time, combat experience, max hit, accuracy, and defence calculators.',
 };
 
 export default async function CalculatorsPage({ searchParams }: { searchParams: Promise<{ tab?: string | string[]; skill?: string | string[] }> }) {
@@ -20,7 +20,7 @@ export default async function CalculatorsPage({ searchParams }: { searchParams: 
       <header className="classic-page-heading">
         <p>Player tools</p>
         <h1>Winds of Valen calculators</h1>
-        <span>Plan level 100 goals, complete potion batches, Smithing materials, combat experience, maximum hits, and accuracy against defence.</span>
+        <span>Plan level 100 goals, Small, Large, and Gilded potion batches, Smithing materials and production time, combat experience, maximum hits, and accuracy against defence.</span>
       </header>
       <Link className="standalone-calculator-link" href="/calculators/combat-level"><span>Separate combat tool</span><strong>Combat Level Calculator</strong><p>Combine your highest offensive, defensive, and Health levels into one overall combat level.</p><b>Open calculator →</b></Link>
       <CalculatorHub initialTab={initialTab} initialSkill={initialSkill} />

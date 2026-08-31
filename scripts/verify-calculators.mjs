@@ -10,11 +10,13 @@ import {
   maximumCombatRoll,
   xpForLevel,
 } from '../app/lib/calculator-engine.ts';
-import { potionBrewRecipes, potionCauldrons, potionVials, potionsPerBatch } from '../app/lib/potion-data.ts';
+import { potionBrewRecipes, potionCauldrons, potionOutputName, potionTimePlan, potionVials, potionsPerBatch } from '../app/lib/potion-data.ts';
 import {
   defaultSmithingMaterialOptions,
   duskKnightSetRequirements,
+  smithingDirectCraftTime,
   smithingMaterialTotalsForItems,
+  smithingProductionTimePlan,
   smithingRecipes,
 } from '../app/lib/smithing-data.ts';
 
@@ -41,6 +43,19 @@ assert.ok(smallCauldron && largeCauldron && largeVial && gildedVial);
 assert.equal(potionsPerBatch(smallCauldron, largeVial), 10);
 assert.equal(potionsPerBatch(largeCauldron, largeVial), 15);
 assert.equal(potionsPerBatch(largeCauldron, gildedVial), 10);
+const miningPotion = potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion');
+assert.ok(miningPotion);
+assert.equal(potionOutputName(miningPotion, gildedVial), 'Gilded Mining Potion');
+assert.deepEqual(potionTimePlan(miningPotion, largeCauldron, gildedVial, 25), {
+  requestedPotions: 25,
+  batches: 3,
+  batchYield: 10,
+  availablePotions: 30,
+  leftoverCapacity: 5,
+  brewSeconds: 75,
+  bottlingSeconds: 20,
+  totalSeconds: 95,
+});
 assert.equal(potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion')?.xp, 1_000);
 assert.equal(potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion')?.duration, 25);
 
@@ -61,6 +76,14 @@ assert.deepEqual(Object.fromEntries(duskMaterials), {
   'Silver Ore': 1_078,
 });
 assert.equal(duskMaterials.has('Dusk Knight Schematics'), false);
+
+const duskHelmet = smithingRecipes.find((recipe) => recipe.output === 'Dusk Knight Helmet');
+assert.ok(duskHelmet);
+assert.equal(smithingDirectCraftTime(duskHelmet, 1), 120);
+assert.equal(smithingDirectCraftTime(duskHelmet, 25), 3_000);
+assert.equal(smithingProductionTimePlan(duskHelmet, 1, defaultSmithingMaterialOptions, 'bars').totalSeconds, 3_930);
+assert.equal(smithingProductionTimePlan(duskHelmet, 25, defaultSmithingMaterialOptions, 'bars').totalSeconds, 97_890);
+assert.equal(smithingProductionTimePlan(duskHelmet, 1, defaultSmithingMaterialOptions, 'raw').totalSeconds, 8_260);
 
 for (const recipe of smithingRecipes) {
   assert.ok(recipe.level >= 1 && recipe.level <= MAX_LEVEL, `${recipe.output} has an invalid level`);

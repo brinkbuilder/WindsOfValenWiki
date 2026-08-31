@@ -170,6 +170,24 @@ export type SmithingMaterialTotal = {
   quantity: number;
 };
 
+export type SmithingTimeMode = 'bars' | 'raw';
+
+export type SmithingTimeStep = {
+  slug: string;
+  output: string;
+  station: SmithingStation;
+  crafts: number;
+  secondsPerCraft: number;
+  totalSeconds: number;
+};
+
+export type SmithingTimePlan = {
+  requestedOutput: number;
+  totalSeconds: number;
+  steps: SmithingTimeStep[];
+  suppliedMaterials: SmithingMaterialTotal[];
+};
+
 export type SmithingMaterialOptions = {
   goldSource: 'ore' | 'dust';
   ebonySource: 'ore' | 'dust';
@@ -250,6 +268,83 @@ export function smithingMaterialTotals(
     ? recipe.ingredients.map(({ item, quantity }) => ingredient(item, quantity * crafts))
     : [];
   return smithingMaterialTotalsForItems(requirements, options);
+}
+
+export function smithingDirectCraftTime(recipe: SmithingRecipe, requestedOutput: number) {
+  const quantity = Math.max(1, Math.floor(requestedOutput || 1));
+  return Math.ceil(quantity / recipe.outputQuantity) * recipe.seconds;
+}
+
+export function smithingProductionTimePlan(
+  recipe: SmithingRecipe,
+  requestedOutput: number,
+  options: SmithingMaterialOptions = defaultSmithingMaterialOptions,
+  mode: SmithingTimeMode = 'bars',
+): SmithingTimePlan {
+  const quantity = Math.max(1, Math.floor(requestedOutput || 1));
+  const pending = new Map<string, number>();
+  const suppliedMaterials = new Map<string, number>();
+  const steps = new Map<string, SmithingTimeStep>();
+
+  const addStep = (producer: SmithingRecipe, crafts: number) => {
+    const existing = steps.get(producer.slug);
+    const nextCrafts = (existing?.crafts ?? 0) + crafts;
+    steps.set(producer.slug, {
+      slug: producer.slug,
+      output: producer.output,
+      station: producer.station,
+      crafts: nextCrafts,
+      secondsPerCraft: producer.seconds,
+      totalSeconds: nextCrafts * producer.seconds,
+    });
+  };
+
+  const rootCrafts = Math.ceil(quantity / recipe.outputQuantity);
+  addStep(recipe, rootCrafts);
+  recipe.ingredients.forEach(({ item, quantity: ingredientQuantity }) => {
+    pending.set(item, (pending.get(item) ?? 0) + ingredientQuantity * rootCrafts);
+  });
+
+  while (pending.size) {
+    const [item, itemQuantity] = [...pending.entries()]
+      .sort((a, b) => materialDepth(b[0], options) - materialDepth(a[0], options))[0];
+    pending.delete(item);
+
+    if (reusableRequirements.has(item)) continue;
+
+    const supplied = suppliedMaterialRecipes[item];
+    if (supplied) {
+      supplied.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * itemQuantity));
+      continue;
+    }
+
+    if (mode === 'bars' && /\bBar$/.test(item)) {
+      suppliedMaterials.set(item, (suppliedMaterials.get(item) ?? 0) + itemQuantity);
+      continue;
+    }
+
+    const producer = recipeForItem(item, options);
+    if (!producer) {
+      suppliedMaterials.set(item, (suppliedMaterials.get(item) ?? 0) + itemQuantity);
+      continue;
+    }
+
+    const crafts = Math.ceil(itemQuantity / producer.outputQuantity);
+    addStep(producer, crafts);
+    producer.ingredients.forEach((input) => {
+      pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * crafts);
+    });
+  }
+
+  const timeSteps = [...steps.values()];
+  return {
+    requestedOutput: quantity,
+    totalSeconds: timeSteps.reduce((total, step) => total + step.totalSeconds, 0),
+    steps: timeSteps,
+    suppliedMaterials: [...suppliedMaterials.entries()]
+      .map(([item, suppliedQuantity]) => ({ item, quantity: suppliedQuantity }))
+      .sort((a, b) => a.item.localeCompare(b.item)),
+  };
 }
 
 export const smithingItemDescriptions: Record<string, string> = {

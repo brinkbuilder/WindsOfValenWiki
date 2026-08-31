@@ -1346,6 +1346,29 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 .potion-material-summary { margin-top: 14px; padding: 12px 14px; display: grid; gap: 4px; border-left: 3px solid #5d806f; background: rgba(255,250,240,.72); }
 .potion-material-summary strong { color: #4b3825; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .potion-material-summary span { color: #62513d; font-size: 12px; line-height: 1.55; }
+.potion-output-callout { margin-top: 14px; padding: 14px 16px; display: grid; grid-template-columns: auto 1fr auto; gap: 6px 16px; align-items: baseline; border: 1px solid #b69d76; background: rgba(255,250,240,.78); }
+.potion-output-callout span { color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.potion-output-callout strong { color: #332519; font: 700 21px/1.2 Georgia, serif; }
+.potion-output-callout small { color: #77664f; font-size: 11px; }
+
+.production-time-panel { margin-top: 22px; padding-top: 20px; border-top: 1px solid #bca681; }
+.production-time-heading { display: flex; justify-content: space-between; gap: 20px; align-items: end; }
+.production-time-heading p { margin: 0 0 4px; color: #7e5d2a; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.production-time-heading h4 { margin: 0; color: #38291d; font: 700 21px/1.2 Georgia, serif; }
+.production-time-heading label { width: 190px; flex: 0 0 190px; }
+.production-time-grid { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #b69d76; background: rgba(255,250,240,.62); }
+.production-time-grid > div { min-width: 0; min-height: 98px; padding: 14px 15px; border-right: 1px solid #c4ad85; }
+.production-time-grid > div:last-child { border-right: 0; }
+.production-time-grid > div.primary { background: #e2d1ae; }
+.production-time-grid span { display: block; color: #735f44; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.production-time-grid strong { display: block; margin-top: 7px; color: #332519; font: 700 22px/1 Georgia, serif; }
+.production-time-grid small { display: block; margin-top: 7px; color: #77664f; font-size: 11px; line-height: 1.35; }
+.smithing-time-grid { grid-template-columns: repeat(3, 1fr); }
+.time-breakdown { margin-top: 12px; border: 1px solid #c4ad85; background: rgba(255,250,240,.55); }
+.time-breakdown summary { padding: 11px 13px; color: #5b442c; font-size: 12px; font-weight: 800; cursor: pointer; }
+.time-breakdown ul { margin: 0; padding: 0 13px 10px; list-style: none; }
+.time-breakdown li { padding: 8px 0; display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid #d8c7a8; color: #62513d; font-size: 12px; }
+.time-breakdown li b { flex: 0 0 auto; color: #332519; }
 
 .smithing-plan-box { margin-top: 24px; padding: 22px; border: 1px solid #9f8965; background: #f4ead8; }
 .smithing-plan-heading { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
@@ -1416,6 +1439,9 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
 
 @media (max-width: 900px) {
   .potion-batch-controls { grid-template-columns: 1fr 1fr; }
+  .production-time-grid { grid-template-columns: 1fr 1fr; }
+  .production-time-grid > div:nth-child(2n) { border-right: 0; }
+  .production-time-grid > div:nth-child(-n+2) { border-bottom: 1px solid #c4ad85; }
   .smithing-plan-controls { grid-template-columns: 1fr; align-items: stretch; }
   .smithing-list-controls { align-items: stretch; flex-direction: column; }
   .smithing-filter-search { width: 100%; }
@@ -1428,6 +1454,14 @@ select:focus-visible { outline: 3px solid rgba(36,92,141,.35); outline-offset: 2
   .calculator-heading-help { font-size: 12px; }
   .potion-batch-planner { padding: 16px; }
   .potion-batch-controls { grid-template-columns: 1fr; }
+  .potion-output-callout { grid-template-columns: 1fr; gap: 4px; }
+  .production-time-heading { align-items: stretch; flex-direction: column; }
+  .production-time-heading label { width: 100%; flex-basis: auto; }
+  .production-time-grid,
+  .smithing-time-grid { grid-template-columns: 1fr; }
+  .production-time-grid > div { border-right: 0; border-bottom: 1px solid #c4ad85; }
+  .production-time-grid > div:nth-child(-n+2) { border-bottom: 1px solid #c4ad85; }
+  .production-time-grid > div:last-child { border-bottom: 0; }
   .potion-result-grid { grid-template-columns: 1fr 1fr; }
   .potion-result-grid > div:nth-child(3n) { border-right: 1px solid #c4ad85; }
   .potion-result-grid > div:nth-child(2n) { border-right: 0; }

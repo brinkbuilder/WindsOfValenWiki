@@ -29,9 +29,11 @@ export type CauldronOption = {
 export type VialOption = {
   id: 'small' | 'large' | 'gilded';
   name: string;
+  tier: 'Small' | 'Large' | 'Gilded';
   volumeMl: number;
   level: number;
   bottlingXp: number;
+  bottlingSeconds: number;
 };
 
 export const potionCauldrons: CauldronOption[] = [
@@ -40,13 +42,53 @@ export const potionCauldrons: CauldronOption[] = [
 ];
 
 export const potionVials: VialOption[] = [
-  { id: 'small', name: 'Small Vial', volumeMl: 50, level: 1, bottlingXp: 10 },
-  { id: 'large', name: 'Large Vial', volumeMl: 100, level: 25, bottlingXp: 20 },
-  { id: 'gilded', name: 'Gilded Vial', volumeMl: 150, level: 50, bottlingXp: 30 },
+  { id: 'small', name: 'Small Vial', tier: 'Small', volumeMl: 50, level: 1, bottlingXp: 10, bottlingSeconds: 0.8 },
+  { id: 'large', name: 'Large Vial', tier: 'Large', volumeMl: 100, level: 25, bottlingXp: 20, bottlingSeconds: 0.8 },
+  { id: 'gilded', name: 'Gilded Vial', tier: 'Gilded', volumeMl: 150, level: 50, bottlingXp: 30, bottlingSeconds: 0.8 },
 ];
 
 export function potionsPerBatch(cauldron: CauldronOption, vial: VialOption) {
   return Math.floor(cauldron.capacityMl / vial.volumeMl);
+}
+
+export function potionOutputName(recipe: PotionBrewRecipe, vial: VialOption) {
+  return `${vial.tier} ${recipe.output}`;
+}
+
+export type PotionTimePlan = {
+  requestedPotions: number;
+  batches: number;
+  batchYield: number;
+  availablePotions: number;
+  leftoverCapacity: number;
+  brewSeconds: number;
+  bottlingSeconds: number;
+  totalSeconds: number;
+};
+
+export function potionTimePlan(
+  recipe: PotionBrewRecipe,
+  cauldron: CauldronOption,
+  vial: VialOption,
+  requestedPotions: number,
+): PotionTimePlan {
+  const requested = Math.max(1, Math.floor(requestedPotions || 1));
+  const batchYield = potionsPerBatch(cauldron, vial);
+  const batches = Math.ceil(requested / batchYield);
+  const availablePotions = batches * batchYield;
+  const brewSeconds = batches * recipe.duration;
+  const bottlingSeconds = requested * vial.bottlingSeconds;
+
+  return {
+    requestedPotions: requested,
+    batches,
+    batchYield,
+    availablePotions,
+    leftoverCapacity: availablePotions - requested,
+    brewSeconds,
+    bottlingSeconds,
+    totalSeconds: brewSeconds + bottlingSeconds,
+  };
 }
 
 export const potionReductionRecipes: PotionRecipeDetail[] = [
