@@ -5,6 +5,7 @@ type CommunityEntrySpec = {
   slug: string;
   title: string;
   type: WikiEntry['type'];
+  questKind?: WikiEntry['questKind'];
   summary: string;
   intro: string;
   aliases?: string[];
