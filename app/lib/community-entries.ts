@@ -376,7 +376,7 @@ const creatureEntries: WikiEntry[] = [
   communityEntry('Goblin Chieftain', {
     slug: 'goblin-chieftain', title: 'Goblin Chieftain', type: 'Creature', categories: ['Creatures', 'Bosses', 'Community documented'],
     summary: 'A level-40 community-documented boss with mixed hammer and fire mechanics.',
-    intro: 'The current community page reports hammer attacks, a rotating fire beam, fireball areas, and a quick projectile cone.',
+    intro: 'The external community page reports hammer attacks, a rotating fire beam, fireball areas, and a quick projectile cone.',
     facts: [{ label: 'Reported level', value: '40' }, { label: 'Reported health', value: '1,000' }, { label: 'Reported total XP', value: '1,400' }, { label: 'Reported drops', value: 'Dwarven Hammer · Steel/Iron Bars · Small Fang · Coins' }],
     sections: [{ title: 'Mechanics', bullets: ['Heavy and mystical hammer attacks', 'Rotating fire beam', 'Fireball areas of effect', 'Quick projectile cone'] }],
     related: ['combat', 'goblin-watcher', 'goblin-general'],
@@ -400,7 +400,7 @@ const creatureEntries: WikiEntry[] = [
   communityEntry('Skeleton Knight (Darklands)', {
     slug: 'skeleton-knight-darklands', title: 'Skeleton Knight (Darklands)', type: 'Creature', categories: ['Creatures', 'Darklands', 'Community documented'],
     summary: 'An armoured level-67 skeleton reported in the Darklands caves.',
-    intro: 'The current community page describes a slow, heavy-damage skeleton wielding a large black sword. All numeric values remain community-reported until checked in the live build.',
+    intro: 'The external community page describes a slow, heavy-damage skeleton wielding a large black sword. All numeric values remain community-reported until checked in the live build.',
     facts: [{ label: 'Reported level', value: '67' }, { label: 'Reported health', value: '1,000' }, { label: 'Reported XP', value: '1,670' }, { label: 'Reported attack', value: '125 heavy · 3 attack speed' }],
     sections: [
       { title: 'Combat profile', bullets: ['75 Slash Accuracy reported', '35 Slash, 100 Pierce, 50 Fire, 150 Ice, and 25 Lightning resistance reported', 'No Block or Deflect Power reported'] },

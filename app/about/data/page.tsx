@@ -20,7 +20,7 @@ export default function AboutWikiPage() {
         <i aria-hidden="true">→</i>
         <div><span>02</span><strong>Follow the guide</strong><p>Check requirements, steps, drops, and tips.</p></div>
         <i aria-hidden="true">→</i>
-        <div><span>03</span><strong>Help improve it</strong><p>Suggest a correction when something changes.</p></div>
+        <div><span>03</span><strong>Check source dates</strong><p>Use the maintained local wiki when older references disagree.</p></div>
       </section>
 
       <section className="policy-grid">
@@ -50,12 +50,6 @@ export default function AboutWikiPage() {
           <h2>Everything belongs in one index</h2>
           <p>Useful details from older guides are folded into clean local articles, so players can search one consistent encyclopedia instead of sorting through duplicate or outdated pages.</p>
           <Link href="/wiki">Browse every page <span>→</span></Link>
-        </article>
-        <article>
-          <p className="eyebrow">Help the next player</p>
-          <h2>Share a correction or useful tip</h2>
-          <p>Use the contribution form to describe what changed and add any requirements, steps, drops, directions, or screenshot notes that would help another player.</p>
-          <Link href="/contribute">Suggest an edit <span>→</span></Link>
         </article>
       </section>
     </main>

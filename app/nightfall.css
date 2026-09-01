@@ -450,8 +450,7 @@ a:hover { color: #9edcef; }
 .article-copy { color: var(--night-text); font-family: var(--font-geist-sans), Arial, sans-serif; }
 .article-section { padding-top: 32px; }
 .article-section h2,
-.related-section h2,
-.external-sources h2 {
+.related-section h2 {
   margin-bottom: 18px;
   color: #dce3ed;
   font-family: var(--font-geist-sans), Arial, sans-serif;
@@ -552,8 +551,7 @@ a:hover { color: #9edcef; }
 .article-figure img { opacity: .92; }
 .article-figure figcaption { border-color: #273448; color: #8d98a9; background: #101620; }
 
-.related-grid a,
-.external-source-card {
+.related-grid a {
   border-color: #29374a;
   border-radius: 4px;
   background: #101721;
@@ -569,7 +567,7 @@ a:hover { color: #9edcef; }
   color: #88aee0;
 }
 
-/* Index, search, sources, and contribution pages */
+/* Index, search, and source pages */
 .index-hero,
 .classic-page-heading,
 .simple-page-heading,
@@ -624,8 +622,7 @@ a:hover { color: #9edcef; }
 .search-results a,
 .source-library-grid a,
 .policy-grid article,
-.community-category-row,
-.contribution-draft {
+.community-category-row {
   border-color: #293649;
   border-radius: 4px;
   background: #101620;
@@ -728,18 +725,6 @@ a:hover { color: #9edcef; }
 .unified-imported-content td { border-color: #263246; background: #101620; color: #adb7c5; }
 .unified-imported-content tr:nth-child(even) td { background: #0d131c; }
 .unified-imported-content img { border-color: #2c3b50; background: #090e16; opacity: .92; }
-
-.contribution-draft input,
-.contribution-draft textarea,
-.draft-actions button {
-  border-color: #324258;
-  border-radius: 3px;
-  background: #090e16;
-  color: #c4ccd8;
-}
-.draft-actions .primary { border-color: #4f79ad; background: #2c548d; color: #e5edf7; }
-.draft-note { border-color: #304059; background: #121b29; color: #8996a9; }
-.draft-error { border-color: #70434a; background: #241417; color: #d099a1; }
 
 /* Player tools */
 .calculator-card,

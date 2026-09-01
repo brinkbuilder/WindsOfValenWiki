@@ -1,4 +1,5 @@
 import { communityEntries } from './community-entries';
+import { itemCatalogueSpecs, itemStoreInfo } from './item-data';
 import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionRecipeDetails, potionReductionRecipes } from './potion-data';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 
@@ -414,7 +415,7 @@ const curatedEntries: WikiEntry[] = [
   },
   {
     slug: 'world-map',
-    title: 'Interactive World Map',
+    title: 'Interactive World Map (Still In Maintenance)',
     type: 'Location',
     verification: 'player',
     summary: 'A complete searchable atlas with 157 markers for areas, banks, shops, crafting stations, ores, fishing spots, enemies, and bosses.',
@@ -891,6 +892,40 @@ const smithingItemEntries: WikiEntry[] = [...recipesByOutput.entries()].map(([it
   };
 });
 
+const existingItemSlugs = new Set([
+  ...curatedEntries.filter((entry) => entry.type === 'Item').map((entry) => entry.slug),
+  ...communityEntries.filter((entry) => entry.type === 'Item').map((entry) => entry.slug),
+  ...smithingItemEntries.map((entry) => entry.slug),
+]);
+
+const itemCatalogueEntries: WikiEntry[] = itemCatalogueSpecs
+  .filter((item) => item.title !== 'Coal Ore' && !existingItemSlugs.has(item.slug))
+  .map((item) => {
+    const store = itemStoreInfo[item.title];
+    return {
+      slug: item.slug,
+      title: item.title,
+      type: 'Item',
+      verification: 'documented',
+      summary: item.summary,
+      intro: `${item.summary} This page collects its current uses, requirements, and availability information.`,
+      aliases: item.aliases,
+      categories: item.categories,
+      facts: [{ label: 'Item type', value: item.categories.at(-1) ?? 'Material' }],
+      sections: [
+        { title: 'Overview', paragraphs: [item.summary] },
+        {
+          title: 'Availability',
+          paragraphs: [store
+            ? `Buy this item for ${store.price}g at ${store.stores.join(' or ')}.`
+            : 'No current store listing is recorded for this item. Check the related recipe, creature, or skill page for how to obtain it.'],
+        },
+      ],
+      related: ['potion-making', 'smithing', 'mining'].filter((relatedSlug) => item.categories.some((category) => relatedSlug.replaceAll('-', ' ') === category.toLowerCase())),
+      source: documentedSource,
+    };
+  });
+
 const smithingGuide: WikiEntry = {
   slug: 'smithing',
   title: 'Smithing',
@@ -1042,6 +1077,10 @@ function playerText(value: string) {
     .trim();
 }
 
+function storeInfoForItem(entry: Pick<WikiEntry, 'title' | 'aliases'>) {
+  return itemStoreInfo[entry.title] ?? (entry.aliases ?? []).map((alias) => itemStoreInfo[alias]).find(Boolean);
+}
+
 function playerFacingEntry(entry: WikiEntry): WikiEntry {
   const sections = entry.sections
     .filter((section) => !/^(?:technical identity|evidence flow|verification labels|privacy and safety)$/i.test(section.title))
@@ -1070,6 +1109,15 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
       } : undefined,
     }));
 
+  const facts = entry.facts
+    .filter((fact) => !hiddenFactLabel.test(fact.label) && !internalValue.test(fact.value))
+    .map((fact) => ({ ...fact, label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
+    .filter((fact) => fact.label && fact.value);
+  const store = entry.type === 'Item' ? storeInfoForItem(entry) : undefined;
+  const factsWithoutStoreDuplicates = store
+    ? facts.filter((fact) => !/^(?:reported )?(?:shop|store) price$|^purchasable at$/i.test(fact.label))
+    : facts;
+
   return {
     ...entry,
     summary: playerText(entry.summary),
@@ -1077,10 +1125,9 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
     aliases: entry.aliases?.filter((alias) => !internalAlias.test(alias)).map(playerText),
     categories: entry.categories.filter((category) => !/^community documented$/i.test(category)).map(playerText),
     technicalId: undefined,
-    facts: entry.facts
-      .filter((fact) => !hiddenFactLabel.test(fact.label) && !internalValue.test(fact.value))
-      .map((fact) => ({ ...fact, label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
-      .filter((fact) => fact.label && fact.value),
+    facts: store
+      ? [...factsWithoutStoreDuplicates, { label: 'Store price', value: `${store.price.toLocaleString('en-US')} Coins` }, { label: 'Purchasable at', value: store.stores.join(' · ') }]
+      : factsWithoutStoreDuplicates,
     sections,
     externalSources: entry.externalSources,
   };
@@ -1092,6 +1139,7 @@ const allWikiEntries = [
     .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug)),
   smithingGuide,
   ...smithingItemEntries,
+  ...itemCatalogueEntries,
   ...smithingRecipeEntries,
 ]
   .map(playerFacingEntry);

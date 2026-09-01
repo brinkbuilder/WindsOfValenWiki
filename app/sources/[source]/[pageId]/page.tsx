@@ -47,6 +47,11 @@ export default async function ConsolidatedWikiPage({ params }: PageProps) {
         <h1>{page.title}</h1>
       </header>
 
+      <section className="source-reader-notice" aria-label="Source status">
+        <div><strong>Outdated external reference</strong><p>This page may contain historical information. The Winds of Valen Player Wiki is the current maintained source.</p></div>
+        <Link href="/wiki">Open the current wiki</Link>
+      </section>
+
       {error ? (
         <section className="source-reader-error">
           <h2>This page is temporarily unavailable.</h2>

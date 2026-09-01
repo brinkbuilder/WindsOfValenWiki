@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LanguageSelector } from './LanguageSelector';
 import { ThemeToggle } from './ThemeToggle';
 
 export function SiteHeader() {
@@ -25,6 +26,7 @@ export function SiteHeader() {
           <input id="header-wiki-search" name="q" placeholder="Search the wiki…" />
           <button type="submit" aria-label="Search">Search</button>
         </form>
+        <LanguageSelector />
         <details className="mobile-menu">
           <summary aria-label="Open navigation">More</summary>
           <nav aria-label="Mobile navigation">
@@ -40,7 +42,6 @@ export function SiteHeader() {
             <Link href="/wiki?type=world">Creatures & places</Link>
             <Link href="/recent">Recent changes</Link>
             <Link href="/about/data">About the wiki</Link>
-            <Link href="/contribute">Contribute</Link>
           </nav>
         </details>
       </header>

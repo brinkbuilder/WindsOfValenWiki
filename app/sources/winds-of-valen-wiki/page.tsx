@@ -3,8 +3,8 @@ import { CommunitySourceClient } from '../../components/CommunitySourceClient';
 import { communityWikiPages, communityWikiSnapshot } from '../../lib/community-wiki';
 
 export const metadata: Metadata = {
-  title: 'Winds Of Valen Wiki source directory',
-  description: 'Browse current community Winds of Valen player guides.',
+  title: 'Outdated Winds Of Valen Wiki archive',
+  description: 'Browse the outdated external Winds of Valen community wiki archive.',
 };
 
 const categoryCount = (category: string) => communityWikiPages.filter((page) => page.categories.includes(category)).length;
@@ -14,9 +14,9 @@ export default function CommunitySourcePage() {
     <main className="inner-page community-source-page">
       <header className="source-hero">
         <div>
-          <p className="eyebrow">Current community guides</p>
+          <p className="eyebrow">Outdated external archive</p>
           <h1>Winds Of Valen Wiki</h1>
-          <p>Browse current player guides for skills, items, monsters, regions, quests, bosses, and other useful game topics.</p>
+          <p>Browse this historical reference archive for skills, items, monsters, regions, quests, bosses, and other game topics. This is not the current source of truth.</p>
         </div>
         <dl>
           <div><dt>Substantive articles</dt><dd>{communityWikiSnapshot.articleCount}</dd></div>
@@ -26,8 +26,8 @@ export default function CommunitySourcePage() {
       </header>
 
       <section className="source-policy-note">
-        <strong>Best place to start</strong>
-        <p>This is the current community-maintained wiki. Use it first when both community wikis have a guide for the same topic.</p>
+        <strong>Historical reference only</strong>
+        <p>This external wiki is outdated. Use the Winds of Valen Player Wiki for the most up-to-date maintained information.</p>
         <a href="https://windsofvalenwiki.com/w/Main_Page" target="_blank" rel="noreferrer">Visit the community wiki <span>↗</span></a>
       </section>
 
@@ -35,7 +35,7 @@ export default function CommunitySourcePage() {
         {['Items', 'NPCs', 'Monsters', 'Skills', 'Regions', 'Quests'].map((category) => <div key={category}><span>{category}</span><strong>{categoryCount(category)}</strong></div>)}
       </div>
 
-      <CommunitySourceClient pages={communityWikiPages} sourceId="community" sourceName="Current community wiki" />
+      <CommunitySourceClient pages={communityWikiPages} sourceId="community" sourceName="Outdated community archive" />
     </main>
   );
 }

@@ -3,8 +3,8 @@ import { CommunitySourceClient } from '../../components/CommunitySourceClient';
 import { mirahezeWikiPages, mirahezeWikiSnapshot } from '../../lib/miraheze-wiki';
 
 export const metadata: Metadata = {
-  title: 'Miraheze legacy wiki directory',
-  description: 'Browse older Winds of Valen guides, calculators, maps, and images from the Miraheze archive.',
+  title: 'Outdated Miraheze wiki archive',
+  description: 'Browse the outdated external Winds of Valen Miraheze wiki archive.',
 };
 
 export default function MirahezeSourcePage() {
@@ -12,9 +12,9 @@ export default function MirahezeSourcePage() {
     <main className="inner-page community-source-page">
       <header className="source-hero">
         <div>
-          <p className="eyebrow">Older community guides</p>
+          <p className="eyebrow">Outdated external archive</p>
           <h1>Winds of Valen Miraheze archive</h1>
-          <p>This older wiki retains useful guides, historical mechanics, calculators, maps, and a large image library. Some values may have changed in newer game versions.</p>
+          <p>This external wiki is outdated but retains historical guides, mechanics, calculators, maps, and a large image library. Some values may have changed in newer game versions.</p>
         </div>
         <dl>
           <div><dt>Articles</dt><dd>{mirahezeWikiSnapshot.articleCount}</dd></div>
@@ -24,19 +24,19 @@ export default function MirahezeSourcePage() {
       </header>
 
       <section className="source-policy-note">
-        <strong>Older information</strong>
-        <p>Use the current community wiki when two pages disagree. This archive is especially useful for guides, maps, calculators, and images that have not yet been moved.</p>
+        <strong>Historical reference only</strong>
+        <p>Both external wikis are outdated. Use this archive for historical context, then check the current Winds of Valen Player Wiki before relying on any detail.</p>
         <a href="https://windsofvalen.miraheze.org/wiki/Main_Page" target="_blank" rel="noreferrer">Visit the Miraheze wiki <span>↗</span></a>
       </section>
 
       <div className="source-category-summary" aria-label="Legacy source statistics">
         <div><span>Non-redirect pages</span><strong>{mirahezeWikiSnapshot.pageCount}</strong></div>
         <div><span>Uploaded files</span><strong>{mirahezeWikiSnapshot.fileCount}</strong></div>
-        <div><span>Best for</span><strong>Maps and calculators</strong></div>
-        <div><span>Guide age</span><strong>Older archive</strong></div>
+        <div><span>Best for</span><strong>Historical maps</strong></div>
+        <div><span>Guide status</span><strong>Outdated archive</strong></div>
       </div>
 
-      <CommunitySourceClient pages={mirahezeWikiPages} sourceId="miraheze" sourceName="Miraheze legacy" />
+      <CommunitySourceClient pages={mirahezeWikiPages} sourceId="miraheze" sourceName="Outdated Miraheze archive" />
     </main>
   );
 }

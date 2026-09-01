@@ -13,7 +13,6 @@ export function SiteFooter() {
         <Link href="/calculators/combat-level">Combat level</Link>
         <Link href="/sources">Sources</Link>
         <Link href="/about/data">About</Link>
-        <Link href="/contribute">Contribute</Link>
       </nav>
       <p>Game information, guides, and tools collected in one place for players.</p>
     </footer>
