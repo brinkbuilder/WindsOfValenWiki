@@ -1,6 +1,6 @@
 'use client';
 
-/* The atlas uses a calibrated player-facing marker layer over the wiki's original world artwork. */
+/* The atlas keeps every marker on the coordinate grid captured from the in-game world map. */
 /* eslint-disable @next/next/no-img-element */
 
 import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type WheelEvent as ReactWheelEvent } from 'react';
@@ -30,48 +30,10 @@ const MAP_WIDTH = 4992;
 const MAP_HEIGHT = 5376;
 const markerTypes: MarkerType[] = ['area', 'location', 'ore', 'fishing', 'enemy', 'boss'];
 
-type CalibrationRegion = {
-  name: string;
-  source: { x: number; y: number };
-  target: { x: number; y: number };
-  influence: number;
-  localScale: { x: number; y: number };
-  worldScale: { x: number; y: number };
-};
-
-/*
- * The in-game map screenshots show two useful coordinate scales: tightly
- * packed city services and broader world resources/combat spawns. Each region
- * therefore has a local city transform and a separate world transform.
- */
-const calibrationRegions: CalibrationRegion[] = [
-  { name: 'Valen City', source: { x: 2701, y: 902 }, target: { x: 2500, y: 730 }, influence: 460, localScale: { x: 2, y: 1.9 }, worldScale: { x: 1.15, y: 1.15 } },
-  { name: 'Valen Gate', source: { x: 2393, y: 1325 }, target: { x: 2485, y: 1600 }, influence: 480, localScale: { x: 3.2, y: 2.8 }, worldScale: { x: 1.1, y: 1.1 } },
-  { name: 'Alcott Forest', source: { x: 3300, y: 750 }, target: { x: 3575, y: 1250 }, influence: 650, localScale: { x: 1.6, y: 1.6 }, worldScale: { x: 1.35, y: 1.35 } },
-  { name: 'Elven Haven', source: { x: 3950, y: 1000 }, target: { x: 4170, y: 1100 }, influence: 650, localScale: { x: 1.6, y: 1.6 }, worldScale: { x: 1.45, y: 1.45 } },
-  { name: 'West Cavern', source: { x: 1100, y: 1700 }, target: { x: 1200, y: 1900 }, influence: 850, localScale: { x: 1.25, y: 1.25 }, worldScale: { x: 1.15, y: 1.15 } },
-  { name: 'Goblin Village', source: { x: 1783, y: 1400 }, target: { x: 1650, y: 1900 }, influence: 650, localScale: { x: 1.4, y: 1.4 }, worldScale: { x: 1.15, y: 1.15 } },
-  { name: 'Farmlands', source: { x: 2900, y: 2050 }, target: { x: 2700, y: 2100 }, influence: 750, localScale: { x: 1.2, y: 1.2 }, worldScale: { x: 1.1, y: 1.1 } },
-  { name: 'Valen Port', source: { x: 3285, y: 2451 }, target: { x: 3435, y: 2570 }, influence: 440, localScale: { x: 2.6, y: 2.6 }, worldScale: { x: 1.15, y: 1.15 } },
-  { name: 'Grave Town', source: { x: 1190, y: 2521 }, target: { x: 1535, y: 3880 }, influence: 360, localScale: { x: 4.2, y: 4 }, worldScale: { x: 1.1, y: 1.1 } },
-  { name: 'Volcano', source: { x: 740, y: 2517 }, target: { x: 740, y: 3830 }, influence: 420, localScale: { x: 1, y: 1 }, worldScale: { x: 1, y: 1 } },
-  { name: 'Darklands', source: { x: 1190, y: 3700 }, target: { x: 1100, y: 3440 }, influence: 900, localScale: { x: 1, y: 1 }, worldScale: { x: 1, y: 1 } },
-];
-
-function calibratedMarkerPosition(marker: Pick<WorldMarker, 'x' | 'y' | 'type'>) {
-  const nearest = calibrationRegions
-    .map((region) => {
-      const distance = Math.hypot(marker.x - region.source.x, marker.y - region.source.y);
-      return { region, normalizedDistance: distance / region.influence };
-    })
-    .sort((a, b) => a.normalizedDistance - b.normalizedDistance)[0]?.region;
-
-  if (!nearest) return marker;
-  const scale = marker.type === 'location' ? nearest.localScale : nearest.worldScale;
-
+function exactMarkerPosition(marker: Pick<WorldMarker, 'x' | 'y'>) {
   return {
-    x: Math.min(MAP_WIDTH - 80, Math.max(80, nearest.target.x + (marker.x - nearest.source.x) * scale.x)),
-    y: Math.min(MAP_HEIGHT - 80, Math.max(80, nearest.target.y + (marker.y - nearest.source.y) * scale.y)),
+    x: Math.min(MAP_WIDTH - 80, Math.max(80, marker.x)),
+    y: Math.min(MAP_HEIGHT - 80, Math.max(80, marker.y)),
   };
 }
 
@@ -193,7 +155,8 @@ export function WorldInteractiveMap() {
   const [selectedId, setSelectedId] = useState('game-22-marker-valengate');
   const [query, setQuery] = useState('');
   const [activeTypes, setActiveTypes] = useState<Set<MarkerType>>(() => new Set(markerTypes));
-  const [activeRouteId, setActiveRouteId] = useState('first-journey');
+  const [activeRouteId, setActiveRouteId] = useState('');
+  const [showAllAtOverview, setShowAllAtOverview] = useState(false);
   const [fitScale, setFitScale] = useState(.12);
   const [view, setView] = useState<MapView>({ scale: .12, x: 0, y: 0 });
   const [expanded, setExpanded] = useState(false);
@@ -264,7 +227,7 @@ export function WorldInteractiveMap() {
   const focusMarker = (marker: WorldMarker, requestedZoom = 3.2) => {
     const viewport = viewportRef.current;
     if (!viewport) return;
-    const position = calibratedMarkerPosition(marker);
+    const position = exactMarkerPosition(marker);
     const nextScale = Math.min(fitScale * 8, Math.max(view.scale, fitScale * requestedZoom));
     setSelectedId(marker.id);
     setView({
@@ -317,6 +280,7 @@ export function WorldInteractiveMap() {
 
   const toggleType = (type: MarkerType) => {
     setActiveRouteId('');
+    setShowAllAtOverview(false);
     setActiveTypes((current) => {
       const next = new Set(current);
       if (next.has(type)) next.delete(type); else next.add(type);
@@ -326,13 +290,14 @@ export function WorldInteractiveMap() {
 
   const chooseRoute = (route: TravelRoute) => {
     setActiveRouteId(route.id);
+    setShowAllAtOverview(false);
     setQuery('');
     setActiveTypes(new Set(markerTypes));
     const firstMarker = markers.find((marker) => marker.id === route.markerIds[0]);
     if (firstMarker) focusMarker(firstMarker, 2.1);
   };
 
-  const denseMarkersVisible = relativeZoom >= 1.65 || activeTypes.size <= 2 || Boolean(query.trim());
+  const denseMarkersVisible = showAllAtOverview || relativeZoom >= 1.65 || activeTypes.size <= 2 || Boolean(query.trim());
 
   return (
     <section className={`world-interactive-map${expanded ? ' is-expanded' : ''}`} aria-labelledby="world-map-heading">
@@ -364,8 +329,8 @@ export function WorldInteractiveMap() {
           <input value={query} onChange={(event) => { setQuery(event.target.value); setActiveRouteId(''); }} placeholder="Try “bank”, “Mithril”, or “Elf Warden”…" />
         </label>
         <div className="world-map-filter-actions">
-          <button type="button" onClick={() => { setActiveTypes(new Set(markerTypes)); setQuery(''); }}>Show all markers</button>
-          <button type="button" onClick={() => setActiveTypes(new Set())}>Hide all</button>
+          <button type="button" onClick={() => { setActiveTypes(new Set(markerTypes)); setQuery(''); setActiveRouteId(''); setShowAllAtOverview(true); }}>Show all markers</button>
+          <button type="button" onClick={() => { setActiveTypes(new Set()); setActiveRouteId(''); setShowAllAtOverview(false); }}>Hide all</button>
         </div>
       </div>
 
@@ -409,7 +374,7 @@ export function WorldInteractiveMap() {
                 const queryMatch = !query.trim() || `${marker.label} ${marker.wikiTitle ?? ''}`.toLowerCase().includes(query.trim().toLowerCase());
                 const routeNumber = routeOrder.get(marker.id);
                 const visible = typeVisible && queryMatch && (marker.type === 'area' || denseMarkersVisible || selectedId === marker.id || Boolean(routeNumber));
-                const position = calibratedMarkerPosition(marker);
+                const position = exactMarkerPosition(marker);
                 return (
                   <button
                     type="button"
@@ -445,7 +410,7 @@ export function WorldInteractiveMap() {
               </div>
               <p>{markerDescription(selectedMarker)}</p>
               <dl>
-                <div><dt>Map position</dt><dd>{calibratedMarkerPosition(selectedMarker).x < MAP_WIDTH / 2 ? 'West' : 'East'} · {calibratedMarkerPosition(selectedMarker).y < MAP_HEIGHT / 2 ? 'North' : 'South'}</dd></div>
+                <div><dt>Map position</dt><dd>{exactMarkerPosition(selectedMarker).x < MAP_WIDTH / 2 ? 'West' : 'East'} · {exactMarkerPosition(selectedMarker).y < MAP_HEIGHT / 2 ? 'North' : 'South'}</dd></div>
                 <div><dt>Nearby planning</dt><dd>Select the closest area, bank, resource, or enemy markers before you travel.</dd></div>
               </dl>
               <div className="world-marker-actions">

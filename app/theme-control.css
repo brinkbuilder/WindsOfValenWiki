@@ -412,6 +412,29 @@ html:not([data-theme='light']) .language-selector select { color-scheme: dark; }
 .front-start-panel h2 { color: var(--play-ink); }
 .front-start-panel nav a { color: var(--play-accent); }
 
+html[data-theme='light'] .portal-panel.calculator-promo {
+  border-color: #294896;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(93, 218, 241, .2), transparent 32%),
+    linear-gradient(145deg, #14224c, #243f8d 62%, #3d3089);
+  color: #f4f7ff;
+}
+html[data-theme='light'] .calculator-promo .panel-kicker { color: #72e5f4; }
+html[data-theme='light'] .calculator-promo h2 { color: #fff; }
+html[data-theme='light'] .calculator-promo > p:not(.panel-kicker) { color: #dce5fb; }
+html[data-theme='light'] .calculator-promo > div a {
+  border-color: rgba(183, 205, 255, .25);
+  color: #f1f5ff;
+}
+html[data-theme='light'] .calculator-promo > div a:hover { color: #79e8f5; }
+html[data-theme='light'] .calculator-promo .combat-level-link {
+  border-color: rgba(113, 228, 246, .62);
+  background: rgba(13, 25, 66, .44);
+}
+html[data-theme='light'] .calculator-promo .combat-level-link strong,
+html[data-theme='light'] .calculator-promo .combat-level-link b { color: #8ff1fb; }
+html[data-theme='light'] .calculator-promo .combat-level-link span { color: #d8e4ff; }
+
 .skill-portal-grid > a {
   border-color: var(--play-line);
   border-radius: 50% 46% 48% 43% / 44% 52% 46% 54%;
@@ -572,6 +595,18 @@ html:not([data-theme='light']) .language-selector select { color-scheme: dark; }
   border-radius: 30px 22px 42px 24px;
   border-color: #38527b;
   box-shadow: 0 24px 54px rgba(0,0,0,.3);
+}
+.world-map-image-layer img {
+  filter: saturate(.58) contrast(.82) brightness(.72);
+  opacity: .84;
+}
+html[data-theme='light'] .world-map-image-layer img {
+  filter: saturate(.54) contrast(.78) brightness(.92);
+  opacity: .86;
+}
+.world-map-marker {
+  border-width: 3px;
+  box-shadow: 0 0 0 4px rgba(5, 10, 22, .74), 0 3px 10px rgba(0, 0, 0, .72);
 }
 .world-map-heading dl,
 .world-map-routes button,
