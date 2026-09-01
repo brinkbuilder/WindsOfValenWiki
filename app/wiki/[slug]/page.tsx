@@ -44,8 +44,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: entry.title,
     description: entry.summary,
-    openGraph: { title: entry.title, description: entry.summary, type: 'article', images: [] },
-    twitter: { card: 'summary', title: entry.title, description: entry.summary, images: [] },
+    openGraph: { title: entry.title, description: entry.summary, type: 'article', images: entry.image ? [entry.image.src] : [] },
+    twitter: { card: 'summary', title: entry.title, description: entry.summary, images: entry.image ? [entry.image.src] : [] },
   };
 }
 
@@ -153,6 +153,14 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             <span>{typeLabel}</span>
             <h2>{entry.title}</h2>
           </div>
+          {entry.image && (
+            <figure className="infobox-image">
+              <a href={entry.image.src} aria-label={`Open full-size image: ${entry.image.alt}`}>
+                <img src={entry.image.src} alt={entry.image.alt} loading="eager" decoding="async" />
+              </a>
+              {entry.image.caption && <figcaption>{entry.image.caption}</figcaption>}
+            </figure>
+          )}
           <dl>
             {entry.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{linkItems(fact.value, entry.slug)}</dd></div>)}
           </dl>

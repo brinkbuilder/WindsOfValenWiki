@@ -1,5 +1,6 @@
 import { communityEntries } from './community-entries';
 import { itemCatalogueSpecs, itemStoreInfo } from './item-data';
+import legacyWikiData from './legacy-wiki-data.json';
 import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionRecipeDetails, potionReductionRecipes } from './potion-data';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 
@@ -50,7 +51,7 @@ export type QuestKind = 'main' | 'miniquest';
 export type WikiEntry = {
   slug: string;
   title: string;
-  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'System' | 'Resource' | 'Quest';
+  type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'NPC' | 'Location' | 'System' | 'Resource' | 'Quest';
   questKind?: QuestKind;
   verification: Verification;
   summary: string;
@@ -60,6 +61,7 @@ export type WikiEntry = {
   technicalId?: string;
   facts: WikiFact[];
   sections: WikiSection[];
+  image?: WikiImage;
   related?: string[];
   externalSources?: ExternalSource[];
   source: {
@@ -1111,7 +1113,11 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
 
   const facts = entry.facts
     .filter((fact) => !hiddenFactLabel.test(fact.label) && !internalValue.test(fact.value))
-    .map((fact) => ({ ...fact, label: playerText(fact.label).replace(/^Community /, ''), value: playerText(fact.value) }))
+    .map((fact) => {
+      const label = playerText(fact.label).replace(/^Community /, '');
+      const value = playerText(fact.value);
+      return { ...fact, label, value: /^store price$/i.test(label) && /^\d+$/.test(value) ? `${Number(value).toLocaleString('en-US')} Coins` : value };
+    })
     .filter((fact) => fact.label && fact.value);
   const store = entry.type === 'Item' ? storeInfoForItem(entry) : undefined;
   const factsWithoutStoreDuplicates = store
@@ -1125,6 +1131,7 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
     aliases: entry.aliases?.filter((alias) => !internalAlias.test(alias)).map(playerText),
     categories: entry.categories.filter((category) => !/^community documented$/i.test(category)).map(playerText),
     technicalId: undefined,
+    image: entry.image ? { ...entry.image, alt: playerText(entry.image.alt), caption: entry.image.caption ? playerText(entry.image.caption) : undefined } : undefined,
     facts: store
       ? [...factsWithoutStoreDuplicates, { label: 'Store price', value: `${store.price.toLocaleString('en-US')} Coins` }, { label: 'Purchasable at', value: store.stores.join(' · ') }]
       : factsWithoutStoreDuplicates,
@@ -1133,16 +1140,68 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
   };
 }
 
+function normalizedLegacyLabel(value: string) {
+  return value.toLowerCase().replace(/^reported\s+/, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function mergeLegacyEntry(current: WikiEntry, legacy: WikiEntry): WikiEntry {
+  const knownFactLabels = new Set(current.facts.map((fact) => normalizedLegacyLabel(fact.label)));
+  const facts = [...current.facts, ...legacy.facts.filter((fact) => !knownFactLabels.has(normalizedLegacyLabel(fact.label)))];
+  const sections = current.sections.map((section) => ({ ...section }));
+  const sectionIndexes = new Map(sections.map((section, index) => [section.title.toLowerCase(), index]));
+  legacy.sections.forEach((section) => {
+    const existingIndex = sectionIndexes.get(section.title.toLowerCase());
+    if (existingIndex === undefined) {
+      sectionIndexes.set(section.title.toLowerCase(), sections.length);
+      sections.push(section);
+      return;
+    }
+    const existing = sections[existingIndex];
+    sections[existingIndex] = {
+      ...existing,
+      table: existing.table ?? section.table,
+      images: existing.images?.length ? existing.images : section.images,
+    };
+  });
+  return {
+    ...current,
+    categories: [...new Set([...current.categories, ...legacy.categories])],
+    facts,
+    sections,
+    image: current.image ?? legacy.image,
+    related: [...new Set([...(current.related ?? []), ...(legacy.related ?? [])])],
+  };
+}
+
+function mergeLegacyEntries(currentEntries: WikiEntry[], legacyEntries: WikiEntry[]) {
+  const merged = [...currentEntries];
+  const termToIndex = new Map<string, number>();
+  merged.forEach((entry, index) => {
+    [entry.slug, entry.title, ...(entry.aliases ?? [])].forEach((term) => termToIndex.set(normalizedLegacyLabel(term), index));
+  });
+  legacyEntries.forEach((legacy) => {
+    const existingIndex = termToIndex.get(normalizedLegacyLabel(legacy.slug)) ?? termToIndex.get(normalizedLegacyLabel(legacy.title));
+    if (existingIndex === undefined) {
+      const nextIndex = merged.length;
+      merged.push(legacy);
+      [legacy.slug, legacy.title, ...(legacy.aliases ?? [])].forEach((term) => termToIndex.set(normalizedLegacyLabel(term), nextIndex));
+    } else {
+      merged[existingIndex] = mergeLegacyEntry(merged[existingIndex], legacy);
+    }
+  });
+  return merged;
+}
+
 const smithingReplacementSlugs = new Set(['smithing', ...smithingItemEntries.map((entry) => entry.slug)]);
-const allWikiEntries = [
+const currentWikiEntries = [
   ...[...curatedEntries, ...recipeEntries, ...communityEntries]
     .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug)),
   smithingGuide,
   ...smithingItemEntries,
   ...itemCatalogueEntries,
   ...smithingRecipeEntries,
-]
-  .map(playerFacingEntry);
+];
+const allWikiEntries = mergeLegacyEntries(currentWikiEntries, legacyWikiData as WikiEntry[]).map(playerFacingEntry);
 const duplicateSlugs = allWikiEntries
   .map((entry) => entry.slug)
   .filter((slug, index, slugs) => slugs.indexOf(slug) !== index);

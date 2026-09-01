@@ -10,7 +10,7 @@ const groups = [
   { key: 'recipes', label: 'Recipes', types: ['Recipe'] },
   { key: 'guides', label: 'Skills & guides', types: ['Guide', 'Activity'] },
   { key: 'quests', label: 'Quests', types: ['Quest'] },
-  { key: 'world', label: 'Creatures & places', types: ['Creature', 'Location'] },
+  { key: 'world', label: 'NPCs, creatures & places', types: ['NPC', 'Creature', 'Location'] },
   { key: 'systems', label: 'Systems', types: ['System'] },
 ];
 
