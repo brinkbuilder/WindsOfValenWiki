@@ -1,0 +1,984 @@
+/*
+ * Nightfall Codex
+ * A low-glare reading system for long wiki sessions. This file deliberately
+ * sits after the historical stylesheet so the current interface has one clear
+ * visual source of truth without disturbing article or calculator behaviour.
+ */
+
+:root {
+  color-scheme: dark;
+  --night-0: #06080d;
+  --night-1: #090c13;
+  --night-2: #0d111b;
+  --night-3: #111724;
+  --night-4: #161e2d;
+  --night-5: #1d283a;
+  --night-line: #263247;
+  --night-line-strong: #354864;
+  --night-text: #c7cfdb;
+  --night-text-soft: #909bad;
+  --night-heading: #e4eaf3;
+  --night-blue: #699cf2;
+  --night-blue-strong: #386ad1;
+  --night-cyan: #62cadc;
+  --night-gold: #c9a96b;
+  --night-danger: #df7f8b;
+  --night-shadow: 0 18px 52px rgba(0, 0, 0, .34);
+  --ink: var(--night-text);
+  --muted: var(--night-text-soft);
+  --paper: var(--night-3);
+  --paper-deep: var(--night-2);
+  --white: var(--night-4);
+  --forest: #152853;
+  --forest-light: var(--night-blue-strong);
+  --mint: var(--night-cyan);
+  --gold: var(--night-gold);
+  --line: var(--night-line);
+  --wiki-ink: var(--night-text);
+  --wiki-muted: var(--night-text-soft);
+  --wiki-paper: var(--night-3);
+  --wiki-paper-light: var(--night-4);
+  --wiki-paper-deep: var(--night-2);
+  --wiki-brown: #253d76;
+  --wiki-brown-light: var(--night-blue-strong);
+  --wiki-gold: var(--night-cyan);
+  --wiki-blue: var(--night-blue);
+  --wiki-line: var(--night-line);
+}
+
+html {
+  background: var(--night-0);
+  scrollbar-color: #34445e #090c13;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 18% -14%, rgba(55, 93, 177, .16), transparent 34rem),
+    radial-gradient(circle at 92% 18%, rgba(38, 123, 149, .08), transparent 29rem),
+    linear-gradient(180deg, var(--night-1), var(--night-0) 68rem);
+  color: var(--night-text);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(120, 150, 205, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 150, 205, .025) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+::selection { background: #315c9d; color: #f4f8ff; }
+a { color: #7ab3f7; }
+a:hover { color: #9edcef; }
+
+.wiki-site-frame,
+.wiki-page-column { background: transparent; }
+
+/* Compact archive navigation */
+.wiki-rail.unified-topbar {
+  position: sticky;
+  top: 0;
+  height: 64px;
+  padding: 0 clamp(16px, 3vw, 44px);
+  gap: clamp(12px, 2vw, 26px);
+  border: 0;
+  border-bottom: 1px solid var(--night-line);
+  background: rgba(7, 10, 16, .94);
+  box-shadow: 0 9px 26px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(18px) saturate(115%);
+}
+
+.wiki-rail .rail-brand,
+.unified-topbar .brand {
+  min-width: 196px;
+  gap: 10px;
+}
+
+.wiki-rail .valen-mark {
+  width: 38px;
+  height: 42px;
+  border: 1px solid #41567b;
+  border-radius: 4px 4px 9px 9px;
+  background-color: #101827;
+  background-size: 37px;
+  box-shadow: inset 0 0 16px rgba(70, 116, 210, .22);
+}
+
+.wiki-rail .brand strong {
+  color: var(--night-heading);
+  font-size: 14px;
+  letter-spacing: .01em;
+}
+
+.wiki-rail .brand small {
+  margin-top: 3px;
+  color: #71809a;
+  font: 650 8px/1 var(--font-geist-mono), monospace;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.wiki-rail .rail-navigation { gap: 2px; }
+.wiki-rail .rail-navigation > a {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #9da8ba;
+  font-size: 11px;
+  letter-spacing: .015em;
+}
+.wiki-rail .rail-navigation > a:hover,
+.wiki-rail .rail-navigation > a:focus-visible {
+  border: 0;
+  background: #141d2c;
+  color: #d9e5f7;
+}
+
+.wiki-rail .header-search {
+  width: min(280px, 24vw);
+  height: 38px;
+  border-color: #27344a;
+  border-radius: 5px;
+  background: #0d131e;
+}
+.wiki-rail .header-search input {
+  color: #c9d2df;
+  caret-color: var(--night-cyan);
+}
+.wiki-rail .header-search input::placeholder { color: #69758a; }
+.wiki-rail .header-search button {
+  border-left-color: #27344a;
+  background: #172238;
+  color: #aebbd0;
+}
+
+.wiki-rail .mobile-menu summary {
+  border-color: #2b394f;
+  border-radius: 4px;
+  background: #101725;
+  color: #b8c3d5;
+}
+.wiki-rail .mobile-menu nav {
+  top: 44px;
+  border-color: #32425c;
+  border-radius: 6px;
+  background: #0c111b;
+  box-shadow: var(--night-shadow);
+}
+.wiki-rail .mobile-menu nav a { border-radius: 3px; color: #aeb9ca; }
+.wiki-rail .mobile-menu nav a:hover { background: #172135; color: #e3e9f3; }
+
+/* Home: information-first rather than a bright marketing page */
+.classic-home {
+  width: min(100%, 1500px);
+  padding: 24px clamp(14px, 3vw, 42px) 72px;
+}
+.wiki-front-page { background: transparent; }
+
+.front-welcome {
+  min-height: 250px;
+  padding: clamp(38px, 6vw, 74px);
+  border: 1px solid #2b3950;
+  border-radius: 7px;
+  background:
+    linear-gradient(90deg, rgba(73, 113, 203, .12) 1px, transparent 1px) 0 0 / 72px 100%,
+    radial-gradient(circle at 84% 18%, rgba(55, 139, 171, .16), transparent 22rem),
+    linear-gradient(118deg, #0d1421, #121b2b 58%, #10263b);
+  box-shadow: var(--night-shadow);
+}
+.front-welcome::before {
+  inset: 0 0 0 auto;
+  width: 38%;
+  border: 0;
+  transform: none;
+  opacity: .55;
+  background:
+    linear-gradient(135deg, transparent 46%, rgba(108, 151, 228, .13) 46.2% 46.8%, transparent 47%),
+    linear-gradient(45deg, transparent 46%, rgba(108, 151, 228, .08) 46.2% 46.8%, transparent 47%);
+  background-size: 76px 76px;
+  box-shadow: none;
+}
+.front-welcome div { max-width: 820px; }
+.front-welcome p {
+  margin-bottom: 14px;
+  color: var(--night-cyan);
+  font: 650 10px/1 var(--font-geist-mono), monospace;
+  letter-spacing: .19em;
+}
+.front-welcome h1 {
+  color: var(--night-heading);
+  font-size: clamp(43px, 6vw, 72px);
+  font-weight: 690;
+  letter-spacing: -.045em;
+  text-shadow: none;
+}
+.front-welcome span {
+  max-width: 650px;
+  color: #aeb8c7;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.front-search-row {
+  min-height: 96px;
+  margin: 12px 0 0;
+  padding: 18px 22px;
+  grid-template-columns: minmax(220px, .75fr) minmax(320px, 1.4fr) auto;
+  gap: 22px;
+  border: 1px solid var(--night-line);
+  border-radius: 6px;
+  background: rgba(16, 22, 34, .94);
+  box-shadow: none;
+}
+.front-search-row > div:first-child strong { color: #d7dde7; font-size: 14px; }
+.front-search-row > div:first-child span { color: #818da0; }
+.front-search-row .page-search {
+  height: 48px;
+  border-color: #314058;
+  border-radius: 4px;
+  background: #0a0f18;
+}
+.front-search-row .page-search input { color: var(--night-text); }
+.front-search-row .page-search button {
+  height: 46px;
+  border-radius: 3px;
+  background: #315da8;
+  color: #e8effa;
+}
+.front-search-row > p { color: #758298; }
+.front-search-row > p b { color: var(--night-cyan); font: 670 23px var(--font-geist-mono), monospace; }
+
+.front-section { padding: 38px 0 4px; }
+.classic-section-title { margin-bottom: 14px; }
+.classic-section-title h2 {
+  color: var(--night-heading);
+  font-size: 20px;
+  font-weight: 660;
+  letter-spacing: -.02em;
+}
+.classic-section-title > a { color: #79a9eb; font-size: 11px; }
+
+.portal-category-grid { gap: 8px; }
+.portal-category {
+  min-height: 148px;
+  padding: 17px;
+  grid-template-columns: 62px minmax(0, 1fr);
+  border-color: var(--night-line);
+  border-radius: 5px;
+  background: #101621;
+  box-shadow: none;
+}
+.portal-category:hover {
+  transform: translateY(-2px);
+  border-color: #446493;
+  background: #131b29;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+}
+.portal-category-image {
+  width: 58px;
+  height: 58px;
+  border-color: #2e3b50;
+  border-radius: 4px;
+  background: #0b1019;
+}
+.portal-category-image img { width: 52px; height: 52px; filter: saturate(.84) brightness(.88); }
+.portal-category strong { color: #d7dee9; font-size: 16px; font-weight: 650; }
+.portal-category small { color: #8792a4; font-size: 12px; line-height: 1.55; }
+
+.front-columns { padding: 22px 0 0; gap: 9px; }
+.portal-panel {
+  border-color: var(--night-line);
+  border-radius: 6px;
+  background: #101621;
+  box-shadow: none;
+}
+.portal-panel .classic-section-title { padding: 18px 19px 13px; background: #131a27; }
+.popular-guide-list a { min-height: 88px; border-color: #222d40; background: #101621; }
+.popular-guide-list a:nth-child(odd) { border-color: #222d40; }
+.popular-guide-list a:hover { background: #151d2b; }
+.popular-guide-list strong { color: #8eb8ef; font-size: 14px; }
+.popular-guide-list span { color: #808b9d; line-height: 1.5; }
+.popular-guide-list b { color: var(--night-cyan); }
+
+.calculator-promo {
+  border-color: #304361;
+  background: linear-gradient(145deg, #111a29, #15243a 66%, #173149);
+  color: var(--night-text);
+}
+.calculator-promo h2 { color: #dce4f0; font-size: 24px; font-weight: 670; }
+.calculator-promo > p:not(.panel-kicker) { color: #98a7bc; }
+.calculator-promo > div a { border-color: #2a3b56; color: #adc8e9; }
+.classic-button {
+  border-color: #487ab3;
+  border-radius: 4px;
+  background: #315f9b;
+  color: #eff5fc;
+}
+.combat-level-link {
+  border-color: #355071;
+  border-radius: 4px;
+  background: rgba(35, 63, 97, .48);
+}
+.combat-level-link strong,
+.combat-level-link b { color: #79cedf; }
+.combat-level-link span { color: #97a7bc; }
+
+.skill-portal-grid { gap: 8px; }
+.skill-portal-grid a {
+  min-height: 112px;
+  border-color: var(--night-line);
+  border-radius: 5px;
+  background: #101621;
+  box-shadow: none;
+}
+.skill-portal-grid a:hover { border-color: #446493; background: #141d2b; transform: translateY(-2px); }
+.skill-portal-grid a > span {
+  border-color: #344863;
+  border-radius: 4px;
+  background: #152136;
+  color: #7eb6ec;
+}
+.skill-portal-grid strong { color: #d0d7e2; }
+.skill-portal-grid small { color: #748094; }
+
+.front-start-panel {
+  margin: 32px 0 0;
+  border-color: #2c3b52;
+  border-radius: 6px;
+  background: linear-gradient(110deg, #111925, #151f2f);
+}
+.front-start-panel span { color: var(--night-cyan); }
+.front-start-panel h2 { color: #dce3ed; font-size: 22px; }
+.front-start-panel p { color: #909caf; }
+.front-start-panel nav a { color: #85ade1; border-color: #2b3a50; }
+
+/* Dark reading canvas shared by every wiki and utility page */
+.inner-page,
+.classic-content-page,
+.article-page,
+.source-reader-page.unified-imported-page {
+  width: min(calc(100% - 32px), 1420px);
+  margin: 22px auto;
+  padding: clamp(20px, 3vw, 38px) clamp(18px, 3.5vw, 50px) 76px;
+  border: 1px solid var(--night-line);
+  border-radius: 7px;
+  background: rgba(13, 17, 27, .96);
+  color: var(--night-text);
+  box-shadow: var(--night-shadow);
+}
+
+.breadcrumbs {
+  min-height: 34px;
+  border-color: #222d3f;
+  color: #687489;
+  font-size: 11px;
+}
+.breadcrumbs a { color: #789bc9; }
+
+.article-title-block,
+.imported-article-header {
+  min-height: 0;
+  margin-top: 10px;
+  padding: clamp(34px, 5vw, 58px);
+  border: 1px solid #2a3b56;
+  border-left: 4px solid #4f7cc5;
+  border-radius: 5px;
+  background:
+    linear-gradient(90deg, rgba(72, 110, 181, .08) 1px, transparent 1px) 0 0 / 56px 100%,
+    radial-gradient(circle at 91% 10%, rgba(54, 142, 166, .12), transparent 24rem),
+    linear-gradient(120deg, #101724, #142033 68%, #102437);
+  box-shadow: none;
+}
+.article-title-block::before { opacity: .018; }
+.article-title-block h1,
+.imported-article-header h1 {
+  color: #e3e9f2;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 680;
+  line-height: 1.02;
+  letter-spacing: -.04em;
+}
+.article-title-block > div > p:not(.eyebrow),
+.imported-article-header > p:last-child {
+  max-width: 78ch;
+  color: #a8b3c3;
+  font: 15px/1.75 var(--font-geist-sans), Arial, sans-serif;
+}
+.article-title-block .eyebrow,
+.imported-article-header .eyebrow,
+.panel-kicker,
+.source-hero .eyebrow {
+  color: var(--night-cyan);
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: .16em;
+}
+.topic-pill {
+  border-color: #354967;
+  border-radius: 3px;
+  background: rgba(34, 51, 79, .74);
+  color: #aebdd2;
+}
+.article-tool-button {
+  border-color: #3f6c9d;
+  border-radius: 3px;
+  background: #25466f;
+  color: #dceafa;
+}
+
+.article-tabs {
+  top: 64px;
+  height: 48px;
+  margin-top: 7px;
+  border-color: #263247;
+  background: rgba(12, 17, 26, .94);
+}
+.article-tabs a { height: 48px; color: #7f8ca0; font-size: 11px; }
+.article-tabs a:hover { color: #b9c8dc; }
+.article-tabs .active { border-color: #6099e4; color: #9dc4f4; }
+
+.article-layout { gap: 42px; padding: 38px 12px 0; }
+.article-copy { color: var(--night-text); font-family: var(--font-geist-sans), Arial, sans-serif; }
+.article-section { padding-top: 32px; }
+.article-section h2,
+.related-section h2,
+.external-sources h2 {
+  margin-bottom: 18px;
+  color: #dce3ed;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: clamp(22px, 2.6vw, 29px);
+  font-weight: 650;
+  letter-spacing: -.025em;
+}
+.article-section h2 > span {
+  border-radius: 3px;
+  background: #243d67;
+  color: #8fcadd;
+  font-family: var(--font-geist-mono), monospace;
+}
+.article-section p,
+.article-section li,
+.source-reader-content p,
+.source-reader-content li {
+  max-width: 82ch;
+  color: #b8c1cf;
+  font-size: 16px;
+  line-height: 1.78;
+}
+.article-section strong,
+.article-section b { color: #d8dee7; }
+.article-section code,
+.source-reader-content code {
+  border: 1px solid #2e3e55;
+  border-radius: 3px;
+  background: #0a1019;
+  color: #91c8dd;
+}
+
+.table-of-contents {
+  padding: 17px 19px;
+  border: 1px solid #29374b;
+  border-left: 3px solid #4a76b7;
+  border-radius: 4px;
+  background: #101722;
+}
+.table-of-contents strong {
+  color: #d1d8e3;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.table-of-contents a { color: #87a9d5; }
+.table-of-contents a:hover { color: #a9d7e6; }
+
+.wiki-table-wrap,
+.calculator-table-wrap,
+.smithing-table-wrap {
+  border-color: #2a3649;
+  border-radius: 4px;
+  background: #0d131d;
+}
+.wiki-table th,
+.calculator-table th,
+.smithing-table th {
+  border-color: #33445d;
+  background: #172338;
+  color: #becbe0;
+  font-size: 11px;
+  letter-spacing: .045em;
+}
+.wiki-table td,
+.calculator-table td,
+.smithing-table td {
+  border-color: #222d3e;
+  background: #101620;
+  color: #acb6c5;
+}
+.wiki-table tr:nth-child(even) td,
+.calculator-table tr:nth-child(even) td,
+.smithing-table tr:nth-child(even) td { background: #0d131d; }
+.wiki-table tr:hover td,
+.calculator-table tr:hover td,
+.smithing-table tr:hover td { background: #141e2d; }
+
+.infobox {
+  border-color: #2a384d;
+  border-radius: 5px;
+  background: #101721;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .22);
+}
+.infobox-heading { background: #15233a; }
+.infobox-heading > span { color: var(--night-cyan); }
+.infobox dl div { border-color: #273347; }
+.infobox dt { color: #737f92; }
+.infobox dd { color: #c0c9d6; }
+.infobox > a { border-color: #324662; border-radius: 3px; background: #18263b; color: #8db6e6; }
+
+.article-figure {
+  border: 1px solid #2b394d;
+  border-radius: 4px;
+  background: #090e16;
+}
+.article-figure img { opacity: .92; }
+.article-figure figcaption { border-color: #273448; color: #8d98a9; background: #101620; }
+
+.related-grid a,
+.external-source-card {
+  border-color: #29374a;
+  border-radius: 4px;
+  background: #101721;
+}
+.related-grid a:hover { border-color: #45628b; background: #151e2c; }
+.related-grid a > span,
+.related-grid a > i { color: #78a9e4; }
+.article-categories { border-color: #263246; }
+.article-categories a {
+  border-color: #31425b;
+  border-radius: 3px;
+  background: #151f2f;
+  color: #88aee0;
+}
+
+/* Index, search, sources, and contribution pages */
+.index-hero,
+.classic-page-heading,
+.simple-page-heading,
+.source-hero { border-color: #28364a; }
+.index-hero h1,
+.classic-page-heading h1,
+.simple-page-heading h1,
+.source-hero h1 {
+  color: #e1e7ef;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-weight: 680;
+  letter-spacing: -.04em;
+}
+.index-hero p,
+.classic-page-heading p,
+.simple-page-heading p,
+.source-hero p { color: #919cad; }
+.unified-page-total {
+  border-color: #2b394e;
+  border-radius: 4px;
+  background: #101722;
+}
+.unified-page-total strong { color: #86b2e8; font-family: var(--font-geist-mono), monospace; }
+.index-controls {
+  top: 64px;
+  border-color: #28364a;
+  background: rgba(12, 17, 26, .95);
+}
+.index-tabs button,
+.index-filter-clear,
+.show-more-button {
+  border-color: #2e3c52;
+  border-radius: 3px;
+  background: #111824;
+  color: #929daf;
+}
+.index-tabs button[aria-selected='true'] {
+  border-color: #4e78b4;
+  background: #263f68;
+  color: #dce6f2;
+}
+.index-filter,
+.community-controls input,
+.community-controls select {
+  border-color: #304058;
+  border-radius: 4px;
+  background: #0a0f17;
+  color: #c4ccd8;
+}
+.index-filter-clear { color: #81a9da; }
+.index-card,
+.search-results a,
+.source-library-grid a,
+.policy-grid article,
+.community-category-row,
+.contribution-draft {
+  border-color: #293649;
+  border-radius: 4px;
+  background: #101620;
+  color: #aeb8c6;
+  box-shadow: none;
+}
+.index-card:hover,
+.index-card:focus-visible,
+.search-results a:hover {
+  border-color: #45628c;
+  background: #141d2b;
+  box-shadow: 0 11px 26px rgba(0, 0, 0, .22);
+}
+.index-card h2,
+.search-results strong,
+.source-library-grid h2 { color: #8bb5e9; font-family: var(--font-geist-sans), Arial, sans-serif; }
+.index-card p,
+.search-results span,
+.source-library-grid p { color: #858fa1; }
+.index-letter,
+.result-type,
+.community-source-label {
+  border-color: #354965;
+  border-radius: 3px;
+  background: #172338;
+  color: #86addb;
+}
+
+.page-search {
+  border-color: #304058;
+  border-radius: 4px;
+  background: #090e16;
+  box-shadow: none;
+}
+.page-search input { color: #c7d0dc; background: transparent; }
+.page-search button { border-radius: 3px; background: #315d9e; color: #e4edf8; }
+.search-suggestions {
+  border-color: #314159;
+  border-radius: 4px;
+  background: #0d131d;
+  color: #bec7d4;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .42);
+}
+.search-suggestions a { border-color: #222e40; color: #aeb8c7; }
+.search-suggestions a:hover,
+.search-suggestions a[aria-selected='true'] { background: #151f2e; }
+.suggestion-letter { border-color: #33475f; background: #172338; color: #87afde; }
+.suggestion-copy strong { color: #cfd7e2; }
+.suggestion-copy span { color: #7f899a; }
+.all-results { background: #151e2d; color: #8eb7e5; }
+.no-suggestions,
+.empty-results { border-color: #2a374b; background: #0f151f; color: #7e899b; }
+
+.wiki-category-card,
+.wiki-featured-grid > a,
+.community-page-grid > a,
+.source-library-stats,
+.source-library-grid > a,
+.source-hero dl,
+.source-reader-actions,
+.source-reader-content,
+.source-reader-error {
+  border-color: #29374b;
+  border-radius: 4px;
+  background: #101620;
+  color: #adb7c5;
+  box-shadow: none;
+}
+.wiki-category-card:hover,
+.wiki-featured-grid > a:hover,
+.community-page-grid > a:hover,
+.source-library-grid > a:hover { border-color: #46648d; background: #141d2b; }
+.wiki-category-card h2,
+.wiki-featured-grid h2,
+.community-page-grid h2,
+.source-library-grid > a h2 { color: #8eb7e8; }
+.source-library-stats div,
+.source-hero dl div { border-color: #29374b; }
+.source-library-stats strong,
+.source-hero dd { color: #ccd5e0; }
+.source-library-stats span,
+.source-hero dt { color: #747f92; }
+.source-policy-note,
+.source-reader-notice {
+  border-color: #554a37;
+  background: #1e1a14;
+  color: #b7a989;
+}
+.source-reader-content {
+  border-radius: 0 0 4px 4px;
+  color: #b7c0cd;
+}
+.source-reader-content h1,
+.source-reader-content h2,
+.source-reader-content h3,
+.source-reader-content h4 { color: #d8e0ea; }
+.source-reader-content a { color: #83afe3; }
+.unified-imported-content table { border-color: #2b394e; background: #0d141e; }
+.unified-imported-content th { border-color: #34465f; background: #172338; color: #c4cfde; }
+.unified-imported-content td { border-color: #263246; background: #101620; color: #adb7c5; }
+.unified-imported-content tr:nth-child(even) td { background: #0d131c; }
+.unified-imported-content img { border-color: #2c3b50; background: #090e16; opacity: .92; }
+
+.contribution-draft input,
+.contribution-draft textarea,
+.draft-actions button {
+  border-color: #324258;
+  border-radius: 3px;
+  background: #090e16;
+  color: #c4ccd8;
+}
+.draft-actions .primary { border-color: #4f79ad; background: #2c548d; color: #e5edf7; }
+.draft-note { border-color: #304059; background: #121b29; color: #8996a9; }
+.draft-error { border-color: #70434a; background: #241417; color: #d099a1; }
+
+/* Player tools */
+.calculator-card,
+.combat-level-calculator,
+.potion-batch-planner,
+.production-time-panel,
+.smithing-plan-box,
+.dusk-set-plan,
+.standalone-calculator-link,
+.formula-box,
+.calculator-note {
+  border-color: #2b394d;
+  border-radius: 5px;
+  background: #101721;
+  color: #b5bfcd;
+  box-shadow: none;
+}
+.calculator-heading h2,
+.production-time-heading h3,
+.smithing-plan-heading h3,
+.calculator-summary strong { color: #d8dfe9; }
+.calculator-heading p,
+.production-time-heading p,
+.smithing-plan-heading p,
+.calculator-credit,
+.calculator-note { color: #8591a4; }
+.calculator-tabs {
+  border-color: #2a384c;
+  border-radius: 4px;
+  background: #0e141e;
+}
+.calculator-tabs button,
+.smithing-station-tabs button,
+.calculator-reset-button,
+.smithing-item-button {
+  border-color: #314159;
+  border-radius: 3px;
+  background: #151e2c;
+  color: #9da8b9;
+}
+.calculator-tabs button[aria-selected='true'],
+.smithing-station-tabs button[aria-pressed='true'],
+.smithing-item-button[aria-pressed='true'] {
+  border-color: #527db8;
+  background: #28436d;
+  color: #e0e8f3;
+}
+.calculator-fields label,
+.combat-level-inputs label,
+.potion-batch-controls label,
+.smithing-plan-controls label { color: #95a1b3; }
+.calculator-fields input,
+.calculator-fields select,
+.combat-level-inputs input,
+.potion-batch-controls input,
+.potion-batch-controls select,
+.smithing-plan-controls input,
+.smithing-filter-search {
+  border-color: #324258;
+  border-radius: 3px;
+  background: #090e16;
+  color: #c5ceda;
+  color-scheme: dark;
+}
+.combat-level-inputs fieldset {
+  border-color: #2b394c;
+  border-radius: 4px;
+  background: #0d141e;
+}
+.combat-level-inputs fieldset legend { color: #aebbd0; }
+.combat-level-result,
+.combat-result,
+.max-hit-result,
+.accuracy-result,
+.potion-output-callout {
+  border-color: #38577d;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #111b2a, #17304a);
+  color: #cbd7e7;
+}
+.combat-level-result > span,
+.combat-level-result > strong,
+.potion-output-callout strong { color: #78c7d8; }
+.smithing-lock-note { border-color: #5f4a43; background: #21191a; color: #c6a39d; }
+.calculator-page { background: rgba(13, 17, 27, .96); }
+.calculator-card select,
+.custom-xp-field input { border-color: #324258; background: #090e16; color: #c5ceda; color-scheme: dark; }
+.custom-xp-field,
+.combat-breakdown,
+.combat-level-breakdown,
+.potion-material-summary,
+.smithing-total-materials,
+.time-breakdown {
+  border-color: #2b394c;
+  background: #0d141e;
+  color: #aeb8c7;
+}
+.roll-columns > div,
+.production-time-grid > div,
+.potion-result-grid > div,
+.smithing-result-grid > div { border-color: #29374b; background: #111824; }
+.roll-columns strong,
+.production-time-grid strong,
+.potion-result-grid strong,
+.smithing-result-grid strong { color: #d0d9e5; }
+
+/* Both maps remain the darkest working surfaces */
+.world-interactive-map,
+.ebony-map-board {
+  border-color: #2c3b52;
+  border-radius: 6px;
+  background: #080c13;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .36);
+}
+.world-map-heading > div > span,
+.world-map-routes span,
+.world-map-search span,
+.world-marker-title span,
+.world-route-steps > span,
+.world-map-learning span,
+.ebony-map-kicker { color: #68c2d3; }
+.world-map-heading dl,
+.world-map-routes button,
+.world-map-toolbar,
+.world-map-filters button,
+.world-map-controls,
+.world-map-detail,
+.world-map-results,
+.world-map-learning article,
+.ebony-map-header,
+.ebony-map-toolbar,
+.ebony-map-legend,
+.ebony-room-details,
+.ebony-map-learning-notes article {
+  border-color: #29374c;
+  border-radius: 4px;
+  background: #0f1622;
+}
+.world-map-routes button.active,
+.world-map-filters button.active,
+.ebony-map-filters button.active {
+  border-color: #4e8299;
+  background: #173042;
+  box-shadow: inset 0 2px #61b9cb;
+}
+.world-map-controls button,
+.world-map-filter-actions button,
+.world-marker-actions button,
+.ebony-map-controls button,
+.ebony-room-select {
+  border-color: #304158;
+  border-radius: 3px;
+  background: #162133;
+  color: #b8c5d7;
+}
+.world-marker-actions a {
+  border-color: #406c83;
+  border-radius: 3px;
+  background: #173448;
+  color: #c2e4eb;
+}
+.world-map-search input,
+.ebony-map-toolbar input {
+  border-color: #314158;
+  border-radius: 3px;
+  background: #090e16;
+  color: #c3ccd8;
+}
+.world-route-steps { border-color: #2b3b53; background: #0a1019; }
+.world-map-credit,
+.ebony-map-caption { color: #778397 !important; }
+
+/* Footer and global interaction states */
+.wiki-page-column > footer,
+footer {
+  min-height: 104px;
+  border-top-color: #222d3f;
+  background: #070a10;
+  color: #747f91;
+}
+footer strong { color: #cbd3de; }
+footer .footer-links a { color: #8fa3be; }
+footer .footer-links a:hover { color: #89ccda; }
+
+button,
+input,
+select,
+textarea { font: inherit; }
+button { color: inherit; }
+input::placeholder,
+textarea::placeholder { color: #657084; }
+hr { border-color: var(--night-line); }
+*:focus-visible { outline: 2px solid rgba(100, 199, 218, .72); outline-offset: 2px; }
+
+@media (max-width: 1180px) {
+  .wiki-rail .rail-navigation > a { padding-inline: 7px; }
+}
+
+@media (max-width: 980px) {
+  .wiki-rail .rail-navigation { display: none; }
+  .wiki-rail .header-search { margin-left: auto; width: min(340px, 48vw); }
+  .front-search-row { grid-template-columns: 1fr; }
+  .front-search-row > p { display: none; }
+}
+
+@media (max-width: 700px) {
+  .wiki-rail.unified-topbar { height: 60px; padding: 0 9px; }
+  .wiki-rail .rail-brand { min-width: 38px; }
+  .wiki-rail .rail-brand > span:last-child { display: none; }
+  .wiki-rail .valen-mark { width: 36px; height: 40px; background-size: 35px; }
+  .wiki-rail .mobile-menu summary { padding: 8px 9px; }
+  .classic-home { padding: 10px 8px 46px; }
+  .front-welcome { min-height: 240px; padding: 35px 22px; }
+  .front-welcome h1 { font-size: 42px; }
+  .front-search-row { margin-top: 7px; padding: 15px; }
+  .inner-page,
+  .classic-content-page,
+  .article-page,
+  .source-reader-page.unified-imported-page {
+    width: calc(100% - 12px);
+    margin: 6px auto 16px;
+    padding: 15px 12px 48px;
+  }
+  .article-title-block,
+  .imported-article-header { padding: 30px 20px; }
+  .article-title-block h1,
+  .imported-article-header h1 { font-size: 38px; }
+  .article-tabs,
+  .index-controls { top: 60px; }
+  .article-layout { padding: 24px 2px 0; }
+  .article-section p,
+  .article-section li,
+  .source-reader-content p,
+  .source-reader-content li { font-size: 15px; line-height: 1.72; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

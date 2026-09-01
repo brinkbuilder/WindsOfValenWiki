@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import './nightfall.css';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 
@@ -24,13 +25,18 @@ export const metadata: Metadata = {
     title: 'Winds of Valen Wiki',
     description: 'Skills, items, quests, creatures, locations, recipes, and calculators in one player encyclopedia.',
     type: 'website',
-    images: [],
+    images: [{
+      url: 'https://valen-wiki-pi.vercel.app/og.png',
+      width: 1200,
+      height: 630,
+      alt: 'Winds of Valen Wiki — The complete player guide',
+    }],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Winds of Valen Wiki',
     description: 'Skills, items, quests, creatures, locations, recipes, and calculators in one player encyclopedia.',
-    images: [],
+    images: ['https://valen-wiki-pi.vercel.app/og.png'],
   },
 };
 
