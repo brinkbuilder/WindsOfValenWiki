@@ -5,7 +5,9 @@
  * visual source of truth without disturbing article or calculator behaviour.
  */
 
-:root {
+@scope (html:not([data-theme='light'])) {
+
+:scope {
   color-scheme: dark;
   --night-0: #06080d;
   --night-1: #090c13;
@@ -46,7 +48,7 @@
   --wiki-line: var(--night-line);
 }
 
-html {
+:scope {
   background: var(--night-0);
   scrollbar-color: #34445e #090c13;
 }
@@ -981,4 +983,6 @@ hr { border-color: var(--night-line); }
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
 }

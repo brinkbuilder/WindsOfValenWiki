@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { ThemeToggle } from './ThemeToggle';
 
 export function SiteHeader() {
   return (
       <header className="topbar unified-topbar wiki-rail">
+        <ThemeToggle />
         <Link className="brand rail-brand" href="/" aria-label="Winds of Valen Wiki home">
           <span className="brand-seal valen-mark" aria-hidden="true" />
           <span>
