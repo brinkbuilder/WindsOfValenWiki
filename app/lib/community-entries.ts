@@ -160,10 +160,11 @@ const guideEntries: WikiEntry[] = [
     ], related: ['combat', 'inventory'],
   }),
   communityEntry('Open The Gates', {
-    slug: 'open-the-gates', title: 'Open The Gates', type: 'Quest', categories: ['Quests', 'Guides', 'Community documented'],
+    slug: 'open-the-gates', title: 'Open The Gates', type: 'Quest', questKind: 'main', categories: ['Main Quest', 'Quests', 'Guides', 'Community documented'],
     summary: 'A complete novice quest walkthrough for unlocking Valen City.',
     intro: 'Help the guards outside Valen City, locate three missing scouts, and recover the Goblin Goods from the Goblin General to open the city gates.',
     facts: [
+      { label: 'Classification', value: 'Main Quest' },
       { label: 'Start', value: 'Gate Guard at the Valen City gates' },
       { label: 'Difficulty', value: 'Novice' },
       { label: 'Membership', value: 'Required' },
@@ -217,10 +218,11 @@ const guideEntries: WikiEntry[] = [
     ], related: ['valen-city', 'goblin-general', 'mining'],
   }),
   communityEntry('Crystal Caverns Miniquest (Bank unlock)', {
-    slug: 'crystal-caverns-bank-unlock', title: 'Crystal Caverns bank unlock', type: 'Quest', categories: ['Quests', 'Guides', 'Banking', 'Community documented'],
+    slug: 'crystal-caverns-bank-unlock', title: 'Crystal Caverns bank unlock', type: 'Quest', questKind: 'miniquest', categories: ['Miniquests', 'Quests', 'Guides', 'Banking', 'Community documented'],
     summary: 'A complete miniquest guide for permanently unlocking the Crystal Caverns bank.',
     intro: 'Find Clara Vance inside Crystal Caverns and bring her a Resonant Essence Geode to unlock the cavern bank permanently.',
     facts: [
+      { label: 'Classification', value: 'Miniquest' },
       { label: 'Start', value: 'Clara Vance in the Crystal Caverns mines' },
       { label: 'Difficulty', value: 'Novice' },
       { label: 'Membership', value: 'Required' },
@@ -256,10 +258,11 @@ const guideEntries: WikiEntry[] = [
     ], related: ['crystal-cavern', 'essence-rock', 'banking'],
   }),
   communityEntry('Dusk Knight Shcematics Miniquest', {
-    slug: 'dusk-knight-schematics-miniquest', title: 'Dusk Knight Schematics miniquest', type: 'Quest', categories: ['Quests', 'Guides', 'Smithing', 'Community documented'],
+    slug: 'dusk-knight-schematics-miniquest', title: 'Dusk Knight Schematics miniquest', type: 'Quest', questKind: 'miniquest', categories: ['Miniquests', 'Quests', 'Guides', 'Smithing', 'Community documented'],
     summary: 'The miniquest that awards the Dusk Knight Schematics used throughout the Dusk Knight armour crafting chain.',
     intro: 'Complete this miniquest to obtain the Dusk Knight Schematics required for the new armour components and final set assembly.',
     facts: [
+      { label: 'Classification', value: 'Miniquest' },
       { label: 'Reward', value: 'Dusk Knight Schematics' },
       { label: 'Used for', value: 'Dusk Knight boots, platelegs, platebody, helmet, and their components' },
       { label: 'Detailed path', value: 'Not yet documented' },

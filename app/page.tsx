@@ -8,7 +8,7 @@ import { unifiedSearchEntries } from './lib/unified-search';
 const categories = [
   { title: 'Items', description: 'Weapons, armour, tools, resources, potions, prices, and uses.', image: '/wiki-assets/bronze-sword.png', href: '/wiki?type=items' },
   { title: 'Skills', description: 'Training methods, level requirements, experience rates, and unlocks.', image: '/wiki-assets/skills.png', href: '/wiki?type=guides' },
-  { title: 'Quests', description: 'Requirements, walkthroughs, bosses, choices, and rewards.', image: '/wiki-assets/quest.png', href: '/wiki?type=quests' },
+  { title: 'Quests', description: 'The main quest, optional miniquests, requirements, walkthroughs, and rewards.', image: '/wiki-assets/quest.png', href: '/wiki?type=quests' },
   { title: 'World', description: 'Explore 157 searchable locations, mines, banks, shops, enemies, bosses, and fishing spots.', image: '/wiki-assets/world-map-original.png', href: '/wiki/world-map' },
 ];
 

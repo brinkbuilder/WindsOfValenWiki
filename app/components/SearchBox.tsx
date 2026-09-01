@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { SearchEntry } from '../lib/wiki-data';
+import { playerEntryTypeLabel, type SearchEntry } from '../lib/wiki-data';
 
 function scoreEntry(entry: SearchEntry, query: string) {
   const title = entry.title.toLowerCase();
@@ -102,10 +102,10 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
               aria-selected={index === active}
               onMouseEnter={() => setActive(index)}
             >
-              <span className="suggestion-letter" aria-hidden="true">{entry.type.slice(0, 1)}</span>
+              <span className="suggestion-letter" aria-hidden="true">{playerEntryTypeLabel(entry).slice(0, 1)}</span>
               <span className="suggestion-copy">
                 <strong>{entry.title}</strong>
-                <small>{entry.type} · {entry.summary}</small>
+                <small>{playerEntryTypeLabel(entry)} · {entry.summary}</small>
               </span>
             </a>
           )) : (

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SearchBox } from '../components/SearchBox';
-import { searchIndex } from '../lib/wiki-data';
+import { playerEntryTypeLabel, searchIndex } from '../lib/wiki-data';
 import { unifiedSearchEntries } from '../lib/unified-search';
 
 export const metadata: Metadata = { title: 'Search' };
@@ -22,7 +22,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <div className="search-results">
         {results.map((entry) => (
           <a href={entry.href ?? `/wiki/${entry.slug}`} key={entry.slug} target={entry.href?.startsWith('http') ? '_blank' : undefined} rel={entry.href?.startsWith('http') ? 'noreferrer' : undefined}>
-            <span className="result-type">{entry.type}</span>
+            <span className="result-type">{playerEntryTypeLabel(entry)}</span>
             <div><h2>{entry.title}</h2><p>{entry.summary}</p></div>
             <i aria-hidden="true">→</i>
           </a>

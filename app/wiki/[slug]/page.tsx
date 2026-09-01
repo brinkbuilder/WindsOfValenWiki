@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { findWikiSourceMatches, wikiSources, wikiSourceReaderPath } from '../../lib/wiki-source-registry';
-import { wikiBySlug, wikiEntries } from '../../lib/wiki-data';
+import { playerEntryTypeLabel, wikiBySlug, wikiEntries } from '../../lib/wiki-data';
 import type { ExternalSource } from '../../lib/wiki-data';
 import { EbonyCavesInteractiveMap } from '../../components/EbonyCavesInteractiveMap';
 import { WorldInteractiveMap } from '../../components/WorldInteractiveMap';
@@ -12,12 +12,6 @@ import { WorldInteractiveMap } from '../../components/WorldInteractiveMap';
 
 export function generateStaticParams() {
   return wikiEntries.map((entry) => ({ slug: entry.slug }));
-}
-
-function playerTypeLabel(type: (typeof wikiEntries)[number]['type']) {
-  if (type === 'Activity') return 'Skill';
-  if (type === 'System') return 'Game system';
-  return type;
 }
 
 function verificationLabel(verification: (typeof wikiEntries)[number]['verification']) {
@@ -44,7 +38,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
   const entry = wikiBySlug.get(slug);
   if (!entry) notFound();
   const related = (entry.related ?? []).map((relatedSlug) => wikiBySlug.get(relatedSlug)).filter(Boolean);
-  const typeLabel = playerTypeLabel(entry.type);
+  const typeLabel = playerEntryTypeLabel(entry);
   const automaticSources: ExternalSource[] = findWikiSourceMatches(entry.title, entry.aliases).map(({ source, page }) => ({
     id: `${source.id}-${page.pageId}`,
     site: source.name,
@@ -170,7 +164,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
               <div className="related-grid">
                 {related.map((item) => item && (
                   <a href={`/wiki/${item.slug}`} key={item.slug}>
-                    <span>{playerTypeLabel(item.type)}</span>
+                    <span>{playerEntryTypeLabel(item)}</span>
                     <strong>{item.title}</strong>
                     <p>{item.summary}</p>
                     <i aria-hidden="true">→</i>

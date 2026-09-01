@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import type { SearchEntry } from '../lib/wiki-data';
+import { playerEntryTypeLabel, questKindForEntry, type SearchEntry } from '../lib/wiki-data';
 
 const groups = [
   { key: 'all', label: 'All pages', types: [] },
@@ -33,6 +33,25 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
     ? entries.length
     : entries.filter((entry) => types.includes(entry.type)).length;
 
+  function indexCard(entry: SearchEntry) {
+    const entryLabel = playerEntryTypeLabel(entry);
+    return (
+      <a className="index-card" href={entry.href ?? `/wiki/${entry.slug}`} key={`${entry.href ?? 'wiki'}-${entry.slug}`}>
+        <div className="index-card-top">
+          <span className="index-letter" aria-hidden="true">{entryLabel.slice(0, 1)}</span>
+          {entry.type === 'Quest' && <span className={`quest-kind-badge quest-kind-${questKindForEntry(entry)}`}>{entryLabel}</span>}
+        </div>
+        <p>{entryLabel}</p>
+        <h2>{entry.title}</h2>
+        <span>{entry.summary}</span>
+        <i aria-hidden="true">→</i>
+      </a>
+    );
+  }
+
+  const mainQuests = filtered.filter((entry) => questKindForEntry(entry) === 'main');
+  const miniquests = filtered.filter((entry) => questKindForEntry(entry) === 'miniquest');
+
   return (
     <div className="wiki-index-tool">
       <div className="index-controls">
@@ -52,19 +71,22 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
       </div>
 
       <p className="result-count" aria-live="polite">Showing {filtered.length} {filtered.length === 1 ? 'page' : 'pages'}</p>
-      <div className="index-grid">
-        {filtered.map((entry) => (
-          <a className="index-card" href={entry.href ?? `/wiki/${entry.slug}`} key={`${entry.href ?? 'wiki'}-${entry.slug}`}>
-            <div className="index-card-top">
-              <span className="index-letter" aria-hidden="true">{entry.type.slice(0, 1)}</span>
-            </div>
-            <p>{entry.type}</p>
-            <h2>{entry.title}</h2>
-            <span>{entry.summary}</span>
-            <i aria-hidden="true">→</i>
-          </a>
-        ))}
-      </div>
+      {group === 'quests' ? (
+        <div className="quest-index-sections">
+          {mainQuests.length > 0 && (
+            <section className="quest-index-section quest-index-main" aria-labelledby="main-quest-heading">
+              <header><div><span>Story progression</span><h2 id="main-quest-heading">Main Quest</h2><p>The game’s primary questline and major progression unlock.</p></div><b>{mainQuests.length}</b></header>
+              <div className="index-grid quest-index-grid">{mainQuests.map(indexCard)}</div>
+            </section>
+          )}
+          {miniquests.length > 0 && (
+            <section className="quest-index-section quest-index-mini" aria-labelledby="miniquest-heading">
+              <header><div><span>Optional adventures</span><h2 id="miniquest-heading">Miniquests</h2><p>Shorter objectives, unlocks, and specialist rewards.</p></div><b>{miniquests.length}</b></header>
+              <div className="index-grid quest-index-grid">{miniquests.map(indexCard)}</div>
+            </section>
+          )}
+        </div>
+      ) : <div className="index-grid">{filtered.map(indexCard)}</div>}
       {filtered.length === 0 && <div className="empty-results"><strong>No pages found.</strong><p>Try a shorter term or a different page type.</p></div>}
     </div>
   );

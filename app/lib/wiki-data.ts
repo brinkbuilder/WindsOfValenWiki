@@ -44,10 +44,13 @@ export type WikiSection = {
   images?: WikiImage[];
 };
 
+export type QuestKind = 'main' | 'miniquest';
+
 export type WikiEntry = {
   slug: string;
   title: string;
   type: 'Item' | 'Recipe' | 'Guide' | 'Activity' | 'Creature' | 'Location' | 'System' | 'Resource' | 'Quest';
+  questKind?: QuestKind;
   verification: Verification;
   summary: string;
   intro: string;
@@ -1109,7 +1112,22 @@ export type SearchEntry = {
   terms: string;
   href?: string;
   source?: 'archive' | 'community';
+  questKind?: QuestKind;
 };
+
+export function questKindForEntry(entry: Pick<SearchEntry, 'slug' | 'type' | 'questKind'>): QuestKind | null {
+  if (entry.type !== 'Quest') return null;
+  return entry.questKind ?? (entry.slug === 'open-the-gates' ? 'main' : 'miniquest');
+}
+
+export function playerEntryTypeLabel(entry: Pick<SearchEntry, 'slug' | 'type' | 'questKind'>) {
+  const questKind = questKindForEntry(entry);
+  if (questKind === 'main') return 'Main Quest';
+  if (questKind === 'miniquest') return 'Miniquest';
+  if (entry.type === 'Activity') return 'Skill';
+  if (entry.type === 'System') return 'Game system';
+  return entry.type;
+}
 
 function searchableText(entry: WikiEntry) {
   const sections = entry.sections.flatMap((section) => [
@@ -1139,6 +1157,7 @@ export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
   type: entry.type,
   summary: entry.summary,
   source: 'archive',
+  questKind: entry.questKind,
   terms: searchableText(entry),
 }));
 
