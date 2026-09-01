@@ -10,41 +10,21 @@ export function SiteHeader() {
             <small>Player Wiki</small>
           </span>
         </Link>
+        <nav className="primary-nav rail-navigation" aria-label="Primary navigation">
+          <Link href="/wiki">Encyclopedia</Link>
+          <Link href="/wiki?type=guides">Skills</Link>
+          <Link href="/wiki?type=quests">Quests</Link>
+          <Link href="/wiki?type=items">Items</Link>
+          <Link href="/wiki/world-map">World map</Link>
+          <Link href="/calculators">Calculators</Link>
+        </nav>
         <form className="header-search" action="/search" role="search">
           <label className="sr-only" htmlFor="header-wiki-search">Search the wiki</label>
           <input id="header-wiki-search" name="q" placeholder="Search the wiki…" />
           <button type="submit" aria-label="Search">Search</button>
         </form>
-        <nav className="primary-nav rail-navigation" aria-label="Primary navigation">
-          <div className="rail-section">
-            <strong>Navigation</strong>
-            <Link href="/">Home</Link>
-            <Link href="/wiki">Browse all pages</Link>
-            <Link href="/calculators">Calculators</Link>
-            <Link href="/calculators/combat-level">Combat level</Link>
-            <Link href="/sources">Source library</Link>
-            <Link href="/recent">Recent updates</Link>
-          </div>
-          <div className="rail-section">
-            <strong>Player guides</strong>
-            <Link href="/wiki/controls">New player basics</Link>
-            <Link href="/wiki?type=guides">Skills &amp; training</Link>
-            <Link href="/wiki?type=quests">Quest guides</Link>
-            <Link href="/wiki?type=items">Items &amp; equipment</Link>
-            <Link href="/wiki/world-map">Interactive world map</Link>
-            <Link href="/wiki?type=world">Creatures &amp; places</Link>
-          </div>
-          <div className="rail-section">
-            <strong>Popular pages</strong>
-            <Link href="/wiki/mining">Mining</Link>
-            <Link href="/wiki/smithing">Smithing</Link>
-            <Link href="/wiki/combat-mechanics">Combat guide</Link>
-            <Link href="/wiki/open-the-gates">Open The Gates</Link>
-            <Link href="/wiki/crystal-caverns-bank-unlock">Crystal Caverns bank</Link>
-          </div>
-        </nav>
         <details className="mobile-menu">
-          <summary aria-label="Open navigation">Menu</summary>
+          <summary aria-label="Open navigation">More</summary>
           <nav aria-label="Mobile navigation">
             <Link href="/">Main page</Link>
             <Link href="/wiki">All pages</Link>

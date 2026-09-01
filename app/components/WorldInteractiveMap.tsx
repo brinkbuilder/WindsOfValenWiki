@@ -30,50 +30,48 @@ const MAP_WIDTH = 4992;
 const MAP_HEIGHT = 5376;
 const markerTypes: MarkerType[] = ['area', 'location', 'ore', 'fishing', 'enemy', 'boss'];
 
-type CalibrationAnchor = {
+type CalibrationRegion = {
+  name: string;
   source: { x: number; y: number };
   target: { x: number; y: number };
+  influence: number;
+  localScale: { x: number; y: number };
+  worldScale: { x: number; y: number };
 };
 
 /*
- * The original marker survey and the recreated atlas use slightly different
- * terrain spacing. These anchors provide a smooth regional correction so
- * nearby shops, resources, enemies, and route stops remain grouped together.
+ * The in-game map screenshots show two useful coordinate scales: tightly
+ * packed city services and broader world resources/combat spawns. Each region
+ * therefore has a local city transform and a separate world transform.
  */
-const calibrationAnchors: CalibrationAnchor[] = [
-  { source: { x: 2701, y: 902 }, target: { x: 2500, y: 730 } }, // Valen City
-  { source: { x: 2393, y: 1325 }, target: { x: 2500, y: 1600 } }, // Valen Gate
-  { source: { x: 3300, y: 750 }, target: { x: 3550, y: 1250 } }, // Alcott Forest
-  { source: { x: 3950, y: 1000 }, target: { x: 4100, y: 1050 } }, // Elven Haven
-  { source: { x: 1100, y: 1700 }, target: { x: 1200, y: 1950 } }, // West Cavern
-  { source: { x: 1783, y: 1400 }, target: { x: 1650, y: 1900 } }, // Goblin Village
-  { source: { x: 2900, y: 2050 }, target: { x: 2700, y: 2100 } }, // Farmlands
-  { source: { x: 3285, y: 2451 }, target: { x: 3450, y: 2550 } }, // Valen Port
-  { source: { x: 1190, y: 2521 }, target: { x: 1540, y: 3880 } }, // Grave Town
-  { source: { x: 1190, y: 3700 }, target: { x: 1100, y: 3500 } }, // Darklands
+const calibrationRegions: CalibrationRegion[] = [
+  { name: 'Valen City', source: { x: 2701, y: 902 }, target: { x: 2500, y: 730 }, influence: 460, localScale: { x: 2, y: 1.9 }, worldScale: { x: 1.15, y: 1.15 } },
+  { name: 'Valen Gate', source: { x: 2393, y: 1325 }, target: { x: 2485, y: 1600 }, influence: 480, localScale: { x: 3.2, y: 2.8 }, worldScale: { x: 1.1, y: 1.1 } },
+  { name: 'Alcott Forest', source: { x: 3300, y: 750 }, target: { x: 3575, y: 1250 }, influence: 650, localScale: { x: 1.6, y: 1.6 }, worldScale: { x: 1.35, y: 1.35 } },
+  { name: 'Elven Haven', source: { x: 3950, y: 1000 }, target: { x: 4170, y: 1100 }, influence: 650, localScale: { x: 1.6, y: 1.6 }, worldScale: { x: 1.45, y: 1.45 } },
+  { name: 'West Cavern', source: { x: 1100, y: 1700 }, target: { x: 1200, y: 1900 }, influence: 850, localScale: { x: 1.25, y: 1.25 }, worldScale: { x: 1.15, y: 1.15 } },
+  { name: 'Goblin Village', source: { x: 1783, y: 1400 }, target: { x: 1650, y: 1900 }, influence: 650, localScale: { x: 1.4, y: 1.4 }, worldScale: { x: 1.15, y: 1.15 } },
+  { name: 'Farmlands', source: { x: 2900, y: 2050 }, target: { x: 2700, y: 2100 }, influence: 750, localScale: { x: 1.2, y: 1.2 }, worldScale: { x: 1.1, y: 1.1 } },
+  { name: 'Valen Port', source: { x: 3285, y: 2451 }, target: { x: 3435, y: 2570 }, influence: 440, localScale: { x: 2.6, y: 2.6 }, worldScale: { x: 1.15, y: 1.15 } },
+  { name: 'Grave Town', source: { x: 1190, y: 2521 }, target: { x: 1535, y: 3880 }, influence: 360, localScale: { x: 4.2, y: 4 }, worldScale: { x: 1.1, y: 1.1 } },
+  { name: 'Volcano', source: { x: 740, y: 2517 }, target: { x: 740, y: 3830 }, influence: 420, localScale: { x: 1, y: 1 }, worldScale: { x: 1, y: 1 } },
+  { name: 'Darklands', source: { x: 1190, y: 3700 }, target: { x: 1100, y: 3440 }, influence: 900, localScale: { x: 1, y: 1 }, worldScale: { x: 1, y: 1 } },
 ];
 
-function calibratedMarkerPosition(marker: Pick<WorldMarker, 'x' | 'y'>) {
-  const nearby = calibrationAnchors
-    .map((anchor) => {
-      const distance = Math.hypot(marker.x - anchor.source.x, marker.y - anchor.source.y);
-      return { anchor, distance };
+function calibratedMarkerPosition(marker: Pick<WorldMarker, 'x' | 'y' | 'type'>) {
+  const nearest = calibrationRegions
+    .map((region) => {
+      const distance = Math.hypot(marker.x - region.source.x, marker.y - region.source.y);
+      return { region, normalizedDistance: distance / region.influence };
     })
-    .sort((a, b) => a.distance - b.distance)
-    .slice(0, 3);
+    .sort((a, b) => a.normalizedDistance - b.normalizedDistance)[0]?.region;
 
-  if (nearby[0]?.distance < 1) return nearby[0].anchor.target;
-
-  const weighted = nearby.map(({ anchor, distance }) => ({
-    offsetX: anchor.target.x - anchor.source.x,
-    offsetY: anchor.target.y - anchor.source.y,
-    weight: 1 / Math.max(1, distance * distance),
-  }));
-  const totalWeight = weighted.reduce((total, point) => total + point.weight, 0);
+  if (!nearest) return marker;
+  const scale = marker.type === 'location' ? nearest.localScale : nearest.worldScale;
 
   return {
-    x: marker.x + weighted.reduce((total, point) => total + point.offsetX * point.weight, 0) / totalWeight,
-    y: marker.y + weighted.reduce((total, point) => total + point.offsetY * point.weight, 0) / totalWeight,
+    x: Math.min(MAP_WIDTH - 80, Math.max(80, nearest.target.x + (marker.x - nearest.source.x) * scale.x)),
+    y: Math.min(MAP_HEIGHT - 80, Math.max(80, nearest.target.y + (marker.y - nearest.source.y) * scale.y)),
   };
 }
 
