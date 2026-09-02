@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://valen-wiki-pi.vercel.app'),
   title: {
     default: 'Winds of Valen Wiki',
     template: '%s — Winds of Valen Wiki',

@@ -4,6 +4,9 @@ import { SearchBox } from '../components/SearchBox';
 import { playerEntryTypeLabel, searchIndex } from '../lib/wiki-data';
 import { unifiedSearchEntries } from '../lib/unified-search';
 
+/* Native thumbnails keep search results compatible with the existing static artwork pipeline. */
+/* eslint-disable @next/next/no-img-element */
+
 export const metadata: Metadata = { title: 'Search' };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
@@ -23,6 +26,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         {results.map((entry) => (
           <a href={entry.href ?? `/wiki/${entry.slug}`} key={entry.slug} target={entry.href?.startsWith('http') ? '_blank' : undefined} rel={entry.href?.startsWith('http') ? 'noreferrer' : undefined}>
             <span className="result-type">{playerEntryTypeLabel(entry)}</span>
+            <span className={`search-result-art${entry.image ? ' has-image' : ''}`} aria-hidden="true">
+              {entry.image
+                ? <img src={entry.image.src} alt="" loading="lazy" decoding="async" />
+                : <span>{playerEntryTypeLabel(entry).slice(0, 1)}</span>}
+            </span>
             <div><h2>{entry.title}</h2><p>{entry.summary}</p></div>
             <i aria-hidden="true">→</i>
           </a>

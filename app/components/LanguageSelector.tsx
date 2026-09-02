@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 type WikiLanguage = 'en' | 'pl' | 'ru' | 'es';
 
 const languages: Array<{ code: WikiLanguage; label: string; shortLabel: string }> = [
@@ -20,8 +22,18 @@ function originalPageUrl() {
 }
 
 export function LanguageSelector() {
+  const [language, setLanguage] = useState<WikiLanguage>('en');
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (!languages.some((option) => option.code === stored)) return;
+    const timeout = window.setTimeout(() => setLanguage(stored as WikiLanguage), 0);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   function selectLanguage(nextLanguage: WikiLanguage) {
     window.localStorage.setItem(STORAGE_KEY, nextLanguage);
+    setLanguage(nextLanguage);
     const sourceUrl = originalPageUrl();
     if (nextLanguage === 'en') {
       if (sourceUrl !== window.location.href) window.location.assign(sourceUrl);
@@ -40,7 +52,7 @@ export function LanguageSelector() {
       <span className="sr-only">Language</span>
       <select
         aria-label="Translate page language"
-        defaultValue="en"
+        value={language}
         onChange={(event) => selectLanguage(event.target.value as WikiLanguage)}
       >
         {languages.map((option) => (

@@ -64,6 +64,9 @@ function cleanAttributes(attributes: Record<string, string>) {
 
 function playerFacingSourceText(value: string) {
   return value
+    .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2')
+    .replace(/\[\[([^\]]+)\]\]/g, '$1')
+    .replace(/\{\{[^{}]*\}\}/g, '')
     .replace(/\b(?:B|W|DA|Recipe)_[A-Za-z0-9_]+(?:_C)?\b/gi, '')
     .replace(/\b(?:ItemDataKey|CurrentInventoryTarget|RequestDepositResources|EquipmentInventory|PlayerInventoryComponent|UObject|UE4SS)\b/gi, '')
     .replace(/\b(?:backend|technical class|class name)\b/gi, 'game')

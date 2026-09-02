@@ -1180,6 +1180,8 @@ function mergeLegacyEntries(currentEntries: WikiEntry[], legacyEntries: WikiEntr
     [entry.slug, entry.title, ...(entry.aliases ?? [])].forEach((term) => termToIndex.set(normalizedLegacyLabel(term), index));
   });
   legacyEntries.forEach((legacy) => {
+    // Denomination artwork pages are media variants, not separate player items.
+    if (/^coins-icon-\d+$/.test(legacy.slug)) return;
     const existingIndex = termToIndex.get(normalizedLegacyLabel(legacy.slug)) ?? termToIndex.get(normalizedLegacyLabel(legacy.title));
     if (existingIndex === undefined) {
       const nextIndex = merged.length;
@@ -1220,6 +1222,7 @@ export type SearchEntry = {
   href?: string;
   source?: 'archive' | 'community';
   questKind?: QuestKind;
+  image?: WikiImage;
 };
 
 export function questKindForEntry(entry: Pick<SearchEntry, 'slug' | 'type' | 'questKind'>): QuestKind | null {
@@ -1265,6 +1268,7 @@ export const searchEntries: SearchEntry[] = wikiEntries.map((entry) => ({
   summary: entry.summary,
   source: 'archive',
   questKind: entry.questKind,
+  image: entry.image,
   terms: searchableText(entry),
 }));
 

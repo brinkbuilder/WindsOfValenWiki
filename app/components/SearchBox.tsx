@@ -1,5 +1,8 @@
 'use client';
 
+/* Search thumbnails use the wiki's locally archived item and character artwork. */
+/* eslint-disable @next/next/no-img-element */
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { playerEntryTypeLabel, type SearchEntry } from '../lib/wiki-data';
 
@@ -64,6 +67,7 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
           aria-autocomplete="list"
           aria-controls={`${mode}-suggestions`}
           aria-expanded={open && query.trim().length > 0}
+          aria-activedescendant={open && matches[active] ? `${mode}-suggestion-${active}` : undefined}
           placeholder="Search items, creatures, places and guides…"
           onChange={(event) => { setQuery(event.target.value); setOpen(true); setActive(0); }}
           onFocus={() => setOpen(true)}
@@ -94,6 +98,7 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
           {matches.length > 0 ? matches.map((entry, index) => (
             <a
               key={entry.slug}
+              id={`${mode}-suggestion-${index}`}
               href={hrefFor(entry)}
               target={entry.href?.startsWith('http') ? '_blank' : undefined}
               rel={entry.href?.startsWith('http') ? 'noreferrer' : undefined}
@@ -102,7 +107,11 @@ export function SearchBox({ entries, mode = 'hero', defaultValue = '' }: { entri
               aria-selected={index === active}
               onMouseEnter={() => setActive(index)}
             >
-              <span className="suggestion-letter" aria-hidden="true">{playerEntryTypeLabel(entry).slice(0, 1)}</span>
+              <span className={`suggestion-art${entry.image ? ' has-image' : ''}`} aria-hidden="true">
+                {entry.image
+                  ? <img src={entry.image.src} alt="" loading="lazy" decoding="async" />
+                  : <span>{playerEntryTypeLabel(entry).slice(0, 1)}</span>}
+              </span>
               <span className="suggestion-copy">
                 <strong>{entry.title}</strong>
                 <small>{playerEntryTypeLabel(entry)} · {entry.summary}</small>

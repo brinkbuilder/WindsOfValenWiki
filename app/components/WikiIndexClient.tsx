@@ -1,5 +1,8 @@
 'use client';
 
+/* Native thumbnails keep the large imported item catalogue lightweight and compatible with Vinext. */
+/* eslint-disable @next/next/no-img-element */
+
 import { useMemo, useState } from 'react';
 import { playerEntryTypeLabel, questKindForEntry, type SearchEntry } from '../lib/wiki-data';
 
@@ -33,12 +36,24 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
     ? entries.length
     : entries.filter((entry) => types.includes(entry.type)).length;
 
+  function selectGroup(nextGroup: string) {
+    setGroup(nextGroup);
+    const url = new URL(window.location.href);
+    if (nextGroup === 'all') url.searchParams.delete('type');
+    else url.searchParams.set('type', nextGroup);
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
   function indexCard(entry: SearchEntry) {
     const entryLabel = playerEntryTypeLabel(entry);
     return (
       <a className="index-card" href={entry.href ?? `/wiki/${entry.slug}`} key={`${entry.href ?? 'wiki'}-${entry.slug}`}>
         <div className="index-card-top">
-          <span className="index-letter" aria-hidden="true">{entryLabel.slice(0, 1)}</span>
+          <span className={`index-card-visual${entry.image ? ' has-image' : ''}`} aria-hidden="true">
+            {entry.image
+              ? <img src={entry.image.src} alt="" loading="lazy" decoding="async" />
+              : <span>{entryLabel.slice(0, 1)}</span>}
+          </span>
           {entry.type === 'Quest' && <span className={`quest-kind-badge quest-kind-${questKindForEntry(entry)}`}>{entryLabel}</span>}
         </div>
         <p>{entryLabel}</p>
@@ -57,7 +72,7 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
       <div className="index-controls">
         <div className="index-tabs" role="tablist" aria-label="Wiki page type">
           {groups.map((item) => (
-            <button key={item.key} type="button" role="tab" aria-selected={group === item.key} onClick={() => setGroup(item.key)}>
+            <button key={item.key} id={`wiki-tab-${item.key}`} type="button" role="tab" aria-controls="wiki-index-results" aria-selected={group === item.key} onClick={() => selectGroup(item.key)}>
               <span>{item.label}</span><b>{countFor(item.types)}</b>
             </button>
           ))}
@@ -71,6 +86,7 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
       </div>
 
       <p className="result-count" aria-live="polite">Showing {filtered.length} {filtered.length === 1 ? 'page' : 'pages'}</p>
+      <div id="wiki-index-results" role="tabpanel" aria-labelledby={`wiki-tab-${group}`}>
       {group === 'quests' ? (
         <div className="quest-index-sections">
           {mainQuests.length > 0 && (
@@ -88,6 +104,7 @@ export function WikiIndexClient({ entries, initialType = 'all' }: { entries: Sea
         </div>
       ) : <div className="index-grid">{filtered.map(indexCard)}</div>}
       {filtered.length === 0 && <div className="empty-results"><strong>No pages found.</strong><p>Try a shorter term or a different page type.</p></div>}
+      </div>
     </div>
   );
 }
