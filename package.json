@@ -11,6 +11,8 @@
     "vercel-build": "next build",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "ollama:proxy": "node scripts/ollama-proxy.mjs",
+    "ollama:tunnel": "ngrok http 11435",
     "test:calculators": "node --experimental-strip-types scripts/verify-calculators.mjs",
     "audit:wiki": "node scripts/audit-wiki.mjs",
     "import:game-data": "node scripts/import-game-data.mjs"

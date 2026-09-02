@@ -11,6 +11,7 @@ import {
   xpForLevel,
 } from '../app/lib/calculator-engine.ts';
 import { potionBrewRecipes, potionCauldrons, potionOutputName, potionTimePlan, potionVials, potionsPerBatch } from '../app/lib/potion-data.ts';
+import { normalizePlayerQuery } from '../app/lib/query-normalization.ts';
 import {
   defaultSmithingMaterialOptions,
   duskKnightSetRequirements,
@@ -27,6 +28,18 @@ assert.equal(combatXpForLevel(50), 417_159);
 assert.equal(combatLevelForXp(417_159), 50);
 assert.equal(actionsRequired(1_241, 500), 3);
 assert.equal(actionsRequired(0, 500), 0);
+assert.equal(actionsRequired(xpForLevel(30) - xpForLevel(20), 80), 262);
+
+const ashenRangerTotalXp = 2_925;
+const attackXpFrom60To90 = combatXpForLevel(90) - combatXpForLevel(60);
+assert.equal(attackXpFrom60To90, 112_637_998);
+assert.equal(ashenRangerTotalXp * 0.75, 2_193.75);
+assert.equal(actionsRequired(attackXpFrom60To90, ashenRangerTotalXp * 0.75), 51_345);
+assert.equal(
+  normalizePlayerQuery('if im 60 atk hwo many ashan rengers to levl 90'),
+  'if im 60 attack how many ashen rangers to level 90',
+);
+assert.equal(normalizePlayerQuery('atatck with a 2h swodr'), 'attack with a two-handed sword');
 
 const equalRoll = maximumCombatRoll(20, 25);
 assert.equal(exactHitChance(equalRoll, equalRoll), equalRoll / (2 * (equalRoll + 1)));

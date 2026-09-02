@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { AiQaClient } from '../components/AiQaClient';
 import { ASK_AGENT_NAME } from '../lib/ask-agent';
 import { gameDataBuild, gameDataRecords } from '../lib/game-data';
+import { getOllamaConfiguration } from '../lib/ollama-config';
 
 export const metadata: Metadata = {
   title: ASK_AGENT_NAME,
@@ -14,6 +15,7 @@ export const dynamic = 'force-dynamic';
 export default async function AskPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
   const params = await searchParams;
   const query = Array.isArray(params.q) ? params.q[0] ?? '' : params.q ?? '';
+  const ollama = getOllamaConfiguration();
   return (
     <main className="inner-page ask-page">
       <div className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><span>{ASK_AGENT_NAME}</span></div>
@@ -26,7 +28,7 @@ export default async function AskPage({ searchParams }: { searchParams: Promise<
         <div className="ask-page-sigil" aria-hidden="true"><span>?</span><small>WIKI<br />QUERY</small></div>
       </header>
 
-      <AiQaClient initialQuestion={query.slice(0, 600)} configured={Boolean(process.env.OLLAMA_API_KEY)} />
+      <AiQaClient initialQuestion={query.slice(0, 600)} configured={ollama.ready} />
 
       <section className="ask-boundary" aria-labelledby="ask-boundary-heading">
         <div><p className="panel-kicker">How it works</p><h2 id="ask-boundary-heading">A shortcut into the archive</h2><p>{ASK_AGENT_NAME} retrieves the most relevant player pages, then passes those details to the model. Level and timing questions also receive values from the same calculation code used by the calculator tools.</p></div>

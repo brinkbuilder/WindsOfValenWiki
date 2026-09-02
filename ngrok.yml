@@ -1,0 +1,6 @@
+version: 3
+endpoints:
+  - name: valen-buddy
+    url: https://subsector-exposable-buccaneer.ngrok-free.dev
+    upstream:
+      url: http://127.0.0.1:11435

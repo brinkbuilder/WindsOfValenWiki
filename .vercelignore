@@ -1,0 +1,11 @@
+.env
+.env.*
+.git
+.next
+.vinext
+dist
+node_modules
+out
+outputs
+work
+*.log
