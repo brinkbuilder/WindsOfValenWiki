@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { ASK_AGENT_NAME } from './lib/ask-agent';
+import { ContributorLeaderboard } from './components/ContributorLeaderboard';
 import { SearchBox } from './components/SearchBox';
 import { unifiedSearchEntries } from './lib/unified-search';
 
@@ -51,6 +53,12 @@ export default function Home() {
           <p><b>{unifiedSearchEntries.length}</b> player pages</p>
         </div>
 
+        <section className="ask-home-panel" aria-labelledby="ask-home-heading">
+          <div className="ask-home-mark" aria-hidden="true">?</div>
+          <div className="ask-home-copy"><p className="panel-kicker">{ASK_AGENT_NAME}</p><h2 id="ask-home-heading">Ask a question, not just a keyword.</h2><p>Need a route, recipe, or training estimate? Ask in plain language and get a sourced answer from the wiki.</p></div>
+          <div className="ask-home-example"><span>Try: “How long to level 80 Potion Making?”</span><Link href={`/ask?q=${encodeURIComponent('How long would it take me to get to level 80 Potion Making?')}`}>{ASK_AGENT_NAME} <b>→</b></Link></div>
+        </section>
+
         <section className="front-section" aria-labelledby="categories-heading">
           <div className="classic-section-title"><h2 id="categories-heading">Browse the encyclopedia</h2><Link href="/wiki">View the A–Z index</Link></div>
           <div className="portal-category-grid">
@@ -87,6 +95,14 @@ export default function Home() {
             <Link className="classic-button" href="/calculators">Open all calculators</Link>
           </aside>
         </div>
+
+        <section className="front-section contributor-home-panel" aria-labelledby="contributors-heading">
+          <div className="classic-section-title"><h2 id="contributors-heading">Top contributors</h2><Link href="/contribute">Join the editors</Link></div>
+          <div className="contributor-home-grid">
+            <div className="contributor-home-copy"><p className="panel-kicker">Built together</p><h3>Every tested detail helps the next player.</h3><p>Approved pages, corrections, sources, and maps are credited to the people who contributed them.</p><Link className="classic-button" href="/contribute">Add information</Link></div>
+            <ContributorLeaderboard />
+          </div>
+        </section>
 
         <section className="front-section" aria-labelledby="skills-heading">
           <div className="classic-section-title"><h2 id="skills-heading">Skill training</h2><Link href="/calculators">Experience calculators</Link></div>

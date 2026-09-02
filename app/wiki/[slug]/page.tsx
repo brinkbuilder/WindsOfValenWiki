@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ApprovedContributions } from '../../components/ApprovedContributions';
 import { playerEntryTypeLabel, wikiBySlug, wikiEntries } from '../../lib/wiki-data';
 import { EbonyCavesInteractiveMap } from '../../components/EbonyCavesInteractiveMap';
 import { WorldInteractiveMap } from '../../components/WorldInteractiveMap';
@@ -63,7 +64,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
           : null;
 
   return (
-    <main className={`article-page${entry.slug === 'world-map' ? ' world-map-article' : ''}`} id="top">
+    <main className={`article-page${entry.slug === 'world-map' ? ' world-map-article' : entry.slug === 'cavern-mine' ? ' cavern-mine-article' : ''}`} id="top">
       <div className="breadcrumbs" aria-label="Breadcrumb">
         <Link href="/">Home</Link><span>/</span><Link href="/wiki">Wiki</Link><span>/</span><span>{entry.title}</span>
       </div>
@@ -146,6 +147,7 @@ export default async function WikiArticlePage({ params }: { params: Promise<{ sl
             {entry.categories.map((category) => <Link href={`/search?q=${encodeURIComponent(category)}`} key={category}>{category}</Link>)}
             <a className="back-to-top" href="#top">Back to top ↑</a>
           </div>
+          <ApprovedContributions pageTitle={entry.title} />
         </article>
 
         <aside className="infobox">

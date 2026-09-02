@@ -4,7 +4,7 @@ import { wikiEntries } from './lib/wiki-data';
 const siteUrl = 'https://valen-wiki-pi.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ['/', '/wiki', '/calculators', '/calculators/combat-level', '/recent', '/sources', '/about/data'];
+  const staticPages = ['/', '/wiki', '/ask', '/calculators', '/calculators/combat-level', '/recent', '/sources', '/about/data', '/contribute'];
   return [
     ...staticPages.map((path) => ({
       url: `${siteUrl}${path}`,

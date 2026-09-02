@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import './nightfall.css';
 import './theme-control.css';
+import { AskZhiznFloatingChat } from './components/AskZhiznFloatingChat';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <SiteFooter />
           </div>
         </div>
+        <AskZhiznFloatingChat />
       </body>
     </html>
   );

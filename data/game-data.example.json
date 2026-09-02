@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "build": "example-build-id",
+  "exportedAt": "2026-09-02T00:00:00.000Z",
+  "records": [
+    {
+      "id": "Recipe_Cauldron_StrongShields",
+      "name": "Strong Shields Potion",
+      "kind": "recipe",
+      "fields": {
+        "requiredSkill": "Potion Making",
+        "requiredLevel": 50,
+        "xp": 6000,
+        "durationSeconds": 50
+      },
+      "notes": "Example shape only. Replace this with an authorized game export.",
+      "source": {
+        "file": "game-export.json",
+        "objectPath": "/Game/Data/Recipes/Recipe_Cauldron_StrongShields",
+        "build": "example-build-id",
+        "extractedAt": "2026-09-02T00:00:00.000Z",
+        "confidence": "engine"
+      }
+    }
+  ]
+}

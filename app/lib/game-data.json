@@ -1,0 +1,1943 @@
+{
+  "version": 1,
+  "build": "local ValenBridge export",
+  "exportedAt": "2026-09-02T08:24:28.068Z",
+  "records": [
+    {
+      "id": "Recipe_Bottle_GildedPotion",
+      "name": "Gilded Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_GildedPotion.Recipe_Bottle_GildedPotion"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_GildedPotion.Recipe_Bottle_GildedPotion",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Bottle_SmallPotion",
+      "name": "Small Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_SmallPotion.Recipe_Bottle_SmallPotion"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_SmallPotion.Recipe_Bottle_SmallPotion",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Bottle_StrongPotion",
+      "name": "Strong Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_StrongPotion.Recipe_Bottle_StrongPotion"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Bottle_StrongPotion.Recipe_Bottle_StrongPotion",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Archery",
+      "name": "Archery Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Archery.Recipe_Cauldron_Archery"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Archery.Recipe_Cauldron_Archery",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Attack",
+      "name": "Attack Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Attack.Recipe_Cauldron_Attack"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Attack.Recipe_Cauldron_Attack",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Fishing",
+      "name": "Fishing Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Fishing.Recipe_Cauldron_Fishing"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Fishing.Recipe_Cauldron_Fishing",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Magic",
+      "name": "Magic Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Magic.Recipe_Cauldron_Magic"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Magic.Recipe_Cauldron_Magic",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Mining",
+      "name": "Mining Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Mining.Recipe_Cauldron_Mining"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Mining.Recipe_Cauldron_Mining",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_NormalHealth",
+      "name": "Normal Health Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_NormalHealth.Recipe_Cauldron_NormalHealth"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_NormalHealth.Recipe_Cauldron_NormalHealth",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_Shields",
+      "name": "Shields Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Shields.Recipe_Cauldron_Shields"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_Shields.Recipe_Cauldron_Shields",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_StrongHealth",
+      "name": "Strong Health Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_StrongHealth.Recipe_Cauldron_StrongHealth"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_StrongHealth.Recipe_Cauldron_StrongHealth",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_StrongShields",
+      "name": "Strong Shields Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_StrongShields.Recipe_Cauldron_StrongShields"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_StrongShields.Recipe_Cauldron_StrongShields",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Cauldron_WeakHealth",
+      "name": "Weak Health Potion",
+      "kind": "recipe",
+      "fields": {
+        "station": "Cauldron",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_WeakHealth.Recipe_Cauldron_WeakHealth"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/Cauldron/Recipe_Cauldron_WeakHealth.Recipe_Cauldron_WeakHealth",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_GlowingMushroom",
+      "name": "Glowing Mushroom",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_GlowingMushroom.Recipe_Crush_GlowingMushroom"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_GlowingMushroom.Recipe_Crush_GlowingMushroom",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_HeartyFishFlesh",
+      "name": "Hearty Fish Flesh",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_HeartyFishFlesh.Recipe_Crush_HeartyFishFlesh"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_HeartyFishFlesh.Recipe_Crush_HeartyFishFlesh",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_MudRoot",
+      "name": "Mud Root",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_MudRoot.Recipe_Crush_MudRoot"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_MudRoot.Recipe_Crush_MudRoot",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_PlainFishFlesh",
+      "name": "Plain Fish Flesh",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_PlainFishFlesh.Recipe_Crush_PlainFishFlesh"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_PlainFishFlesh.Recipe_Crush_PlainFishFlesh",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_RefinedHardenedScales",
+      "name": "Refined Hardened Scales",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_RefinedHardenedScales.Recipe_Crush_RefinedHardenedScales"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_RefinedHardenedScales.Recipe_Crush_RefinedHardenedScales",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_Scales",
+      "name": "Scales",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_Scales.Recipe_Crush_Scales"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_Scales.Recipe_Crush_Scales",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Crush_SmallFang",
+      "name": "Small Fang",
+      "kind": "recipe",
+      "fields": {
+        "station": "CrushStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_SmallFang.Recipe_Crush_SmallFang"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/CrushStation/Recipe_Crush_SmallFang.Recipe_Crush_SmallFang",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_BigTrout",
+      "name": "Big Trout",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_BigTrout.Recipe_Harvest_BigTrout"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_BigTrout.Recipe_Harvest_BigTrout",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_BlueGill",
+      "name": "Blue Gill",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_BlueGill.Recipe_Harvest_BlueGill"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_BlueGill.Recipe_Harvest_BlueGill",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_Carp",
+      "name": "Carp",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Carp.Recipe_Harvest_Carp"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Carp.Recipe_Harvest_Carp",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_Minnow",
+      "name": "Minnow",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Minnow.Recipe_Harvest_Minnow"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Minnow.Recipe_Harvest_Minnow",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_Perch",
+      "name": "Perch",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Perch.Recipe_Harvest_Perch"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_Perch.Recipe_Harvest_Perch",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_SmallBass",
+      "name": "Small Bass",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_SmallBass.Recipe_Harvest_SmallBass"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_SmallBass.Recipe_Harvest_SmallBass",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Harvest_SmallTrout",
+      "name": "Small Trout",
+      "kind": "recipe",
+      "fields": {
+        "station": "KnifeStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_SmallTrout.Recipe_Harvest_SmallTrout"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/KnifeStation/Recipe_Harvest_SmallTrout.Recipe_Harvest_SmallTrout",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Infused_Coal",
+      "name": "Infused Coal",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Infused_Coal.Recipe_Infused_Coal"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Infused_Coal.Recipe_Infused_Coal",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_EssenceGland",
+      "name": "Essence Gland",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_EssenceGland.Recipe_Reduce_EssenceGland"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_EssenceGland.Recipe_Reduce_EssenceGland",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_HardenedScales",
+      "name": "Hardened Scales",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_HardenedScales.Recipe_Reduce_HardenedScales"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_HardenedScales.Recipe_Reduce_HardenedScales",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_LargeEssenceGland",
+      "name": "Large Essence Gland",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_LargeEssenceGland.Recipe_Reduce_LargeEssenceGland"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_LargeEssenceGland.Recipe_Reduce_LargeEssenceGland",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_MincedHeartyFishFlesh",
+      "name": "Minced Hearty Fish Flesh",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_MincedHeartyFishFlesh.Recipe_Reduce_MincedHeartyFishFlesh"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_MincedHeartyFishFlesh.Recipe_Reduce_MincedHeartyFishFlesh",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_RareBlueGill",
+      "name": "Rare Blue Gill",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_RareBlueGill.Recipe_Reduce_RareBlueGill"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_RareBlueGill.Recipe_Reduce_RareBlueGill",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_RareMinnow",
+      "name": "Rare Minnow",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_RareMinnow.Recipe_Reduce_RareMinnow"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_RareMinnow.Recipe_Reduce_RareMinnow",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_SmallEssenceGland",
+      "name": "Small Essence Gland",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_SmallEssenceGland.Recipe_Reduce_SmallEssenceGland"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_SmallEssenceGland.Recipe_Reduce_SmallEssenceGland",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "Recipe_Reduce_SpiderEye",
+      "name": "Spider Eye",
+      "kind": "recipe",
+      "fields": {
+        "station": "ReductionStation",
+        "assetPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_SpiderEye.Recipe_Reduce_SpiderEye"
+      },
+      "source": {
+        "file": "potion_recipe_catalog.txt",
+        "objectPath": "/Game/BalanceData/Crafting/PotionMaking/ReductionStation/Recipe_Reduce_SpiderEye.Recipe_Reduce_SpiderEye",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.063Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_bronze_bar_recipe",
+      "name": "Bronze Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 1,
+        "durationSeconds": 3,
+        "inputItems": "Copper Ore x1; Tin Ore x1",
+        "outputItems": "Bronze Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_bar_recipe.DA_bronze_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_bar_recipe.DA_bronze_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.065Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_iron_bar_recipe",
+      "name": "Iron Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 10,
+        "durationSeconds": 4,
+        "inputItems": "Iron Ore x2",
+        "outputItems": "Iron Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_bar_recipe.DA_iron_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_bar_recipe.DA_iron_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.065Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_steel_bar_recipe",
+      "name": "Steel Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 20,
+        "durationSeconds": 6,
+        "inputItems": "Iron Ore x1; Coal Ore x1",
+        "outputItems": "Steel Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_bar_recipe.DA_steel_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_bar_recipe.DA_steel_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.065Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_mithril_bar_recipe",
+      "name": "Mithril Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 30,
+        "durationSeconds": 8,
+        "inputItems": "Mithril Ore x1; Coal Ore x2",
+        "outputItems": "Mithril Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_bar_recipe.DA_mithril_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_bar_recipe.DA_mithril_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.065Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_gold_bar_recipe",
+      "name": "Gold Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 40,
+        "durationSeconds": 20,
+        "inputItems": "Gold Ore x8",
+        "outputItems": "Gold Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_bar_recipe.DA_gold_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_bar_recipe.DA_gold_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.065Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_gold_bar_from_dust_recipe",
+      "name": "Gold Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 40,
+        "durationSeconds": 20,
+        "inputItems": "Gold Dust x8",
+        "outputItems": "Gold Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_bar_from_dust_recipe.DA_gold_bar_from_dust_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_bar_from_dust_recipe.DA_gold_bar_from_dust_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_silver_bar_recipe",
+      "name": "Silver Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 40,
+        "durationSeconds": 10,
+        "inputItems": "Silver Ore x7",
+        "outputItems": "Silver Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_bar_recipe.DA_silver_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_bar_recipe.DA_silver_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_ebony_bar_recipe",
+      "name": "Ebony Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 60,
+        "durationSeconds": 20,
+        "inputItems": "Ebony Ore x7",
+        "outputItems": "Ebony Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_bar_recipe.DA_ebony_bar_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_bar_recipe.DA_ebony_bar_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_ebony_bar_dust_recipe",
+      "name": "Ebony Bar",
+      "kind": "recipe",
+      "fields": {
+        "station": "Furnace",
+        "requiredLevel": 60,
+        "durationSeconds": 20,
+        "inputItems": "Ebony Dust x7",
+        "outputItems": "Ebony Bar x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_bar_dust_recipe.DA_ebony_bar_dust_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_bar_dust_recipe.DA_ebony_bar_dust_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_iron_plate_recipe",
+      "name": "Iron Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 10,
+        "durationSeconds": 4,
+        "inputItems": "Iron Bar x2",
+        "outputItems": "Iron Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_plate_recipe.DA_iron_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_plate_recipe.DA_iron_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_iron_rod_recipe",
+      "name": "Iron Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 11,
+        "durationSeconds": 15,
+        "inputItems": "Iron Bar x1",
+        "outputItems": "Iron Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_rod_recipe.DA_iron_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_iron_rod_recipe.DA_iron_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_steel_plate_recipe",
+      "name": "Steel Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 20,
+        "durationSeconds": 5,
+        "inputItems": "Steel Bar x2",
+        "outputItems": "Steel Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_plate_recipe.DA_steel_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_plate_recipe.DA_steel_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_steel_rod_recipe",
+      "name": "Steel Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 21,
+        "durationSeconds": 3,
+        "inputItems": "Steel Bar x1",
+        "outputItems": "Steel Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_rod_recipe.DA_steel_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_steel_rod_recipe.DA_steel_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_steel_plate_recipe",
+      "name": "Large Steel Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 21,
+        "durationSeconds": 5,
+        "inputItems": "Steel Plate x2",
+        "outputItems": "Large Steel Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_steel_plate_recipe.DA_large_steel_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_steel_plate_recipe.DA_large_steel_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_steel_rod_recipe",
+      "name": "Large Steel Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 23,
+        "durationSeconds": 3,
+        "inputItems": "Steel Rod x2",
+        "outputItems": "Large Steel Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_steel_rod_recipe.DA_large_steel_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_steel_rod_recipe.DA_large_steel_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_mithril_plate_recipe",
+      "name": "Mithril Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 30,
+        "durationSeconds": 22,
+        "inputItems": "Mithril Bar x4",
+        "outputItems": "Mithril Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_plate_recipe.DA_mithril_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_plate_recipe.DA_mithril_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_mithril_rod_recipe",
+      "name": "Mithril Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 31,
+        "durationSeconds": 13,
+        "inputItems": "Mithril Bar x2",
+        "outputItems": "Mithril Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_rod_recipe.DA_mithril_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_rod_recipe.DA_mithril_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_mithril_plate_recipe",
+      "name": "Large Mithril Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 31,
+        "durationSeconds": 22,
+        "inputItems": "Mithril Plate x4",
+        "outputItems": "Large Mithril Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_mithril_plate_recipe.DA_large_mithril_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_mithril_plate_recipe.DA_large_mithril_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_mithril_rod_recipe",
+      "name": "Large Mithril Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 33,
+        "durationSeconds": 13,
+        "inputItems": "Mithril Rod x2",
+        "outputItems": "Large Mithril Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_mithril_rod_recipe.DA_large_mithril_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_mithril_rod_recipe.DA_large_mithril_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_silver_plate_recipe",
+      "name": "Silver Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 40,
+        "durationSeconds": 15,
+        "inputItems": "Silver Bar x7",
+        "outputItems": "Silver Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_plate_recipe.DA_silver_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_plate_recipe.DA_silver_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_silver_foil_recipe",
+      "name": "Silver Foil",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 45,
+        "durationSeconds": 15,
+        "inputItems": "Silver Plate x1",
+        "outputItems": "Silver Foil x2",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_foil_recipe.DA_silver_foil_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_silver_foil_recipe.DA_silver_foil_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_gold_plate_recipe",
+      "name": "Gold Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 40,
+        "durationSeconds": 15,
+        "inputItems": "Gold Bar x8",
+        "outputItems": "Gold Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_plate_recipe.DA_gold_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_gold_plate_recipe.DA_gold_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_golden_shield_frame_recipe",
+      "name": "Golden Shield Frame",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 50,
+        "durationSeconds": 60,
+        "inputItems": "Gold Plate x5; Gold Bar x3; Steel Rod x2; Steel Bar x2",
+        "outputItems": "Golden Shield Frame x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_golden_shield_frame_recipe.DA_golden_shield_frame_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_golden_shield_frame_recipe.DA_golden_shield_frame_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_small_ebony_plate_recipe",
+      "name": "Small Ebony Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 60,
+        "inputItems": "Ebony Bar x4",
+        "outputItems": "Small Ebony Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_small_ebony_plate_recipe.DA_small_ebony_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_small_ebony_plate_recipe.DA_small_ebony_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_small_ebony_rod_recipe",
+      "name": "Small Ebony Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 40,
+        "inputItems": "Ebony Bar x2",
+        "outputItems": "Small Ebony Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_small_ebony_rod_recipe.DA_small_ebony_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_small_ebony_rod_recipe.DA_small_ebony_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_ebony_plate_recipe",
+      "name": "Ebony Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 60,
+        "inputItems": "Small Ebony Plate x4; Ebony Bar x3",
+        "outputItems": "Ebony Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_plate_recipe.DA_ebony_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_plate_recipe.DA_ebony_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_ebony_rod_recipe",
+      "name": "Ebony Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 40,
+        "inputItems": "Small Ebony Rod x4; Ebony Bar x3",
+        "outputItems": "Ebony Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_rod_recipe.DA_ebony_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_ebony_rod_recipe.DA_ebony_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_ebony_plate_recipe",
+      "name": "Large Ebony Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 60,
+        "inputItems": "Ebony Plate x4; Ebony Bar x3",
+        "outputItems": "Large Ebony Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_ebony_plate_recipe.DA_large_ebony_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_ebony_plate_recipe.DA_large_ebony_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_large_ebony_rod_recipe",
+      "name": "Large Ebony Rod",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 40,
+        "inputItems": "Ebony Rod x4; Ebony Bar x3",
+        "outputItems": "Large Ebony Rod x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_ebony_rod_recipe.DA_large_ebony_rod_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_large_ebony_rod_recipe.DA_large_ebony_rod_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_boot_left_sabaton_recipe",
+      "name": "Dusk Knight Boot Left Sabaton",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Boot Left Sabaton x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_left_sabaton_recipe.DA_duskknight_boot_left_sabaton_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_left_sabaton_recipe.DA_duskknight_boot_left_sabaton_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_boot_right_sabaton_recipe",
+      "name": "Dusk Knight Boot Right Sabaton",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Boot Right Sabaton x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_right_sabaton_recipe.DA_duskknight_boot_right_sabaton_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_right_sabaton_recipe.DA_duskknight_boot_right_sabaton_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_boot_greave_recipe",
+      "name": "Dusk Knight Boot Greave",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 60,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Plate x1; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Boot Greave x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_greave_recipe.DA_duskknight_boot_greave_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boot_greave_recipe.DA_duskknight_boot_greave_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_leg_cuisses_recipe",
+      "name": "Dusk Knight Leg Cuisses",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 62,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Plate x2; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Leg Cuisses x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_cuisses_recipe.DA_duskknight_leg_cuisses_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_cuisses_recipe.DA_duskknight_leg_cuisses_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_leg_tuille_recipe",
+      "name": "Dusk Knight Leg Tuille",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 62,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Leg Tuille x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_tuille_recipe.DA_duskknight_leg_tuille_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_tuille_recipe.DA_duskknight_leg_tuille_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_leg_poleyn_recipe",
+      "name": "Dusk Knight Leg Poleyn",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 62,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Leg Poleyn x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_poleyn_recipe.DA_duskknight_leg_poleyn_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_poleyn_recipe.DA_duskknight_leg_poleyn_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.066Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_leg_tasset_recipe",
+      "name": "Dusk Knight Leg Tasset",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 62,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x3; Silver Foil x3; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Leg Tasset x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_tasset_recipe.DA_duskknight_leg_tasset_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_leg_tasset_recipe.DA_duskknight_leg_tasset_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_body_breastplate_recipe",
+      "name": "Dusk Knight Body Breastplate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Plate x4; Silver Foil x8; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Body Breastplate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_breastplate_recipe.DA_duskknight_body_breastplate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_breastplate_recipe.DA_duskknight_body_breastplate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_body_pauldron_recipe",
+      "name": "Dusk Knight Body Pauldron",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Body Pauldron x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_pauldron_recipe.DA_duskknight_body_pauldron_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_pauldron_recipe.DA_duskknight_body_pauldron_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_body_couter_recipe",
+      "name": "Dusk Knight Body Couter",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x1; Silver Foil x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Body Couter x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_couter_recipe.DA_duskknight_body_couter_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_couter_recipe.DA_duskknight_body_couter_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_body_rerebrace_recipe",
+      "name": "Dusk Knight Body Rerebrace",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x2; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Body Rerebrace x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_rerebrace_recipe.DA_duskknight_body_rerebrace_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_rerebrace_recipe.DA_duskknight_body_rerebrace_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_body_vambrace_recipe",
+      "name": "Dusk Knight Body Vambrace",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Ebony Plate x2; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Body Vambrace x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_vambrace_recipe.DA_duskknight_body_vambrace_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_body_vambrace_recipe.DA_duskknight_body_vambrace_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_helmet_face_plate_recipe",
+      "name": "Dusk Knight Helmet Face Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 68,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Plate x1; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Helmet Face Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_face_plate_recipe.DA_duskknight_helmet_face_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_face_plate_recipe.DA_duskknight_helmet_face_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_helmet_head_plate_recipe",
+      "name": "Dusk Knight Helmet Head Plate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 68,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Plate x1; Silver Foil x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Helmet Head Plate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_head_plate_recipe.DA_duskknight_helmet_head_plate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_head_plate_recipe.DA_duskknight_helmet_head_plate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_helmet_spike_recipe",
+      "name": "Dusk Knight Helmet Spike",
+      "kind": "recipe",
+      "fields": {
+        "station": "Anvil",
+        "requiredLevel": 68,
+        "durationSeconds": 120,
+        "inputItems": "Large Ebony Rod x1; Silver Foil x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Helmet Spike x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_spike_recipe.DA_duskknight_helmet_spike_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_spike_recipe.DA_duskknight_helmet_spike_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_bronze_sword_recipe",
+      "name": "Bronze Sword",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 2,
+        "durationSeconds": 10,
+        "inputItems": "Bronze Bar x6",
+        "outputItems": "Bronze Sword x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_sword_recipe.DA_bronze_sword_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_sword_recipe.DA_bronze_sword_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_bronze_platelegs_recipe",
+      "name": "Bronze Platelegs",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 4,
+        "durationSeconds": 16,
+        "inputItems": "Bronze Bar x8; Rough Leather x2",
+        "outputItems": "Bronze Platelegs x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_platelegs_recipe.DA_bronze_platelegs_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_platelegs_recipe.DA_bronze_platelegs_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_bronze_platebody_recipe",
+      "name": "Bronze Platebody",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 6,
+        "durationSeconds": 18,
+        "inputItems": "Bronze Bar x10; Rough Leather x3",
+        "outputItems": "Bronze Platebody x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_platebody_recipe.DA_bronze_platebody_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_platebody_recipe.DA_bronze_platebody_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_bronze_helmet_recipe",
+      "name": "Bronze Helmet",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 8,
+        "durationSeconds": 6,
+        "inputItems": "Bronze Bar x4",
+        "outputItems": "Bronze Helmet x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_helmet_recipe.DA_bronze_helmet_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_bronze_helmet_recipe.DA_bronze_helmet_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_iron_sword_recipe",
+      "name": "Iron Sword",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 12,
+        "durationSeconds": 8.5,
+        "inputItems": "Iron Rod x4; Iron Bar x2",
+        "outputItems": "Iron Sword x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_sword_recipe.DA_new_iron_sword_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_sword_recipe.DA_new_iron_sword_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_iron_platelegs_recipe",
+      "name": "Iron Platelegs",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 14,
+        "durationSeconds": 12,
+        "inputItems": "Iron Plate x4; Rough Cloth x3",
+        "outputItems": "Iron Platelegs x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_platelegs_recipe.DA_new_iron_platelegs_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_platelegs_recipe.DA_new_iron_platelegs_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_iron_platebody_recipe",
+      "name": "Iron Platebody",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 16,
+        "durationSeconds": 14,
+        "inputItems": "Iron Plate x5; Rough Cloth x4",
+        "outputItems": "Iron Platebody x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_platebody_recipe.DA_new_iron_platebody_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_platebody_recipe.DA_new_iron_platebody_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_iron_helmet_recipe",
+      "name": "Iron Helmet",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 18,
+        "durationSeconds": 5,
+        "inputItems": "Iron Plate x2",
+        "outputItems": "Iron Helmet x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_helmet_recipe.DA_new_iron_helmet_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_iron_helmet_recipe.DA_new_iron_helmet_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_mining_gloves_recipe",
+      "name": "Mining Gloves",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 21,
+        "durationSeconds": 14,
+        "inputItems": "Steel Plate x2; Steel Bar x2; Rough Leather x2",
+        "outputItems": "Mining Gloves x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mining_gloves_recipe.DA_mining_gloves_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mining_gloves_recipe.DA_mining_gloves_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.067Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_steel_sword_recipe",
+      "name": "Steel Sword",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 22,
+        "durationSeconds": 16,
+        "inputItems": "Large Steel Rod x6; Steel Rod x4",
+        "outputItems": "Steel Sword x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_sword_recipe.DA_new_steel_sword_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_sword_recipe.DA_new_steel_sword_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_steel_platelegs_recipe",
+      "name": "Steel Platelegs",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 24,
+        "durationSeconds": 18,
+        "inputItems": "Large Steel Plate x3; Steel Plate x2; Thick Leather Pant Line x1",
+        "outputItems": "Steel Platelegs x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_platelegs_recipe.DA_new_steel_platelegs_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_platelegs_recipe.DA_new_steel_platelegs_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_steel_platebody_recipe",
+      "name": "Steel Platebody",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 26,
+        "durationSeconds": 20,
+        "inputItems": "Large Steel Plate x4; Steel Plate x3; Thick Leather Vest Line x1",
+        "outputItems": "Steel Platebody x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_platebody_recipe.DA_new_steel_platebody_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_platebody_recipe.DA_new_steel_platebody_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_steel_helmet_recipe",
+      "name": "Steel Helmet",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 28,
+        "durationSeconds": 10,
+        "inputItems": "Large Steel Plate x2; Steel Rod x2",
+        "outputItems": "Steel Helmet x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_helmet_recipe.DA_new_steel_helmet_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_steel_helmet_recipe.DA_new_steel_helmet_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_mithril_sword_recipe",
+      "name": "Mithril Sword",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 32,
+        "durationSeconds": 35,
+        "inputItems": "Large Mithril Rod x2; Mithril Rod x8; Mithril Bar x3; Essence x1000",
+        "outputItems": "Mithril Sword x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_sword_recipe.DA_new_mithril_sword_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_sword_recipe.DA_new_mithril_sword_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_mithril_platelegs_recipe",
+      "name": "Mithril Platelegs",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 34,
+        "durationSeconds": 75,
+        "inputItems": "Large Mithril Plate x3; Mithril Plate x4; Mithril Bar x3; Elven Cloth Pant Line x1",
+        "outputItems": "Mithril Platelegs x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_platelegs_recipe.DA_new_mithril_platelegs_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_platelegs_recipe.DA_new_mithril_platelegs_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_mithril_platebody_recipe",
+      "name": "Mithril Platebody",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 36,
+        "durationSeconds": 85,
+        "inputItems": "Large Mithril Plate x4; Mithril Plate x4; Mithril Bar x5; Elven Cloth Vest Line x1",
+        "outputItems": "Mithril Platebody x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_platebody_recipe.DA_new_mithril_platebody_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_platebody_recipe.DA_new_mithril_platebody_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_new_mithril_helmet_recipe",
+      "name": "Mithril Helmet",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 38,
+        "durationSeconds": 45,
+        "inputItems": "Large Mithril Plate x2; Mithril Rod x4; Mithril Bar x1",
+        "outputItems": "Mithril Helmet x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_helmet_recipe.DA_new_mithril_helmet_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/NewSmithingRecipes/DA_new_mithril_helmet_recipe.DA_new_mithril_helmet_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_mithril_ore_crate_recipe",
+      "name": "Ore Crate",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 45,
+        "durationSeconds": 60,
+        "inputItems": "Large Mithril Plate x6; Gold Bar x12; Steel Bar x4",
+        "outputItems": "Ore Crate x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_ore_crate_recipe.DA_mithril_ore_crate_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_mithril_ore_crate_recipe.DA_mithril_ore_crate_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_volcanic_ring_recipe",
+      "name": "Volcanic Ring",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 50,
+        "durationSeconds": 30,
+        "inputItems": "Charred Ring Piece 1 x1; Charred Ring Piece 2 x1; Charred Ring Piece 3 x1; Gold Bar x1",
+        "outputItems": "Volcanic Ring x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_volcanic_ring_recipe.DA_volcanic_ring_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_volcanic_ring_recipe.DA_volcanic_ring_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_volcanic_ward_recipe",
+      "name": "Volcanic Ward",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 60,
+        "durationSeconds": 45,
+        "inputItems": "Volcanic Core x1; Golden Shield Frame x1; Gold Bar x2",
+        "outputItems": "Volcanic Ward x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_volcanic_ward_recipe.DA_volcanic_ward_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_volcanic_ward_recipe.DA_volcanic_ward_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_boots_recipe",
+      "name": "Dusk Knight Boots",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 60,
+        "durationSeconds": 120,
+        "inputItems": "Exquisite Silk Boot Line x1; DuskKnight Boot Left Sabaton x1; DuskKnight Boot Right Sabaton x1; DuskKnight Boot Greave x2; Ebony Bar x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Boots x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boots_recipe.DA_duskknight_boots_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_boots_recipe.DA_duskknight_boots_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_platelegs_recipe",
+      "name": "Dusk Knight Platelegs",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 62,
+        "durationSeconds": 120,
+        "inputItems": "Exquisite Silk Pant Line x1; DuskKnight Leg Cuisses x1; DuskKnight Leg Tuille x1; DuskKnight Leg Tasset x2; DuskKnight Leg Poleyn x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Platelegs x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_platelegs_recipe.DA_duskknight_platelegs_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_platelegs_recipe.DA_duskknight_platelegs_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_platebody_recipe",
+      "name": "Dusk Knight Platebody",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 66,
+        "durationSeconds": 120,
+        "inputItems": "Exquisite Silk Vest Line x1; DuskKnight Body Breastplate x1; DuskKnight Body Pauldron x2; DuskKnight Body Rerebrace x2; DuskKnight Body Couter x2; DuskKnight Body Vambrace x2; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Platebody x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_platebody_recipe.DA_duskknight_platebody_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_platebody_recipe.DA_duskknight_platebody_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    },
+    {
+      "id": "DA_duskknight_helmet_recipe",
+      "name": "Dusk Knight Helmet",
+      "kind": "recipe",
+      "fields": {
+        "station": "Workbench",
+        "requiredLevel": 68,
+        "durationSeconds": 120,
+        "inputItems": "DuskKnight Helmet Face Plate x1; DuskKnight Helmet Head Plate x1; DuskKnight Helmet Spike x1; Ebony Bar x1; Dusk Knight Schematics x1",
+        "outputItems": "DuskKnight Helmet x1",
+        "assetPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_recipe.DA_duskknight_helmet_recipe"
+      },
+      "source": {
+        "file": "smithing_recipe_catalog.txt",
+        "objectPath": "/Game/Gameplay/ItemSystem/Crafting/CraftingRecipes/DA_duskknight_helmet_recipe.DA_duskknight_helmet_recipe",
+        "build": "local ValenBridge export",
+        "extractedAt": "2026-09-02T08:24:28.068Z",
+        "confidence": "engine"
+      }
+    }
+  ]
+}

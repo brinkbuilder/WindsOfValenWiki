@@ -45,6 +45,11 @@ export default function AboutWikiPage() {
           <h2>Say what still needs an answer</h2>
           <p>If a requirement, drop rate, effect, or reward is not known yet, the guide states that plainly. It does not fill the space with developer-only information.</p>
         </article>
+        <article id="game-file-data">
+          <p className="eyebrow">Game-file evidence</p>
+          <h2>Static exports can be checked too</h2>
+          <p>Authorized game-file or bridge exports can be normalized into public records and used by Ask жизнь alongside wiki pages. Private player state, command files, credentials, and coordinates are filtered out before import.</p>
+        </article>
         <article>
           <p className="eyebrow">One encyclopedia</p>
           <h2>Everything belongs in one index</h2>

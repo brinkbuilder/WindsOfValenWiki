@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ASK_AGENT_NAME } from '../lib/ask-agent';
 import { LanguageSelector } from './LanguageSelector';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -20,6 +21,8 @@ export function SiteHeader() {
           <Link href="/wiki?type=items">Items</Link>
           <Link href="/wiki/world-map">World map</Link>
           <Link href="/calculators">Calculators</Link>
+          <Link href="/ask">{ASK_AGENT_NAME}</Link>
+          <Link href="/contribute">Contribute</Link>
         </nav>
         <form className="header-search" action="/search" role="search">
           <label className="sr-only" htmlFor="header-wiki-search">Search the wiki</label>
@@ -32,8 +35,10 @@ export function SiteHeader() {
           <nav aria-label="Mobile navigation">
             <Link href="/">Main page</Link>
             <Link href="/wiki">All pages</Link>
-            <Link href="/calculators">Calculators</Link>
-            <Link href="/calculators/combat-level">Combat level</Link>
+          <Link href="/calculators">Calculators</Link>
+          <Link href="/calculators/combat-level">Combat level</Link>
+          <Link href="/ask">{ASK_AGENT_NAME}</Link>
+          <Link href="/contribute">Contribute to the wiki</Link>
             <Link href="/sources">Source library</Link>
             <Link href="/wiki?type=items">Items</Link>
             <Link href="/wiki?type=guides">Skills &amp; guides</Link>

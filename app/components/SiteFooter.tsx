@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ASK_AGENT_NAME } from '../lib/ask-agent';
 
 export function SiteFooter() {
   return (
@@ -9,8 +10,10 @@ export function SiteFooter() {
       </div>
       <nav className="footer-links" aria-label="Footer navigation">
         <Link href="/wiki">All pages</Link>
+        <Link href="/ask">{ASK_AGENT_NAME}</Link>
         <Link href="/calculators">Calculators</Link>
         <Link href="/calculators/combat-level">Combat level</Link>
+        <Link href="/contribute">Contribute</Link>
         <Link href="/sources">Sources</Link>
         <Link href="/about/data">About</Link>
       </nav>
