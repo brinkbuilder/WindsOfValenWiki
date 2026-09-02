@@ -83,7 +83,7 @@ const server = createServer(async (request, response) => {
   }
 
   if (activeRequests >= maxConcurrent) {
-    return sendJson(response, 429, { error: 'Valen Buddy is busy. Try again shortly.' });
+    return sendJson(response, 429, { error: 'Ask Alice is busy. Try again shortly.' });
   }
 
   activeRequests += 1;
@@ -136,7 +136,7 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, '127.0.0.1', () => {
-  console.log(`Valen Buddy Ollama gateway listening on http://127.0.0.1:${port}`);
+  console.log(`Ask Alice Ollama gateway listening on http://127.0.0.1:${port}`);
 });
 
 for (const signal of ['SIGINT', 'SIGTERM']) {

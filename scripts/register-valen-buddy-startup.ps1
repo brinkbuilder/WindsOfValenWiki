@@ -40,7 +40,7 @@ $ngrokAction = New-ScheduledTaskAction `
 
 Register-ScheduledTask `
   -TaskName 'Valen Buddy Ollama Gateway' `
-  -Description 'Starts the authenticated local gateway used by the Winds of Valen wiki.' `
+  -Description 'Starts the authenticated local gateway used by Ask Alice on the Winds of Valen wiki.' `
   -Action $gatewayAction `
   -Trigger $trigger `
   -Settings $settings `
@@ -49,7 +49,7 @@ Register-ScheduledTask `
 
 Register-ScheduledTask `
   -TaskName 'Valen Buddy ngrok Tunnel' `
-  -Description 'Starts the fixed ngrok tunnel used by the Winds of Valen wiki.' `
+  -Description 'Starts the fixed ngrok tunnel used by Ask Alice on the Winds of Valen wiki.' `
   -Action $ngrokAction `
   -Trigger $trigger `
   -Settings $settings `
@@ -60,4 +60,4 @@ Start-ScheduledTask -TaskName 'Valen Buddy Ollama Gateway'
 Start-Sleep -Seconds 2
 Start-ScheduledTask -TaskName 'Valen Buddy ngrok Tunnel'
 
-Write-Host 'Valen Buddy startup tasks registered and started.'
+Write-Host 'Ask Alice startup tasks registered and started.'

@@ -622,10 +622,10 @@ function experienceLookupContext(question: string, sources: QaSource[], priorQue
 function conversationalAnswer(question: string) {
   const clean = normalize(question);
   if (/^(?:hi|hello|hey|heya|hiya)(?:\s+valen\s+buddy)?$/.test(clean)) {
-    return 'Hello! I’m Valen Buddy. What would you like to know about Winds of Valen?';
+    return 'Hello! I’m Ask Alice. What would you like to know about Winds of Valen?';
   }
   if (/^(?:who|what)\s+(?:are|r)\s+you$|^what(?:s|\s+is)\s+your\s+name$/.test(clean)) {
-    return 'I’m Valen Buddy, the community assistant for the Winds of Valen wiki. I can help with game information, training plans, XP calculations, recipes, materials, creatures, and locations.';
+    return 'I’m Ask Alice, the community assistant for the Winds of Valen wiki. I can help with game information, training plans, XP calculations, recipes, materials, creatures, and locations.';
   }
   if (/^(?:thanks|thank\s+you|cheers)(?:\s+valen\s+buddy)?$/.test(clean)) {
     return 'You’re welcome! Ask me anything else about Winds of Valen.';

@@ -48,7 +48,7 @@ export default function AboutWikiPage() {
         <article id="game-file-data">
           <p className="eyebrow">Game-file evidence</p>
           <h2>Static exports can be checked too</h2>
-          <p>Authorized game-file or bridge exports can be normalized into public records and used by Valen Buddy alongside wiki pages. Private player state, command files, credentials, and coordinates are filtered out before import.</p>
+          <p>Authorized game-file or bridge exports can be normalized into public records and used by Ask Alice alongside wiki pages. Private player state, command files, credentials, and coordinates are filtered out before import.</p>
         </article>
         <article>
           <p className="eyebrow">One encyclopedia</p>

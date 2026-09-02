@@ -20,9 +20,9 @@ where display_name = 'Your display name';
 
 Contributions stay pending until a moderator approves them at `/contribute/review`. Approved submissions appear in the relevant article's community notes, on `/contribute`, and in the home-page contributor board.
 
-## Valen Buddy
+## Ask Alice
 
-The `/ask` page provides the `Valen Buddy` AI question-and-answer agent. It retrieves relevant local wiki entries, imported game-file records, and deterministic calculator data for XP and Potion Making time questions before sending the request to a self-hosted Ollama model. The browser calls only this app's `/api/ask` route; it never receives the Ollama endpoint or any proxy credential.
+The `/ask` page provides the `Ask Alice` AI question-and-answer agent. It retrieves relevant local wiki entries, imported game-file records, and deterministic calculator data for XP and Potion Making time questions before sending the request to a self-hosted Ollama model. The browser calls only this app's `/api/ask` route; it never receives the Ollama endpoint or any proxy credential.
 
 For local development, install the configured model and run Ollama. The default settings use `http://localhost:11434/api/chat`, so no API key is required:
 
@@ -59,7 +59,7 @@ powershell -ExecutionPolicy Bypass -File scripts/register-valen-buddy-startup.ps
 
 ### Game-file exports
 
-Valen Buddy can also retrieve authorized, normalized game-file or bridge records. The expected shape is documented in `data/game-data.example.json`. Raw Unreal `.pak` and `.uasset` files need to be extracted by an authorized Unreal inspection tool first; the wiki does not execute arbitrary game files.
+Ask Alice can also retrieve authorized, normalized game-file or bridge records. The expected shape is documented in `data/game-data.example.json`. Raw Unreal `.pak` and `.uasset` files need to be extracted by an authorized Unreal inspection tool first; the wiki does not execute arbitrary game files.
 
 After producing a JSON export, import it with:
 

@@ -1,2 +1,2 @@
-export const ASK_AGENT_NAME = 'Valen Buddy';
+export const ASK_AGENT_NAME = 'Ask Alice';
 
