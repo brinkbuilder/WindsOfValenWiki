@@ -97,11 +97,11 @@ export const potionReductionRecipes: PotionRecipeDetail[] = [
   { slug: 'recipe-reduce-large-essence-gland', input: 'Large Essence Gland', level: 60, output: '20 x Essence', duration: 0.5, xp: 16, notes: 'Endgame essence breakdown' },
   { slug: 'recipe-reduce-rare-minnow', input: 'Rare Minnow', level: 1, output: '5 x Fish Oil', duration: 5, xp: 50, notes: 'Used for Fishing Potions' },
   { slug: 'recipe-reduce-rare-blue-gill', input: 'Rare Blue Gill', level: 25, output: '15 x Fish Oil', duration: 5, xp: 300, notes: 'High-efficiency fish oil' },
-  { slug: 'recipe-reduce-spider-eye', input: 'Spider Eye', level: 25, output: '2 x Distilled Spider Eye', xp: 50, notes: 'Used for Archery Potions' },
+  { slug: 'recipe-reduce-spider-eye', input: 'Spider Eye', level: 25, output: '2 x Distilled Spider Eye', duration: 3, xp: 50, notes: 'Used for Archery Potions' },
   { slug: 'recipe-reduce-minced-hearty-fish-flesh', input: 'Hearty Fish Mash', level: 35, output: 'Hearty Extract', duration: 3, xp: 90, notes: 'Used for Strong Health Potions' },
   { slug: 'recipe-reduce-hardened-scales', input: 'Hardened Fish Scales', level: 45, output: 'Polished Fish Scales', duration: 4, xp: 110, notes: 'Take to the Crush Station next for Fine Fish Scales' },
   { slug: 'recipe-reduce-essence-geode', input: 'Essence Geode', level: 45, output: '50 x Essence', duration: 1, xp: 30, notes: 'High-yield Essence source that also requires Mining level 50' },
-  { slug: 'recipe-infused-coal', input: 'Coal Ore + 2 Essence', level: 45, output: 'Essence Infused Coal', xp: 50, notes: 'Endgame crafting fuel' },
+  { slug: 'recipe-infused-coal', input: 'Coal Ore + 2 Essence', level: 45, output: 'Essence Infused Coal', duration: 0.5, xp: 50, notes: 'Endgame crafting fuel' },
 ];
 
 export const potionCrushRecipes: PotionRecipeDetail[] = [
@@ -109,7 +109,7 @@ export const potionCrushRecipes: PotionRecipeDetail[] = [
   { slug: 'recipe-crush-mud-root', input: 'Mud Root', level: 10, output: 'Root Paste', duration: 3, xp: 35, notes: 'Buy at the Potion Stall or obtain from Bandits' },
   { slug: 'recipe-crush-plain-fish-flesh', input: 'Plain Fish Flesh (Bass)', level: 15, output: 'Fish Mash', duration: 2, xp: 40, notes: 'Chop Bass at the Cutting Table first' },
   { slug: 'recipe-crush-small-fang', input: 'Small Fang', level: 20, output: '2 x Fang Dust', duration: 3, xp: 45, notes: 'Buy at the Potion Stall or obtain from Goblins' },
-  { slug: 'recipe-crush-glowing-mushroom', input: 'Glowing Mushroom', level: 30, output: '2 x Crushed Mushroom', xp: 60, notes: 'Buy at the Potion Stall or obtain from Fire Liches and Noble Skeletons' },
+  { slug: 'recipe-crush-glowing-mushroom', input: 'Glowing Mushroom', level: 30, output: '2 x Crushed Mushroom', duration: 3, xp: 60, notes: 'Buy at the Potion Stall or obtain from Fire Liches and Noble Skeletons' },
   { slug: 'recipe-crush-hearty-fish-flesh', input: 'Hearty Fish Flesh (Elder Trout)', level: 35, output: 'Hearty Fish Mash', duration: 3, xp: 80, notes: 'Chop Elder Trout at the Cutting Table first' },
   { slug: 'recipe-crush-refined-hardened-scales', input: 'Polished Fish Scales', level: 45, output: 'Fine Fish Scales', duration: 4, xp: 120, notes: 'Reduce Hardened Fish Scales first' },
 ];

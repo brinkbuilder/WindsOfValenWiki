@@ -10,7 +10,8 @@ import {
   enemies,
   exactHitChance,
   levelForXp,
-  maximumCombatRoll,
+  maximumAccuracyRoll,
+  maximumDefenceRoll,
   skillTrainingData,
   xpForLevel,
   type SkillName,
@@ -34,6 +35,8 @@ type SmithingStationFilter = 'All' | SmithingStation;
 type CombatStyle = 'Melee' | 'Archery' | 'Magic';
 
 const number = new Intl.NumberFormat('en-US');
+const decimal = new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 });
+const multiplierNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 5 });
 const smithingStations: SmithingStationFilter[] = ['All', 'Furnace', 'Anvil', 'Workbench'];
 
 function clampLevel(value: number) {
@@ -152,8 +155,8 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const [accuracyBonus, setAccuracyBonus] = useState(25);
   const [defenceLevel, setDefenceLevel] = useState(20);
   const [defenceBonus, setDefenceBonus] = useState(25);
-  const maxAccuracy = maximumCombatRoll(attackLevel, accuracyBonus);
-  const maxDefence = maximumCombatRoll(defenceLevel, defenceBonus);
+  const maxAccuracy = maximumAccuracyRoll(attackLevel, accuracyBonus);
+  const maxDefence = maximumDefenceRoll(defenceLevel, defenceBonus);
   const hitChance = exactHitChance(maxAccuracy, maxDefence);
 
   const [combatStyle, setCombatStyle] = useState<CombatStyle>('Melee');
@@ -270,7 +273,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
 
       {tab === 'combat' && (
         <section className="calculator-card" aria-labelledby="combat-calculator-heading">
-          <div className="calculator-heading"><div><p>Combat calculator</p><h2 id="combat-calculator-heading">Estimate kills and training time</h2><span className="calculator-heading-help">Uses the combat-specific level curve and documented XP totals for every listed enemy.</span></div></div>
+          <div className="calculator-heading"><div><p>Combat calculator</p><h2 id="combat-calculator-heading">Estimate kills and training time</h2><span className="calculator-heading-help">Uses the game&apos;s shared skill curve and calculates each enemy&apos;s XP from its health and level.</span></div></div>
           <LevelFields currentLevel={combatLevel} currentXp={combatXp} targetLevel={combatTarget} onCurrentLevel={setCombatLevel} onCurrentXp={setCombatXp} onTargetLevel={setCombatTarget} xpAtLevel={combatXpForLevel} levelAtXp={combatLevelForXp} />
           <div className="calculator-fields combat-fields">
             <label><span>Enemy</span><select value={enemyName} onChange={(event) => setEnemyName(event.target.value)}>{enemies.map((enemy) => <option value={enemy.name} key={enemy.name}>{enemy.name} — level {enemy.level}</option>)}</select></label>
@@ -285,8 +288,8 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
             <div><span>Health level after</span><strong>{combatLevelForXp(resultingHealthXp)}</strong></div>
           </div>
           <div className="combat-breakdown">
-            <div><strong>{selectedEnemy.name}</strong><span>Level {selectedEnemy.level} · {number.format(selectedEnemy.health)} health · defence {selectedEnemy.defence} · {selectedEnemy.location}</span><small>Documented total: {number.format(selectedEnemy.totalXp)} XP per kill</small></div>
-            <dl><div><dt>Total XP per kill</dt><dd>{number.format(selectedEnemy.totalXp)}</dd></div><div><dt>Active skill (75%)</dt><dd>{number.format(Math.round(trainingXpPerKill))}</dd></div><div><dt>Health (25%)</dt><dd>{number.format(Math.round(healthXpPerKill))}</dd></div><div><dt>XP multiplier</dt><dd>{(selectedEnemy.totalXp / selectedEnemy.health).toFixed(2)}×</dd></div></dl>
+            <div><strong>{selectedEnemy.name}</strong><span>Level {selectedEnemy.level} · {number.format(selectedEnemy.health)} health · defence {selectedEnemy.defence} · {selectedEnemy.location}</span><small>Full-credit total: {decimal.format(selectedEnemy.totalXp)} XP per kill</small></div>
+            <dl><div><dt>Total XP per kill</dt><dd>{decimal.format(selectedEnemy.totalXp)}</dd></div><div><dt>Active skill (75%)</dt><dd>{decimal.format(trainingXpPerKill)}</dd></div><div><dt>Health (25%)</dt><dd>{decimal.format(healthXpPerKill)}</dd></div><div><dt>XP multiplier</dt><dd>{multiplierNumber.format(selectedEnemy.totalXp / selectedEnemy.health)}×</dd></div></dl>
           </div>
           <p className="calculator-note">The kill calculation uses exact 75% active-skill and 25% Health shares. Time includes the entered kill time plus travel or respawn time between kills; overkill, group scaling, and encounter-specific mechanics can still change live results.</p>
         </section>
@@ -302,9 +305,9 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
             <label><span>Attack speed</span><input type="number" min="0.1" step="0.1" value={attackSpeed} onChange={(event) => setAttackSpeed(Math.max(0.1, Number(event.target.value) || 0.1))} /></label>
             <label><span>{combatStyle} power</span><input type="number" min="0" value={power} onChange={(event) => setPower(Math.max(0, Number(event.target.value) || 0))} /></label>
           </div>
-          <div className="accuracy-result max-hit-result"><span>Maximum {combatStyle.toLowerCase()} hit</span><strong>{maxHit.maxHit.toFixed(1)}</strong><div><p>Effective level <b>{maxHit.effectiveLevel.toFixed(1)}</b></p><p>Weapon bonus <b>{maxHit.weaponDamageBonus.toFixed(1)}</b></p><p>Power bonus <b>{maxHit.flatDamageBonus.toFixed(1)}</b></p></div></div>
+          <div className="accuracy-result max-hit-result"><span>Maximum {combatStyle.toLowerCase()} hit</span><strong>{maxHit.maxHit}</strong><div><p>Effective level <b>{maxHit.effectiveLevel.toFixed(1)}</b></p><p>Weapon bonus <b>{maxHit.weaponDamageBonus.toFixed(1)}</b></p><p>Power bonus <b>{maxHit.flatDamageBonus.toFixed(1)}</b></p></div></div>
           <div className="formula-box"><h3>Formula used</h3><p><code>5 + ((level + 8) × 1.1 × (weapon damage + 30 + power ÷ 3 × attack speed)) ÷ 50</code></p></div>
-          <p className="calculator-note">This formula is shared by melee, archery, and magic. Use the matching skill level and power stat for the selected combat style.</p>
+          <p className="calculator-note">This formula is shared by melee, archery, and magic. The game truncates the formula result to a whole-number maximum hit.</p>
         </section>
       )}
 
@@ -316,7 +319,7 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
             <fieldset><legend>Defender</legend><label><span>Defence level</span><input type="number" min="1" max={MAX_LEVEL} value={defenceLevel} onChange={(event) => setDefenceLevel(clampLevel(Number(event.target.value)))} /></label><label><span>Equipped defence</span><input type="number" min="0" value={defenceBonus} onChange={(event) => setDefenceBonus(Math.max(0, Number(event.target.value) || 0))} /></label></fieldset>
           </div>
           <div className="accuracy-result"><span>Exact chance to hit</span><strong>{(hitChance * 100).toFixed(1)}%</strong><div><p>Maximum accuracy roll <b>{number.format(maxAccuracy)}</b></p><p>Maximum defence roll <b>{number.format(maxDefence)}</b></p></div></div>
-          <div className="formula-box"><h3>Formulas used</h3><p><code>Max accuracy = (Attack level + 8) × (Equipped accuracy + 32)</code></p><p><code>Max defence = (Defence level + 8) × (Equipped defence + 32)</code></p><p><code>A &gt; D: 1 − (D + 2) ÷ (2 × (A + 1)); otherwise A ÷ (2 × (D + 1))</code></p></div>
+          <div className="formula-box"><h3>Formulas used</h3><p><code>Max accuracy = (Attack level + 8) × (Equipped accuracy + 32)</code></p><p><code>Max defence = (Defence level + 8) × (Equipped defence + 16)</code></p><p><code>A &gt; D: 1 − (D + 2) ÷ (2 × (A + 1)); otherwise A ÷ (2 × (D + 1))</code></p></div>
           <p className="calculator-note">This is the exact probability for independent integer rolls from 0 through each displayed maximum, with a hit only when the accuracy roll is strictly greater. Potions, temporary effects, and special-attack modifiers must be included in the equipment values you enter.</p>
         </section>
       )}

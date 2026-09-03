@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { calculateOverallCombatLevel } from '../lib/calculator-engine';
 
 type CombatStats = {
   attack: number;
@@ -29,10 +30,7 @@ function levelValue(value: string) {
 
 export function CombatLevelCalculator() {
   const [stats, setStats] = useState<CombatStats>(defaultStats);
-  const highestOffense = Math.max(stats.attack, stats.archery, stats.magic);
-  const highestDefense = Math.max(stats.defence, stats.evasion, stats.warding);
-  const healthContribution = (stats.health - 1) * 0.25;
-  const combatLevel = (highestOffense * 0.5) + (highestDefense * 0.5) + healthContribution;
+  const combatLevel = calculateOverallCombatLevel(stats);
 
   const updateStat = (stat: keyof CombatStats, value: string) => {
     setStats((current) => ({ ...current, [stat]: levelValue(value) }));
@@ -71,18 +69,18 @@ export function CombatLevelCalculator() {
         </div>
 
         <div className="combat-level-result" aria-live="polite">
-          <span>Formula result</span>
-          <strong>{combatLevel.toFixed(2)}</strong>
-          <p>Based on the highest offensive level of <b>{highestOffense}</b> and defensive level of <b>{highestDefense}</b>.</p>
+          <span>Combat level</span>
+          <strong>{combatLevel.level}</strong>
+          <p>Exact formula progress: <b>{combatLevel.levelFull.toFixed(2)}</b>. Based on the highest offensive level of <b>{combatLevel.highestOffence}</b> and defensive level of <b>{combatLevel.highestDefence}</b>.</p>
           <dl className="combat-level-breakdown">
-            <div><dt>Offensive contribution</dt><dd>{(highestOffense * 0.5).toFixed(2)}</dd></div>
-            <div><dt>Defensive contribution</dt><dd>{(highestDefense * 0.5).toFixed(2)}</dd></div>
-            <div><dt>Health contribution</dt><dd>{healthContribution.toFixed(2)}</dd></div>
+            <div><dt>Offensive contribution</dt><dd>{(combatLevel.highestOffence * 0.5).toFixed(2)}</dd></div>
+            <div><dt>Defensive contribution</dt><dd>{(combatLevel.highestDefence * 0.5).toFixed(2)}</dd></div>
+            <div><dt>Health contribution</dt><dd>{combatLevel.healthContribution.toFixed(2)}</dd></div>
           </dl>
         </div>
       </div>
 
-      <p className="calculator-note">This follows the supplied formula: highest offense × 0.5 + highest defence × 0.5 + (Health − 1) × 0.25. The exact formula result is displayed to two decimal places; the game&apos;s displayed rounding convention has not been separately confirmed.</p>
+      <p className="calculator-note">The game calculates highest offense × 0.5 + highest defence × 0.5 + (Health − 1) × 0.25, then drops the fractional part for the displayed combat level.</p>
       <p className="calculator-credit">Combat Level Calculator by <strong>Simpuhl</strong>.</p>
     </section>
   );

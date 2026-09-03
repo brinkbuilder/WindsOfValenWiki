@@ -24,7 +24,7 @@ import { gameDataBuild, gameDataExportedAt, gameDataRecords, type GameDataRecord
 import { wikiEntries, type WikiEntry } from './wiki-data';
 
 const number = new Intl.NumberFormat('en-US');
-const decimal = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
+const decimal = new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 });
 const maxContextCharacters = 6500;
 
 const stopWords = new Set([
@@ -358,7 +358,7 @@ function combatCalculatorContext(question: string, sources: QaSource[], priorQue
   if (targetLevel !== null) lines.push(`Target level: ${targetLevel}`);
   if (enemy) {
     lines.push(`Enemy: ${enemy.name}; aliases: ${(enemy.aliases ?? []).join(', ') || 'none'}; level ${enemy.level}; ${number.format(enemy.health)} health; ${enemy.defence} defence; location ${enemy.location}.`);
-    lines.push(`Documented total XP per full-credit kill: ${number.format(enemy.totalXp)}. Active combat skill share: ${decimal.format(enemy.totalXp * 0.75)} XP (75%). Health share: ${decimal.format(enemy.totalXp * 0.25)} XP (25%).`);
+    lines.push(`Calculated full-credit kill XP (health × the game's level multiplier): ${number.format(enemy.totalXp)}. Active combat skill share: ${decimal.format(enemy.totalXp * 0.75)} XP (75%). Health share: ${decimal.format(enemy.totalXp * 0.25)} XP (25%).`);
   }
 
   if (!skill || !enemy || targetLevel === null || !isCombatTrainingQuestion(question)) {
@@ -389,7 +389,7 @@ function combatCalculatorContext(question: string, sources: QaSource[], priorQue
     : `while training ${skill} in the Offensive stance`;
   const directAnswer = [
     `You need ${number.format(kills)} full-credit ${displayEnemy} kills to go from exact level ${currentLevel} ${skill} XP to level ${targetLevel}.`,
-    `The combat XP curve requires ${number.format(xpNeeded)} ${skill} XP (${number.format(currentXp)} → ${number.format(targetXp)}). Each kill awards ${decimal.format(skillXpPerKill)} ${skill} XP ${stance}: 75% of its documented ${number.format(enemy.totalXp)} total XP. The other ${decimal.format(healthXpPerKill)} XP goes to Health.`,
+    `The shared skill XP curve requires ${number.format(xpNeeded)} ${skill} XP (${number.format(currentXp)} → ${number.format(targetXp)}). Each kill awards ${decimal.format(skillXpPerKill)} ${skill} XP ${stance}: 75% of its calculated ${number.format(enemy.totalXp)} total XP. The other ${decimal.format(healthXpPerKill)} XP goes to Health.`,
     `This rounds up to a whole kill and assumes solo/full kill credit with no XP modifiers. It does not estimate time because no kill time or respawn/travel time was supplied.`,
   ].join('\n\n');
   return { text: lines.join('\n'), directAnswer };

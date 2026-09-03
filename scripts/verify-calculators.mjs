@@ -3,14 +3,27 @@ import {
   MAX_LEVEL,
   actionsRequired,
   calculateMaxHit,
+  calculateOverallCombatLevel,
   combatLevelForXp,
+  combatMultiplier,
+  combatXpForEnemy,
   combatXpForLevel,
   exactHitChance,
   levelForXp,
-  maximumCombatRoll,
+  maximumAccuracyRoll,
+  maximumDefenceRoll,
   xpForLevel,
 } from '../app/lib/calculator-engine.ts';
-import { potionBrewRecipes, potionCauldrons, potionOutputName, potionTimePlan, potionVials, potionsPerBatch } from '../app/lib/potion-data.ts';
+import {
+  potionBrewRecipes,
+  potionCauldrons,
+  potionCrushRecipes,
+  potionOutputName,
+  potionReductionRecipes,
+  potionTimePlan,
+  potionVials,
+  potionsPerBatch,
+} from '../app/lib/potion-data.ts';
 import { normalizePlayerQuery } from '../app/lib/query-normalization.ts';
 import {
   defaultSmithingMaterialOptions,
@@ -22,31 +35,75 @@ import {
 } from '../app/lib/smithing-data.ts';
 
 assert.equal(MAX_LEVEL, 100);
+for (let level = 1; level <= MAX_LEVEL; level += 1) {
+  const exactGameThreshold = 500 * (2 ** ((level - 1) / 5) - 1);
+  const integerThreshold = Math.ceil(exactGameThreshold);
+  assert.equal(xpForLevel(level), integerThreshold, `incorrect XP threshold for level ${level}`);
+  assert.equal(combatXpForLevel(level), integerThreshold, `combat must use the shared curve at level ${level}`);
+  assert.equal(levelForXp(integerThreshold), level, `threshold must award level ${level}`);
+  assert.equal(combatLevelForXp(integerThreshold), level, `combat threshold must award level ${level}`);
+  if (level > 1) {
+    assert.equal(levelForXp(integerThreshold - 1), level - 1, `level ${level} awarded one XP early`);
+    assert.equal(combatLevelForXp(integerThreshold - 1), level - 1, `combat level ${level} awarded one XP early`);
+  }
+}
+assert.equal(xpForLevel(64), 3_103_688);
+assert.equal(xpForLevel(65), 3_565_276);
+assert.equal(levelForXp(3_565_275), 64);
+assert.equal(levelForXp(3_565_276), 65);
 assert.equal(xpForLevel(100), 456_418_714);
-assert.equal(levelForXp(456_418_714), 100);
-assert.equal(combatXpForLevel(50), 417_159);
-assert.equal(combatLevelForXp(417_159), 50);
 assert.equal(actionsRequired(1_241, 500), 3);
 assert.equal(actionsRequired(0, 500), 0);
 assert.equal(actionsRequired(xpForLevel(30) - xpForLevel(20), 80), 262);
 
 const ashenRangerTotalXp = 2_925;
 const attackXpFrom60To90 = combatXpForLevel(90) - combatXpForLevel(60);
-assert.equal(attackXpFrom60To90, 112_637_998);
+assert.equal(attackXpFrom60To90, 112_321_916);
 assert.equal(ashenRangerTotalXp * 0.75, 2_193.75);
-assert.equal(actionsRequired(attackXpFrom60To90, ashenRangerTotalXp * 0.75), 51_345);
+assert.equal(actionsRequired(attackXpFrom60To90, ashenRangerTotalXp * 0.75), 51_201);
 assert.equal(
   normalizePlayerQuery('if im 60 atk hwo many ashan rengers to levl 90'),
   'if im 60 attack how many ashen rangers to level 90',
 );
 assert.equal(normalizePlayerQuery('atatck with a 2h swodr'), 'attack with a two-handed sword');
 
-const equalRoll = maximumCombatRoll(20, 25);
+assert.equal(combatMultiplier(0), 1);
+assert.equal(combatMultiplier(100), 2);
+assert.equal(combatMultiplier(101), 2.005);
+assert.equal(combatMultiplier(200), 2.5);
+assert.equal(combatMultiplier(201), 2.5025);
+assert.equal(combatMultiplier(300), 2.75);
+assert.ok(Math.abs(combatMultiplier(307) - 2.75875) < 1e-12);
+assert.equal(combatMultiplier(400), 2.875);
+
+const equalRoll = maximumAccuracyRoll(20, 25);
 assert.equal(exactHitChance(equalRoll, equalRoll), equalRoll / (2 * (equalRoll + 1)));
+assert.equal(maximumAccuracyRoll(20, 25), 1_596);
+assert.equal(maximumDefenceRoll(20, 25), 1_148);
 assert.ok(exactHitChance(2_000, 1_000) > 0.5);
 
 const maxHit = calculateMaxHit({ skillLevel: 50, weaponDamage: 60, attackSpeed: 2.4, power: 25 });
-assert.ok(Math.abs(maxHit.maxHit - 145.36) < 0.01);
+assert.equal(maxHit.maxHit, 145);
+assert.ok(Math.abs(maxHit.rawMaxHit - 145.36) < 0.01);
+
+assert.deepEqual(calculateOverallCombatLevel({
+  attack: 55,
+  archery: 1,
+  magic: 1,
+  defence: 30,
+  evasion: 30,
+  warding: 30,
+  health: 48,
+}), {
+  level: 54,
+  levelFull: 54.25,
+  highestOffence: 55,
+  highestDefence: 30,
+  healthContribution: 11.75,
+});
+
+assert.equal(combatXpForEnemy(1_500, 95), 2_925);
+assert.equal(combatXpForEnemy(10_000, 307), 27_587.5);
 
 const smallCauldron = potionCauldrons.find((entry) => entry.id === 'small');
 const largeCauldron = potionCauldrons.find((entry) => entry.id === 'large');
@@ -71,13 +128,19 @@ assert.deepEqual(potionTimePlan(miningPotion, largeCauldron, gildedVial, 25), {
 });
 assert.equal(potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion')?.xp, 1_000);
 assert.equal(potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion')?.duration, 25);
+assert.equal(potionReductionRecipes.find((recipe) => recipe.slug === 'recipe-reduce-spider-eye')?.duration, 3);
+assert.equal(potionReductionRecipes.find((recipe) => recipe.slug === 'recipe-infused-coal')?.duration, 0.5);
+assert.equal(potionCrushRecipes.find((recipe) => recipe.slug === 'recipe-crush-glowing-mushroom')?.duration, 3);
 
 const confirmedSmithingXp = new Map(smithingRecipes.map((recipe) => [recipe.slug, recipe.xp]));
 assert.equal(confirmedSmithingXp.get('silver-bar'), 675);
 assert.equal(confirmedSmithingXp.get('ebony-bar-from-dust'), 1_800);
 assert.equal(confirmedSmithingXp.get('large-ebony-plate'), 7_000);
 assert.equal(confirmedSmithingXp.get('dusk-knight-body-breastplate'), 18_000);
-assert.equal(confirmedSmithingXp.get('dusk-knight-platebody'), null);
+assert.equal(confirmedSmithingXp.get('bronze-platebody'), 180);
+assert.equal(confirmedSmithingXp.get('iron-sword'), 120);
+assert.equal(confirmedSmithingXp.get('mithril-platebody'), 3_296);
+assert.equal(confirmedSmithingXp.get('dusk-knight-platebody'), 20_000);
 
 const duskMaterials = new Map(
   smithingMaterialTotalsForItems(duskKnightSetRequirements, defaultSmithingMaterialOptions)
@@ -101,7 +164,7 @@ assert.equal(smithingProductionTimePlan(duskHelmet, 1, defaultSmithingMaterialOp
 for (const recipe of smithingRecipes) {
   assert.ok(recipe.level >= 1 && recipe.level <= MAX_LEVEL, `${recipe.output} has an invalid level`);
   assert.ok(recipe.seconds > 0, `${recipe.output} has an invalid duration`);
-  assert.ok(recipe.xp === null || recipe.xp > 0, `${recipe.output} has an invalid XP value`);
+  assert.ok(recipe.xp !== null && recipe.xp > 0, `${recipe.output} does not have confirmed live XP`);
 }
 
 console.log('Calculator verification passed.');
