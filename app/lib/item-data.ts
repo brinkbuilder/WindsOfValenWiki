@@ -6,11 +6,6 @@ export type ItemCatalogueSpec = {
   aliases?: string[];
 };
 
-export type ItemStoreInfo = {
-  price: number;
-  stores: string[];
-};
-
 export const itemCatalogueSpecs: ItemCatalogueSpec[] = [
   { slug: 'copper-ore', title: 'Copper Ore', summary: 'A basic mining ore used to make Bronze Bars.', categories: ['Items', 'Mining', 'Materials'] },
   { slug: 'tin-ore', title: 'Tin Ore', summary: 'A basic mining ore used with Copper Ore to make Bronze Bars.', categories: ['Items', 'Mining', 'Materials'] },
@@ -59,7 +54,7 @@ export const itemCatalogueSpecs: ItemCatalogueSpec[] = [
   { slug: 'mining-potion', title: 'Mining Potion', summary: 'A potion brewed from Root Paste and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
   { slug: 'health-potion', title: 'Health Potion', summary: 'A potion brewed from Fish Mash and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
   { slug: 'attack-potion', title: 'Attack Potion', summary: 'A potion brewed from Fang Dust and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
-  { slug: 'archery-potion', title: 'Archery Potion', summary: 'A potion brewed from Distilled Spider Eye and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
+  { slug: 'archery-potion', title: 'Archery Potion', summary: 'A potion brewed from Distilled Spider Eye and Essence.', categories: ['Items', 'Potion Making', 'Potions'], aliases: ['Ranging Potion', 'Ranged Potion'] },
   { slug: 'magic-potion', title: 'Magic Potion', summary: 'A potion brewed from Crushed Mushroom and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
   { slug: 'strong-health-potion', title: 'Strong Health Potion', summary: 'A stronger potion brewed from Hearty Extract and Essence.', categories: ['Items', 'Potion Making', 'Potions'] },
   { slug: 'strong-shields-potion', title: 'Strong Shields Potion', summary: 'A stronger potion brewed from Fine Fish Scales and Essence.', categories: ['Items', 'Potion Making', 'Potions'], aliases: ['Strong Shield Potion'] },
@@ -104,47 +99,3 @@ export const itemCatalogueSpecs: ItemCatalogueSpec[] = [
   { slug: 'small-worm-bait', title: 'Small Worm Bait', summary: 'Bait used by some Fishing spots.', categories: ['Items', 'Fishing', 'Bait'] },
   { slug: 'medium-worm-bait', title: 'Medium Worm Bait', summary: 'Bait used by higher-tier Fishing spots.', categories: ['Items', 'Fishing', 'Bait'] },
 ];
-
-export const itemStoreInfo: Record<string, ItemStoreInfo> = {
-  'Copper Ore': { price: 2, stores: ['Mining Stall'] },
-  'Tin Ore': { price: 2, stores: ['Mining Stall'] },
-  'Iron Ore': { price: 4, stores: ['Mining Stall'] },
-  'Coal': { price: 8, stores: ['Mining Stall'] },
-  'Coal Ore': { price: 8, stores: ['Mining Stall'] },
-  'Common Trout': { price: 8, stores: ['Valen City Fish Stall'] },
-  'Perch': { price: 70, stores: ['Valen City Fish Stall'] },
-  'Bass': { price: 30, stores: ['Valen City Fish Stall'] },
-  'Bronze Bar': { price: 6, stores: ['Smithing Stall'] },
-  'Iron Bar': { price: 20, stores: ['Mining Stall', 'Smithing Stall'] },
-  'Steel Bar': { price: 40, stores: ['Mining Stall', 'Smithing Stall'] },
-  'Bronze Helmet': { price: 50, stores: ['Valen City Armour'] },
-  'Bronze Platebody': { price: 100, stores: ['Valen City Armour'] },
-  'Bronze Platelegs': { price: 70, stores: ['Valen City Armour'] },
-  'Bronze Sword': { price: 60, stores: ['Valen City Weapon'] },
-  'Iron Helmet': { price: 150, stores: ['Valen City Armour'] },
-  'Iron Platebody': { price: 250, stores: ['Valen City Armour'] },
-  'Iron Platelegs': { price: 200, stores: ['Valen City Armour'] },
-  'Iron Sword': { price: 150, stores: ['Valen City Weapon'] },
-  'Steel Helmet': { price: 300, stores: ['Valen City Armour'] },
-  'Steel Platebody': { price: 500, stores: ['Valen City Armour'] },
-  'Steel Platelegs': { price: 400, stores: ['Valen City Armour'] },
-  'Steel Sword': { price: 300, stores: ['Valen City Weapon'] },
-  'Small Fang': { price: 25, stores: ['Potion Ingredients', 'Valen City Potion Store'] },
-  'Mud Root': { price: 20, stores: ['Potion Ingredients', 'Valen City Potion Store'] },
-  'Glowing Mushroom': { price: 750, stores: ['Valen City Potion Store'] },
-  'Spider Eye': { price: 450, stores: ['Valen City Potion Store'] },
-  'Weak Health Potion': { price: 8, stores: ['Valen City Potion Store'] },
-  'Fishing Potion': { price: 25, stores: ['Valen City Potion Store'] },
-  'Shields Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Shield Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Mining Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Health Potion': { price: 40, stores: ['Valen City Potion Store'] },
-  'Attack Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Archery Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Magic Potion': { price: 90, stores: ['Valen City Potion Store'] },
-  'Strong Health Potion': { price: 240, stores: ['Valen City Potion Store'] },
-  'Strong Shields Potion': { price: 990, stores: ['Valen City Potion Store'] },
-  'Strong Shield Potion': { price: 990, stores: ['Valen City Potion Store'] },
-  'Ore Sack': { price: 350, stores: ['Grave Town Mining Stall'] },
-  'Fish Crate': { price: 350, stores: ['Valen Port Fishing Stall'] },
-};

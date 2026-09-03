@@ -1,8 +1,10 @@
 import { communityEntries } from './community-entries';
-import { itemCatalogueSpecs, itemStoreInfo } from './item-data';
+import { itemCatalogueSpecs } from './item-data';
+import { ITEM_COMMERCE_SOURCE, SHOP_BUY_BACK_RATE, itemCommerceInfoFor, potionVariantCommerceFor, type ItemCommerceInfo } from './item-commerce';
 import legacyWikiData from './legacy-wiki-data.json';
 import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionRecipeDetails, potionReductionRecipes } from './potion-data';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
+import { gameWikiImages, recipeStationImages } from './wiki-image-data';
 
 export type Verification = 'engine' | 'observed' | 'player' | 'documented' | 'community';
 
@@ -902,9 +904,7 @@ const existingItemSlugs = new Set([
 
 const itemCatalogueEntries: WikiEntry[] = itemCatalogueSpecs
   .filter((item) => item.title !== 'Coal Ore' && !existingItemSlugs.has(item.slug))
-  .map((item) => {
-    const store = itemStoreInfo[item.title];
-    return {
+  .map((item) => ({
       slug: item.slug,
       title: item.title,
       type: 'Item',
@@ -916,17 +916,10 @@ const itemCatalogueEntries: WikiEntry[] = itemCatalogueSpecs
       facts: [{ label: 'Item type', value: item.categories.at(-1) ?? 'Material' }],
       sections: [
         { title: 'Overview', paragraphs: [item.summary] },
-        {
-          title: 'Availability',
-          paragraphs: [store
-            ? `Buy this item for ${store.price}g at ${store.stores.join(' or ')}.`
-            : 'No current store listing is recorded for this item. Check the related recipe, creature, or skill page for how to obtain it.'],
-        },
       ],
       related: ['potion-making', 'smithing', 'mining'].filter((relatedSlug) => item.categories.some((category) => relatedSlug.replaceAll('-', ' ') === category.toLowerCase())),
       source: documentedSource,
-    };
-  });
+    }));
 
 const smithingGuide: WikiEntry = {
   slug: 'smithing',
@@ -1079,13 +1072,75 @@ function playerText(value: string) {
     .trim();
 }
 
-function storeInfoForItem(entry: Pick<WikiEntry, 'title' | 'aliases'>) {
-  return itemStoreInfo[entry.title] ?? (entry.aliases ?? []).map((alias) => itemStoreInfo[alias]).find(Boolean);
+function formatCoins(value: number) {
+  return `${value.toLocaleString('en-US')} ${value === 1 ? 'Coin' : 'Coins'}`;
+}
+
+function shopPriceSection(commerce: ItemCommerceInfo): WikiSection {
+  const paragraphs = [commerce.listings.length
+    ? `This item is present in the current ${ITEM_COMMERCE_SOURCE.gameBuild} shop inventory. The purchase prices below are for the listed quantity.`
+    : `No current merchant inventory in ${ITEM_COMMERCE_SOURCE.gameBuild} sells this item to players.`];
+
+  if (commerce.shopBuyBack !== undefined && commerce.baseValue !== undefined) {
+    paragraphs.push(`Standard shops buy this item from players for ${formatCoins(commerce.shopBuyBack)} each. This is ${Math.round(SHOP_BUY_BACK_RATE * 100)}% of its ${formatCoins(commerce.baseValue)} base value after the shop's ${Math.round((1 - SHOP_BUY_BACK_RATE) * 100)}% deduction.`);
+  } else {
+    paragraphs.push('The item data does not provide a standard shop buy-back value for this item.');
+  }
+
+  return {
+    title: 'Shop prices',
+    paragraphs,
+    table: commerce.listings.length ? {
+      headers: ['Shop', 'Listed quantity', 'Player pays', 'Additional item cost'],
+      rows: commerce.listings.map((listing) => [
+        listing.shop,
+        String(listing.quantity),
+        listing.purchasePrice === undefined ? 'Price not set in current game data' : formatCoins(listing.purchasePrice),
+        listing.additionalCosts?.length
+          ? listing.additionalCosts.map((cost) => `${cost.count.toLocaleString('en-US')} × ${cost.name}`).join(' + ')
+          : 'None',
+      ]),
+    } : undefined,
+  };
+}
+
+function potionShopPriceSection(variants: ItemCommerceInfo[]): WikiSection {
+  return {
+    title: 'Shop prices by vial size',
+    paragraphs: [
+      'A potion family name without a vial size is not itself a merchant listing. Each bottled size has its own base value and shop buy-back price.',
+      `The table uses the current ${ITEM_COMMERCE_SOURCE.gameBuild} inventory and the live ${Math.round(SHOP_BUY_BACK_RATE * 100)}% shop buy-back rate. “Not stocked” means shops buy the potion from players but do not sell it to players.`,
+    ],
+    table: {
+      headers: ['Bottled potion', 'Base value', 'Shop buys for', 'Purchasable from'],
+      rows: variants.map((variant) => [
+        variant.name,
+        variant.baseValue === undefined ? 'Not set' : formatCoins(variant.baseValue),
+        variant.shopBuyBack === undefined ? 'Not set' : formatCoins(variant.shopBuyBack),
+        variant.listings.length
+          ? variant.listings.map((listing) => `${listing.shop} — ${listing.purchasePrice === undefined ? 'price not set' : formatCoins(listing.purchasePrice)}`).join(' · ')
+          : 'Not stocked',
+      ]),
+    },
+  };
+}
+
+function unavailableCommerceSection(): WikiSection {
+  return {
+    title: 'Current shop status',
+    paragraphs: [`No exact item-value or merchant-inventory record matching this page name was found in ${ITEM_COMMERCE_SOURCE.gameBuild}. It may be an older name or an item-family page, so the wiki does not list it as purchasable and does not guess a shop buy-back value.`],
+  };
 }
 
 function playerFacingEntry(entry: WikiEntry): WikiEntry {
+  const commerceNames = [entry.title, ...(entry.aliases ?? [])];
+  const commerce = entry.type === 'Item' ? itemCommerceInfoFor(commerceNames) : undefined;
+  const potionVariants = entry.type === 'Item' ? potionVariantCommerceFor(commerceNames) : [];
+  const hasAuthoritativeShopData = Boolean(commerce || potionVariants.length);
   const sections = entry.sections
     .filter((section) => !/^(?:technical identity|evidence flow|verification labels|privacy and safety)$/i.test(section.title))
+    .filter((section) => entry.type !== 'Item' || !/^sold by$/i.test(section.title))
+    .filter((section) => !hasAuthoritativeShopData || !/^(?:availability|shop availability|shop prices|shop prices by vial size)$/i.test(section.title))
     .map((section) => ({
       ...section,
       title: playerText(section.title)
@@ -1118,11 +1173,24 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
       const value = playerText(fact.value);
       return { ...fact, label, value: /^store price$/i.test(label) && /^\d+$/.test(value) ? `${Number(value).toLocaleString('en-US')} Coins` : value };
     })
-    .filter((fact) => fact.label && fact.value);
-  const store = entry.type === 'Item' ? storeInfoForItem(entry) : undefined;
-  const factsWithoutStoreDuplicates = store
-    ? facts.filter((fact) => !/^(?:reported )?(?:shop|store) price$|^purchasable at$/i.test(fact.label))
-    : facts;
+    .filter((fact) => fact.label && fact.value)
+    .filter((fact) => entry.type !== 'Item' || !/^(?:reported )?(?:(?:shop|store)(?: purchase)? price|sale value|sell value|sell price|shop buy(?:-?back)?|shops pay|purchasable at|sold by|base item value|purchase price)$/i.test(fact.label));
+
+  const commerceFacts: WikiFact[] = commerce ? [
+    ...(commerce.baseValue === undefined ? [] : [{ label: 'Base item value', value: formatCoins(commerce.baseValue) }]),
+    ...(commerce.shopBuyBack === undefined ? [] : [{ label: 'Shop buys for', value: `${formatCoins(commerce.shopBuyBack)} each` }]),
+    ...(commerce.listings.length ? [{
+      label: 'Purchasable at',
+      value: [...new Set(commerce.listings.map((listing) => listing.shop))].join(' · '),
+    }] : []),
+  ] : [];
+  const commerceSections = commerce
+    ? [shopPriceSection(commerce)]
+    : potionVariants.length
+      ? [potionShopPriceSection(potionVariants)]
+      : entry.type === 'Item' && entry.title !== 'Coins'
+        ? [unavailableCommerceSection()]
+        : [];
 
   return {
     ...entry,
@@ -1132,10 +1200,8 @@ function playerFacingEntry(entry: WikiEntry): WikiEntry {
     categories: entry.categories.filter((category) => !/^community documented$/i.test(category)).map(playerText),
     technicalId: undefined,
     image: entry.image ? { ...entry.image, alt: playerText(entry.image.alt), caption: entry.image.caption ? playerText(entry.image.caption) : undefined } : undefined,
-    facts: store
-      ? [...factsWithoutStoreDuplicates, { label: 'Store price', value: `${store.price.toLocaleString('en-US')} Coins` }, { label: 'Purchasable at', value: store.stores.join(' · ') }]
-      : factsWithoutStoreDuplicates,
-    sections,
+    facts: [...facts, ...commerceFacts],
+    sections: [...sections, ...commerceSections],
     externalSources: entry.externalSources,
   };
 }
@@ -1194,6 +1260,52 @@ function mergeLegacyEntries(currentEntries: WikiEntry[], legacyEntries: WikiEntr
   return merged;
 }
 
+function normalizedImageSubject(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/^\d+\s*x?\s*/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function recipeImage(entry: WikiEntry, entries: WikiEntry[]): WikiImage | undefined {
+  const itemEntries = entries.filter((candidate) => candidate.type === 'Item' && candidate.image);
+  const relatedItem = (entry.related ?? [])
+    .map((slug) => entries.find((candidate) => candidate.slug === slug))
+    .find((candidate) => candidate?.type === 'Item' && candidate.image);
+  if (relatedItem?.image) return relatedItem.image;
+
+  const output = entry.facts.find((fact) => fact.label === 'Output')?.value;
+  if (output) {
+    const outputParts = output.split('+').map(normalizedImageSubject);
+    const outputItem = [...itemEntries]
+      .sort((a, b) => b.title.length - a.title.length)
+      .find((candidate) => outputParts.some((part) => part === normalizedImageSubject(candidate.title)));
+    if (outputItem?.image) return outputItem.image;
+  }
+
+  const recipeSubject = entry.title
+    .replace(/ recipe$/i, '')
+    .replace(/^(?:Crush|Harvest|Reduce)\s+/i, '');
+  const subjectItem = itemEntries.find((candidate) => normalizedImageSubject(candidate.title) === normalizedImageSubject(recipeSubject));
+  if (subjectItem?.image) return subjectItem.image;
+
+  const station = entry.facts.find((fact) => fact.label === 'Station')?.value;
+  return station ? recipeStationImages[station] : undefined;
+}
+
+function addRecoveredImages(entries: WikiEntry[]) {
+  const entriesWithDirectImages = entries.map((entry) => ({
+    ...entry,
+    image: entry.image ?? gameWikiImages[entry.slug] ?? entry.sections.flatMap((section) => section.images ?? [])[0],
+  }));
+
+  return entriesWithDirectImages.map((entry) => ({
+    ...entry,
+    image: entry.image ?? (entry.type === 'Recipe' ? recipeImage(entry, entriesWithDirectImages) : undefined),
+  }));
+}
+
 const smithingReplacementSlugs = new Set(['smithing', ...smithingItemEntries.map((entry) => entry.slug)]);
 const currentWikiEntries = [
   ...[...curatedEntries, ...recipeEntries, ...communityEntries]
@@ -1203,7 +1315,7 @@ const currentWikiEntries = [
   ...itemCatalogueEntries,
   ...smithingRecipeEntries,
 ];
-const allWikiEntries = mergeLegacyEntries(currentWikiEntries, legacyWikiData as WikiEntry[]).map(playerFacingEntry);
+const allWikiEntries = addRecoveredImages(mergeLegacyEntries(currentWikiEntries, legacyWikiData as WikiEntry[])).map(playerFacingEntry);
 const duplicateSlugs = allWikiEntries
   .map((entry) => entry.slug)
   .filter((slug, index, slugs) => slugs.indexOf(slug) !== index);

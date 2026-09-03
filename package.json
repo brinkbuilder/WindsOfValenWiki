@@ -14,6 +14,8 @@
     "ollama:proxy": "node scripts/ollama-proxy.mjs",
     "ollama:tunnel": "ngrok http 11435",
     "test:calculators": "node --experimental-strip-types scripts/verify-calculators.mjs",
+    "test:commerce": "node scripts/verify-commerce.mjs",
+    "audit:images": "node scripts/audit-wiki-images.mjs",
     "audit:wiki": "node scripts/audit-wiki.mjs",
     "import:game-data": "node scripts/import-game-data.mjs"
   },

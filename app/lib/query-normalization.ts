@@ -32,6 +32,7 @@ export const commonQueryCorrections: Readonly<Record<string, string>> = {
   magick: 'magic',
   archrey: 'archery',
   archeri: 'archery',
+  ranging: 'archery',
   minning: 'mining',
   mineing: 'mining',
   fising: 'fishing',

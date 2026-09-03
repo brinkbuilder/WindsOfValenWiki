@@ -21,6 +21,7 @@ import {
   type SmithingRecipe,
 } from './smithing-data';
 import { gameDataBuild, gameDataExportedAt, gameDataRecords, type GameDataRecord } from './game-data';
+import { SHOP_BUY_BACK_RATE, itemCommerceInfoFor, potionVariantCommerceFor, type ItemCommerceInfo } from './item-commerce';
 import { wikiEntries, type WikiEntry } from './wiki-data';
 
 const number = new Intl.NumberFormat('en-US');
@@ -245,6 +246,68 @@ function sourceFor(entry: WikiEntry): QaSource {
 
 function addSource(sources: QaSource[], source: QaSource) {
   if (!sources.some((item) => item.slug === source.slug)) sources.push(source);
+}
+
+function coinAmount(value: number) {
+  return `${number.format(value)} ${value === 1 ? 'Coin' : 'Coins'}`;
+}
+
+function mentionedItemEntry(value: string) {
+  const haystack = ` ${canonicalPhrase(value)} `;
+  return wikiEntries
+    .filter((entry) => entry.type === 'Item')
+    .flatMap((entry) => [entry.title, ...(entry.aliases ?? [])].map((name) => ({
+      entry,
+      phrase: canonicalPhrase(name),
+    })))
+    .filter(({ phrase }) => phrase.length > 2 && haystack.includes(` ${phrase} `))
+    .sort((left, right) => right.phrase.length - left.phrase.length)[0]?.entry;
+}
+
+function purchaseDescription(commerce: ItemCommerceInfo) {
+  return commerce.listings.map((listing) => {
+    const quantity = listing.quantity === 1 ? '' : `${listing.quantity} for `;
+    const price = listing.purchasePrice === undefined ? 'price not set in the current game data' : coinAmount(listing.purchasePrice);
+    const additionalCosts = listing.additionalCosts?.length
+      ? ` + ${listing.additionalCosts.map((cost) => `${number.format(cost.count)} ${cost.name}`).join(' + ')}`
+      : '';
+    return `${listing.shop} (${quantity}${price}${additionalCosts})`;
+  }).join(' or ');
+}
+
+function commerceDirectAnswer(question: string, priorQuestions: string[], sources: QaSource[]) {
+  if (!/\b(?:shop|store|stall|vendor|merchant|buy|sell|sold|price|cost|value|worth|purchasable|stocked)\b/i.test(question)) return undefined;
+
+  const entry = mentionedItemEntry(question)
+    ?? [...priorQuestions].reverse().map(mentionedItemEntry).find(Boolean);
+  if (!entry) return undefined;
+  addSource(sources, sourceFor(entry));
+
+  const names = [entry.title, ...(entry.aliases ?? [])];
+  const variants = potionVariantCommerceFor(names);
+  if (variants.length) {
+    const stocked = variants.filter((variant) => variant.listings.length);
+    const availability = stocked.length
+      ? `Only ${stocked.map((variant) => `${variant.name} at ${purchaseDescription(variant)}`).join('; ')} is currently sold to players.`
+      : `No current merchant inventory sells any ${entry.title} size to players.`;
+    const buyBacks = variants.map((variant) => (
+      `${variant.name}: ${variant.shopBuyBack === undefined ? 'no standard value' : coinAmount(variant.shopBuyBack)}`
+    )).join('; ');
+    return `${availability}\n\nStandard shops buy bottled versions from players at the game's ${Math.round(SHOP_BUY_BACK_RATE * 100)}% buy-back rate: ${buyBacks}.`;
+  }
+
+  const commerce = itemCommerceInfoFor(names);
+  if (!commerce) {
+    return `No exact current item-value or merchant-inventory record matches ${entry.title}, so I cannot reliably claim that a shop buys or sells it under that name.`;
+  }
+
+  const availability = commerce.listings.length
+    ? `Yes. ${commerce.name} is currently sold by ${purchaseDescription(commerce)}.`
+    : `No current merchant inventory sells ${commerce.name} to players.`;
+  const buyBack = commerce.shopBuyBack === undefined
+    ? 'The current item data does not provide a standard shop buy-back value.'
+    : `Standard shops buy one from players for ${coinAmount(commerce.shopBuyBack)}, which is ${Math.round(SHOP_BUY_BACK_RATE * 100)}% of its ${coinAmount(commerce.baseValue ?? 0)} base value.`;
+  return `${availability}\n\n${buyBack}`;
 }
 
 function levelMention(question: string, pattern: RegExp) {
@@ -782,6 +845,7 @@ export function buildQaContext(question: string, priorQuestions: string[] = []):
   const experienceLookup = experienceLookupContext(question, sources, priorQuestions);
   const calculator = calculatorContext(question, sources, priorQuestions);
   const combatCalculator = combatCalculatorContext(question, sources, priorQuestions);
+  const commerceAnswer = commerceDirectAnswer(question, priorQuestions, sources);
   const gameDataSection = selectedGameData.length
     ? [`Game-file export build: ${gameDataBuild}${gameDataExportedAt ? `; exported ${gameDataExportedAt}` : ''}`, ...selectedGameData.map(formattedGameDataRecord)].join('\n\n')
     : gameDataRecords.length ? '' : '## Game-file data status\nNo authorized game-file export is loaded into this deployment yet. Do not claim raw game-file facts that are not present in the wiki context.';
@@ -790,6 +854,6 @@ export function buildQaContext(question: string, priorQuestions: string[] = []):
   return {
     context,
     sources,
-    directAnswer: smallTalk ?? experienceLookup.directAnswer ?? combatCalculator.directAnswer ?? calculator.directAnswer,
+    directAnswer: smallTalk ?? experienceLookup.directAnswer ?? combatCalculator.directAnswer ?? calculator.directAnswer ?? commerceAnswer,
   };
 }

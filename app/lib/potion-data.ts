@@ -106,10 +106,10 @@ export const potionReductionRecipes: PotionRecipeDetail[] = [
 
 export const potionCrushRecipes: PotionRecipeDetail[] = [
   { slug: 'recipe-crush-scales', input: 'Fish Scales (Perch)', level: 5, output: 'Crushed Fish Scales', duration: 2, xp: 30, notes: 'Chop Perch at the Cutting Table first' },
-  { slug: 'recipe-crush-mud-root', input: 'Mud Root', level: 10, output: 'Root Paste', duration: 3, xp: 35, notes: 'Buy at the Potion Stall or obtain from Bandits' },
+  { slug: 'recipe-crush-mud-root', input: 'Mud Root', level: 10, output: 'Root Paste', duration: 3, xp: 35, notes: 'Buy from Potion Ingredients or the Valen City Potion Store, or obtain from Bandits' },
   { slug: 'recipe-crush-plain-fish-flesh', input: 'Plain Fish Flesh (Bass)', level: 15, output: 'Fish Mash', duration: 2, xp: 40, notes: 'Chop Bass at the Cutting Table first' },
-  { slug: 'recipe-crush-small-fang', input: 'Small Fang', level: 20, output: '2 x Fang Dust', duration: 3, xp: 45, notes: 'Buy at the Potion Stall or obtain from Goblins' },
-  { slug: 'recipe-crush-glowing-mushroom', input: 'Glowing Mushroom', level: 30, output: '2 x Crushed Mushroom', duration: 3, xp: 60, notes: 'Buy at the Potion Stall or obtain from Fire Liches and Noble Skeletons' },
+  { slug: 'recipe-crush-small-fang', input: 'Small Fang', level: 20, output: '2 x Fang Dust', duration: 3, xp: 45, notes: 'Buy from Potion Ingredients or the Valen City Potion Store, or obtain from Goblins' },
+  { slug: 'recipe-crush-glowing-mushroom', input: 'Glowing Mushroom', level: 30, output: '2 x Crushed Mushroom', duration: 3, xp: 60, notes: 'Buy from the Valen City Potion Store or obtain from Fire Liches and Noble Skeletons' },
   { slug: 'recipe-crush-hearty-fish-flesh', input: 'Hearty Fish Flesh (Elder Trout)', level: 35, output: 'Hearty Fish Mash', duration: 3, xp: 80, notes: 'Chop Elder Trout at the Cutting Table first' },
   { slug: 'recipe-crush-refined-hardened-scales', input: 'Polished Fish Scales', level: 45, output: 'Fine Fish Scales', duration: 4, xp: 120, notes: 'Reduce Hardened Fish Scales first' },
 ];

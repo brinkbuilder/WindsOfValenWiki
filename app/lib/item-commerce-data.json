@@ -1,0 +1,1432 @@
+{
+  "source": {
+    "gameBuild": "ProjectSandbox 5.7.4",
+    "extracted": "2026-09-03",
+    "notes": "Item values and every ShopListingsData inventory were exported from all 12,939 packaged game assets with the matching schema. Inventory, listing, vial-volume, and placed-merchant multipliers were applied, including additional item costs. Key catalogues were cross-checked against live shop objects through ValenBridge. The standard shop buy-back rate is 0.7 and integer currency calculations round upward."
+  },
+  "shopBuyBackRate": 0.7,
+  "itemValues": {
+    "Adept Ward": 10000,
+    "Advanced Parry Shield": 10000,
+    "Apprentice Ward": 2500,
+    "Artisan Gloves": 2000,
+    "Bait Knife": 10,
+    "Bandit Bow": 2500,
+    "Bandit Spear": 600,
+    "Bass": 15,
+    "Beef": 4,
+    "Beginner Wand": 5,
+    "Berserker Boots": 700,
+    "Berserker Gloves": 300,
+    "Birch Bow": 250,
+    "Birch Fire Wand": 200,
+    "Birch Ice Wand": 200,
+    "Blue Gill": 10,
+    "Bone": 3,
+    "Bone bow": 10000,
+    "Bone Mask": 1500,
+    "Bone Ring": 2000,
+    "Bread Loaf": 3,
+    "Bronze Arrow": 0.5,
+    "Bronze Bar": 6,
+    "Bronze Helmet": 40,
+    "Bronze Pickaxe": 40,
+    "Bronze Platebody": 145,
+    "Bronze Platelegs": 110,
+    "Bronze Sword": 60,
+    "Bunny Ears": 100,
+    "Carp": 300,
+    "Carved Bow": 5000,
+    "Carved Fire Wand": 5000,
+    "Carved Ice Wand": 5000,
+    "Carved Lightning Wand": 5000,
+    "Charred Ring Piece 1": 25000,
+    "Charred Ring Piece 2": 25000,
+    "Charred Ring Piece 3": 25000,
+    "Chicken": 3,
+    "Coal Ore": 20,
+    "Coins": 1,
+    "Common Trout": 4,
+    "Copper Amulet": 250,
+    "Copper Ore": 2,
+    "Copper Pickaxe": null,
+    "Copper Ring": 20,
+    "Copper Sword": null,
+    "Cow Ring": 30,
+    "Cowhide": 10,
+    "Crude Bow": 5,
+    "Crude Fishing Rod": 10,
+    "Crushed Fish Scales": 45,
+    "Crushed Mushroom": 150,
+    "Distilled Spider Eye": 80,
+    "Dusk Knight Schematics": 50000,
+    "DuskKnight Body Breastplate": 1247840,
+    "DuskKnight Body Couter": 77230,
+    "DuskKnight Body Pauldron": 77230,
+    "DuskKnight Body Rerebrace": 153460,
+    "DuskKnight Body Vambrace": 153460,
+    "DuskKnight Boot Greave": 312710,
+    "DuskKnight Boot Left Sabaton": 79710,
+    "DuskKnight Boot Right Sabaton": 79710,
+    "DuskKnight Boots": 959300,
+    "DuskKnight Helmet": 960450,
+    "DuskKnight Helmet Face Plate": 312710,
+    "DuskKnight Helmet Head Plate": 312710,
+    "DuskKnight Helmet Spike": 184980,
+    "DuskKnight Leg Cuisses": 619460,
+    "DuskKnight Leg Poleyn": 77230,
+    "DuskKnight Leg Tasset": 229690,
+    "DuskKnight Leg Tuille": 77230,
+    "DuskKnight Platebody": 2608800,
+    "DuskKnight Platelegs": 1582450,
+    "Dwarven Pickaxe": 2000,
+    "Dwarven Smithing Hammer": 1000,
+    "Ebony Bar": 3750,
+    "Ebony Dust": 500,
+    "Ebony Ore": 500,
+    "Ebony Plate": 73750,
+    "Ebony Rod": 42500,
+    "Elder Trout": 100,
+    "Elven Amulet": 10000,
+    "Elven Cloth": 240,
+    "Elven Cloth Boot Line": 1000,
+    "Elven Cloth Pant Line": 1250,
+    "Elven Cloth Vest Line": 1500,
+    "Elven Greatsword": 10000,
+    "Elven Ring": 2000,
+    "Elven Shield": 10000,
+    "Essence": 1,
+    "Essence Catalyst": 10000,
+    "Essence Geode": 100,
+    "Essence Gland": 8,
+    "Essence Infused Coal": 25,
+    "Exotic Bow": 600,
+    "Exquisite Silk": 2500,
+    "Exquisite Silk Boot Line": 21000,
+    "Exquisite Silk Pant Line": 31000,
+    "Exquisite Silk Vest Line": 41000,
+    "Fang Dust": 15,
+    "Feathers": 2,
+    "Fine Fish Scales": 360,
+    "Fire Totem": 2000,
+    "Fire Wand": 60,
+    "Fish Crate": 250,
+    "Fish Mash": 25,
+    "Fish Oil": 10,
+    "Fish Scales": 40,
+    "Fishing Power Gem": 2000,
+    "Gilded Archery Potion": 185,
+    "Gilded Attack Potion": 185,
+    "Gilded Fishing Potion": 87.5,
+    "Gilded Health Potion": 110,
+    "Gilded Magic Potion": 185,
+    "Gilded Mining Potion": 185,
+    "Gilded Potion": 50,
+    "Gilded Shields Potion": 185,
+    "Gilded Strong Health Potion": 410,
+    "Gilded Strong Shields Potion": 1535,
+    "Gilded Vial": 100,
+    "Gilded Weak Health Potion": 62,
+    "Glowing Mushroom": 250,
+    "Goblin Axe": 100,
+    "Goblin Bow": 100,
+    "Gold Amulet": 800,
+    "Gold Bar": 1000,
+    "Gold Dust": 80,
+    "Gold Foil": 4300,
+    "Gold Ore": 80,
+    "Gold Plate": 8500,
+    "Gold Ring": 100,
+    "Golden Shield Frame": 48000,
+    "Guard Cloak": 50,
+    "Guard Helmet": null,
+    "Hardened Fish Scales": 320,
+    "Health Potion": 25,
+    "Hearty Extract": 130,
+    "Hearty Fish Flesh": 105,
+    "Hearty Fish Mash": 120,
+    "Hunters Ring": 120,
+    "Imperial Spear": 25000,
+    "Iron Arrow": 2,
+    "Iron Bar": 20,
+    "Iron Helmet": 120,
+    "Iron Ore": 6,
+    "Iron Pickaxe": 240,
+    "Iron Plate": 45,
+    "Iron Platebody": 360,
+    "Iron Platelegs": 285,
+    "Iron Rod": 25,
+    "Iron Shield": 500,
+    "Iron Sword": 175,
+    "Large Archery Potion": 100,
+    "Large Attack Potion": 100,
+    "Large Ebony Plate": 306750,
+    "Large Ebony Rod": 181500,
+    "Large Essence Gland": 10,
+    "Large Fish Bait": 8,
+    "Large Fishing Potion": 35,
+    "Large Health Potion": 50,
+    "Large Magic Potion": 100,
+    "Large Mining Potion": 100,
+    "Large Mithril Plate": 3450,
+    "Large Mithril Rod": 875,
+    "Large Potion": 10,
+    "Large Shields Potion": 100,
+    "Large Steel Plate": 220,
+    "Large Steel Rod": 110,
+    "Large Strong Health Potion": 250,
+    "Large Strong Shields Potion": 1000,
+    "Large Vial": 10,
+    "Large Weak Health Potion": 18,
+    "Leather Armour": 100,
+    "Leather Boots": 40,
+    "Leather Hood": 50,
+    "Leather Legs": 70,
+    "Magic Power Gem": 500,
+    "Medium Fish Bait": 4,
+    "Medium Worm Bait": 10,
+    "Mining Boots": 40,
+    "Mining Gloves": 380,
+    "Mining Power Gem": 5000,
+    "Minnow": 1,
+    "Mithril Arrow": 8,
+    "Mithril Bar": 200,
+    "Mithril Helmet": 10850,
+    "Mithril Ore": 50,
+    "Mithril Pickaxe": 3000,
+    "Mithril Plate": 850,
+    "Mithril Platebody": 24250,
+    "Mithril Platelegs": 19200,
+    "Mithril Rod": 425,
+    "Mithril Sword": 10000,
+    "Mud Root": 20,
+    "Noble Ring": 2000,
+    "Noted Item": null,
+    "Novice Ward": 500,
+    "Ore Crate": 35000,
+    "Ore Sack": 250,
+    "Ornate Fire Staff": 10000,
+    "Parry Shield": 2000,
+    "Perch": 35,
+    "Pirate Armour": 250,
+    "Pirate Boots": 100,
+    "Pirate Hat": 300,
+    "Pirate Legs": 200,
+    "Plain Fish Flesh": 20,
+    "Platinum Amulet": 100000,
+    "Polished Fish Scales": 340,
+    "Pork": 6,
+    "Potion Making Power Gem": 350,
+    "Power Gem": 350,
+    "Rare Bass": 400,
+    "Rare Blue Gill": 800,
+    "Rare Carp": 3200,
+    "Rare Elder Trout": 1600,
+    "Rare Minnow": 30,
+    "Rare Perch": 300,
+    "Rare Trout": 90,
+    "Resonant Essence Geode": 1000,
+    "Root Paste": 25,
+    "Rough Cloth": 10,
+    "Rough Leather": 13,
+    "Santa Hat": 100,
+    "Scrap Fish Flesh": 4,
+    "Shield Potion": 100,
+    "Silver Bar": 680,
+    "Silver Foil": 2480,
+    "Silver Ore": 60,
+    "Silver Plate": 4860,
+    "Skeleton Greatsword": 2500,
+    "Skeleton Helmet": 60,
+    "Skeleton Rapier": 10000,
+    "Skeleton Shield": 60,
+    "Slightly Magical Feather": 50,
+    "Small Archery Potion": 46,
+    "Small Attack Potion": 46,
+    "Small Ebony Plate": 15500,
+    "Small Ebony Rod": 7750,
+    "Small Essence Gland": 1,
+    "Small Fang": 25,
+    "Small Fish Bait": 2,
+    "Small Fishing Potion": 13.5,
+    "Small Health Potion": 21,
+    "Small Magic Potion": 46,
+    "Small Mining Potion": 46,
+    "Small Potion": 1,
+    "Small Shields Potion": 46,
+    "Small Strong Health Potion": 121,
+    "Small Strong Shields Potion": 496,
+    "Small Vial": 1,
+    "Small Weak Health Potion": 5,
+    "Small Worm Bait": 4,
+    "Smithing Hammer": 8,
+    "Smithing Power Gem": 2000,
+    "Spice": 100,
+    "Spider Eye": 150,
+    "Steel Arrow": 4,
+    "Steel Bar": 40,
+    "Steel Helmet": 640,
+    "Steel Pickaxe": 960,
+    "Steel Plate": 100,
+    "Steel Platebody": 1700,
+    "Steel Platelegs": 1260,
+    "Steel Rod": 50,
+    "Steel Shield": 2500,
+    "Steel Sword": 1020,
+    "Steel Wire": 55,
+    "Stolen Supplies": null,
+    "Strange Gem": 5000,
+    "Strong Health Potion": 250,
+    "Strong Magic Power Gem": 5000,
+    "Strong Mining Power Gem": 20000,
+    "Strong Power Gem": 1200,
+    "Strong Shield Potion": 1000,
+    "Sturdy Fishing Rod": 1000,
+    "Sword of the Burning King": 1000000,
+    "Thick Leather": 50,
+    "Thick Leather Boots Line": 150,
+    "Thick Leather Pant Line": 200,
+    "Thick Leather Vest Line": 250,
+    "Tin Ore": 2,
+    "Tiny Fish Bait": 1,
+    "Tiny Worm Bait": 1,
+    "Titanium Amulet": 3000,
+    "Titanium Ring": 500,
+    "Tough Pelt": 35,
+    "Volcanic Core": 250000,
+    "Volcanic Ring": 100000,
+    "Volcanic Shard": 5000,
+    "Volcanic Ward": 500000,
+    "Weak Health Potion": 5,
+    "Weak Magic Power Gem": 100,
+    "Weak Power Gem": 100,
+    "Willow Bow": 1000,
+    "Willow Fire Wand": 1000,
+    "Willow Ice Wand": 1000,
+    "Willow Lightning Wand": 1000,
+    "Wood Bow": 80,
+    "Wooden Arrow": 0.1
+  },
+  "shops": [
+    {
+      "asset": "ShopListing_Armour",
+      "name": "Armour Stall",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Bronze Platebody",
+          "quantity": 1,
+          "price": 145
+        },
+        {
+          "item": "Bronze Platelegs",
+          "quantity": 1,
+          "price": 110
+        },
+        {
+          "item": "Iron Platebody",
+          "quantity": 1,
+          "price": 360
+        },
+        {
+          "item": "Iron Platelegs",
+          "quantity": 1,
+          "price": 285
+        },
+        {
+          "item": "Steel Platebody",
+          "quantity": 1,
+          "price": 1700
+        },
+        {
+          "item": "Steel Platelegs",
+          "quantity": 1,
+          "price": 1260
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_Arrows",
+      "name": "Arrows",
+      "priceMultiplier": 1,
+      "featureFlag": "Archery",
+      "listings": [
+        {
+          "item": "Wooden Arrow",
+          "quantity": 10,
+          "price": 1
+        },
+        {
+          "item": "Bronze Arrow",
+          "quantity": 10,
+          "price": 5
+        },
+        {
+          "item": "Iron Arrow",
+          "quantity": 10,
+          "price": 30
+        },
+        {
+          "item": "Steel Arrow",
+          "quantity": 10,
+          "price": 60
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_ShieldBasic",
+      "name": "Basic Shield Stall",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Iron Shield",
+          "quantity": 1,
+          "price": 500
+        },
+        {
+          "item": "Novice Ward",
+          "quantity": 1,
+          "price": 500
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_Bows",
+      "name": "Bows",
+      "priceMultiplier": 1,
+      "featureFlag": "Archery",
+      "listings": [
+        {
+          "item": "Crude Bow",
+          "quantity": 1,
+          "price": 5
+        },
+        {
+          "item": "Wood Bow",
+          "quantity": 1,
+          "price": 80
+        },
+        {
+          "item": "Birch Bow",
+          "quantity": 1,
+          "price": 375
+        },
+        {
+          "item": "Willow Bow",
+          "quantity": 1,
+          "price": 2000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Fishing",
+      "name": "Fishing Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Fishing",
+      "listings": [
+        {
+          "item": "Crude Fishing Rod",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Bait Knife",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Tiny Worm Bait",
+          "quantity": 1,
+          "price": 1
+        },
+        {
+          "item": "Common Trout",
+          "quantity": 1,
+          "price": 8
+        },
+        {
+          "item": "Perch",
+          "quantity": 1,
+          "price": 70
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_MineTown",
+      "name": "Grave Town Mining Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Iron Ore",
+          "quantity": 1,
+          "price": 6
+        },
+        {
+          "item": "Coal Ore",
+          "quantity": 1,
+          "price": 20
+        },
+        {
+          "item": "Iron Bar",
+          "quantity": 1,
+          "price": 20
+        },
+        {
+          "item": "Steel Bar",
+          "quantity": 1,
+          "price": 40
+        },
+        {
+          "item": "Iron Pickaxe",
+          "quantity": 1,
+          "price": 240
+        },
+        {
+          "item": "Steel Pickaxe",
+          "quantity": 1,
+          "price": 960
+        },
+        {
+          "item": "Smithing Hammer",
+          "quantity": 1,
+          "price": 8
+        },
+        {
+          "item": "Ore Sack",
+          "quantity": 1,
+          "price": 350
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_TanHides",
+      "name": "Hide Tanning Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Rough Leather",
+          "quantity": 1,
+          "price": 5,
+          "additionalCosts": [
+            {
+              "name": "Cowhide",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "item": "Thick Leather",
+          "quantity": 1,
+          "price": 15,
+          "additionalCosts": [
+            {
+              "name": "Tough Pelt",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Jewellery",
+      "name": "Jewellery Stall",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Copper Amulet",
+          "quantity": 1,
+          "price": 250
+        },
+        {
+          "item": "Gold Amulet",
+          "quantity": 1,
+          "price": 800
+        },
+        {
+          "item": "Titanium Amulet",
+          "quantity": 1,
+          "price": 3000
+        },
+        {
+          "item": "Elven Amulet",
+          "quantity": 1,
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_LeatherArmour",
+      "name": "Leather Armour",
+      "priceMultiplier": 1,
+      "featureFlag": "EvasionArmour",
+      "listings": [
+        {
+          "item": "Leather Hood",
+          "quantity": 1,
+          "price": 50
+        },
+        {
+          "item": "Leather Armour",
+          "quantity": 1,
+          "price": 100
+        },
+        {
+          "item": "Leather Legs",
+          "quantity": 1,
+          "price": 70
+        },
+        {
+          "item": "Leather Boots",
+          "quantity": 1,
+          "price": 40
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Leather",
+      "name": "Leather Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Rough Leather",
+          "quantity": 1,
+          "price": 16
+        }
+      ]
+    },
+    {
+      "asset": "Shop_LeatherworkingServices",
+      "name": "Leatherworking Services",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Thick Leather Vest Line",
+          "quantity": 1,
+          "price": 100,
+          "additionalCosts": [
+            {
+              "name": "Thick Leather",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "item": "Thick Leather Pant Line",
+          "quantity": 1,
+          "price": 75,
+          "additionalCosts": [
+            {
+              "name": "Thick Leather",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Mining",
+      "name": "Mining Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Copper Ore",
+          "quantity": 1,
+          "price": 2
+        },
+        {
+          "item": "Tin Ore",
+          "quantity": 1,
+          "price": 2
+        },
+        {
+          "item": "Iron Ore",
+          "quantity": 1,
+          "price": 6
+        },
+        {
+          "item": "Copper Pickaxe",
+          "quantity": 1,
+          "price": null
+        },
+        {
+          "item": "Bronze Pickaxe",
+          "quantity": 1,
+          "price": 40
+        },
+        {
+          "item": "Iron Pickaxe",
+          "quantity": 1,
+          "price": 240
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_PotionIngredients",
+      "name": "Potion Ingredients",
+      "priceMultiplier": 3,
+      "featureFlag": "PotionMaking",
+      "listings": [
+        {
+          "item": "Small Fang",
+          "quantity": 1,
+          "price": 75
+        },
+        {
+          "item": "Mud Root",
+          "quantity": 1,
+          "price": 60
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Potion",
+      "name": "Potion Stall",
+      "priceMultiplier": 2,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Small Weak Health Potion",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Large Health Potion",
+          "quantity": 1,
+          "price": 100
+        },
+        {
+          "item": "Large Strong Health Potion",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Large Shields Potion",
+          "quantity": 1,
+          "price": 300
+        },
+        {
+          "item": "Large Strong Shields Potion",
+          "quantity": 1,
+          "price": 3000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Shield",
+      "name": "Shield Stall",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Iron Shield",
+          "quantity": 1,
+          "price": 500
+        },
+        {
+          "item": "Steel Shield",
+          "quantity": 1,
+          "price": 2500
+        },
+        {
+          "item": "Elven Shield",
+          "quantity": 1,
+          "price": 10000
+        },
+        {
+          "item": "Advanced Parry Shield",
+          "quantity": 1,
+          "price": 10000
+        },
+        {
+          "item": "Novice Ward",
+          "quantity": 1,
+          "price": 500
+        },
+        {
+          "item": "Apprentice Ward",
+          "quantity": 1,
+          "price": 2500
+        },
+        {
+          "item": "Adept Ward",
+          "quantity": 1,
+          "price": 10000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Smithing",
+      "name": "Smithing Stall",
+      "priceMultiplier": 1.2,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Smithing Hammer",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Bronze Bar",
+          "quantity": 1,
+          "price": 8
+        },
+        {
+          "item": "Iron Bar",
+          "quantity": 1,
+          "price": 24
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Tailor",
+      "name": "Tailor",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Rough Cloth",
+          "quantity": 1,
+          "price": 15
+        }
+      ]
+    },
+    {
+      "asset": "Shop_Test_Tailor",
+      "name": "Tailoring Services",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Elven Cloth Vest Line",
+          "quantity": 1,
+          "price": 250,
+          "additionalCosts": [
+            {
+              "name": "Elven Cloth",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "item": "Elven Cloth Pant Line",
+          "quantity": 1,
+          "price": 225,
+          "additionalCosts": [
+            {
+              "name": "Elven Cloth",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "item": "Exquisite Silk Vest Line",
+          "quantity": 1,
+          "price": 10000,
+          "additionalCosts": [
+            {
+              "name": "Exquisite Silk",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "item": "Exquisite Silk Pant Line",
+          "quantity": 1,
+          "price": 7500,
+          "additionalCosts": [
+            {
+              "name": "Exquisite Silk",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "item": "Exquisite Silk Boot Line",
+          "quantity": 1,
+          "price": 5000,
+          "additionalCosts": [
+            {
+              "name": "Exquisite Silk",
+              "count": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_Armour",
+      "name": "Valen City Armour",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Bronze Helmet",
+          "quantity": 1,
+          "price": 40
+        },
+        {
+          "item": "Bronze Platebody",
+          "quantity": 1,
+          "price": 145
+        },
+        {
+          "item": "Bronze Platelegs",
+          "quantity": 1,
+          "price": 110
+        },
+        {
+          "item": "Iron Helmet",
+          "quantity": 1,
+          "price": 120
+        },
+        {
+          "item": "Iron Platebody",
+          "quantity": 1,
+          "price": 360
+        },
+        {
+          "item": "Iron Platelegs",
+          "quantity": 1,
+          "price": 285
+        },
+        {
+          "item": "Steel Helmet",
+          "quantity": 1,
+          "price": 640
+        },
+        {
+          "item": "Steel Platebody",
+          "quantity": 1,
+          "price": 1700
+        },
+        {
+          "item": "Steel Platelegs",
+          "quantity": 1,
+          "price": 1260
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_ArmourFrontStall",
+      "name": "Valen City Armour Front Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Bronze Helmet",
+          "quantity": 1,
+          "price": 40
+        },
+        {
+          "item": "Bronze Platebody",
+          "quantity": 1,
+          "price": 145
+        },
+        {
+          "item": "Bronze Platelegs",
+          "quantity": 1,
+          "price": 110
+        },
+        {
+          "item": "Iron Helmet",
+          "quantity": 1,
+          "price": 120
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_Bakery",
+      "name": "Valen City Bakery",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Bread Loaf",
+          "quantity": 1,
+          "price": 6
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_ValenCity_Blacksmith",
+      "name": "Valen City Blacksmith",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Iron Bar",
+          "quantity": 1,
+          "price": 20
+        },
+        {
+          "item": "Steel Bar",
+          "quantity": 1,
+          "price": 40
+        },
+        {
+          "item": "Smithing Hammer",
+          "quantity": 1,
+          "price": 8
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_ButcherStall",
+      "name": "Valen City Butcher Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Beef",
+          "quantity": 1,
+          "price": 8
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_FishStall",
+      "name": "Valen City Fish Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Common Trout",
+          "quantity": 1,
+          "price": 8
+        },
+        {
+          "item": "Perch",
+          "quantity": 1,
+          "price": 70
+        },
+        {
+          "item": "Bass",
+          "quantity": 1,
+          "price": 30
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_Fletcher",
+      "name": "Valen City Fletcher",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Wood Bow",
+          "quantity": 1,
+          "price": 80
+        },
+        {
+          "item": "Birch Bow",
+          "quantity": 1,
+          "price": 375
+        },
+        {
+          "item": "Willow Bow",
+          "quantity": 1,
+          "price": 2000
+        },
+        {
+          "item": "Carved Bow",
+          "quantity": 1,
+          "price": 12500
+        },
+        {
+          "item": "Bronze Arrow",
+          "quantity": 10,
+          "price": 5
+        },
+        {
+          "item": "Iron Arrow",
+          "quantity": 10,
+          "price": 30
+        },
+        {
+          "item": "Steel Arrow",
+          "quantity": 10,
+          "price": 60
+        },
+        {
+          "item": "Mithril Arrow",
+          "quantity": 10,
+          "price": 160
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_FletcherFrontStall",
+      "name": "Valen City Fletcher Front Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Wood Bow",
+          "quantity": 1,
+          "price": 80
+        },
+        {
+          "item": "Bronze Arrow",
+          "quantity": 10,
+          "price": 5
+        },
+        {
+          "item": "Iron Arrow",
+          "quantity": 10,
+          "price": 30
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_JewelleryStore",
+      "name": "Valen City Jewellery Store",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Gold Amulet",
+          "quantity": 1,
+          "price": 800
+        },
+        {
+          "item": "Titanium Amulet",
+          "quantity": 1,
+          "price": 3000
+        },
+        {
+          "item": "Elven Amulet",
+          "quantity": 1,
+          "price": 10000
+        },
+        {
+          "item": "Platinum Amulet",
+          "quantity": 1,
+          "price": 100000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_PotionStore",
+      "name": "Valen City Potion Store",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Small Weak Health Potion",
+          "quantity": 1,
+          "price": 5
+        },
+        {
+          "item": "Large Health Potion",
+          "quantity": 1,
+          "price": 50
+        },
+        {
+          "item": "Large Strong Health Potion",
+          "quantity": 1,
+          "price": 500
+        },
+        {
+          "item": "Large Shields Potion",
+          "quantity": 1,
+          "price": 150
+        },
+        {
+          "item": "Large Strong Shields Potion",
+          "quantity": 1,
+          "price": 1500
+        },
+        {
+          "item": "Small Vial",
+          "quantity": 1,
+          "price": 1
+        },
+        {
+          "item": "Large Vial",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Gilded Vial",
+          "quantity": 1,
+          "price": 100
+        },
+        {
+          "item": "Small Fang",
+          "quantity": 1,
+          "price": 75
+        },
+        {
+          "item": "Mud Root",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Spider Eye",
+          "quantity": 1,
+          "price": 450
+        },
+        {
+          "item": "Glowing Mushroom",
+          "quantity": 1,
+          "price": 750
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_SpiceStall",
+      "name": "Valen City Spice Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Spice",
+          "quantity": 1,
+          "price": 100
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_WandStall",
+      "name": "Valen City Wand Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Fire Wand",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Birch Fire Wand",
+          "quantity": 1,
+          "price": 200
+        },
+        {
+          "item": "Birch Ice Wand",
+          "quantity": 1,
+          "price": 200
+        },
+        {
+          "item": "Willow Fire Wand",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Willow Ice Wand",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Willow Lightning Wand",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Carved Fire Wand",
+          "quantity": 1,
+          "price": 12500
+        },
+        {
+          "item": "Carved Ice Wand",
+          "quantity": 1,
+          "price": 12500
+        },
+        {
+          "item": "Carved Lightning Wand",
+          "quantity": 1,
+          "price": 12500
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_Weapon",
+      "name": "Valen City Weapon",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Bronze Sword",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Iron Sword",
+          "quantity": 1,
+          "price": 175
+        },
+        {
+          "item": "Steel Sword",
+          "quantity": 1,
+          "price": 1020
+        },
+        {
+          "item": "Imperial Spear",
+          "quantity": 1,
+          "price": 25000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_ValenCity_WeaponFrontStall",
+      "name": "Valen City Weapon Front Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "ValenCity",
+      "listings": [
+        {
+          "item": "Bronze Sword",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Iron Sword",
+          "quantity": 1,
+          "price": 175
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_FishingAdvanced",
+      "name": "Valen Port Fishing Stall",
+      "priceMultiplier": 1,
+      "featureFlag": "Fishing",
+      "listings": [
+        {
+          "item": "Sturdy Fishing Rod",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Bait Knife",
+          "quantity": 1,
+          "price": 10
+        },
+        {
+          "item": "Fish Crate",
+          "quantity": 1,
+          "price": 350
+        },
+        {
+          "item": "Tiny Worm Bait",
+          "quantity": 1,
+          "price": 1
+        },
+        {
+          "item": "Bass",
+          "quantity": 1,
+          "price": 30
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_Vials",
+      "name": "Vials",
+      "priceMultiplier": 1,
+      "featureFlag": "PotionMaking",
+      "listings": [
+        {
+          "item": "Small Vial",
+          "quantity": 1,
+          "price": 1
+        },
+        {
+          "item": "Large Vial",
+          "quantity": 1,
+          "price": 10
+        }
+      ]
+    },
+    {
+      "asset": "ShopListings_Wands",
+      "name": "Wands",
+      "priceMultiplier": 1,
+      "featureFlag": "Magic",
+      "listings": [
+        {
+          "item": "Beginner Wand",
+          "quantity": 1,
+          "price": 5
+        },
+        {
+          "item": "Fire Wand",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Birch Fire Wand",
+          "quantity": 1,
+          "price": 200
+        },
+        {
+          "item": "Birch Ice Wand",
+          "quantity": 1,
+          "price": 200
+        },
+        {
+          "item": "Willow Fire Wand",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Willow Ice Wand",
+          "quantity": 1,
+          "price": 1000
+        },
+        {
+          "item": "Willow Lightning Wand",
+          "quantity": 1,
+          "price": 1000
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Weapon",
+      "name": "Weapon Stall",
+      "priceMultiplier": 1,
+      "featureFlag": null,
+      "listings": [
+        {
+          "item": "Copper Sword",
+          "quantity": 1,
+          "price": null
+        },
+        {
+          "item": "Bronze Sword",
+          "quantity": 1,
+          "price": 60
+        },
+        {
+          "item": "Iron Sword",
+          "quantity": 1,
+          "price": 175
+        },
+        {
+          "item": "Steel Sword",
+          "quantity": 1,
+          "price": 1020
+        }
+      ]
+    },
+    {
+      "asset": "ShopListing_Weaver",
+      "name": "Weaver",
+      "priceMultiplier": 1,
+      "featureFlag": "Smithing",
+      "listings": [
+        {
+          "item": "Rough Cloth",
+          "quantity": 1,
+          "price": 30
+        }
+      ]
+    }
+  ]
+}

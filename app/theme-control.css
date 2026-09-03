@@ -799,6 +799,96 @@ html:not([data-theme='light']) .calculator-note {
   box-shadow: 0 10px 24px rgba(37, 77, 155, .15);
 }
 
+/* Calculator results need their own dark-theme treatment. The base calculator
+   stylesheet intentionally uses parchment panels, so changing only the outer
+   card leaves these high-value summaries with unreadable mixed colours. */
+html:not([data-theme='light']) .calculator-summary,
+html:not([data-theme='light']) .combat-result-grid,
+html:not([data-theme='light']) .accuracy-result,
+html:not([data-theme='light']) .potion-output-callout,
+html:not([data-theme='light']) .potion-result-grid,
+html:not([data-theme='light']) .production-time-grid,
+html:not([data-theme='light']) .smithing-result-grid {
+  border-color: color-mix(in srgb, var(--play-accent) 45%, var(--play-line));
+  border-radius: 16px 12px 20px 13px;
+  background:
+    radial-gradient(circle at 92% 18%, color-mix(in srgb, var(--play-accent-2) 10%, transparent), transparent 32%),
+    color-mix(in srgb, var(--play-accent) 7%, var(--play-surface-strong));
+  color: var(--play-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+html:not([data-theme='light']) .production-time-grid > div,
+html:not([data-theme='light']) .production-time-grid > div.primary,
+html:not([data-theme='light']) .potion-result-grid > div,
+html:not([data-theme='light']) .smithing-result-grid > div,
+html:not([data-theme='light']) .combat-result-grid > div {
+  border-color: var(--play-line);
+  background: transparent;
+}
+
+html:not([data-theme='light']) .custom-xp-field,
+html:not([data-theme='light']) .combat-breakdown,
+html:not([data-theme='light']) .potion-material-summary,
+html:not([data-theme='light']) .smithing-materials,
+html:not([data-theme='light']) .smithing-total-materials,
+html:not([data-theme='light']) .time-breakdown,
+html:not([data-theme='light']) .dusk-set-plan li {
+  border-color: var(--play-line);
+  background: color-mix(in srgb, var(--play-soft) 72%, transparent);
+  color: var(--play-text);
+}
+
+html:not([data-theme='light']) .calculator-summary span,
+html:not([data-theme='light']) .combat-result-grid span,
+html:not([data-theme='light']) .accuracy-result > span,
+html:not([data-theme='light']) .potion-output-callout span,
+html:not([data-theme='light']) .potion-result-grid span,
+html:not([data-theme='light']) .production-time-grid span,
+html:not([data-theme='light']) .smithing-result-grid span,
+html:not([data-theme='light']) .smithing-materials span,
+html:not([data-theme='light']) .smithing-total-materials span,
+html:not([data-theme='light']) .dusk-set-plan p {
+  color: var(--play-accent-2);
+}
+
+html:not([data-theme='light']) .calculator-summary strong,
+html:not([data-theme='light']) .combat-result-grid strong,
+html:not([data-theme='light']) .accuracy-result > strong,
+html:not([data-theme='light']) .potion-output-callout strong,
+html:not([data-theme='light']) .potion-result-grid strong,
+html:not([data-theme='light']) .production-time-grid strong,
+html:not([data-theme='light']) .smithing-result-grid strong,
+html:not([data-theme='light']) .smithing-materials strong,
+html:not([data-theme='light']) .smithing-total-materials li b,
+html:not([data-theme='light']) .dusk-set-plan h3,
+html:not([data-theme='light']) .dusk-set-plan li b,
+html:not([data-theme='light']) .time-breakdown li b {
+  color: var(--play-ink);
+}
+
+html:not([data-theme='light']) .calculator-summary p,
+html:not([data-theme='light']) .accuracy-result p,
+html:not([data-theme='light']) .potion-output-callout small,
+html:not([data-theme='light']) .potion-material-summary span,
+html:not([data-theme='light']) .production-time-grid small,
+html:not([data-theme='light']) .combat-breakdown > div span,
+html:not([data-theme='light']) .combat-breakdown dt,
+html:not([data-theme='light']) .smithing-total-materials small,
+html:not([data-theme='light']) .smithing-total-materials li,
+html:not([data-theme='light']) .dusk-set-plan > div > span,
+html:not([data-theme='light']) .dusk-set-plan li span,
+html:not([data-theme='light']) .dusk-set-plan > small,
+html:not([data-theme='light']) .time-breakdown summary,
+html:not([data-theme='light']) .time-breakdown li {
+  color: var(--play-text);
+}
+
+html:not([data-theme='light']) .time-breakdown li,
+html:not([data-theme='light']) .combat-breakdown dl div {
+  border-color: var(--play-line);
+}
+
 @media (max-width: 1180px) {
   .wiki-rail .rail-brand { min-width: 52px; }
   .wiki-rail .rail-brand > span:last-child { display: none; }
