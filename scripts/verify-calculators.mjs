@@ -29,6 +29,7 @@ import {
   defaultSmithingMaterialOptions,
   duskKnightSetRequirements,
   smithingDirectCraftTime,
+  smithingMaterialTotals,
   smithingMaterialTotalsForItems,
   smithingProductionTimePlan,
   smithingRecipes,
@@ -134,13 +135,23 @@ assert.equal(potionCrushRecipes.find((recipe) => recipe.slug === 'recipe-crush-g
 
 const confirmedSmithingXp = new Map(smithingRecipes.map((recipe) => [recipe.slug, recipe.xp]));
 assert.equal(confirmedSmithingXp.get('silver-bar'), 675);
-assert.equal(confirmedSmithingXp.get('ebony-bar-from-dust'), 1_800);
+assert.equal(confirmedSmithingXp.get('ebony-bar-from-ore'), 1_800);
 assert.equal(confirmedSmithingXp.get('large-ebony-plate'), 7_000);
 assert.equal(confirmedSmithingXp.get('dusk-knight-body-breastplate'), 18_000);
 assert.equal(confirmedSmithingXp.get('bronze-platebody'), 180);
 assert.equal(confirmedSmithingXp.get('iron-sword'), 120);
 assert.equal(confirmedSmithingXp.get('mithril-platebody'), 3_296);
 assert.equal(confirmedSmithingXp.get('dusk-knight-platebody'), 20_000);
+
+const ironBar = smithingRecipes.find((recipe) => recipe.slug === 'iron-bar');
+const steelBar = smithingRecipes.find((recipe) => recipe.slug === 'steel-bar');
+assert.ok(ironBar && steelBar);
+assert.deepEqual(smithingMaterialTotals(ironBar, 3), [{ item: 'Iron Ore', quantity: 6 }]);
+assert.deepEqual(smithingMaterialTotals(ironBar, 3, { ...defaultSmithingMaterialOptions, ironSource: 'dust' }), [{ item: 'Iron Dust', quantity: 6 }]);
+assert.deepEqual(smithingMaterialTotals(steelBar, 2, { ...defaultSmithingMaterialOptions, ironSource: 'dust', coalSource: 'dust' }), [
+  { item: 'Coal Dust', quantity: 2 },
+  { item: 'Iron Dust', quantity: 2 },
+]);
 
 const duskMaterials = new Map(
   smithingMaterialTotalsForItems(duskKnightSetRequirements, defaultSmithingMaterialOptions)

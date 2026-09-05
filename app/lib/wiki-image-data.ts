@@ -20,6 +20,14 @@ function archivedItemImage(filename: string, item: string, caption = `${item} in
   };
 }
 
+function currentItemImage(filename: string, item: string): WikiImageData {
+  return {
+    src: `/game-assets/items/${filename}`,
+    alt: `${item} inventory icon`,
+    caption: `${item} inventory icon used by the current game build.`,
+  };
+}
+
 /**
  * Exact, player-facing matches recovered from the installed game build. Existing
  * article artwork still wins; these entries fill pages that did not have a
@@ -101,6 +109,21 @@ export const gameWikiImages: Record<string, WikiImageData> = {
     alt: 'Essence Geode inventory icon',
     caption: 'Essence Geode inventory icon extracted from the current game build.',
   },
+  'broken-sword': currentItemImage('broken-sword.png', 'Broken Sword'),
+  'coal-dust': currentItemImage('coal-dust.png', 'Coal Dust'),
+  'corrupted-dark-battle-pickaxe': currentItemImage('corrupted-dark-battle-pickaxe.png', 'Corrupted Dark Battle Pickaxe'),
+  'corrupted-dark-scimitar': currentItemImage('corrupted-dark-scimitar.png', 'Corrupted Dark Scimitar'),
+  'dark-cape': currentItemImage('dark-cape.png', 'Dark Cape'),
+  'dark-key': currentItemImage('dark-key.png', 'Dark Key'),
+  'dark-necklace': currentItemImage('dark-necklace.png', 'Dark Necklace'),
+  'guard-cape': archivedItemImage('t-guardcloak-icon2.png', 'Guard Cape'),
+  'iron-battle-pickaxe': currentItemImage('iron-battle-pickaxe.png', 'Iron Battle Pickaxe'),
+  'iron-dust': currentItemImage('iron-dust.png', 'Iron Dust'),
+  'iron-key': currentItemImage('iron-key.png', 'Iron Key'),
+  'iron-scimitar': currentItemImage('iron-scimitar.png', 'Iron Scimitar'),
+  'mithril-battle-pickaxe': currentItemImage('mithril-battle-pickaxe.png', 'Mithril Battle Pickaxe'),
+  'mithril-key': currentItemImage('mithril-key.png', 'Mithril Key'),
+  'mithril-scimitar': currentItemImage('mithril-scimitar.png', 'Mithril Scimitar'),
   'infused-coal': archivedItemImage('t-essenceinfusedcoal-icon.png', 'Infused Coal'),
   minnow: archivedItemImage('t-minnow-icon.png', 'Minnow'),
   'ore-crate': archivedItemImage('t-mithrilorecrate-icon.png', 'Ore Crate'),

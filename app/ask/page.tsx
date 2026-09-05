@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { AiQaClient } from '../components/AiQaClient';
 import { ASK_AGENT_NAME } from '../lib/ask-agent';
-import { gameDataBuild, gameDataRecords } from '../lib/game-data';
+import { gameDataRecords } from '../lib/game-data';
 import { getOllamaConfiguration } from '../lib/ollama-config';
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function AskPage({ searchParams }: { searchParams: Promise<
         <div><p className="panel-kicker">How it works</p><h2 id="ask-boundary-heading">A shortcut into the archive</h2><p>{ASK_AGENT_NAME} retrieves the most relevant player pages, then passes those details to the model. Level and timing questions also receive values from the same calculation code used by the calculator tools.</p></div>
         <ul>
           <li><strong>Wiki pages</strong><span>Recipes, resources, quests, creatures, locations, and systems.</span></li>
-          <li><strong>Game files</strong><span>{gameDataRecords.length ? `${gameDataRecords.length} public records loaded from ${gameDataBuild}.` : 'Ready for an authorized export; none is loaded yet.'}</span></li>
+          <li><strong>Game information</strong><span>{gameDataRecords.length ? `${gameDataRecords.length} current game records are included.` : 'The player guide is ready for the next game update.'}</span></li>
           <li><strong>Calculator data</strong><span>XP tables, action counts, batch yields, and active crafting time.</span></li>
           <li><strong>Honest limits</strong><span>Unknown or unverified details are called out rather than filled in.</span></li>
         </ul>

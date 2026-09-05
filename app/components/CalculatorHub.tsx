@@ -116,9 +116,11 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
   const [selectedSmithingSlug, setSelectedSmithingSlug] = useState(smithingRecipes[0].slug);
   const [unconfirmedCraftQuantity, setUnconfirmedCraftQuantity] = useState(1);
   const [smithingTimeQuantity, setSmithingTimeQuantity] = useState(1);
+  const [ironSource, setIronSource] = useState<SmithingMaterialOptions['ironSource']>(defaultSmithingMaterialOptions.ironSource);
+  const [coalSource, setCoalSource] = useState<SmithingMaterialOptions['coalSource']>(defaultSmithingMaterialOptions.coalSource);
   const [goldSource, setGoldSource] = useState<SmithingMaterialOptions['goldSource']>(defaultSmithingMaterialOptions.goldSource);
   const [ebonySource, setEbonySource] = useState<SmithingMaterialOptions['ebonySource']>(defaultSmithingMaterialOptions.ebonySource);
-  const materialOptions = useMemo(() => ({ goldSource, ebonySource }), [ebonySource, goldSource]);
+  const materialOptions = useMemo(() => ({ ironSource, coalSource, goldSource, ebonySource }), [coalSource, ebonySource, goldSource, ironSource]);
   const smithingResults = useMemo(() => {
     const needle = smithingQuery.trim().toLowerCase();
     return smithingRecipes
@@ -226,6 +228,8 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
                 <div className="smithing-plan-controls">
                   <label><span>Item</span><select value={selectedSmithingSlug} onChange={(event) => setSelectedSmithingSlug(event.target.value)}>{smithingRecipes.map((recipe) => <option value={recipe.slug} key={recipe.slug}>{smithingRecipeLabel(recipe)}</option>)}</select></label>
                   <div className="smithing-materials"><span>Materials per craft</span><strong>{formatSmithingIngredients(selectedSmithingRecipe)}</strong></div>
+                  <label><span>Iron bars from</span><select value={ironSource} onChange={(event) => setIronSource(event.target.value as SmithingMaterialOptions['ironSource'])}><option value="ore">Iron Ore</option><option value="dust">Iron Dust</option></select></label>
+                  <label><span>Coal source</span><select value={coalSource} onChange={(event) => setCoalSource(event.target.value as SmithingMaterialOptions['coalSource'])}><option value="ore">Coal Ore</option><option value="dust">Coal Dust</option></select></label>
                   <label><span>Gold bars from</span><select value={goldSource} onChange={(event) => setGoldSource(event.target.value as SmithingMaterialOptions['goldSource'])}><option value="ore">Gold Ore</option><option value="dust">Gold Dust</option></select></label>
                   <label><span>Ebony bars from</span><select value={ebonySource} onChange={(event) => setEbonySource(event.target.value as SmithingMaterialOptions['ebonySource'])}><option value="dust">Ebony Dust</option><option value="ore">Ebony Ore</option></select></label>
                 </div>

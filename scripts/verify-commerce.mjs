@@ -35,6 +35,13 @@ assert.equal(shopBuyBack('Gilded Archery Potion'), 130);
 assert.equal(data.itemValues['Gold Bar'], 1000);
 assert.equal(shopBuyBack('Gold Bar'), 700);
 assert.equal(listingsFor('Gold Bar').length, 0);
+assert.equal(data.itemValues['Iron Dust'], 6);
+assert.equal(data.itemValues['Coal Dust'], 20);
+assert.equal(data.itemValues['Corrupted Dark Battle Pickaxe'], 800_000);
+assert.equal(data.itemValues['Dark Necklace'], 100_000);
+assert.equal(data.itemValues['Ebony Bar'], 2_000);
+assert.equal(data.itemValues['DuskKnight Platebody'], 2_228_000);
+assert.equal(listingsFor('Dark Necklace').length, 0);
 
 assert.equal(data.itemValues['Ore Sack'], 250);
 assert.equal(shopBuyBack('Ore Sack'), 175);

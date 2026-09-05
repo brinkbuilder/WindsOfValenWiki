@@ -171,7 +171,7 @@ const guideEntries: WikiEntry[] = [
       { label: 'Membership', value: 'Required' },
       { label: 'Mining', value: 'Level 15' },
       { label: 'Enemies', value: 'Goblin Villagers (15) · Goblin General (55)' },
-      { label: 'Rewards', value: 'Valen City access · Guard Cloak · 5,000 Mining XP' },
+      { label: 'Rewards', value: 'Valen City access · Guard Cape · 5,000 Mining XP' },
     ],
     sections: [
       {
@@ -214,7 +214,7 @@ const guideEntries: WikiEntry[] = [
       },
       {
         title: 'Rewards',
-        bullets: ['Permanent access to Valen City', 'Guard Cloak, your first back-slot item', '5,000 Mining experience'],
+        bullets: ['Permanent access to Valen City', 'Guard Cape, your first back-slot item', '5,000 Mining experience'],
       },
     ], related: ['valen-city', 'goblin-general', 'mining'],
   }),

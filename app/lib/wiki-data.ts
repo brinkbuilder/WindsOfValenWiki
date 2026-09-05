@@ -1,10 +1,13 @@
 import { communityEntries } from './community-entries';
+import { currentGameUpdateEntries } from './current-game-update';
 import { itemCatalogueSpecs } from './item-data';
 import { ITEM_COMMERCE_SOURCE, SHOP_BUY_BACK_RATE, itemCommerceInfoFor, potionVariantCommerceFor, type ItemCommerceInfo } from './item-commerce';
 import legacyWikiData from './legacy-wiki-data.json';
 import { fishProcessingRecipes, potionBrewRecipes, potionCrushRecipes, potionRecipeDetails, potionReductionRecipes } from './potion-data';
 import { formatSmithingIngredients, smithingItemDescriptions, smithingItemSlug, smithingRecipes, type SmithingRecipe } from './smithing-data';
 import { gameWikiImages, recipeStationImages } from './wiki-image-data';
+
+const currentGameUpdateSlugs = new Set(currentGameUpdateEntries.map((entry) => entry.slug));
 
 export type Verification = 'engine' | 'observed' | 'player' | 'documented' | 'community';
 
@@ -148,14 +151,14 @@ const curatedEntries: WikiEntry[] = [
     title: 'Coal',
     type: 'Item',
     verification: 'engine',
-    summary: 'A raw mining resource used to make Infused Coal.',
-    intro: 'Coal is a mining and crafting resource. One Coal is consumed for every Infused Coal produced.',
+    summary: 'A raw mining resource used for Steel, Mithril, and Infused Coal.',
+    intro: 'Coal Ore is a mining and crafting resource. Coal Dust can now be used anywhere a current recipe accepts Coal Ore.',
     aliases: ['Coal Ore', 'item 27'],
     categories: ['Items', 'Mining', 'Materials'],
     technicalId: 'ItemDataKey 27',
     facts: [{ label: 'Item key', value: '27' }, { label: 'Known use', value: 'Infused Coal' }, { label: 'Recipe cost', value: '1 per craft' }, { label: 'Verification', value: 'Engine verified' }],
     sections: [
-      { title: 'Uses', paragraphs: ['At a Reduction Station, combine one Coal with two Essence to make one Infused Coal.'] },
+      { title: 'Uses', paragraphs: ['At a Reduction Station, combine one Coal Ore or Coal Dust with two Essence to make one Infused Coal. Coal Ore or Coal Dust can also be used when smelting Steel and Mithril Bars.'] },
       { title: 'Where to find it', paragraphs: ['Coal rocks can be found in the Ebony Caves. Mining requirements and respawn timing still need to be added to this guide.'] },
     ],
     related: ['infused-coal', 'essence', 'cavern-mine', 'mining'],
@@ -314,7 +317,8 @@ const curatedEntries: WikiEntry[] = [
     facts: [{ label: 'Availability', value: 'Charges > 0' }, { label: 'Known ores', value: 'Silver, gold, essence, coal, ebony' }, { label: 'Resource crate', value: 'Up to 500 observed' }, { label: 'Verification', value: 'Live state + tests' }],
     sections: [
       { title: 'Rock depletion', paragraphs: ['Move to the next rock when the current one depletes. Continue around the patch while waiting for earlier rocks to return.'] },
-      { title: 'Mining progression', table: { headers: ['Level', 'Rock', 'Resource', 'Rare item', 'Base XP'], rows: [['1', 'Copper Rock', 'Copper Ore', 'Weak Power Gem', '15'], ['1', 'Tin Rock', 'Tin Ore', 'Weak Power Gem', '15'], ['10', 'Iron Rock', 'Iron Ore', 'Power Gem', '30'], ['20', 'Coal Rock', 'Coal Ore', 'Strong Power Gem', '80'], ['30', 'Mithril Rock', 'Mithril Ore', 'Fishing Gem', '150'], ['40', 'Silver Rock', 'Silver Ore', 'Strange Gem', '300'], ['40', 'Gold Rock', 'Gold Ore or Gold Dust', 'Mining Gem', '350'], ['50', 'Essence Rock', 'Essence Geode', 'Essence rare drop', '550'], ['60', 'Ebony Rock', 'Ebony Ore or Ebony Dust', 'Strong Mining Gem', '500']] } },
+      { title: 'Mining progression', table: { headers: ['Level', 'Rock', 'Resource', 'Extra drop', 'Base XP'], rows: [['1', 'Copper Rock', 'Copper Ore', 'Weak Power Gem', '15'], ['1', 'Tin Rock', 'Tin Ore', 'Weak Power Gem', '15'], ['10', 'Iron Rock', 'Iron Ore', 'Power Gem', '30'], ['10', 'Iron Dust Rock', 'Iron Dust', 'Iron Key — 10%', '30'], ['20', 'Coal Rock', 'Coal Ore', 'Strong Power Gem', '80'], ['20', 'Coal Dust Rock', 'Coal Dust', 'Mithril Key — 5%', '80'], ['30', 'Mithril Rock', 'Mithril Ore', 'Fishing Gem', '150'], ['40', 'Silver Rock', 'Silver Ore', 'Strange Gem', '300'], ['40', 'Gold Rock', 'Gold Ore or Gold Dust', 'Dark Key from Gold Dust — 1%', '350'], ['50', 'Essence Rock', 'Essence Geode', 'Essence rare drop', '550'], ['60', 'Ebony Rock', 'Ebony Ore or Ebony Dust', 'Strong Mining Gem', '500']] } },
+      { title: 'New dust rocks and keys', paragraphs: ['Iron Dust and Coal Dust now have their own mineable rocks. Their dust can replace the matching ore in current bar and Infused Coal recipes. Key rolls are separate from the normal resource and gem roll, so a successful key does not replace the dust you mine.'], bullets: ['Iron Dust Rock: level 10 Mining, 30 XP, guaranteed Iron Dust, normal gem table, and a 10% Iron Key roll.', 'Coal Dust Rock: level 20 Mining, 80 XP, guaranteed Coal Dust, strong gem table, and a 5% Mithril Key roll.', 'Gold Dust Rock: its usual resource and gem rewards now also have a separate 1% Dark Key roll.'] },
       { title: 'Resource containers', paragraphs: ['Ore containers are equipped separately from the normal 28-slot inventory. Deposit their contents through the resource action in the bank.'] },
       { title: 'Known patches', bullets: ['Silver: six-rock patch.', 'Gold: six-rock volcanic patch.', 'Essence: three-rock patch.', 'Ebony Caves: ebony, silver, coal, and ebony-dust rocks.'] },
     ],
@@ -767,14 +771,12 @@ const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
 const smithingSource = {
   label: 'Current Smithing catalogue',
   detail: 'Read from the furnace, anvil, and workbench available to a player in the current game build.',
-  observed: '28 August 2026',
+  observed: '5 September 2026',
 };
 
 function smithingRecipeTitle(recipe: SmithingRecipe) {
-  if (recipe.slug === 'gold-bar-from-ore') return 'Gold Bar from Gold Ore recipe';
-  if (recipe.slug === 'gold-bar-from-dust') return 'Gold Bar from Gold Dust recipe';
-  if (recipe.slug === 'ebony-bar-from-ore') return 'Ebony Bar from Ebony Ore recipe';
-  if (recipe.slug === 'ebony-bar-from-dust') return 'Ebony Bar from Ebony Dust recipe';
+  if (recipe.slug === 'gold-bar-from-ore') return 'Gold Bar recipe';
+  if (recipe.slug === 'ebony-bar-from-ore') return 'Ebony Bar recipe';
   return `${recipe.output} recipe`;
 }
 
@@ -803,7 +805,7 @@ const smithingRecipeEntries: WikiEntry[] = smithingRecipes.map((recipe) => ({
       title: 'Ingredients',
       table: {
         headers: ['Ingredient', 'Quantity'],
-        rows: recipe.ingredients.map(({ item, quantity }) => [item, String(quantity)]),
+        rows: recipe.ingredients.map(({ item, quantity, alternatives }) => [[item, ...(alternatives ?? [])].join(' or '), String(quantity)]),
       },
     },
     {
@@ -898,6 +900,7 @@ const smithingItemEntries: WikiEntry[] = [...recipesByOutput.entries()].map(([it
 
 const existingItemSlugs = new Set([
   ...curatedEntries.filter((entry) => entry.type === 'Item').map((entry) => entry.slug),
+  ...currentGameUpdateEntries.filter((entry) => entry.type === 'Item').map((entry) => entry.slug),
   ...communityEntries.filter((entry) => entry.type === 'Item').map((entry) => entry.slug),
   ...smithingItemEntries.map((entry) => entry.slug),
 ]);
@@ -1211,11 +1214,14 @@ function normalizedLegacyLabel(value: string) {
 }
 
 function mergeLegacyEntry(current: WikiEntry, legacy: WikiEntry): WikiEntry {
+  const replacesLegacyDetails = currentGameUpdateSlugs.has(current.slug);
   const knownFactLabels = new Set(current.facts.map((fact) => normalizedLegacyLabel(fact.label)));
-  const facts = [...current.facts, ...legacy.facts.filter((fact) => !knownFactLabels.has(normalizedLegacyLabel(fact.label)))];
+  const facts = replacesLegacyDetails
+    ? current.facts
+    : [...current.facts, ...legacy.facts.filter((fact) => !knownFactLabels.has(normalizedLegacyLabel(fact.label)))];
   const sections = current.sections.map((section) => ({ ...section }));
   const sectionIndexes = new Map(sections.map((section, index) => [section.title.toLowerCase(), index]));
-  legacy.sections.forEach((section) => {
+  (replacesLegacyDetails ? [] : legacy.sections).forEach((section) => {
     const existingIndex = sectionIndexes.get(section.title.toLowerCase());
     if (existingIndex === undefined) {
       sectionIndexes.set(section.title.toLowerCase(), sections.length);
@@ -1308,8 +1314,9 @@ function addRecoveredImages(entries: WikiEntry[]) {
 
 const smithingReplacementSlugs = new Set(['smithing', ...smithingItemEntries.map((entry) => entry.slug)]);
 const currentWikiEntries = [
+  ...currentGameUpdateEntries,
   ...[...curatedEntries, ...recipeEntries, ...communityEntries]
-    .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug)),
+    .filter((entry) => entry.slug !== 'valenbridge' && !smithingReplacementSlugs.has(entry.slug) && !currentGameUpdateSlugs.has(entry.slug)),
   smithingGuide,
   ...smithingItemEntries,
   ...itemCatalogueEntries,

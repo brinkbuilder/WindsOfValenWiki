@@ -259,6 +259,41 @@ a:hover { color: #9edcef; }
 .front-search-row > p b { color: var(--night-cyan); font: 670 23px var(--font-geist-mono), monospace; }
 
 .front-section { padding: 38px 0 4px; }
+.recent-updates-panel {
+  margin: 24px 0 0;
+  padding: 24px;
+  border-color: #293a54;
+  border-radius: 10px 5px 10px 5px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(49, 112, 160, .18), transparent 18rem),
+    linear-gradient(145deg, #111824, #121c2b);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .22);
+}
+.recent-updates-panel::after { border-color: rgba(78, 155, 205, .04); }
+.recent-updates-title .panel-kicker { color: var(--night-cyan); }
+.recent-updates-intro { color: #8d9aaf; }
+.recent-update-card {
+  border-color: #26354b;
+  border-radius: 6px 3px 6px 3px;
+  background: rgba(15, 22, 34, .9);
+  color: var(--night-text);
+  box-shadow: none;
+}
+.recent-update-card:hover { border-color: #47678e; background: #141f2f; box-shadow: 0 12px 24px rgba(0, 0, 0, .22); }
+.recent-update-card strong { color: #b9d0ed; }
+.recent-update-card small { color: #8491a4; }
+.recent-update-card > b { color: #597395; }
+.recent-update-mark {
+  border-color: #344964;
+  border-radius: 5px 2px 5px 2px;
+  background: #17243a;
+  color: #7eb6ec;
+}
+.recent-update-violet .recent-update-mark { border-color: #4b406b; background: #211b35; color: #ae91e7; }
+.recent-update-cyan .recent-update-mark { border-color: #285667; background: #102b34; color: #71cadc; }
+.recent-update-gold .recent-update-mark { border-color: #655630; background: #2b2514; color: #d5b967; }
+.recent-update-red .recent-update-mark { border-color: #643c48; background: #2c1820; color: #dc8599; }
+.recent-update-green .recent-update-mark { border-color: #305a47; background: #142a21; color: #7cc39e; }
 .classic-section-title { margin-bottom: 14px; }
 .classic-section-title h2 {
   color: var(--night-heading);

@@ -617,6 +617,9 @@ function directSkillTrainingAnswer(skill: SkillName, question: string, currentLe
       ];
       if (/\b(ore|dust|raw|material|ingredient|smelt|smith|craft|make|need)\b/i.test(question)) {
         const materials = smithingMaterialTotals(recipe, crafts, {
+          ...defaultSmithingMaterialOptions,
+          ironSource: /\biron\s+dust\b/i.test(question) ? 'dust' : defaultSmithingMaterialOptions.ironSource,
+          coalSource: /\bcoal\s+dust\b/i.test(question) ? 'dust' : defaultSmithingMaterialOptions.coalSource,
           goldSource: /\bgold\s+dust\b/i.test(question) ? 'dust' : defaultSmithingMaterialOptions.goldSource,
           ebonySource: /\bebony\s+ore\b/i.test(question) ? 'ore' : defaultSmithingMaterialOptions.ebonySource,
         });

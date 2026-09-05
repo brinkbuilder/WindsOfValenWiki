@@ -3,6 +3,7 @@ export type SmithingStation = 'Furnace' | 'Anvil' | 'Workbench';
 export type SmithingIngredient = {
   item: string;
   quantity: number;
+  alternatives?: string[];
 };
 
 export type SmithingRecipe = {
@@ -17,7 +18,11 @@ export type SmithingRecipe = {
   xpBasis: 'confirmed' | 'unconfirmed';
 };
 
-const ingredient = (item: string, quantity: number): SmithingIngredient => ({ item, quantity });
+const ingredient = (item: string, quantity: number, alternatives: string[] = []): SmithingIngredient => ({
+  item,
+  quantity,
+  ...(alternatives.length ? { alternatives } : {}),
+});
 
 const confirmedSmithingXp: Record<string, number> = {
   'bronze-bar': 15,
@@ -25,10 +30,8 @@ const confirmedSmithingXp: Record<string, number> = {
   'steel-bar': 55,
   'mithril-bar': 155,
   'gold-bar-from-ore': 800,
-  'gold-bar-from-dust': 800,
   'silver-bar': 675,
   'ebony-bar-from-ore': 1800,
-  'ebony-bar-from-dust': 1800,
   'iron-plate': 30,
   'iron-rod': 10,
   'steel-plate': 60,
@@ -92,14 +95,12 @@ const confirmedSmithingXp: Record<string, number> = {
 
 const rawSmithingRecipes: Omit<SmithingRecipe, 'xp' | 'xpBasis'>[] = [
   { slug: 'bronze-bar', output: 'Bronze Bar', outputQuantity: 1, station: 'Furnace', level: 1, seconds: 3, ingredients: [ingredient('Copper Ore', 1), ingredient('Tin Ore', 1)] },
-  { slug: 'iron-bar', output: 'Iron Bar', outputQuantity: 1, station: 'Furnace', level: 10, seconds: 4, ingredients: [ingredient('Iron Ore', 2)] },
-  { slug: 'steel-bar', output: 'Steel Bar', outputQuantity: 1, station: 'Furnace', level: 20, seconds: 6, ingredients: [ingredient('Iron Ore', 1), ingredient('Coal Ore', 1)] },
-  { slug: 'mithril-bar', output: 'Mithril Bar', outputQuantity: 1, station: 'Furnace', level: 30, seconds: 8, ingredients: [ingredient('Mithril Ore', 1), ingredient('Coal Ore', 2)] },
-  { slug: 'gold-bar-from-ore', output: 'Gold Bar', outputQuantity: 1, station: 'Furnace', level: 40, seconds: 20, ingredients: [ingredient('Gold Ore', 8)] },
-  { slug: 'gold-bar-from-dust', output: 'Gold Bar', outputQuantity: 1, station: 'Furnace', level: 40, seconds: 20, ingredients: [ingredient('Gold Dust', 8)] },
+  { slug: 'iron-bar', output: 'Iron Bar', outputQuantity: 1, station: 'Furnace', level: 10, seconds: 4, ingredients: [ingredient('Iron Ore', 2, ['Iron Dust'])] },
+  { slug: 'steel-bar', output: 'Steel Bar', outputQuantity: 1, station: 'Furnace', level: 20, seconds: 6, ingredients: [ingredient('Iron Ore', 1, ['Iron Dust']), ingredient('Coal Ore', 1, ['Coal Dust'])] },
+  { slug: 'mithril-bar', output: 'Mithril Bar', outputQuantity: 1, station: 'Furnace', level: 30, seconds: 8, ingredients: [ingredient('Mithril Ore', 1), ingredient('Coal Ore', 2, ['Coal Dust'])] },
+  { slug: 'gold-bar-from-ore', output: 'Gold Bar', outputQuantity: 1, station: 'Furnace', level: 40, seconds: 20, ingredients: [ingredient('Gold Ore', 8, ['Gold Dust'])] },
   { slug: 'silver-bar', output: 'Silver Bar', outputQuantity: 1, station: 'Furnace', level: 40, seconds: 10, ingredients: [ingredient('Silver Ore', 7)] },
-  { slug: 'ebony-bar-from-ore', output: 'Ebony Bar', outputQuantity: 1, station: 'Furnace', level: 60, seconds: 20, ingredients: [ingredient('Ebony Ore', 7)] },
-  { slug: 'ebony-bar-from-dust', output: 'Ebony Bar', outputQuantity: 1, station: 'Furnace', level: 60, seconds: 20, ingredients: [ingredient('Ebony Dust', 7)] },
+  { slug: 'ebony-bar-from-ore', output: 'Ebony Bar', outputQuantity: 1, station: 'Furnace', level: 60, seconds: 20, ingredients: [ingredient('Ebony Ore', 7, ['Ebony Dust'])] },
 
   { slug: 'iron-plate', output: 'Iron Plate', outputQuantity: 1, station: 'Anvil', level: 10, seconds: 4, ingredients: [ingredient('Iron Bar', 2)] },
   { slug: 'iron-rod', output: 'Iron Rod', outputQuantity: 1, station: 'Anvil', level: 11, seconds: 15, ingredients: [ingredient('Iron Bar', 1)] },
@@ -196,11 +197,15 @@ export type SmithingTimePlan = {
 };
 
 export type SmithingMaterialOptions = {
+  ironSource: 'ore' | 'dust';
+  coalSource: 'ore' | 'dust';
   goldSource: 'ore' | 'dust';
   ebonySource: 'ore' | 'dust';
 };
 
 export const defaultSmithingMaterialOptions: SmithingMaterialOptions = {
+  ironSource: 'ore',
+  coalSource: 'ore',
   goldSource: 'ore',
   ebonySource: 'dust',
 };
@@ -219,17 +224,27 @@ const suppliedMaterialRecipes: Record<string, SmithingIngredient[]> = {
   'Exquisite Silk Vest Line': [ingredient('Exquisite Silk', 6)],
 };
 
-function recipeForItem(item: string, options: SmithingMaterialOptions) {
-  if (item === 'Gold Bar') return smithingRecipes.find((recipe) => recipe.slug === `gold-bar-from-${options.goldSource}`);
-  if (item === 'Ebony Bar') return smithingRecipes.find((recipe) => recipe.slug === `ebony-bar-from-${options.ebonySource}`);
+function recipeForItem(item: string) {
   return smithingRecipes.find((recipe) => recipe.output === item);
+}
+
+function selectedIngredient(ingredientToResolve: SmithingIngredient, options: SmithingMaterialOptions): SmithingIngredient {
+  const sourceByItem: Partial<Record<string, 'ore' | 'dust'>> = {
+    'Iron Ore': options.ironSource,
+    'Coal Ore': options.coalSource,
+    'Gold Ore': options.goldSource,
+    'Ebony Ore': options.ebonySource,
+  };
+  if (sourceByItem[ingredientToResolve.item] !== 'dust') return ingredientToResolve;
+  const dust = ingredientToResolve.alternatives?.find((alternative) => alternative.endsWith('Dust'));
+  return dust ? ingredient(dust, ingredientToResolve.quantity) : ingredientToResolve;
 }
 
 function materialDepth(item: string, options: SmithingMaterialOptions, stack = new Set<string>()): number {
   if (stack.has(item) || reusableRequirements.has(item)) return 0;
   const supplied = suppliedMaterialRecipes[item];
-  const producer = recipeForItem(item, options);
-  const inputs = supplied ?? producer?.ingredients;
+  const producer = recipeForItem(item);
+  const inputs = supplied ?? producer?.ingredients.map((input) => selectedIngredient(input, options));
   if (!inputs?.length) return 0;
   const nextStack = new Set(stack);
   nextStack.add(item);
@@ -250,12 +265,12 @@ export function smithingMaterialTotalsForItems(
     if (reusableRequirements.has(item)) continue;
 
     const supplied = suppliedMaterialRecipes[item];
-    const producer = recipeForItem(item, options);
+    const producer = recipeForItem(item);
     if (supplied) {
       supplied.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * quantity));
     } else if (producer) {
       const producerCrafts = Math.ceil(quantity / producer.outputQuantity);
-      producer.ingredients.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * producerCrafts));
+      producer.ingredients.map((input) => selectedIngredient(input, options)).forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * producerCrafts));
     } else {
       totals.set(item, (totals.get(item) ?? 0) + quantity);
     }
@@ -272,7 +287,10 @@ export function smithingMaterialTotals(
   options: SmithingMaterialOptions = defaultSmithingMaterialOptions,
 ): SmithingMaterialTotal[] {
   const requirements = crafts > 0
-    ? recipe.ingredients.map(({ item, quantity }) => ingredient(item, quantity * crafts))
+    ? recipe.ingredients.map((input) => {
+        const chosen = selectedIngredient(input, options);
+        return ingredient(chosen.item, chosen.quantity * crafts);
+      })
     : [];
   return smithingMaterialTotalsForItems(requirements, options);
 }
@@ -308,7 +326,7 @@ export function smithingProductionTimePlan(
 
   const rootCrafts = Math.ceil(quantity / recipe.outputQuantity);
   addStep(recipe, rootCrafts);
-  recipe.ingredients.forEach(({ item, quantity: ingredientQuantity }) => {
+  recipe.ingredients.map((input) => selectedIngredient(input, options)).forEach(({ item, quantity: ingredientQuantity }) => {
     pending.set(item, (pending.get(item) ?? 0) + ingredientQuantity * rootCrafts);
   });
 
@@ -330,7 +348,7 @@ export function smithingProductionTimePlan(
       continue;
     }
 
-    const producer = recipeForItem(item, options);
+    const producer = recipeForItem(item);
     if (!producer) {
       suppliedMaterials.set(item, (suppliedMaterials.get(item) ?? 0) + itemQuantity);
       continue;
@@ -338,7 +356,7 @@ export function smithingProductionTimePlan(
 
     const crafts = Math.ceil(itemQuantity / producer.outputQuantity);
     addStep(producer, crafts);
-    producer.ingredients.forEach((input) => {
+    producer.ingredients.map((input) => selectedIngredient(input, options)).forEach((input) => {
       pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * crafts);
     });
   }
@@ -381,5 +399,8 @@ export function smithingItemSlug(item: string) {
 }
 
 export function formatSmithingIngredients(recipe: SmithingRecipe) {
-  return recipe.ingredients.map(({ item, quantity }) => `${quantity} ${item}`).join(' + ');
+  return recipe.ingredients.map(({ item, quantity, alternatives }) => {
+    const choices = [item, ...(alternatives ?? [])];
+    return choices.map((choice) => `${quantity} ${choice}`).join(' or ');
+  }).join(' + ');
 }

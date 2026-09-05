@@ -32,6 +32,51 @@ const popular = [
   { title: 'Combat', description: 'Damage types, shield matching, experience, and training.', href: '/wiki/combat-mechanics' },
 ];
 
+const recentUpdates = [
+  {
+    mark: '◆',
+    title: '14 new items',
+    description: 'Keys, Scimitars, Battle Pickaxes, the Dark Cape, Dark Necklace, Broken Sword, and two mineable dusts.',
+    href: '/wiki/september-2026-game-update',
+    tone: 'violet',
+  },
+  {
+    mark: '⌑',
+    title: 'Darklands chests',
+    description: 'All three supply tables and exact rare-equipment chances, including the 1-in-1,000 Dark Necklace.',
+    href: '/wiki/darklands-chests',
+    tone: 'blue',
+  },
+  {
+    mark: '⛏',
+    title: 'Dust mining',
+    description: 'Iron Dust, Coal Dust, and their separate Iron, Mithril, and Dark Key chances are now documented.',
+    href: '/wiki/mining',
+    tone: 'cyan',
+  },
+  {
+    mark: '⚒',
+    title: 'Flexible recipes',
+    description: 'Smithing totals now support ore or dust for Iron, Coal, Gold, and Ebony. Infused Coal supports Coal Dust too.',
+    href: '/calculators?skill=Smithing',
+    tone: 'gold',
+  },
+  {
+    mark: '☠',
+    title: 'Current drop rates',
+    description: 'Exact tables for Darklands skeletons, Ashen enemies, The Burning King, Elves, and the Elf Warden.',
+    href: '/wiki?type=world',
+    tone: 'red',
+  },
+  {
+    mark: '↟',
+    title: 'Equipment balance',
+    description: 'Current Ebony and Dusk Knight values, pickaxe combat stats, and the renamed Guard Cape are live in the item pages.',
+    href: '/wiki?type=items',
+    tone: 'green',
+  },
+];
+
 export default function Home() {
   return (
     <main className="classic-home" id="top">
@@ -57,6 +102,29 @@ export default function Home() {
           <div className="ask-home-mark" aria-hidden="true">?</div>
           <div className="ask-home-copy"><p className="panel-kicker">{ASK_AGENT_NAME}</p><h2 id="ask-home-heading">Ask a question, not just a keyword.</h2><p>Need a route, recipe, or training estimate? Ask in plain language and get a sourced answer from the wiki.</p></div>
           <div className="ask-home-example"><span>Try: “How long to level 80 Potion Making?”</span><Link href={`/ask?q=${encodeURIComponent('How long would it take me to get to level 80 Potion Making?')}`}>{ASK_AGENT_NAME} <b>→</b></Link></div>
+        </section>
+
+        <section className="recent-updates-panel" aria-labelledby="recent-updates-heading">
+          <div className="classic-section-title recent-updates-title">
+            <div>
+              <p className="panel-kicker">September 2026 game update</p>
+              <h2 id="recent-updates-heading">Recent updates</h2>
+            </div>
+            <Link href="/wiki/september-2026-game-update">Read the full update</Link>
+          </div>
+          <p className="recent-updates-intro">A quick look at what changed in-game and what is now documented across the wiki.</p>
+          <div className="recent-update-grid">
+            {recentUpdates.map((update) => (
+              <Link className={`recent-update-card recent-update-${update.tone}`} href={update.href} key={update.title}>
+                <span className="recent-update-mark" aria-hidden="true">{update.mark}</span>
+                <span>
+                  <strong>{update.title}</strong>
+                  <small>{update.description}</small>
+                </span>
+                <b aria-hidden="true">›</b>
+              </Link>
+            ))}
+          </div>
         </section>
 
         <section className="front-section" aria-labelledby="categories-heading">

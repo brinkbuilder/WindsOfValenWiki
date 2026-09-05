@@ -2109,6 +2109,69 @@ body {
 .front-search-row > p b { color: #2948a4; font: 780 26px var(--sans); }
 
 .front-section { padding: 42px 8px 8px; }
+.recent-updates-panel {
+  margin: 26px 8px 0;
+  padding: 26px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccd7f2;
+  border-radius: 24px 12px 24px 12px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(77, 207, 249, .18), transparent 19rem),
+    linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(238, 243, 255, .96));
+  box-shadow: 0 14px 36px rgba(35, 58, 140, .09);
+}
+.recent-updates-panel::after {
+  content: '';
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  right: -70px;
+  bottom: -76px;
+  border: 20px solid rgba(49, 88, 213, .06);
+  border-radius: 50%;
+}
+.recent-updates-title { position: relative; z-index: 1; }
+.recent-updates-title > div { display: block; }
+.recent-updates-title .panel-kicker { margin: 0 0 4px; color: #3158d5; }
+.recent-updates-title h2 { margin: 0; }
+.recent-updates-intro { margin: -7px 0 18px; color: #626e89; font-size: 13px; line-height: 1.6; }
+.recent-update-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; position: relative; z-index: 1; }
+.recent-update-card {
+  min-height: 122px;
+  padding: 17px 16px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid #d7def0;
+  border-radius: 15px 8px 15px 8px;
+  background: rgba(255, 255, 255, .9);
+  color: #172250;
+  box-shadow: 0 7px 18px rgba(33, 49, 104, .05);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.recent-update-card:hover { transform: translateY(-3px); border-color: #7998e7; box-shadow: 0 13px 25px rgba(35, 58, 140, .12); }
+.recent-update-card > span:nth-child(2) { display: block; min-width: 0; }
+.recent-update-card strong { display: block; margin: 1px 0 6px; color: #1e3279; font: 730 14px var(--sans); }
+.recent-update-card small { display: block; color: #69758e; font-size: 11px; line-height: 1.55; }
+.recent-update-card > b { color: #8a9bc5; font: 26px/1 var(--sans); }
+.recent-update-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #b9c9ef;
+  border-radius: 13px 6px 13px 6px;
+  background: #e9efff;
+  color: #294db2;
+  font: 700 18px var(--sans);
+}
+.recent-update-violet .recent-update-mark { border-color: #c9bcf4; background: #f0ebff; color: #6943bd; }
+.recent-update-cyan .recent-update-mark { border-color: #abe0ee; background: #e6f9fd; color: #157d9f; }
+.recent-update-gold .recent-update-mark { border-color: #ead598; background: #fff7dc; color: #93690d; }
+.recent-update-red .recent-update-mark { border-color: #edbdc7; background: #fff0f3; color: #ad3e55; }
+.recent-update-green .recent-update-mark { border-color: #b6dfca; background: #ebf9f1; color: #248057; }
 .classic-section-title { margin-bottom: 18px; border: 0; align-items: center; }
 .classic-section-title h2 { padding: 0; color: #11172d; font: 760 24px var(--sans); letter-spacing: -.025em; }
 .classic-section-title > a { color: #3158d5; font-size: 12px; }
@@ -2330,6 +2393,7 @@ footer .footer-links a:hover { color: #66dcff; }
   .front-search-row > p { display: none; }
   .portal-category-grid { grid-template-columns: 1fr 1fr; }
   .front-columns { grid-template-columns: 1fr; }
+  .recent-update-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .skill-portal-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
@@ -2346,6 +2410,11 @@ footer .footer-links a:hover { color: #66dcff; }
   .front-welcome span { font-size: 15px; }
   .front-search-row { margin: -17px 10px 0; padding: 17px; }
   .front-section { padding-top: 34px; }
+  .recent-updates-panel { margin-inline: 0; padding: 21px 17px; border-radius: 18px 9px 18px 9px; }
+  .recent-updates-title { align-items: flex-start; gap: 10px; }
+  .recent-updates-title > a { text-align: right; }
+  .recent-update-grid { grid-template-columns: 1fr; }
+  .recent-update-card { min-height: 0; }
   .portal-category-grid,
   .skill-portal-grid { grid-template-columns: 1fr; }
   .popular-guide-list { grid-template-columns: 1fr; }

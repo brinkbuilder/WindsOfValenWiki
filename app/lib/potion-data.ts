@@ -101,7 +101,7 @@ export const potionReductionRecipes: PotionRecipeDetail[] = [
   { slug: 'recipe-reduce-minced-hearty-fish-flesh', input: 'Hearty Fish Mash', level: 35, output: 'Hearty Extract', duration: 3, xp: 90, notes: 'Used for Strong Health Potions' },
   { slug: 'recipe-reduce-hardened-scales', input: 'Hardened Fish Scales', level: 45, output: 'Polished Fish Scales', duration: 4, xp: 110, notes: 'Take to the Crush Station next for Fine Fish Scales' },
   { slug: 'recipe-reduce-essence-geode', input: 'Essence Geode', level: 45, output: '50 x Essence', duration: 1, xp: 30, notes: 'High-yield Essence source that also requires Mining level 50' },
-  { slug: 'recipe-infused-coal', input: 'Coal Ore + 2 Essence', level: 45, output: 'Essence Infused Coal', duration: 0.5, xp: 50, notes: 'Endgame crafting fuel' },
+  { slug: 'recipe-infused-coal', input: 'Coal Ore or Coal Dust + 2 Essence', level: 45, output: 'Essence Infused Coal', duration: 0.5, xp: 50, notes: 'Endgame crafting fuel' },
 ];
 
 export const potionCrushRecipes: PotionRecipeDetail[] = [

@@ -21,6 +21,7 @@ export const SHOP_BUY_BACK_RATE = commerceData.shopBuyBackRate;
 export const ITEM_COMMERCE_SOURCE = commerceData.source;
 
 const itemValues = commerceData.itemValues as Record<string, number | null>;
+const itemsWithoutShopBuyBack = new Set(['Dark Cape']);
 
 function normalizedItemName(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -112,7 +113,7 @@ export function itemCommerceInfoFor(names: string[]): ItemCommerceInfo | undefin
     return {
       name,
       baseValue: baseValue ?? undefined,
-      shopBuyBack: baseValue == null ? undefined : buyBackFor(baseValue),
+      shopBuyBack: baseValue == null || itemsWithoutShopBuyBack.has(name) ? undefined : buyBackFor(baseValue),
       listings,
     };
   }

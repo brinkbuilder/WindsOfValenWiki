@@ -46,9 +46,9 @@ export default function AboutWikiPage() {
           <p>If a requirement, drop rate, effect, or reward is not known yet, the guide states that plainly. It does not fill the space with developer-only information.</p>
         </article>
         <article id="game-file-data">
-          <p className="eyebrow">Game-file evidence</p>
-          <h2>Static exports can be checked too</h2>
-          <p>Authorized game-file or bridge exports can be normalized into public records and used by Ask Alice alongside wiki pages. Private player state, command files, credentials, and coordinates are filtered out before import.</p>
+          <p className="eyebrow">Current game information</p>
+          <h2>Updated when the game changes</h2>
+          <p>Items, recipes, creatures, drops, and other useful details are reviewed after game updates so the public guide stays practical and current.</p>
         </article>
         <article>
           <p className="eyebrow">One encyclopedia</p>
