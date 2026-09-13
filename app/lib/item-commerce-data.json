@@ -1,8 +1,8 @@
 {
   "source": {
-    "gameBuild": "ProjectSandbox 5.7.4",
-    "extracted": "2026-09-05",
-    "notes": "Item values were refreshed from the September 5 game build. Existing shop inventories retain the complete September 3 merchant extraction because no new item appears in a current merchant stock list. The standard shop buy-back rate is 0.7 and integer currency calculations round upward."
+    "gameBuild": "Winds of Valen — 13 September 2026",
+    "extracted": "2026-09-13",
+    "notes": "All current item values were rechecked against the September 13 game build. Existing shop inventories retain the complete September 3 merchant extraction because the latest update changes remembered purchase quantities rather than merchant stock. The standard shop buy-back rate is 0.7 and integer currency calculations round upward."
   },
   "shopBuyBackRate": 0.7,
   "itemValues": {

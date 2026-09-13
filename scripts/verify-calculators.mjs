@@ -15,6 +15,7 @@ import {
   xpForLevel,
 } from '../app/lib/calculator-engine.ts';
 import {
+  fishProcessingRecipes,
   potionBrewRecipes,
   potionCauldrons,
   potionCrushRecipes,
@@ -132,6 +133,10 @@ assert.equal(potionBrewRecipes.find((recipe) => recipe.output === 'Mining Potion
 assert.equal(potionReductionRecipes.find((recipe) => recipe.slug === 'recipe-reduce-spider-eye')?.duration, 3);
 assert.equal(potionReductionRecipes.find((recipe) => recipe.slug === 'recipe-infused-coal')?.duration, 0.5);
 assert.equal(potionCrushRecipes.find((recipe) => recipe.slug === 'recipe-crush-glowing-mushroom')?.duration, 3);
+assert.equal(fishProcessingRecipes.find((recipe) => recipe.slug === 'recipe-harvest-perch')?.level, 5);
+assert.equal(fishProcessingRecipes.find((recipe) => recipe.slug === 'recipe-harvest-small-bass')?.level, 15);
+assert.equal(fishProcessingRecipes.find((recipe) => recipe.slug === 'recipe-harvest-big-trout')?.level, 35);
+assert.equal(fishProcessingRecipes.find((recipe) => recipe.slug === 'recipe-harvest-carp')?.level, 45);
 
 const confirmedSmithingXp = new Map(smithingRecipes.map((recipe) => [recipe.slug, recipe.xp]));
 assert.equal(confirmedSmithingXp.get('silver-bar'), 675);

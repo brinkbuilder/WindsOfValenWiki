@@ -752,7 +752,7 @@ function directPotionSupplyAnswer(currentLevel: number, targetLevel: number, cur
     `For the level ${currentLevel}-${targetLevel} plan, prepare ${number.format(scales)} Fine Fish Scales, ${number.format(essence)} Essence, and ${number.format(vialCount)} empty ${method.vial.name}s for ${number.format(batches)} batches.`,
     `Start with ${number.format(scales)} Carp: process them at the Knife/Cutting Station into Hardened Fish Scales and Large Essence Glands, reduce the Hardened Scales into Polished Fish Scales, then crush those into Fine Fish Scales.`,
     `Reduce the ${number.format(scales)} Large Essence Glands at the Reduction Station for ${number.format(essenceFromGlands)} Essence. You will still need ${number.format(remainingEssence)} Essence; one documented option is ${number.format(essenceGeodes)} Essence Geodes at 50 Essence each. Essence Geodes require Mining level 50 and Potion Making level 45.`,
-    'The Carp workflow is available by Potion Making level 60. Finish the ingredient stages first, then brew with the Large Cauldron and bottle with Gilded Vials.',
+    'Carp harvesting now unlocks at Potion Making level 45. The scale-processing stages are available by level 45, while reducing the Large Essence Gland by-products still requires level 60. Finish the ingredient stages first, then brew with the Large Cauldron and bottle with Gilded Vials.',
   ].join('\n\n');
 }
 
@@ -792,7 +792,7 @@ function calculatorContext(question: string, sources: QaSource[], priorQuestions
         `- Levels ${fromLevel}-${toLevel}: ${batches} batches of ${potionOutputName(method.recipe, method.vial)} (${number.format(method.xp)} XP and ${formatDuration(method.seconds)} active time per batch)`
       )));
       if (estimate.segments.some(({ method }) => method.recipe.slug === 'recipe-cauldron-strong-shields')) {
-        lines.push('Strong Shields preparation workflow: process Carp at the Knife/Cutting Station into Hardened Fish Scales plus Large Essence Glands; reduce Hardened Fish Scales into Polished Fish Scales at the Reduction Station; crush Polished Fish Scales into Fine Fish Scales at the Crush Station. Each Carp yields one scale through this workflow and one Large Essence Gland. At Potion Making level 60, reduce each Large Essence Gland at the Reduction Station for 20 Essence. An Essence Geode gives 50 Essence at the Reduction Station and requires Potion Making level 45 plus Mining level 50.');
+        lines.push('Strong Shields preparation workflow: Carp harvesting now unlocks at Potion Making level 45. Process Carp at the Knife/Cutting Station into Hardened Fish Scales plus Large Essence Glands; reduce Hardened Fish Scales into Polished Fish Scales at the Reduction Station; crush Polished Fish Scales into Fine Fish Scales at the Crush Station. Each Carp yields one scale through this workflow and one Large Essence Gland. Reducing each Large Essence Gland for 20 Essence still requires Potion Making level 60. An Essence Geode gives 50 Essence at the Reduction Station and requires Potion Making level 45 plus Mining level 50.');
       }
     }
   }

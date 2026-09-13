@@ -35,44 +35,44 @@ const popular = [
 const recentUpdates = [
   {
     mark: '◆',
-    title: '14 new items',
-    description: 'Keys, Scimitars, Battle Pickaxes, the Dark Cape, Dark Necklace, Broken Sword, and two mineable dusts.',
-    href: '/wiki/september-2026-game-update',
+    title: 'Solo Darklands',
+    description: 'Server 1 now uses 1v1 PvP, with slower enemy and rock recovery and 20% fewer key drops.',
+    href: '/wiki/the-darklands',
     tone: 'violet',
   },
   {
     mark: '⌑',
-    title: 'Darklands chests',
-    description: 'All three supply tables and exact rare-equipment chances, including the 1-in-1,000 Dark Necklace.',
+    title: 'Chest supplies changed',
+    description: 'Rough Leather, Rough Cloth, Thick Leather, and Elven Cloth now appear in Darklands chest supplies.',
     href: '/wiki/darklands-chests',
     tone: 'blue',
   },
   {
     mark: '⛏',
-    title: 'Dust mining',
-    description: 'Iron Dust, Coal Dust, and their separate Iron, Mithril, and Dark Key chances are now documented.',
+    title: 'Pickaxes scale with Mining',
+    description: 'Pickaxe damage and accuracy now receive 50% of their level scaling from your Mining level.',
     href: '/wiki/mining',
     tone: 'cyan',
   },
   {
-    mark: '⚒',
-    title: 'Flexible recipes',
-    description: 'Smithing totals now support ore or dust for Iron, Coal, Gold, and Ebony. Infused Coal supports Coal Dust too.',
-    href: '/calculators?skill=Smithing',
+    mark: '⚗',
+    title: 'Earlier fish processing',
+    description: 'Perch, Bass, Elder Trout, and Carp Knife Station requirements are now levels 5, 15, 35, and 45.',
+    href: '/wiki/potion-making',
     tone: 'gold',
   },
   {
     mark: '☠',
-    title: 'Current drop rates',
-    description: 'Exact tables for Darklands skeletons, Ashen enemies, The Burning King, Elves, and the Elf Warden.',
-    href: '/wiki?type=world',
+    title: 'Broken Sword buffed',
+    description: 'The rare skeleton drop now has 15 Slash and 25 Quick, bringing it close to an Iron Sword.',
+    href: '/wiki/broken-sword',
     tone: 'red',
   },
   {
     mark: '↟',
-    title: 'Equipment balance',
-    description: 'Current Ebony and Dusk Knight values, pickaxe combat stats, and the renamed Guard Cape are live in the item pages.',
-    href: '/wiki?type=items',
+    title: 'Combat and interface polish',
+    description: 'A 15% hit slow, clearer PvP engagements, right-click action lists, remembered quantities, and performance fixes.',
+    href: '/wiki/september-2026-game-update',
     tone: 'green',
   },
 ];
@@ -107,12 +107,12 @@ export default function Home() {
         <section className="recent-updates-panel" aria-labelledby="recent-updates-heading">
           <div className="classic-section-title recent-updates-title">
             <div>
-              <p className="panel-kicker">September 2026 game update</p>
+              <p className="panel-kicker">11 September 2026 game update</p>
               <h2 id="recent-updates-heading">Recent updates</h2>
             </div>
             <Link href="/wiki/september-2026-game-update">Read the full update</Link>
           </div>
-          <p className="recent-updates-intro">A quick look at what changed in-game and what is now documented across the wiki.</p>
+          <p className="recent-updates-intro">The latest Solo Darklands, balance, recipe, loot, and quality-of-life changes—checked against the current game build.</p>
           <div className="recent-update-grid">
             {recentUpdates.map((update) => (
               <Link className={`recent-update-card recent-update-${update.tone}`} href={update.href} key={update.title}>

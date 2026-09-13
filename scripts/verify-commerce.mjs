@@ -16,7 +16,8 @@ function shopBuyBack(item) {
   return Math.ceil(data.itemValues[item] * data.shopBuyBackRate);
 }
 
-assert.equal(data.source.gameBuild, 'ProjectSandbox 5.7.4');
+assert.equal(data.source.gameBuild, 'Winds of Valen — 13 September 2026');
+assert.equal(data.source.extracted, '2026-09-13');
 assert.equal(data.shopBuyBackRate, 0.7);
 assert.equal(data.shops.length, 37, 'All extracted shop inventories must remain present.');
 assert.equal(allListings.length, 154, 'All extracted merchant listings must remain present.');

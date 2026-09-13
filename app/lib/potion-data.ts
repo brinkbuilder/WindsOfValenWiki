@@ -117,11 +117,11 @@ export const potionCrushRecipes: PotionRecipeDetail[] = [
 export const fishProcessingRecipes: PotionRecipeDetail[] = [
   { slug: 'recipe-harvest-minnow', input: 'Minnow', level: 1, output: '(None)', secondaryOutput: '2 x Small Essence Gland', duration: 2, xp: 10, notes: 'Cutting Table' },
   { slug: 'recipe-harvest-small-trout', input: 'Common Trout', level: 1, output: 'Scrap Fish Flesh', secondaryOutput: '1 x Small Essence Gland', duration: 2, xp: 10, notes: 'Cutting Table' },
-  { slug: 'recipe-harvest-perch', input: 'Perch', level: 10, output: 'Fish Scales', secondaryOutput: '1 x Small Essence Gland', duration: 2, xp: 30, notes: 'Cutting Table' },
-  { slug: 'recipe-harvest-small-bass', input: 'Bass', level: 20, output: 'Plain Fish Flesh', secondaryOutput: '1 x Small Essence Gland', duration: 2, xp: 20, notes: 'Cutting Table' },
+  { slug: 'recipe-harvest-perch', input: 'Perch', level: 5, output: 'Fish Scales', secondaryOutput: '1 x Small Essence Gland', duration: 2, xp: 30, notes: 'Cutting Table' },
+  { slug: 'recipe-harvest-small-bass', input: 'Bass', level: 15, output: 'Plain Fish Flesh', secondaryOutput: '1 x Small Essence Gland', duration: 2, xp: 20, notes: 'Cutting Table' },
   { slug: 'recipe-harvest-blue-gill', input: 'Blue Gill', level: 30, output: '(None)', secondaryOutput: '2 x Essence Gland', duration: 2, xp: 40, notes: 'Cutting Table' },
-  { slug: 'recipe-harvest-big-trout', input: 'Elder Trout', level: 40, output: 'Hearty Fish Flesh', secondaryOutput: '1 x Essence Gland', duration: 2, xp: 70, notes: 'Cutting Table' },
-  { slug: 'recipe-harvest-carp', input: 'Carp', level: 50, output: 'Hardened Fish Scales', secondaryOutput: '1 x Large Essence Gland', duration: 2, xp: 100, notes: 'Cutting Table' },
+  { slug: 'recipe-harvest-big-trout', input: 'Elder Trout', level: 35, output: 'Hearty Fish Flesh', secondaryOutput: '1 x Essence Gland', duration: 2, xp: 70, notes: 'Cutting Table' },
+  { slug: 'recipe-harvest-carp', input: 'Carp', level: 45, output: 'Hardened Fish Scales', secondaryOutput: '1 x Large Essence Gland', duration: 2, xp: 100, notes: 'Cutting Table' },
 ];
 
 export const potionBrewRecipes: PotionBrewRecipe[] = [

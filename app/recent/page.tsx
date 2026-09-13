@@ -4,6 +4,11 @@ import { wikiBySlug } from '../lib/wiki-data';
 export const metadata: Metadata = { title: 'Recent discoveries', description: 'The latest Winds of Valen guides and findings added to The Valen Archives.' };
 
 const recent = [
+  { slug: 'september-2026-game-update', note: 'Reconciled the September 11 update against the current game build, including Solo Darklands, combat balance, interface changes, and fixes.', time: '13 Sep 2026' },
+  { slug: 'the-darklands', note: 'Added standard and Solo Darklands rules, danger brackets, engagement protection, logout risk, and resource penalties.', time: '13 Sep 2026' },
+  { slug: 'darklands-chests', note: 'Recalculated every supplies-table chance and added the new leather and cloth rewards for all three chest tiers.', time: '13 Sep 2026' },
+  { slug: 'potion-making', note: 'Corrected the Knife Station requirements for Perch, Bass, Elder Trout, and Carp processing.', time: '13 Sep 2026' },
+  { slug: 'broken-sword', note: 'Updated the weapon to its current level-1 requirement, 15 Slash, and 25 Quick stats.', time: '13 Sep 2026' },
   { slug: 'world-map', note: 'Added the complete interactive world atlas with 157 searchable markers, six filters, four numbered routes, full-screen exploration, and local player guides.', time: '31 Aug 2026' },
   { slug: 'cavern-mine', note: 'Added an interactive Ebony Caves map with zooming, room filters, numbered routes, resource counts, navigation directions, and mining advice.', time: '31 Aug 2026' },
   { slug: 'open-the-gates', note: 'Rebuilt the complete quest walkthrough with requirements, all three scout locations, boss directions, rewards, and five images.', time: '28 Aug 2026' },

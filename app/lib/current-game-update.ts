@@ -2,8 +2,8 @@ import type { WikiEntry, WikiFact, WikiSection } from './wiki-data';
 
 const currentGameSource = {
   label: 'Current game information',
-  detail: 'Player-facing item, creature, mining, and reward information from the current game build.',
-  observed: '5 September 2026',
+  detail: 'Player-facing items, recipes, creatures, combat rules, and rewards reviewed against the current game build.',
+  observed: '13 September 2026',
 };
 
 type CurrentItemSpec = {
@@ -81,11 +81,11 @@ const currentItems: WikiEntry[] = [
   }),
   currentItem({
     slug: 'broken-sword', title: 'Broken Sword',
-    summary: 'A damaged quick-slashing weapon dropped by Darklands skeletons and Graveyard Skeletons.',
-    intro: 'The Broken Sword is a low-value weapon with modest Slash and Quick stats. It is a very rare Graveyard Skeleton drop and a rare extra on Darklands skeleton tables.',
+    summary: 'A level-1 quick-slashing weapon, now strengthened to sit close to an Iron Sword.',
+    intro: 'The Broken Sword is a rare skeleton drop. Its current combat values were increased to 15 Slash and 25 Quick, making it a useful early weapon rather than a novelty drop.',
     categories: ['Items', 'Weapons', 'Darklands'],
-    facts: [{ label: 'Slash', value: '8' }, { label: 'Quick', value: '10' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2' }, { label: 'Swing time', value: '0.5 seconds' }],
-    sections: [{ title: 'Drop sources', table: { headers: ['Enemy', 'Chance'], rows: [['Skeleton Footman', '0.0357% — about 1 in 2,801'], ['Skeleton Soldier', '0.0357% — about 1 in 2,801'], ['Graveyard Skeleton', '0.0461% — about 1 in 2,169']] } }],
+    facts: [{ label: 'Attack requirement', value: '1' }, { label: 'Slash', value: '15' }, { label: 'Quick', value: '25' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2' }, { label: 'Swing time', value: '0.5 seconds' }],
+    sections: [{ title: 'Drop sources', table: { headers: ['Enemy', 'Chance'], rows: [['Skeleton Footman', '0.0357% — about 1 in 2,801'], ['Skeleton Soldier', '0.0357% — about 1 in 2,801'], ['Graveyard Skeleton', '0.0461% — about 1 in 2,169']] } }, { title: 'Latest balance change', paragraphs: ['Slash increased from 8 to 15 and Quick increased from 10 to 25. The weapon now has a level-1 Attack requirement.'] }],
     related: ['skeleton-footman', 'skeleton-soldier', 'graveyard', 'darklands-chests'],
   }),
   currentItem({
@@ -93,8 +93,8 @@ const currentItems: WikiEntry[] = [
     summary: 'The starter pickaxe, now also usable as a basic Pierce and Heavy weapon.',
     intro: 'The Copper Pickaxe is the first Mining tool. The current version also carries combat stats, so it can be swung as a weapon when necessary.',
     categories: ['Items', 'Mining', 'Tools', 'Weapons'],
-    facts: [{ label: 'Mining requirement', value: '1' }, { label: 'Mining Power', value: '1' }, { label: 'Pierce', value: '6' }, { label: 'Heavy', value: '6' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }],
-    sections: [{ title: 'Use', paragraphs: ['Equip it to mine entry-level rocks. Its new Pierce and Heavy values also let it function as a simple combat weapon.'] }],
+    facts: [{ label: 'Mining requirement', value: '1' }, { label: 'Mining Power', value: '1' }, { label: 'Pierce', value: '6' }, { label: 'Heavy', value: '6' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }],
+    sections: [{ title: 'Use', paragraphs: ['Equip it to mine entry-level rocks. Its Pierce and Heavy values let it function as a simple combat weapon; half of its damage and accuracy level scaling now comes from Mining.'] }],
     related: ['mining', 'copper-ore'],
   }),
   currentItem({
@@ -102,8 +102,8 @@ const currentItems: WikiEntry[] = [
     summary: 'An early pickaxe with improved Mining Power and light combat stats.',
     intro: 'The Bronze Pickaxe requires level 1 Mining and improves on the starter tool. The current version can also deal Pierce and Heavy damage.',
     categories: ['Items', 'Mining', 'Tools', 'Weapons'],
-    facts: [{ label: 'Mining requirement', value: '1' }, { label: 'Mining Power', value: '4' }, { label: 'Pierce', value: '12' }, { label: 'Heavy', value: '9' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }],
-    sections: [{ title: 'Use', paragraphs: ['Equip it for early Mining progression or as a light hybrid combat tool.'] }],
+    facts: [{ label: 'Mining requirement', value: '1' }, { label: 'Mining Power', value: '4' }, { label: 'Pierce', value: '12' }, { label: 'Heavy', value: '9' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }],
+    sections: [{ title: 'Use', paragraphs: ['Equip it for early Mining progression or as a light hybrid combat tool. Half of its damage and accuracy level scaling now comes from Mining.'] }],
     related: ['mining', 'bronze-bar'],
   }),
   currentItem({
@@ -111,8 +111,8 @@ const currentItems: WikiEntry[] = [
     summary: 'A level-10 Mining tool with added Pierce and Heavy combat stats.',
     intro: 'The Iron Pickaxe provides 12 Mining Power. Its current combat profile makes it a practical hybrid tool even outside a mining trip.',
     categories: ['Items', 'Mining', 'Tools', 'Weapons'],
-    facts: [{ label: 'Mining requirement', value: '10' }, { label: 'Mining Power', value: '12' }, { label: 'Pierce', value: '24' }, { label: 'Heavy', value: '15' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }],
-    sections: [{ title: 'Use', paragraphs: ['Equip it to mine Iron-tier resources and to gain its Pierce and Heavy weapon values.'] }],
+    facts: [{ label: 'Mining requirement', value: '10' }, { label: 'Mining Power', value: '12' }, { label: 'Pierce', value: '24' }, { label: 'Heavy', value: '15' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }],
+    sections: [{ title: 'Use', paragraphs: ['Equip it to mine Iron-tier resources and to gain its Pierce and Heavy weapon values. Half of its damage and accuracy level scaling now comes from Mining.'] }],
     related: ['mining', 'iron-ore', 'iron-dust'],
   }),
   currentItem({
@@ -120,8 +120,8 @@ const currentItems: WikiEntry[] = [
     summary: 'A level-20 Mining tool with 25 Mining Power and useful combat stats.',
     intro: 'The Steel Pickaxe is the standard level-20 progression tool and now doubles as a stronger Pierce/Heavy weapon.',
     categories: ['Items', 'Mining', 'Tools', 'Weapons'],
-    facts: [{ label: 'Mining requirement', value: '20' }, { label: 'Mining Power', value: '25' }, { label: 'Pierce', value: '40' }, { label: 'Heavy', value: '25' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }],
-    sections: [{ title: 'Use', paragraphs: ['Equip it for Coal-tier Mining and as a mid-tier hybrid combat tool.'] }],
+    facts: [{ label: 'Mining requirement', value: '20' }, { label: 'Mining Power', value: '25' }, { label: 'Pierce', value: '40' }, { label: 'Heavy', value: '25' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }],
+    sections: [{ title: 'Use', paragraphs: ['Equip it for Coal-tier Mining and as a mid-tier hybrid combat tool. Half of its damage and accuracy level scaling now comes from Mining.'] }],
     related: ['mining', 'coal', 'coal-dust'],
   }),
   currentItem({
@@ -129,8 +129,8 @@ const currentItems: WikiEntry[] = [
     summary: 'A level-30 Mining tool with 50 Mining Power and strong Pierce and Heavy stats.',
     intro: 'The Dwarven Pickaxe is the strongest standard pickaxe in the current progression. It also has a capable combat profile.',
     categories: ['Items', 'Mining', 'Tools', 'Weapons'],
-    facts: [{ label: 'Mining requirement', value: '30' }, { label: 'Mining Power', value: '50' }, { label: 'Pierce', value: '60' }, { label: 'Heavy', value: '38' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }],
-    sections: [{ title: 'Use', paragraphs: ['Equip it for Mithril-tier Mining or use its strong Pierce and Heavy values in combat.'] }],
+    facts: [{ label: 'Mining requirement', value: '30' }, { label: 'Mining Power', value: '50' }, { label: 'Pierce', value: '60' }, { label: 'Heavy', value: '38' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }],
+    sections: [{ title: 'Use', paragraphs: ['Equip it for Mithril-tier Mining or use its strong Pierce and Heavy values in combat. Half of its damage and accuracy level scaling now comes from Mining.'] }],
     related: ['mining', 'mithril-ore'],
   }),
   currentItem({
@@ -165,8 +165,8 @@ const currentItems: WikiEntry[] = [
     summary: 'A level-10 combat pickaxe from the Iron Darklands chest.',
     intro: 'The Iron Battle Pickaxe works as both a mining tool and a Pierce/Heavy weapon, with a small gathering bonus inside the Darklands.',
     categories: ['Items', 'Mining', 'Weapons', 'Darklands'],
-    facts: [{ label: 'Mining requirement', value: '10' }, { label: 'Attack requirement', value: '10' }, { label: 'Mining Power', value: '12' }, { label: 'Pierce', value: '30' }, { label: 'Heavy', value: '25' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Darklands gathering bonus', value: '15%' }],
-    sections: [{ title: 'How to obtain it', paragraphs: ['Open the Iron Darklands chest. Its separate rare roll has a 10% chance to award an Iron Battle Pickaxe.'] }],
+    facts: [{ label: 'Mining requirement', value: '10' }, { label: 'Attack requirement', value: '10' }, { label: 'Mining Power', value: '12' }, { label: 'Pierce', value: '30' }, { label: 'Heavy', value: '25' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }, { label: 'Darklands gathering bonus', value: '15%' }],
+    sections: [{ title: 'How to obtain it', paragraphs: ['Open the Iron Darklands chest. Its separate rare roll has a 10% chance to award an Iron Battle Pickaxe.'] }, { title: 'Combat scaling', paragraphs: ['Half of this pickaxe’s damage and accuracy level scaling comes from Mining.'] }],
     related: ['mining', 'iron-key', 'darklands-chests'],
   }),
   currentItem({
@@ -175,8 +175,8 @@ const currentItems: WikiEntry[] = [
     intro: 'The Mithril Battle Pickaxe replaces the older Mithril Pickaxe in the current equipment set and combines strong mining power with Pierce and Heavy combat stats.',
     aliases: ['Mithril Pickaxe'],
     categories: ['Items', 'Mining', 'Weapons', 'Darklands'],
-    facts: [{ label: 'Mining requirement', value: '30' }, { label: 'Attack requirement', value: '30' }, { label: 'Mining Power', value: '50' }, { label: 'Pierce', value: '75' }, { label: 'Heavy', value: '60' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Darklands gathering bonus', value: '30%' }],
-    sections: [{ title: 'How to obtain it', paragraphs: ['Open the Mithril Darklands chest. Its separate rare roll has a 5% chance to award a Mithril Battle Pickaxe.'] }],
+    facts: [{ label: 'Mining requirement', value: '30' }, { label: 'Attack requirement', value: '30' }, { label: 'Mining Power', value: '50' }, { label: 'Pierce', value: '75' }, { label: 'Heavy', value: '60' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }, { label: 'Darklands gathering bonus', value: '30%' }],
+    sections: [{ title: 'How to obtain it', paragraphs: ['Open the Mithril Darklands chest. Its separate rare roll has a 5% chance to award a Mithril Battle Pickaxe.'] }, { title: 'Combat scaling', paragraphs: ['Half of this pickaxe’s damage and accuracy level scaling comes from Mining.'] }],
     related: ['mining', 'mithril-key', 'darklands-chests'],
   }),
   currentItem({
@@ -184,8 +184,8 @@ const currentItems: WikiEntry[] = [
     summary: 'A members-only level-50 combat pickaxe from the highest Darklands chest.',
     intro: 'The Corrupted Dark Battle Pickaxe is the strongest current battle pickaxe, combining high Mining Power, strong combat stats, and a large Darklands gathering bonus.',
     categories: ['Items', 'Mining', 'Weapons', 'Darklands', 'Members'],
-    facts: [{ label: 'Mining requirement', value: '50' }, { label: 'Attack requirement', value: '50' }, { label: 'Members-only', value: 'Yes' }, { label: 'Mining Power', value: '80' }, { label: 'Pierce', value: '120' }, { label: 'Heavy', value: '120' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Darklands gathering bonus', value: '60%' }],
-    sections: [{ title: 'How to obtain it', paragraphs: ['Open the highest Darklands chest. Its separate rare roll has a 2% chance to award a Corrupted Dark Battle Pickaxe.'] }],
+    facts: [{ label: 'Mining requirement', value: '50' }, { label: 'Attack requirement', value: '50' }, { label: 'Members-only', value: 'Yes' }, { label: 'Mining Power', value: '80' }, { label: 'Pierce', value: '120' }, { label: 'Heavy', value: '120' }, { label: 'Attack range', value: '120' }, { label: 'Attack speed', value: '2.5' }, { label: 'Combat scaling', value: '50% from Mining level' }, { label: 'Darklands gathering bonus', value: '60%' }],
+    sections: [{ title: 'How to obtain it', paragraphs: ['Open the highest Darklands chest. Its separate rare roll has a 2% chance to award a Corrupted Dark Battle Pickaxe.'] }, { title: 'Combat scaling', paragraphs: ['Half of this pickaxe’s damage and accuracy level scaling comes from Mining.'] }],
     related: ['mining', 'dark-key', 'darklands-chests'],
   }),
   currentItem({
@@ -371,6 +371,53 @@ const burningKing = currentCreature({
   related: ['lava-cavern', 'coal-dust', 'gold-dust', 'volcanic-shard', 'volcanic-core', 'sword-of-the-burning-king'],
 });
 
+const darklandsGuide: WikiEntry = {
+  slug: 'the-darklands', title: 'The Darklands', type: 'Location', verification: 'engine',
+  summary: 'A full-loot PvP region with standard and solo server rules, danger brackets, dust rocks, skeletons, keys, and reward chests.',
+  intro: 'The Darklands is a high-risk PvP region. Standard servers allow multiple attackers within the engagement limit, while Server 1 uses Solo Darklands rules that limit player fights to one-versus-one in exchange for slower resources and fewer keys.',
+  categories: ['Locations', 'Regions', 'PvP', 'Darklands'],
+  facts: [{ label: 'Standard PvP limit', value: 'Up to 3 concurrent attackers' }, { label: 'Solo Darklands', value: 'Server 1 · 1v1 player combat' }, { label: 'Danger brackets', value: '10 combat levels' }, { label: 'Anti-pile-jump timer', value: '15 seconds' }, { label: 'Solo key rate', value: '20% below standard servers' }],
+  sections: [
+    {
+      title: 'Choose the rule set',
+      table: {
+        headers: ['Rule', 'Standard Darklands', 'Solo Darklands — Server 1'],
+        rows: [
+          ['Player combat', 'Up to 3 concurrent attackers', 'Limited to 1v1'],
+          ['Enemy respawns', 'Normal rate', 'Twice as slow'],
+          ['Rock refresh', 'Normal rate', 'Twice as slow'],
+          ['Darklands key drops', 'Standard rate', '20% less common'],
+        ],
+      },
+    },
+    {
+      title: 'PvP engagements',
+      bullets: [
+        'A white circle marks players who are currently engaged with you.',
+        'After defeating another player, you gain a grace period that occupies an engagement slot and can help prevent another immediate attack.',
+        'Grace effects can stack, but attacking a new player consumes that protection.',
+        'An attacker must deal enough damage to remain engaged; token hits are not enough to reserve a target slot.',
+        'The danger system uses 10-level brackets, and the anti-pile-jump protection timer is 15 seconds.',
+      ],
+    },
+    {
+      title: 'Death, logout, and recovery',
+      bullets: [
+        'Treat the Darklands as full-loot PvP: bank anything you are not prepared to lose before crossing into the region.',
+        'Force-quitting does not bypass the Darklands logout timer.',
+        'Untradeable items lost in PvP can be bought back from the recovery NPC and chest in Grave Town.',
+        'Non-potion drops appear almost immediately in the Darklands, so do not rely on hidden ground loot.',
+      ],
+    },
+    {
+      title: 'Gathering and rewards',
+      paragraphs: ['Iron Dust and Coal Dust rocks appear in lower-danger areas. Darklands skeletons and rocks can award Iron, Mithril, or Dark Keys, which open the three matching chests. Solo Darklands keeps the same activities but slows enemy and rock recovery and reduces key drops by 20%.'],
+    },
+  ],
+  related: ['darklands-chests', 'iron-dust', 'coal-dust', 'iron-key', 'mithril-key', 'dark-key', 'skeleton-footman', 'skeleton-soldier', 'skeleton-knight-darklands', 'combat-mechanics'],
+  source: currentGameSource,
+};
+
 const darklandsChests: WikiEntry = {
   slug: 'darklands-chests', title: 'Darklands chests', type: 'Guide', verification: 'engine',
   summary: 'Complete supplies and rare-equipment chances for all three Darklands chest tiers.',
@@ -378,11 +425,11 @@ const darklandsChests: WikiEntry = {
   categories: ['Guides', 'Darklands', 'Loot'],
   facts: [{ label: 'Chest tiers', value: 'Iron · Mithril · Dark' }, { label: 'Rolls per key', value: '1 supplies roll + 1 rare roll' }],
   sections: [
-    { title: 'Iron chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Small Health Potion', '3–6, noted', '20%'], ['Coins', '50–100', '20%'], ['Small Shields Potion', '1–2, noted', '20%'], ['Iron Arrows', '25–50', '20%'], ['Essence', '25–50', '20%']] } },
+    { title: 'Iron chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Small Health Potion', '3–6, noted', '16.6667%'], ['Coins', '50–100', '16.6667%'], ['Small Shields Potion', '1–2, noted', '16.6667%'], ['Iron Arrows', '25–50', '16.6667%'], ['Essence', '25–50', '16.6667%'], ['Rough Leather', '2–4, noted', '8.3333%'], ['Rough Cloth', '2–4, noted', '8.3333%']] } },
     { title: 'Iron chest — rare roll', table: { headers: ['Reward', 'Chance'], rows: [['Iron Scimitar', '10%'], ['Iron Battle Pickaxe', '10%'], ['No rare item', '80%']] } },
-    { title: 'Mithril chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Large Health Potion', '10–20, noted', '20%'], ['Coins', '500–1,000', '20%'], ['Large Shields Potion', '5–10, noted', '20%'], ['Mithril Arrows', '50–100', '20%'], ['Essence', '150–300', '20%']] } },
+    { title: 'Mithril chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Large Health Potion', '10–20, noted', '16.6667%'], ['Coins', '500–1,000', '16.6667%'], ['Large Shields Potion', '5–10, noted', '16.6667%'], ['Mithril Arrows', '50–100', '16.6667%'], ['Essence', '150–300', '16.6667%'], ['Thick Leather', '3–6, noted', '16.6667%']] } },
     { title: 'Mithril chest — rare roll', table: { headers: ['Reward', 'Chance'], rows: [['Mithril Battle Pickaxe', '5%'], ['Mithril Scimitar', '5%'], ['No rare item', '90%']] } },
-    { title: 'Dark chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Gilded Strong Health Potion', '10–20, noted', '20%'], ['Coins', '8,000–10,000', '20%'], ['Gilded Strong Shields Potion', '5–10, noted', '20%'], ['Mithril Arrows', '250–500', '20%'], ['Essence', '500–1,000', '20%']] } },
+    { title: 'Dark chest — supplies roll', table: { headers: ['Reward', 'Quantity', 'Chance'], rows: [['Gilded Strong Health Potion', '10–20, noted', '16.6667%'], ['Coins', '8,000–10,000', '16.6667%'], ['Gilded Strong Shields Potion', '5–10, noted', '16.6667%'], ['Mithril Arrows', '250–500', '16.6667%'], ['Essence', '500–1,000', '16.6667%'], ['Elven Cloth', '3–6, noted', '16.6667%']] } },
     { title: 'Dark chest — rare roll', table: { headers: ['Reward', 'Chance', 'Average rate'], rows: [['Corrupted Dark Battle Pickaxe', '2%', '1 in 50'], ['Corrupted Dark Scimitar', '2%', '1 in 50'], ['Dark Cape', '1%', '1 in 100'], ['Dark Necklace', '0.1%', '1 in 1,000'], ['No rare item', '94.9%', '—']] } },
   ],
   related: ['iron-key', 'mithril-key', 'dark-key', 'the-darklands', 'iron-scimitar', 'mithril-scimitar', 'corrupted-dark-scimitar', 'dark-cape', 'dark-necklace'],
@@ -390,18 +437,20 @@ const darklandsChests: WikiEntry = {
 };
 
 const recentUpdateGuide: WikiEntry = {
-  slug: 'september-2026-game-update', title: 'September 2026 game update', type: 'Guide', verification: 'engine',
-  summary: 'A player-facing summary of the new items, Darklands rewards, mining resources, and recipe changes added in the latest build.',
-  intro: 'The latest build expands the Darklands reward path, adds mineable Iron and Coal Dust, and lets several recipes accept ore or dust interchangeably.',
+  slug: 'september-2026-game-update', title: 'September 2026 game updates', type: 'Guide', verification: 'engine',
+  summary: 'The current September changes, including Solo Darklands, revised chest supplies, pickaxe scaling, fish-processing levels, and the earlier Darklands content release.',
+  intro: 'The latest September update adds a one-versus-one Darklands option and rebalances several activities. This page also retains the new items, enemies, mining resources, and chests introduced earlier in the month.',
   categories: ['Guides', 'Updates'],
-  facts: [{ label: 'New items', value: '14' }, { label: 'New Darklands enemy tiers', value: '3' }, { label: 'New mineable dust resources', value: '2' }],
+  facts: [{ label: 'Latest update', value: '11 September 2026' }, { label: 'Current data review', value: '13 September 2026' }, { label: 'Solo Darklands', value: 'Server 1' }],
   sections: [
-    { title: 'New equipment and keys', bullets: ['Iron, Mithril, and Dark Keys now connect mining and Darklands enemies to three chest tiers.', 'The chest rewards add three Scimitars, three Battle Pickaxes, the Dark Cape, and the Dark Necklace.', 'The Broken Sword is a new rare drop from multiple skeleton enemies.'] },
-    { title: 'Mining and crafting', bullets: ['Iron Dust Rocks require level 10 Mining and can drop Iron Keys.', 'Coal Dust Rocks require level 20 Mining and can drop Mithril Keys.', 'Iron Dust can replace Iron Ore; Coal Dust can replace Coal Ore; Gold Dust can replace Gold Ore; Ebony Dust can replace Ebony Ore in the corresponding current recipes.', 'Infused Coal now accepts either Coal Ore or Coal Dust alongside 2 Essence.'] },
-    { title: 'Other reward changes', bullets: ['Ashen enemies now drop Coal Dust instead of Coal Ore and retain separate 0.2% Charred Ring Piece rolls.', 'The Burning King now drops 40–80 Coal Dust on its common table instead of Coal Ore.', 'Elven Cloth is now 12.2807% per normal Elf roll and 21.0526% per Elf Warden roll.', 'Regular pickaxes now also carry combat stats; the new battle pickaxes extend that hybrid equipment path.', 'Mining Skeletons now use Heavy and Pierce damage instead of the previous Quick and Slash profile.'] },
-    { title: 'Cavern banking', paragraphs: ['An enchanted cavern bank area has been added to the current cavern content. Its exact player route and any unlock condition still need to be mapped before this guide recommends a travel path.'] },
+    { title: 'Solo Darklands', bullets: ['Server 1 now limits Darklands player combat to 1v1.', 'Enemy respawns and rock refreshes are twice as slow on the solo rule set.', 'Darklands key drops are 20% less common on the solo rule set.', 'Current engagements are shown with a white circle, and post-kill grace periods occupy engagement slots until consumed.', 'Danger brackets now span 10 combat levels, and the anti-pile-jump protection timer is 15 seconds.'] },
+    { title: 'Chest supply changes', bullets: ['Iron chests can now give 2–4 noted Rough Leather or 2–4 noted Rough Cloth.', 'Mithril chests can now give 3–6 noted Thick Leather.', 'Dark chests can now give 3–6 noted Elven Cloth.', 'Because the supplies pools are larger, the exact chances on the Darklands chests page have been recalculated from the current tables. Rare-equipment rolls remain separate.'] },
+    { title: 'Combat and boss balance', bullets: ['Pickaxe damage and accuracy now receive 50% of their level scaling from Mining.', 'The Broken Sword now has 15 Slash and 25 Quick, up from 8 and 10.', 'An unnegated hit now applies a 15% movement slow, increased from 10%.', 'The Cavern Goblin Hunter has one fewer health-based special trigger and waits longer between a special and its next normal attack.', 'Large scenery around the Cavern Goblin Hunter can now hide automatically when it blocks the camera.'] },
+    { title: 'Potion Making level changes', table: { headers: ['Knife Station recipe', 'Old level', 'Current level'], rows: [['Harvest Perch', '10', '5'], ['Harvest Bass', '20', '15'], ['Harvest Elder Trout', '40', '35'], ['Harvest Carp', '50', '45']] } },
+    { title: 'Interface and performance', bullets: ['Right-click Inspect now opens a list of every available action under the cursor, which is especially useful on crowded loot piles.', 'The new Winds of Valen main theme by Open Sky Studios now plays on the main menu.', 'Health bars disappear when their target dies.', 'Shop purchase quantities and bank withdrawal quantities are remembered between sessions.', 'The in-game map now shows the new Darklands content.', 'Networking, saving, memory use, item visual resyncing, and cavern event range received fixes or performance improvements.'] },
+    { title: 'Earlier September additions', bullets: ['Iron, Mithril, and Dark Keys connect Darklands enemies and dust rocks to three chest tiers.', 'The new equipment includes three Scimitars, three Battle Pickaxes, the Dark Cape, and the Dark Necklace.', 'Iron Dust and Coal Dust are mineable resources; matching ore or dust can be used in the current bar recipes.', 'Ashen and Burning King reward tables now use Coal Dust, and Elven Cloth is more common from Elven enemies.', 'An enchanted cavern bank area was added to the current cavern content.'] },
   ],
-  related: ['darklands-chests', 'mining', 'smithing', 'potion-making', 'the-burning-king'],
+  related: ['the-darklands', 'darklands-chests', 'broken-sword', 'mining', 'potion-making', 'cavern-goblin-hunter'],
   source: currentGameSource,
 };
 
@@ -411,6 +460,7 @@ export const currentGameUpdateEntries: WikiEntry[] = [
   ...ashenCreatures,
   ...elvenCreatures,
   burningKing,
+  darklandsGuide,
   darklandsChests,
   recentUpdateGuide,
 ];

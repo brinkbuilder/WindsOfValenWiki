@@ -146,8 +146,9 @@ const guideEntries: WikiEntry[] = [
       { title: 'Choose the right shield', bullets: ['Use a Block shield against heavy or red attacks.', 'Use a Parry shield against quick or green attacks.', 'Use a Ward shield against mystical or blue attacks.', 'If two damage types are tied, either matching shield can be used.'] },
       { title: 'Choose the right weapon', bullets: ['Target the enemy’s lowest defence stat.', 'Piercing weapons work best against low Pierce Defence.', 'Slashing weapons work best against low Slash Defence.', 'The correct weapon improves damage output and makes training faster.'] },
       { title: 'Accuracy and defence', paragraphs: ['Attacks compare an accuracy roll with a defence roll. The maximum accuracy roll is (Attack level + 8) × (equipped accuracy + 32). Defence uses the same level-based structure with the relevant defensive skill and equipment.'] },
+      { title: 'Current combat changes', bullets: ['An unnegated hit applies a 15% movement slow.', 'Pickaxe damage and accuracy receive 50% of their level scaling from Mining.', 'In PvP, a white circle identifies players currently engaged with you. See the Darklands guide for target limits and Solo Darklands rules.'] },
       { title: 'Plan your training', paragraphs: ['Use the combat calculator to estimate experience per kill, kills to a target level, the Health experience gained along the way, and expected training time.'], bullets: ['Match your shield before starting.', 'Use the enemy’s full health for a simple per-kill estimate.', 'Add travel or respawn time for a more realistic training estimate.'] },
-    ], related: ['combat', 'attack', 'archery', 'defence', 'evasion', 'magic', 'warding', 'health'],
+    ], related: ['combat', 'attack', 'archery', 'defence', 'evasion', 'magic', 'warding', 'health', 'mining', 'the-darklands'],
   }),
   communityEntry('Controls', {
     slug: 'controls', title: 'Controls and commands', type: 'Guide', categories: ['Guides', 'Systems', 'Community documented'],
@@ -155,7 +156,8 @@ const guideEntries: WikiEntry[] = [
     intro: 'These shortcuts cover the quest log, combat stance, inventory stacks, recovery commands, and player blocking.',
     facts: [{ label: 'Quest log', value: 'J' }, { label: 'Change stance', value: 'V' }, { label: 'Split stack', value: 'Ctrl + middle-mouse drag' }, { label: 'Command help', value: '/commands' }],
     sections: [
-      { title: 'Keyboard shortcuts', bullets: ['J opens the quest log.', 'V changes combat stance.', 'Ctrl plus middle-mouse drag splits a stack.', 'Ctrl plus Drop discards matching items together.'] },
+      { title: 'Keyboard shortcuts', bullets: ['J opens the quest log.', 'V changes combat stance.', 'Ctrl plus middle-mouse drag splits a stack.', 'Ctrl plus Drop discards matching items together.', 'Right-click Inspect opens a menu listing every available action under the cursor, which helps with crowded loot piles.'] },
+      { title: 'Remembered quantities', paragraphs: ['Your most recent shop purchase amount and bank withdrawal amount are now remembered between play sessions.'] },
       { title: 'Chat commands', bullets: ['/commands lists available commands.', '/unstuck has a 30-minute cooldown.', '/block and /unblock manage player blocking.', '/kd displays your kill/death statistic.'] },
       { title: 'Quick tip', paragraphs: ['Use /commands after a game update to check whether any command names or cooldowns have changed.'] },
     ], related: ['combat', 'inventory'],
@@ -413,7 +415,10 @@ const creatureEntries: WikiEntry[] = [
     summary: 'A level-107 ranged boss documented in the cavern enemy set.',
     intro: 'The community page describes a high-level encounter built around randomized arrow barrages, platform movement, and falling stalactites.',
     facts: [{ label: 'Reported level', value: '107' }, { label: 'Reported health', value: '3,000' }, { label: 'Reported XP', value: '6,105' }, { label: 'Reported drops', value: 'Bone Mask · Bone Bow · Small Fang · Spider Eye · Coins' }],
-    sections: [{ title: 'Mechanics', bullets: ['Three-arrow randomized barrage', 'Leaps between platforms', 'Falling-stalactite hazard'] }],
+    sections: [
+      { title: 'Mechanics', bullets: ['Three-arrow randomized barrage', 'Leaps between platforms', 'Falling-stalactite hazard'] },
+      { title: 'Current encounter changes', bullets: ['One of the health-based special-attack triggers has been removed.', 'The boss now waits longer after a special attack before using its next normal attack.', 'Large scenery can automatically hide when it obstructs the combat camera.'] },
+    ],
     related: ['combat', 'cavern-mine'],
   }),
   communityEntry('The Burning King', {

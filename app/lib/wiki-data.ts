@@ -771,7 +771,7 @@ const recipeEntries: WikiEntry[] = recipeSpecs.map((recipe) => {
 const smithingSource = {
   label: 'Current Smithing catalogue',
   detail: 'Read from the furnace, anvil, and workbench available to a player in the current game build.',
-  observed: '5 September 2026',
+  observed: '13 September 2026',
 };
 
 function smithingRecipeTitle(recipe: SmithingRecipe) {
