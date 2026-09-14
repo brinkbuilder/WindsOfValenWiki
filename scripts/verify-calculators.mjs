@@ -33,6 +33,7 @@ import {
   smithingMaterialTotals,
   smithingMaterialTotalsForItems,
   smithingProductionTimePlan,
+  smithingQueuePlan,
   smithingRecipes,
 } from '../app/lib/smithing-data.ts';
 
@@ -176,6 +177,33 @@ assert.equal(smithingDirectCraftTime(duskHelmet, 25), 3_000);
 assert.equal(smithingProductionTimePlan(duskHelmet, 1, defaultSmithingMaterialOptions, 'bars').totalSeconds, 3_930);
 assert.equal(smithingProductionTimePlan(duskHelmet, 25, defaultSmithingMaterialOptions, 'bars').totalSeconds, 97_890);
 assert.equal(smithingProductionTimePlan(duskHelmet, 1, defaultSmithingMaterialOptions, 'raw').totalSeconds, 8_260);
+
+const duskQueue = smithingQueuePlan([
+  { slug: 'dusk-knight-boots', quantity: 1 },
+  { slug: 'dusk-knight-platelegs', quantity: 1 },
+  { slug: 'dusk-knight-platebody', quantity: 1 },
+  { slug: 'dusk-knight-helmet', quantity: 1 },
+]);
+assert.deepEqual(Object.fromEntries(duskQueue.rawMaterials.map(({ item, quantity }) => [item, quantity])), {
+  'Ebony Dust': 8_939,
+  'Exquisite Silk': 15,
+  'Silver Ore': 1_078,
+});
+assert.deepEqual(duskQueue.reusableRequirements, [{ item: 'Dusk Knight Schematics', quantity: 1 }]);
+assert.equal(duskQueue.steps.find((step) => step.slug === 'silver-foil')?.crafts, 22);
+assert.ok(duskQueue.totalSeconds > 0);
+assert.ok(duskQueue.confirmedXp > 0);
+
+const ironArmourQueue = smithingQueuePlan([
+  { slug: 'iron-platebody', quantity: 1 },
+  { slug: 'iron-helmet', quantity: 1 },
+]);
+assert.deepEqual(ironArmourQueue.rawMaterials, [
+  { item: 'Iron Ore', quantity: 28 },
+  { item: 'Rough Cloth', quantity: 4 },
+]);
+assert.equal(ironArmourQueue.steps.find((step) => step.slug === 'iron-plate')?.crafts, 7);
+assert.equal(ironArmourQueue.steps.find((step) => step.slug === 'iron-bar')?.crafts, 14);
 
 for (const recipe of smithingRecipes) {
   assert.ok(recipe.level >= 1 && recipe.level <= MAX_LEVEL, `${recipe.output} has an invalid level`);

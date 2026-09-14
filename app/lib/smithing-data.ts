@@ -196,6 +196,20 @@ export type SmithingTimePlan = {
   suppliedMaterials: SmithingMaterialTotal[];
 };
 
+export type SmithingQueueTarget = {
+  slug: string;
+  quantity: number;
+};
+
+export type SmithingQueuePlan = {
+  rawMaterials: SmithingMaterialTotal[];
+  reusableRequirements: SmithingMaterialTotal[];
+  steps: (SmithingTimeStep & { level: number; outputQuantity: number; inputs: SmithingMaterialTotal[] })[];
+  totalSeconds: number;
+  confirmedXp: number;
+  hasUnconfirmedXp: boolean;
+};
+
 export type SmithingMaterialOptions = {
   ironSource: 'ore' | 'dust';
   coalSource: 'ore' | 'dust';
@@ -369,6 +383,102 @@ export function smithingProductionTimePlan(
     suppliedMaterials: [...suppliedMaterials.entries()]
       .map(([item, suppliedQuantity]) => ({ item, quantity: suppliedQuantity }))
       .sort((a, b) => a.item.localeCompare(b.item)),
+  };
+}
+
+export function smithingQueuePlan(
+  targets: SmithingQueueTarget[],
+  options: SmithingMaterialOptions = defaultSmithingMaterialOptions,
+): SmithingQueuePlan {
+  const requestedItems = new Map<string, number>();
+  const pending = new Map<string, number>();
+  const reusable = new Map<string, number>();
+  const steps = new Map<string, SmithingTimeStep & { level: number; outputQuantity: number }>();
+
+  for (const target of targets) {
+    const recipe = smithingRecipes.find((entry) => entry.slug === target.slug);
+    const quantity = Math.max(1, Math.floor(target.quantity || 1));
+    if (!recipe) continue;
+    requestedItems.set(recipe.output, (requestedItems.get(recipe.output) ?? 0) + quantity);
+  }
+
+  const addStep = (recipe: SmithingRecipe, crafts: number) => {
+    const existing = steps.get(recipe.slug);
+    const nextCrafts = (existing?.crafts ?? 0) + crafts;
+    steps.set(recipe.slug, {
+      slug: recipe.slug,
+      output: recipe.output,
+      station: recipe.station,
+      level: recipe.level,
+      outputQuantity: recipe.outputQuantity,
+      crafts: nextCrafts,
+      secondsPerCraft: recipe.seconds,
+      totalSeconds: nextCrafts * recipe.seconds,
+    });
+  };
+
+  for (const [item, quantity] of requestedItems) {
+    const recipe = recipeForItem(item);
+    if (!recipe) continue;
+    const crafts = Math.ceil(quantity / recipe.outputQuantity);
+    addStep(recipe, crafts);
+    recipe.ingredients.map((input) => selectedIngredient(input, options)).forEach((input) => {
+      pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * crafts);
+    });
+  }
+
+  while (pending.size) {
+    const [item, quantity] = [...pending.entries()]
+      .sort((a, b) => materialDepth(b[0], options) - materialDepth(a[0], options))[0];
+    pending.delete(item);
+
+    if (reusableRequirements.has(item)) {
+      reusable.set(item, 1);
+      continue;
+    }
+
+    const supplied = suppliedMaterialRecipes[item];
+    if (supplied) {
+      supplied.forEach((input) => pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * quantity));
+      continue;
+    }
+
+    const recipe = recipeForItem(item);
+    if (!recipe) continue;
+    const crafts = Math.ceil(quantity / recipe.outputQuantity);
+    addStep(recipe, crafts);
+    recipe.ingredients.map((input) => selectedIngredient(input, options)).forEach((input) => {
+      pending.set(input.item, (pending.get(input.item) ?? 0) + input.quantity * crafts);
+    });
+  }
+
+  const rawMaterials = smithingMaterialTotalsForItems(
+    [...requestedItems.entries()].map(([item, quantity]) => ingredient(item, quantity)),
+    options,
+  );
+  const orderedSteps = [...steps.values()]
+    .sort((a, b) => materialDepth(a.output, options) - materialDepth(b.output, options) || a.level - b.level || a.output.localeCompare(b.output))
+    .map((step) => {
+      const recipe = smithingRecipes.find((entry) => entry.slug === step.slug)!;
+      return {
+        ...step,
+        inputs: recipe.ingredients.map((input) => {
+          const chosen = selectedIngredient(input, options);
+          return { item: chosen.item, quantity: chosen.quantity * step.crafts };
+        }),
+      };
+    });
+
+  return {
+    rawMaterials,
+    reusableRequirements: [...reusable.entries()].map(([item, quantity]) => ({ item, quantity })),
+    steps: orderedSteps,
+    totalSeconds: orderedSteps.reduce((total, step) => total + step.totalSeconds, 0),
+    confirmedXp: orderedSteps.reduce((total, step) => {
+      const recipe = smithingRecipes.find((entry) => entry.slug === step.slug);
+      return total + (recipe?.xp ?? 0) * step.crafts;
+    }, 0),
+    hasUnconfirmedXp: orderedSteps.some((step) => smithingRecipes.find((entry) => entry.slug === step.slug)?.xp === null),
   };
 }
 

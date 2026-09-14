@@ -17,6 +17,7 @@ import {
   type SkillName,
 } from '../lib/calculator-data';
 import { potionBrewRecipes, potionCauldrons, potionOutputName, potionTimePlan, potionVials, potionsPerBatch } from '../lib/potion-data';
+import { CraftingQueuePlanner } from './CraftingQueuePlanner';
 import {
   defaultSmithingMaterialOptions,
   duskKnightSetRequirements,
@@ -30,7 +31,7 @@ import {
   type SmithingStation,
 } from '../lib/smithing-data';
 
-type CalculatorTab = 'skill' | 'combat' | 'accuracy' | 'max-hit';
+type CalculatorTab = 'skill' | 'crafting' | 'combat' | 'accuracy' | 'max-hit';
 type SmithingStationFilter = 'All' | SmithingStation;
 type CombatStyle = 'Melee' | 'Archery' | 'Magic';
 
@@ -172,10 +173,13 @@ export function CalculatorHub({ initialTab = 'skill', initialSkill = 'Mining' }:
     <div className="calculator-hub">
       <div className="calculator-tabs" role="tablist" aria-label="Calculator type">
         <button type="button" role="tab" aria-selected={tab === 'skill'} onClick={() => setTab('skill')}>Skill planner</button>
+        <button type="button" role="tab" aria-selected={tab === 'crafting'} onClick={() => setTab('crafting')}>Crafting list</button>
         <button type="button" role="tab" aria-selected={tab === 'combat'} onClick={() => setTab('combat')}>Combat XP</button>
         <button type="button" role="tab" aria-selected={tab === 'max-hit'} onClick={() => setTab('max-hit')}>Max hit</button>
         <button type="button" role="tab" aria-selected={tab === 'accuracy'} onClick={() => setTab('accuracy')}>Accuracy &amp; defence</button>
       </div>
+
+      {tab === 'crafting' && <CraftingQueuePlanner />}
 
       {tab === 'skill' && (
         <section className="calculator-card" aria-labelledby="skill-calculator-heading">

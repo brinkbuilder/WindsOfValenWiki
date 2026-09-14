@@ -126,6 +126,7 @@ export const enemies: Enemy[] = enemyData.map((enemy) => ({
 }));
 
 export const calculatorSearchEntries: SearchEntry[] = [
+  { slug: 'crafting-list-calculator', title: 'Multi-item crafting calculator', type: 'Calculator', summary: 'Queue several Smithing items and get one combined raw-material checklist, station roadmap, XP total, and crafting-time estimate.', terms: 'crafting calculator queue combined materials checklist roadmap armour gear set smithing time', href: '/calculators?tab=crafting', source: 'archive' },
   { slug: 'mining-calculator', title: 'Mining calculator', type: 'Calculator', summary: 'Levels, experience, and rocks required for any Mining goal.', terms: 'mining calculator xp experience rocks levels actions', href: '/calculators?skill=Mining', source: 'archive' },
   { slug: 'fishing-calculator', title: 'Fishing calculator', type: 'Calculator', summary: 'Levels, experience, and catches required for any Fishing goal.', terms: 'fishing calculator xp experience fish catches levels actions', href: '/calculators?skill=Fishing', source: 'archive' },
   { slug: 'smithing-calculator', title: 'Smithing calculator', type: 'Calculator', summary: 'Plan XP, materials, quantities, and crafting time from ready components, bars, or raw ore.', terms: 'smithing calculator xp experience time bars armour weapons recipes crafts levels actions dusk knight', href: '/calculators?skill=Smithing', source: 'archive' },
